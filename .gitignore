@@ -3,6 +3,7 @@
 *.bak
 *~
 ~*
+*Thumbs.db
 *.tar.gz
 *.svn
 logs/*
