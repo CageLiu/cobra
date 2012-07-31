@@ -1,0 +1,42 @@
+##-*-coding:utf-8-*-
+%if tpl.startswith("_"):
+<%include file="_header.html" />
+	%if tpl == "_merge.html":
+		<%include file="_merge.html" />
+	%else:
+		<%include file="/www/${p}/${tpl}" />
+	%endif
+<%include file="_footer.html" />
+%else:
+	<%include file="/www/${p}/${tpl}" />
+%endif
+
+
+<!-- 用于生成控制面板的外部js文件 -->
+<script type="text/javascript" src="/s/system/js/base.js"></script>
+<script type="text/javascript">
+	(function(){
+		//自动刷新页面js
+		var a = cobra.ajax({
+			url : "/system/inotify/?path=/${p}",
+			success : function(data){
+				if(data * 1){
+					document.title = +(new Date());
+					location.reload();
+				}
+			},
+			error : function(data){},
+			loop : true,
+			interval : ${request.INTERVAL}
+		});
+	 	var oUl = document.createElement("ul");
+		oUl.style.cssText = "position:fixed;bottom:0;left:50%;margin-left:-310px"
+		for(var i = 0; i < 10; i++){
+			var oLi = document.createElement("li");
+			oLi.innerHTML = i;
+			oLi.style.cssText = "float:left;width:60px;height:20px;border:1px solid #000;background:#fff;text-align:center;line-height:20px;"
+			oUl.appendChild(oLi);
+		}
+		document.body.appendChild(oUl);
+	}());
+</script>

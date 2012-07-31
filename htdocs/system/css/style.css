@@ -1,0 +1,502 @@
+html{
+	overflow-y:scroll;
+}
+body,ul,ol,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
+    margin:0;
+}
+
+ul,ol,input,button,td,th,fieldset{
+    padding:0;
+}
+ul,ol{
+    list-style-type:none;
+    list-style-position:outside;
+}
+a{
+    text-decoration:none;
+    color:#3B5998;
+}
+a:hover{
+	color:#fff;
+	background-color:#3B5998;
+}
+a img,fieldset{
+    border:none;
+}
+fieldset legend{
+	display:none
+}
+a,input,button,textarea{
+	outline:none;
+}
+textarea{
+	resize:none
+}
+table{
+    border-collapse:collapse;
+    border-spacing:0;
+}
+em{
+    font-style:normal
+}
+.clear{
+    clear:both;
+}
+.clearfix:after{
+    content:'';
+    height:0;
+    clear:both;
+    display:block;
+    overflow:hidden;
+}
+.clearfix,
+#root .dir,
+#root .file{
+	*zoom:1;
+}
+body{
+    font:12px/1.5 "微软雅黑",Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif;
+    color:#222;
+	background-color:#E0E0E0;
+}
+.form .txt{
+	-webkit-transition: 0.3s linear all;
+	-moz-transition: 0.3s linear all;
+	-ms-transition: 0.3s linear all;
+	-o-transition: 0.3s linear all;
+	-khtml-transition: 0.3s linear all;
+	transition: 0.3s linear all;
+}
+.layout{
+	background-color:#E0E0E0;
+	/*width:100%;*/
+	overflow-x:hidden;
+	min-width:900px;
+}
+/* reset style end */
+
+
+/* base style start */
+.fleft{
+	float:left;
+}
+.fright{
+	float:right;
+}
+.btn,
+.btn span{
+	display:inline-block;
+	overflow:hidden;
+	cursor:pointer;
+}
+.btn{
+	position:relative;
+	vertical-align:middle;
+	zoom:1;
+} 
+.btn input{
+	width:999em;
+	height:999em;
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:9;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+.hor_box,
+.hor_list{
+	letter-spacing:-0.5em;
+	font-size:0;
+}
+.hor_item,
+.hor_list li{
+	display:inline-block;
+	letter-spacing:normal;
+	font-size:12px;
+	vertical-align:top;
+	*display:inline;
+	*zoom:1;
+}
+.arrow{
+	display:inline-block;
+	width:0;
+	height:0;
+	overflow:hidden;
+	border-style:solid;
+	border-color:transparent;
+	vertical-align:middle;
+}
+/* base style end */
+
+/* header style */
+.hd,
+.ft{
+	position:fixed;
+	width:100%;
+	left:0;
+	min-width:900px;
+	z-index:9999;
+}
+.hd,
+.hd .nav{
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+}
+.hd{
+	border-bottom-color:#fff;
+	background-color:#3B5998;
+	top:0;
+	_position:relative;
+}
+.hd .logo{
+	position:absolute;
+	left:0;
+	height:36px;
+	width:194px;
+	border-bottom:1px solid #2C4270;
+	font-size:24px;
+	text-align:center;
+	box-shadow:-1px -1px 1px #2C4270 inset;
+}
+.hd .logo a{
+	color:#FFF;
+}
+.hd .nav{
+	height:36px;
+	border-bottom-color:#2C4270;
+	padding-right:300px;
+	margin-left:192px;
+	box-shadow:0 -1px 1px #2C4270 inset;
+}
+.hd .nav li{
+	padding:0 10px;
+}
+.hd .nav a{
+	font-size:14px;
+	color:#fff;
+	line-height:36px;
+}
+.hd .search{
+	position:absolute;
+	height:22px;
+	padding-top:2px;
+	right:3px;
+	top:3px;
+	_top:1px;
+}
+.hd .search .txt{
+	border: 1px solid #CCCCCC;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 2px;
+    vertical-align: middle;
+    width:180px;
+}
+.hd span.btn{
+	background: url("http://static.i-shu.com/ishu/img/icon.png") no-repeat scroll center -61px #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: inline-block;
+    height: 24px;
+    left: -5px;
+    position: relative;
+    vertical-align: middle;
+    width: 40px;
+}
+.hd input.btn{
+	cursor: pointer;
+    height: 30px;
+    opacity: 0;
+	filter:alpha(opacity=0);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+}
+.wp{
+	margin-top:48px;
+	margin-bottom:72px;
+	_margin-top:12px;
+	_margin-bottom:48px;
+	_zoom:1
+}
+.main{
+	width:100%;
+	overflow:hidden;
+}
+.main_inner{
+	margin-right:192px;
+	margin-left:3px;
+}
+.side{
+	width:192px;
+	margin-left:-192px;
+	overflow:hidden;
+}
+.ft{
+	background-color:rgba(0,0,0,0.7);
+	font-size:14px;
+	padding-top:6px;
+	padding-bottom:4px;
+	color:#888;
+	bottom:0;
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#B3000000', endColorstr='#B3000000');
+}
+.ft p{
+	padding-left:12px;
+	padding-right:12px;
+}
+.ft a{
+	color:#fff;
+}
+.ft a:hover{
+	background-color:transparent;
+	text-decoration:underline;
+}
+.ft .crumbs{
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-family:"宋体";
+	color:#fff;
+}
+.box{
+	background:#FFF;
+	border-bottom:2px solid #E2E2E9;
+	margin:0 3px 6px;
+	border-radius:3px;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#CCCCCC', Direction=135, Strength=3);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	zoom:1;
+}
+.box .bt{
+	border-bottom:1px solid #E2E2E2;
+	height:30px;
+	line-height:30px;
+	padding-left:8px;
+}
+.box .bt .tit{
+	font-size:14px;
+	color:#333;
+	font-weight:700;
+}
+.box .bc{
+	margin:8px;
+}
+/* form */
+.form .txt,
+.form .radio,
+.form .checkbox,
+.form .field,
+.form .select{
+	vertical-align:middle;
+}
+.form .txt{
+	background-color:#fff;
+    border: 1px solid #CCCCCC;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 2px;
+	border-radius:3px;
+}
+.form .field{
+	font-size:14px;
+	display:inline-block;
+	width:100px;
+	margin-left:-100px;
+	text-align:right;
+}
+.form .radio,
+.form .checkbox{
+	display:inline-block;
+	height:32px;
+	line-height:32px;
+	overflow:hidden;
+	font-size:14px;
+	padding-left:22px;
+	cursor:pointer;
+	background-image:url(../img/icon.png);
+	background-repeat:no-repeat;
+}
+.form .radio{
+	background-position:0 7px;
+}
+.form .r_checked{
+	background-position:0 -43px;
+}
+.form .checkbox{
+	background-position:0 -143px;
+}
+.form .c_checked{
+	background-position:0 -93px;
+}
+.form .txt:focus,
+.form .focus{
+	border-color:#1C6E98;
+	box-shadow:0 0 2px #1C6E98;
+}
+.form .err{
+	border-color:#E50000;
+	box-shadow:0 0 2px #E50000;
+}
+.form .item{
+	margin-bottom:12px;
+	padding-left:100px;
+	position:relative;
+	zoom:1;
+}
+.form .select{
+	display:inline-block;
+	height:30px;
+	border:1px solid #ccc;
+	position:relative;
+	cursor:pointer;
+	*display:inline;
+	*zoom:1;
+}
+.form .select ol{
+	position:absolute;
+	left:0;
+	top:30px;
+	z-index:999;
+	background-color:#fff;
+	border:1px solid #ccc;
+	margin:0 -1px;
+}
+.form .cur_option{
+	line-height:30px;
+}
+.form .w100{width:100px;}
+.form .w150{width:150px;}
+.form .w200{width:200px;}
+.form .w250{width:250px;}
+.form .w300{width:300px;}
+.form .w350{width:350px;}
+.form .w400{width:400px;}
+
+/* table */
+.table{
+	width:100%;
+	text-align:center;
+}
+.table th{
+	font-size:14px;
+	height:30px;
+	background-color:#F0F0F0;
+}
+.table td,
+.table th{
+	border:1px solid #ccc;
+}
+.table td{
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.table .even{
+	background-color:#F8F8F8;
+}
+
+/* dir tree */
+#root{
+	margin-bottom:20px;
+    margin-left:10px;
+}
+#root .dir,
+#root .file{
+	background:url(../img/dir_icon.png) repeat-y -17px 0;
+    padding-left:24px;
+    position:relative;
+}
+#root .dir_name,
+#root .file_name{
+	border-bottom:1px dotted #808080;
+    float:left;
+    left:-1px;
+    margin-left:-23px;
+    padding-left:33px;
+    position:relative;
+	z-index:9;
+	height:27px;
+}
+#root,
+#root .sub_dir{
+	clear:both;
+}
+#root a{
+	background-color:#fff;
+    display:inline-block;
+    height:27px;
+    line-height:27px;
+    padding-left:3px;
+    padding-right:5px;
+    position:absolute;
+    top:14px;
+    white-space:nowrap;
+	z-index:9;
+}
+#root a:hover{
+	color:#333;
+	text-decoration:underline;
+}
+#root .flag,
+#root .type{
+	background-color:#FFFFFF;
+    background-image:url("../img/dir_icon.png");
+    background-repeat:no-repeat;
+    overflow:hidden;
+    position:absolute;
+	z-index:9;
+}
+#root .type{
+	height:16px;
+    left:17px;
+    top:20px;
+    width:16px;
+	background-position:0 -19px;
+}
+#root .flag{
+	cursor:pointer;
+    height:11px;
+    left:-5px;
+    top:22px;
+    width:11px;
+	background-position:-3px -60px;
+}
+#root .dir_name{
+	font-size:14px;
+	font-weight:700;
+}
+#root .dir_name a{
+	color:#333;
+}
+#root .file .type{
+	background-position:0 -40px;
+}
+#root .close .sub_dir{
+	display:none;
+}
+#root .close .dir_name .type{
+	background-position:0 0;
+}
+#root .close .flag{
+	background-position:-3px -75px;
+}
+#dirtree .path{
+	display:inline-block;
+	height:30px;
+	line-height:30px;
+	font-size:16px;
+	color:#333;
+	border:1px solid #999;
+	border-radius:3px;
+	padding-left:5px;
+	padding-right:10px;
+	box-shadow:0 0 3px #888;
+	margin-bottom:-5px;
+	background-color:#fff;
+	cursor:pointer;
+	position:relative;
+	z-index:9;
+	*display:inline;
+	*zoom:1;
+}

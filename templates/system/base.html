@@ -1,0 +1,111 @@
+##-*-coding:utf-8-*-
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			${self.title()} | 前端项目管理系统
+		</title>
+		<link rel="stylesheet" href="/s/system/css/style.css" type="text/css" />
+		<script src="/s/system/js/base.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="layout" id="layout">
+			<div class="hd" id="hd">
+				<h1 class="logo">
+					<a href="#">Monkey</a>
+				</h1>
+				<ul class="hor_list nav">
+					<li><a href="#">主页</a></li>
+					<li><a href="#">我的工作台</a></li>
+					<li><a href="#">项目</a></li>
+					<li><a href="#">工具</a></li>
+				</ul>
+				<form action="">
+					<div class="search">
+						<input type="text" id="search" name="s" class="txt" />
+						<span class="btn">&nbsp;</span>
+						<input type="submit" id="searchbtn" value="搜索" class="btn" hidefocus="true" />
+					</div>
+				</form>
+			</div>
+			<div class="wp hor_box" id="wp">
+				<div class="main hor_item">
+					<div class="main_inner">
+						${self.main()}
+					</div>
+				</div>
+				<div class="side hor_item" id="side">
+                    <div class="box">
+                        <div class="bt">
+                            <span class="tit">登录用户</span>
+                        </div>
+                        <div class="bc">
+                            <div class="userinfo clearfix">
+                                <p><a href="#">${img(w="32",h="32",s="float:left")}</a></p>
+								<p><span>姓名：</span>Cage<a href="/system/logout/">退出</a></p>
+                                <p><span>部门：</span>前端组</p>
+                            </div>
+                        </div>
+                    </div>
+					${self.side()}
+				</div>
+			</div>
+
+			<div class="ft clearfix">
+				<div class="crumbs">
+					<a href="#">首页</a>
+					<em>&gt;</em>
+					<span>我的工作台</span>
+				</div>
+				<p class="nav fright">
+					<a href="#">关于Monkey</a> |
+					<a href="#">FAQ</a> |
+					<a href="#">博客</a> |
+					<a href="#">交流</a>
+				</p>
+				<p>
+				Copyright &copy; 
+				<script type="text/javascript">
+					document.write((new Date()).getFullYear());
+					</script>
+					Version 1.0.1
+				</p>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        (function(){
+            var timer = null;
+            var oPath = document.getElementById("path");
+            var ajax = cobra.ajax;
+            oPath.onclick = function(){
+                var url = this.getAttribute("data");
+                var _this = this;
+                var g = ajax({
+                    url : url,
+                    success : function(data){
+                        var oDiv = document.createElement("div");
+                        oDiv.innerHTML = data;
+                        _this.parentNode.appendChild(oDiv);
+                        oDiv.outerHTML = oDiv.innerHTML;
+                    }
+                });
+            };
+			/*
+            var a = ajax({
+                url : "/system/inotify/?path=/system",
+                success : function(data){
+                    if(data * 1){
+                        document.title = +(new Date());
+                        location.reload();
+                    }
+                },
+                error : function(data){},
+                loop : true,
+                interval : ${request.INTERVAL}
+            });
+			*/
+        }());
+    </script>
+</html>

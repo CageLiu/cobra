@@ -1,0 +1,117 @@
+##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	首页
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- side -->
+<%def name="side()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">任务信息</span>
+		</div>
+		<div class="bc">
+            <p>已完成:10个</p>
+            <p>未完成:3个</p>
+            <p>完成百分比:77%</p>
+		</div>
+	</div>
+</%def>
+
+<!-- main -->
+<%def name="main()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">表单模块</span>
+		</div>
+		<div class="bc">
+			<div id="time"></div>
+			<form action="">
+				<div class="form">
+					<div class="item">
+						<label class="field">输入框：</label>
+						<input type="text" class="txt w250" />
+					</div>
+					<div class="item">
+						<label class="field">输入框：</label>
+						<input type="text" class="txt w250 focus" />
+					</div>
+					<div class="item">
+						<label class="field">输入框：</label>
+						<input type="text" class="txt w250 err" />
+					</div>
+					<div class="item">
+						<label class="field">单选按钮：</label>
+						<span class="radio" name="">
+							单选按钮
+							<input type="hidden" />
+						</span>
+						<span class="radio r_checked" name="">
+							单选按钮
+							<input type="hidden" />
+						</span>
+					</div>
+					<div class="item">
+						<label class="field">单选按钮：</label>
+						<span class="radio r_checked" name="">
+							单选按钮
+							<input type="hidden" />
+						</span>
+					</div>
+					<div class="item">
+						<label class="field">复选框：</label>
+						<span class="checkbox" name="">
+							复选框
+							<input type="hidden" />
+						</span>
+						<span class="checkbox" name="">
+							复选框
+							<input type="hidden" />
+						</span>
+					</div>
+					<div class="item">
+						<label class="field">复选框：</label>
+						<span class="checkbox c_checked" name="">
+							复选框
+							<input type="hidden" />
+						</span>
+					</div>
+					<div class="item">
+						<label class="field">按钮：</label>
+						<a href="javascript:;" class="btn">
+							<span>按钮</span>
+							<input type="submit" value="按钮" />
+						</a>
+					</div>
+				</div>
+			</form>
+
+			<br/>
+            <hr/>
+			<br/>
+
+			<ul class="hor_list">
+				%for i in range(9):
+				<li>${img(w="120",h="90",c="thums")}</li>
+				%endfor
+			</ul>
+
+			<br/>
+            <hr/>
+			<br/>
+
+			<div id="dirtree">
+				<div class="path" id="path" data="/system/getree/?dir=/var/www/cobra/apps">查看 Apps 的相关文件</div>
+			</div>
+
+			<br/>
+            <hr/>
+			<br/>
+
+		</div>
+	</div>
+</%def>

@@ -1,0 +1,48 @@
+##-*-coding:utf-8-*-
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>tools</title>
+		<script type="text/javascript" src="/s/tools/js/base.js"></script>
+	</head>
+	<body>
+<form action="">
+	<input name="css" type="checkbox" value="abc.css" />abc.css<br/>
+	<input name="css" type="checkbox" value="tf.css" />tf.css<br/>
+	<input name="js" type="checkbox" value="tf.js" />abc.js<br/>
+	<input name="js" type="checkbox" value="tf.js" />tf.js<br/>
+</form>
+<button id="compress">压缩</button>
+	</body>
+
+<script type="text/javascript">
+var aInput = document.getElementsByTagName("input");
+var compress = document.getElementById("compress");
+var val = "?";
+
+document.onclick = function(e){
+	var target;
+	e = e || window.event;
+	target = e.target || e.srcElement;
+
+	if(target.nodeName.toLowerCase() === "input"){
+
+		if(target.checked){
+			val += target.getAttribute("name") + "=" + target.value + "&";
+		}
+	}
+
+	if(target.nodeName.toLowerCase() === "button" && target.getAttribute("id") === "compress"){
+		var a = cobra.ajax({
+			url : "/tools/compress/" + val,
+			success : function(data){
+				alert(data);
+			}	
+		});
+	}
+	//var url = "/tools/compress/" + val;
+	//alert(url);
+}
+</script>
+</html>
