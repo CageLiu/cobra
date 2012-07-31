@@ -1,5 +1,9 @@
 html{
-	overflow-y:scroll;
+	_padding:36px 0 25px;
+}
+html,body{
+	overflow:hidden;
+	height:100%;
 }
 body,ul,ol,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
@@ -68,10 +72,13 @@ body{
 	transition: 0.3s linear all;
 }
 .layout{
-	background-color:#E0E0E0;
-	/*width:100%;*/
-	overflow-x:hidden;
-	min-width:900px;
+	background-color:#e0e0e0;
+	position:absolute;
+	top:37px;
+	bottom:25px;
+	width:100%;
+	overflow:hidden;
+	_height:100%;
 }
 /* reset style end */
 
@@ -137,6 +144,7 @@ body{
 	left:0;
 	min-width:900px;
 	z-index:9999;
+	_position:absolute;
 }
 .hd,
 .hd .nav{
@@ -147,7 +155,6 @@ body{
 	border-bottom-color:#fff;
 	background-color:#3B5998;
 	top:0;
-	_position:relative;
 }
 .hd .logo{
 	position:absolute;
@@ -214,11 +221,8 @@ body{
     width: 50px;
 }
 .wp{
-	margin-top:48px;
+	margin-top:4px;
 	margin-bottom:72px;
-	_margin-top:12px;
-	_margin-bottom:48px;
-	_zoom:1
 }
 .main{
 	width:100%;
@@ -236,8 +240,9 @@ body{
 .ft{
 	background-color:rgba(0,0,0,0.7);
 	font-size:14px;
-	padding-top:6px;
-	padding-bottom:4px;
+	height:25px;
+	overflow:hidden;
+	line-height:25px;
 	color:#888;
 	bottom:0;
 	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#B3000000', endColorstr='#B3000000');
