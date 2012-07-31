@@ -7,7 +7,7 @@
 			${self.title()} | 前端项目管理系统
 		</title>
 		<link rel="stylesheet" href="/s/system/css/style.css" type="text/css" />
-		<script src="/s/system/js/base.js" type="text/javascript"></script>
+		<!--<script src="/s/system/js/base.js" type="text/javascript"></script>-->
 	</head>
 	<body>
 		<div class="hd" id="hd">
@@ -28,35 +28,39 @@
 				</div>
 			</form>
 		</div>
-		<div class="layout" id="layout">
-			<div class="wp hor_box" id="wp">
-				<div class="main hor_item">
-					<div class="main_inner">
-						${self.main()}
+		<div class="layout shtml">
+			<div class="sbody">
+				<div class="hor_box wp">
+					<div class="hor_item main">
+						<div class="main_inner">
+							${self.main()}
+						</div>
+					</div>
+					<div class="hor_item side">
+						<div class="box">
+							<div class="bt">
+								<span class="tit">登录用户</span>
+							</div>
+							<div class="bc">
+								<div class="userinfo clearfix">
+									<p><a href="#">${img(w="32",h="32",s="float:left")}</a></p>
+									<p><span>姓名：</span>Cage<a href="/system/logout/">退出</a></p>
+									<p><span>部门：</span>前端组</p>
+								</div>
+							</div>
+						</div>
+						${self.side()}
 					</div>
 				</div>
-				<div class="side hor_item" id="side">
-                    <div class="box">
-                        <div class="bt">
-                            <span class="tit">登录用户</span>
-                        </div>
-                        <div class="bc">
-                            <div class="userinfo clearfix">
-                                <p><a href="#">${img(w="32",h="32",s="float:left")}</a></p>
-								<p><span>姓名：</span>Cage<a href="/system/logout/">退出</a></p>
-                                <p><span>部门：</span>前端组</p>
-                            </div>
-                        </div>
-                    </div>
-					${self.side()}
-				</div>
+			</div>
+			<div class="scroll">
+				<div class="slider">slider</div>
 			</div>
         </div>
 		<div class="ft clearfix">
 			<div class="crumbs">
 				<a href="#">首页</a>
-				<em>&gt;</em>
-				<span>我的工作台</span>
+				${self.crumbs()}
 			</div>
 			<p class="nav fright">
 			<a href="#">关于Monkey</a> |
@@ -73,6 +77,7 @@
 				</p>
 			</div>
     </body>
+	<!--
     <script type="text/javascript">
         (function(){
             var timer = null;
@@ -107,4 +112,5 @@
 			*/
         }());
     </script>
+	-->
 </html>
