@@ -7,7 +7,8 @@
 			${self.title()} | 前端项目管理系统
 		</title>
 		<link rel="stylesheet" href="/s/system/css/style.css" type="text/css" />
-		<!--<script src="/s/system/js/base.js" type="text/javascript"></script>-->
+		<script src="/s/system/js/cobra.js" type="text/javascript"></script>
+		<script src="/s/system/js/base.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="hd" id="hd">
@@ -28,7 +29,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="layout shtml">
+		<div class="layout shtml" id="layout">
 			<div class="sbody">
 				<div class="hor_box wp">
 					<div class="hor_item main">
@@ -96,20 +97,6 @@
                     }
                 });
             };
-			/*
-            var a = ajax({
-                url : "/system/inotify/?path=/system",
-                success : function(data){
-                    if(data * 1){
-                        document.title = +(new Date());
-                        location.reload();
-                    }
-                },
-                error : function(data){},
-                loop : true,
-                interval : ${request.INTERVAL}
-            });
-			*/
         }());
     </script>
 	-->

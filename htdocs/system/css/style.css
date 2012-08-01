@@ -1,5 +1,5 @@
 html{
-	_padding:37px 0 27px;
+	_padding:37px 0 26px;
 }
 html,body{
 	overflow:hidden;
@@ -105,7 +105,7 @@ body{
 	/*background-color:red;*/
 	position:absolute;
 	top:37px;
-	bottom:26px;
+	bottom:25px;
 	width:100%;
 	_height:100%;
 }
@@ -131,8 +131,8 @@ body{
 	zoom:1;
 } 
 .btn input{
-	width:999em;
-	height:999em;
+	width:2000px;
+	height:2000px;
 	position:absolute;
 	left:0;
 	top:0;
@@ -175,13 +175,11 @@ body{
 	z-index:9999;
 	_position:absolute;
 }
-.hd,
 .hd .nav{
 	border-bottom-style:solid;
 	border-bottom-width:1px;
 }
 .hd{
-	border-bottom-color:#fff;
 	background-color:#3B5998;
 	top:0;
 }
@@ -230,7 +228,7 @@ body{
     width:180px;
 }
 .hd span.btn{
-	/*background: url("http://static.i-shu.com/ishu/img/icon.png") no-repeat scroll center -61px #FFFFFF;*/
+	background: url("http://static.i-shu.com/ishu/img/icon.png") no-repeat scroll center -61px #FFFFFF;
     border: 1px solid #CCCCCC;
     display: inline-block;
     height: 24px;
