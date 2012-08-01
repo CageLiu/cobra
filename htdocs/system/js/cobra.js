@@ -44,8 +44,69 @@
 				var finalArgs = innerArgs.concat(outerArgs);
 				return fn.apply(context,finalArgs);
 			};
+		},
+
+		throttle : function(fn,context,time){
+			time = time || 100;
+			clearTimeout(fn.tId);
+			fn.tId = setTimeout(function(){
+				fn.call(context);
+			},time);
+		},
+
+		event : function(){
+			this.event.init = function(){
+				this.handlers = {};
+			};
+
+			this.event.init.prototype = {
+				constructor : $.event.init,
+
+				addHandler : function(type,fn){
+					var handlers = this.handlers;
+					typeof handlers[type] === "undefined" && (handlers[type] = []);
+					handlers[type].push(fn);
+				},
+
+				fire : function(e){
+					!e.target && (e.target = this);
+					if(this.handlers[e.type] instanceof Array){
+						var list = this.handlers[e.type];
+						for(var i = 0, len = list.length; i < len; i++){
+							list[i].call(this,e);
+						}
+					}
+				},
+
+				delHandler : function(type,fn){
+					var handlers = this.handlers;			 
+					if(handlers[type] instanceof Array){
+						var list = handlers[type];
+						for(var i = 0, len = list.length; i < len; i++){
+							if(list[i] === fn){
+								break;
+							}
+						}
+						list.splice(i,1);
+					}
+				}
+			};
+			return new this.event.init();
 		}
+
 	};
 
 	window.$ = window.cobra = cobra;
 }(window));
+
+/*
+ *a = $.event();
+ *function fn(e){
+ *    alert(e.dis);
+ *}
+ *a.addHandler("abc",fn);
+ *a.fire({
+ *    type : "abc",
+ *    dis : "asodoo"
+ *})
+ */
