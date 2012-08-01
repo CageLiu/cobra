@@ -228,7 +228,7 @@ body{
     width:180px;
 }
 .hd span.btn{
-	background: url("http://static.i-shu.com/ishu/img/icon.png") no-repeat scroll center -61px #FFFFFF;
+	/*background: url("http://static.i-shu.com/ishu/img/icon.png") no-repeat scroll center -61px #FFFFFF;*/
     border: 1px solid #CCCCCC;
     display: inline-block;
     height: 24px;
