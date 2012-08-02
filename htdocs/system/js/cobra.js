@@ -162,6 +162,21 @@
 			};
 		},
 
+		position : function(ele){
+			var offsetParent = ele.offsetParent || body;
+			var left = ele.offsetLeft;
+			var top = ele.offsetTop;
+			while(offsetParent){
+				left += offsetParent.offsetLeft;
+				top += offsetParent.offsetTop;
+				offsetParent = offsetParent.offsetParent;
+			}
+			return {
+				left : left,
+				top : top
+			};
+		},
+
 
 
 
@@ -206,6 +221,8 @@
 				$.addEvent(document,"mousedown",$.bind(this.action,this));
 				$.addEvent(document,"mousemove",$.bind(this.action,this));
 				$.addEvent(document,"mouseup",$.bind(this.action,this));
+				$.addEvent(document,"click",$.bind(this.action,this));
+				$.mouseWheel(document,$.bind(this.action,this));
 			};
 
 			this.DragDrop.init.prototype = {
@@ -295,12 +312,106 @@
 								y      : e.clientY
 							});
 							break;
+
+						case "click":
+							if(target === this.drag.parentNode){
+								t = e.clientY - $.position(this.drag.parentNode).top - this.drag.offsetHeight / 2;
+								if(this.limit){
+									if(t < this.rectT){
+										t = this.rectT;
+									}else if(t > this.rectB - this.drag.offsetHeight){
+										t = this.rectB - this.drag.offsetHeight;
+									}
+								}
+								this.drag.style.top = t + "px";
+								this.interface.fire({
+									type : "click",
+									target : this.drag.parentNode,
+									x : e.clientX,
+									y : e.clientY
+								});
+							}
+							break;
+
+						default :
+							var t = $.offset(this.drag).top - e * 40;
+							if(this.limit){
+								if(t < this.rectT){
+									t = this.rectT;
+								}else if(t > this.rectB - this.drag.offsetHeight){
+									t = this.rectB - this.drag.offsetHeight;
+								}
+							}
+							this.drag.style.top = t + "px";
+							this.interface.fire({
+								type : "mousewheel",
+								target : this.handler,
+								delta : e * 12
+							});
+							break;
 					}
 				}
-
 			};
-
 			return new this.DragDrop.init(options);
+		},
+
+		scroll : function(options){
+			this.scroll.init = function(options){
+				var body = this.body = document.getElementById(options.body);
+				var slider = this.slider = $.DragDrop(options.drag);
+				this.bodyHeight = body.offsetHeight;
+				this.sHeight = slider.drag.parentNode.offsetHeight;
+				if(this.bodyHeight < this.sHeight){
+					slider.drag.style.height = "100%";
+				}else{
+					slider.drag.style.height = ((this.sHeight * 2 - this.bodyHeight < 30) ? 30 : (this.sHeight * 2 - this.bodyHeight)) + "px";
+				}
+
+				function moveBody(e){
+					var t = -parseInt(slider.drag.style.top);
+					body.style.marginTop = t * (this.bodyHeight - this.sHeight) / (this.sHeight - slider.drag.offsetHeight) + "px";
+				}
+				slider.interface.addHandler("doDrag",$.bind(moveBody,this));
+				slider.interface.addHandler("mousewheel",$.bind(moveBody,this));
+				slider.interface.addHandler("click",$.bind(moveBody,this));
+
+				function resize(){
+					var body = this.body;
+					var slider = this.slider;
+					var present = slider.drag.parentNode.offsetHeight / this.sHeight;
+					var bodyHeight = this.bodyHeight = body.offsetHeight;
+					var clientHeight = this.sHeight = slider.drag.parentNode.offsetHeight;
+					var bodyStop = parseInt(body.style.marginTop) || 0;
+					var t = 0;
+					if(bodyHeight < clientHeight){
+						slider.drag.style.height = "100%";
+					}else{
+						slider.drag.style.height = ((clientHeight * 2 - bodyHeight < 30) ? 30 : (clientHeight * 2 - bodyHeight)) + "px";
+					}
+					if(slider.limit){
+						if(slider.limit === slider.offsetParent){
+							var width = slider.limit.offsetWidth;
+							var height = slider.limit.offsetHeight;
+							slider.rectT = 0;
+							slider.rectL = 0;
+						}else{
+							var offset = $.offset(slider.offsetParent);
+							slider.rectT = $.offset(slider.limit).top - offset.top;
+							slider.rectL = $.offset(slider.limit).left - offset.left;
+						}
+						slider.rectB = slider.rectT + slider.limit.offsetHeight;
+						slider.rectR = slider.rectL + slider.limit.offsetWidth;
+					}
+					t = parseInt(slider.drag.style.top) * present;
+					slider.drag.style.top = t + "px";
+					body.style.marginTop = -t * (bodyHeight - clientHeight) / (clientHeight - slider.drag.offsetHeight) + "px";
+				};
+
+				$.addEvent(window,"resize",$.bind(function(){
+					$.throttle(resize,this,200);
+				},this));
+			};
+			return new this.scroll.init(options);
 		}
 
 	};
@@ -308,6 +419,24 @@
 	window.$ = window.cobra = cobra;
 }(window));
 
+$.ready(function(){
+	var oLayout = null;
+
+	function createScroll(){
+		oLayout = $.scroll({
+			body : "J_layout_body",
+			drag : {
+				drag : document.getElementById("J_layout_slider"),
+				limit : document.getElementById("J_layout_scroll")
+			}
+		});
+	}
+
+	createScroll();
+});
+
+
+/*
 $.ready(function(){
 	var a = $.DragDrop({
 		drag : document.getElementById("J_layout_slider"),
@@ -319,6 +448,15 @@ $.ready(function(){
 	a.interface.addHandler("startDrag",function(e){
 		document.title = e.x + "||" + e.y;
 	});
+	a.interface.addHandler("doDrag",function(e){
+		var t = "-" + a.drag.style.top;
+		document.getElementById("J_layout_body").style.marginTop = t;
+	});
+	a.interface.addHandler("mousewheel",function(e){
+		var t = "-" + a.drag.style.top;
+		document.getElementById("J_layout_body").style.marginTop = t;
+	});
 	//alert($.offsetParent(a.drag).nodeName);
 	//alert(a.drag.offsetParent.id);
 });
+*/
