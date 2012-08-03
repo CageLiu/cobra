@@ -39,7 +39,10 @@ class Project(models.Model):
     state     = models.CharField(max_length = 20)
     starttime = models.DateTimeField()
     period    = models.IntegerField()
+    author    = models.IntegerField()
     manager   = models.IntegerField()
+    ctime     = models.DateTimeField(auto_now_add = True)
+    degree    = models.IntegerField(default = 0)
 
     def __unicode__(self):
         return self.name_zh
@@ -50,7 +53,18 @@ class Task(models.Model):
     description = models.TextField()
     author      = models.IntegerField()
     state       = models.CharField(max_length = 50, default = "new")
+    manager     = models.IntegerField()
     degree      = models.IntegerField(default = 0)
+
+    def __unicode__(self):
+        return self.name
+
+class News(models.Model):
+    name     = models.CharField(max_length = 255)
+    ctime    = models.DateTimeField(auto_now_add = True)
+    category = models.CharField(max_length = 30)
+    cid      = models.IntegerField()
+    content  = models.TextField()
 
     def __unicode__(self):
         return self.name
