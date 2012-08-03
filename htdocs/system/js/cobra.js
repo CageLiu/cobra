@@ -424,11 +424,40 @@
 }(window));
 
 $.ready(function(){
-	var oLayout = $.scroll({
+	var oLayout = document.getElementById("J_layout_html");
+	var oHd = document.getElementById("J_hd");
+	var oFt = document.getElementById("J_ft");
+	var oDhtml = document.documentElement;
+	if(oDhtml.clientWidth <= 1000){
+		oLayout.style.width = "1000px";
+		oHd.style.width = "1000px";
+		oFt.style.width = "1000px";
+		oDhtml.style.overflowX = "scroll";
+	}
+	var oLayoutHtml = $.scroll({
 		body : document.getElementById("J_layout_body"),
 		drag : {
 			drag : document.getElementById("J_layout_slider"),
 			limit : document.getElementById("J_layout_scroll")
 		}
+	});
+
+	function resize(){
+		var oLayout = document.getElementById("J_layout_html");
+		var oDhtml = document.documentElement;
+		if(oDhtml.clientWidth <= 1000){
+			oLayout.style.width = "1000px";
+			oHd.style.width = "1000px";
+			oFt.style.width = "1000px";
+			oDhtml.style.overflowX = "scroll";
+		}else{
+			oLayout.style.width = "auto";
+			oHd.style.width = "100%";
+			oFt.style.width = "100%";
+			oDhtml.style.overflowX = "hidden";
+		}
+	}
+	$.addEvent(window,"resize",function(){
+		$.throttle(resize);
 	});
 });

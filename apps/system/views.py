@@ -66,6 +66,9 @@ def index(request):
 
     pfix = "index"
 
+    allProjects = sm.Project.objects.all().order_by("-id")[:10]
+    allTasks = sm.Task.objects.all().order_by("-id")[:10]
+
     uid = request.session.get("uid",None)
     try:
         cuser = sm.User.objects.get(id = uid)		
@@ -107,12 +110,13 @@ def add(request,**args):
                 elif t == "user":
                     create(model,flist = ['csrfmiddlewaretoken','upic'])
                 elif t == "task":
-                    create(model)
+                    extra = {"author" : cuser.id}
+                    create(model, flist = ["csrfmiddlewaretoken","member"], extra = extra)
                 elif t == "group":
                     create(model)
                 elif t == "rights":
                     create(model)
-                return HttpResponseRedirect("/system/v/" + t)
+                return HttpResponseRedirect("/system/v/" + t + "/")
         except KeyError:
             return HttpResponse(u"404 page")
         return render_to_response("system/add_" + t + ".html",locals())
@@ -195,7 +199,7 @@ def p(request,p = "", tpl = ""):
         tpl_path = sc.P_PROJECT_PATH + "/" + p
 
     if not p and not tpl:
-        return HttpResponseRedirect("/system/v/project")
+        return HttpResponseRedirect("/system/v/project/")
     elif p and not tpl:
         #应该返回具体项目的目录树
         return HttpResponse(u"这里将显示项目的目录树")
@@ -228,7 +232,10 @@ def v(request,t = "", tid = ""):
         uname = u"我"
     else:
         pfix = t
-        uname = u"xx"
+        try:
+            uname = sm.User.objects.get(id = tid).name_zh
+        except sm.User.DoesNotExist:
+            pass
 
     if t:
         try:

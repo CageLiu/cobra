@@ -21,8 +21,8 @@ a{
     color:#3B5998;
 }
 a:hover{
-	color:#fff;
-	background-color:#3B5998;
+	text-decoration:underline;
+	/*background-color:#3B5998;*/
 }
 a img,fieldset{
     border:none;
@@ -219,6 +219,7 @@ body{
 	background:#FFF;
 	color:#3B5998;
 	border-radius:2px;
+	text-decoration:none;
 }
 .hd .search{
 	position:absolute;
@@ -322,6 +323,9 @@ body{
 	font-size:14px;
 	color:#333;
 	font-weight:700;
+	vertical-align:middle;
+	display:inline-block;
+	height:30px;
 }
 .box .bc{
 	margin:8px;
@@ -446,7 +450,34 @@ body{
 .table .even{
 	background-color:#F8F8F8;
 }
-
+.table .aleft{
+	text-align:left;
+	text-indent:1em;
+}
+.table .rightnow,
+.table .exigence,
+.table .higher,
+.table .commonly,
+.icon_guide .item{
+	border-left-width:5px;
+	border-left-style:solid;
+}
+.table .rightnow,
+.icon_guide .rightnow{
+	border-left-color:#f00;
+}
+.table .exigence,
+.icon_guide .exigence{
+	border-left-color:#f99;
+}
+.table .higher,
+.icon_guide .higher{
+	border-left-color:#fdd;
+}
+.table .commonly,
+.icon_guide .commonly{
+	border-left-color:#eee;
+}
 /* dir tree */
 #root{
 	margin-bottom:20px;
@@ -560,3 +591,18 @@ body{
 }
 
 /* info_list  */
+
+/* icon_guide  */
+.icon_guide,
+.icon_guide .item{
+	vertical-align:middle;
+}
+.icon_guide .item{
+	display:inline-block;
+	height:5px;
+	width:0;
+	font-size:0;
+	overflow:hidden;
+	margin-left:12px;
+	margin-right:3px;
+}

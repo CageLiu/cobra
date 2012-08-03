@@ -45,18 +45,20 @@ class Project(models.Model):
     manager   = models.IntegerField()
     ctime     = models.DateTimeField(auto_now_add = True)
     degree    = models.IntegerField(default = 0)
+    weight    = models.CharField(max_length = 20, default = "commonly")
 
     def __unicode__(self):
         return self.name_zh
 
 #任务
 class Task(models.Model):
-    name        = models.CharField(max_length = 255)
-    description = models.TextField()
-    author      = models.IntegerField()
-    state       = models.CharField(max_length = 50, default = "new")
-    manager     = models.IntegerField()
-    degree      = models.IntegerField(default = 0)
+    name    = models.CharField(max_length = 255)
+    desc    = models.TextField()
+    author  = models.IntegerField()
+    state   = models.CharField(max_length = 50, default = "new")
+    manager = models.IntegerField()
+    degree  = models.IntegerField(default = 0)
+    weight  = models.CharField(max_length = 20, default = "commonly")
 
     def __unicode__(self):
         return self.name

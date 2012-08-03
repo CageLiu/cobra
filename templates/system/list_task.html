@@ -10,35 +10,40 @@
 
 <!-- main -->
 <%def name="main()">
+	<%
+		from cobra.apps.system.config import WEIGHT,TASK_STATE
+	%>
 	<div class="box">
 		<div class="bt">
 			<span class="tit">任务列表</span>
 		</div>
 		<div class="bc">
+			%if len(allTasks):
 			<table class="table">
 				<thead>
 					<tr>
+						<th>状态</th>
 						<th>编号</th>
 						<th>名称</th>
-						<th>状态</th>
 						<th>优先级</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><a href="#">#500</a></td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
+					%for item in allTasks.order_by("-id"):
+					<tr class="${item.weight}">
+						<td>${item.state}</td>
+						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						<td><a href="/system/v/task/${item.id}/">${item.name}</a></td>
+						<td>${WEIGHT[item.weight]}</td>
+						<td><a href="#">编辑</a></td>
 					</tr>
-					<tr class="even">
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-					</tr>
+					%endfor
 				</tbody>
 			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
 		</div>
 	</div>
 </%def>

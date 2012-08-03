@@ -13,7 +13,7 @@
 <%def name="main()">
 
 	<%
-		from cobra.apps.system.config import PROJECT_STATE
+		from cobra.apps.system.config import PROJECT_STATE,WEIGHT
 		from cobra.apps.system import models as sm
 	%>
 
@@ -25,11 +25,10 @@
 			<form action="" method="post">
 				<p>项目名-英文:<input type="text" name="name_en" /></p>
 				<p>项目名-中文:<input type="text" name="name_zh" /></p>
-				<p>项目介绍:<textarea name="summary"></textarea></p>
 				<p>项目状态:
 				<select name="state">
-					%for item in PROJECT_STATE:
-					<option value="${item.keys()[0]}">${item.values()[0]}</option>
+					%for k,v in PROJECT_STATE.items():
+					<option value="${k}">${v}</option>
 					%endfor
 				</select>
 				</p>
@@ -41,13 +40,21 @@
 					%endfor
 				</p>
 				<p>负责人:
-				<select name="manager">
-					<option value="0">请选择</option>
-					%for item in allUsers:
-					<option value="${item.id}">${item.department} - ${item.name_zh}</option>
+					<select name="manager">
+						<option value="0">请选择</option>
+						%for item in allUsers:
+						<option value="${item.id}">${item.department} - ${item.name_zh}</option>
+						%endfor
+					</select>
+				</p>
+				<p>优先级:
+				<select name="weight">
+					%for k,v in WEIGHT.items():
+					<option value="${k}">${v}</option>
 					%endfor
 				</select>
 				</p>
+				<p>项目介绍:<textarea name="summary"></textarea></p>
 				<p><input type="submit" value="submit" /></p>
 			</form>
 		</div>

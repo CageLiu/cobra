@@ -22,7 +22,7 @@
 	%>
 
 	<body>
-		<div class="hd" id="hd">
+		<div class="hd" id="J_hd">
 			<h1 class="logo">
 				<a href="/system/">Monkey</a>
 			</h1>
@@ -35,14 +35,14 @@
 					>主页</a>
 				</li>
 				<li>
-					<a href="/system/v/project" 
+					<a href="/system/v/project/" 
 					%if pfix == "project": 
 					class="current" 
 					%endif 
 					>项目</a>
 				</li>
 				<li>
-					<a href="/system/v/task"
+					<a href="/system/v/task/"
 					%if pfix == "task": 
 					class="current" 
 					%endif 
@@ -50,7 +50,7 @@
 				</li>
 				<li><a href="/tools/">工具</a></li>
 				<li>
-					<a href="/system/v/user"
+					<a href="/system/v/user/"
 					%if pfix == "user": 
 					class="current" 
 					%endif 
@@ -58,7 +58,7 @@
 				</li>
 				%if cuser:
 				<li>
-					<a href="/system/v/user/${uid}"
+					<a href="/system/v/user/${uid}/"
 					%if pfix == "gallery": 
 					class="current" 
 					%endif 
@@ -74,7 +74,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="layout shtml" id="J_html_layout">
+		<div class="layout shtml" id="J_layout_html">
 			<div class="sbody" id="J_layout_body">
 				<div class="hor_box wp">
 					<div class="hor_item main">
@@ -115,7 +115,7 @@
 				<div class="slider" id="J_layout_slider">slider</div>
 			</div>
         </div>
-		<div class="ft clearfix">
+		<div class="ft clearfix" id="J_ft">
 			<div class="crumbs">
 				<a href="/system/">首页</a>
 				${self.crumbs()}

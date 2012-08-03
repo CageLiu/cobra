@@ -11,72 +11,104 @@
 
 <!-- main -->
 <%def name="main()">
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.apps.system.config import WEIGHT,TASK_STATE
+	%>
+
 	<div class="box">
 		<div class="bt">
 			<span class="tit">最新项目</span>
+			<span class="icon_guide">
+				%for k,v in WEIGHT.items():
+					<i class="item ${k}">&nbsp;</i>${v}
+				%endfor
+			</span>
 		</div>
 		<div class="bc">
+			%if len(allProjects):
 			<table class="table">
+				<colgroup>
+					<col width="4%"/>
+					<col width="28%"/>
+					<col width="8%"/>
+					<col width="9%"/>
+					<col width="9%"/>
+					<col width="8%"/>
+					<col width="12%"/>
+					<col width="10%"/>
+					<col width="12%"/>
+				</colgroup>
 				<thead>
 					<tr>
 						<th>状态</th>
 						<th>名称</th>
+						<th>优先级</th>
+						<th>创建时间</th>
 						<th>开始时间</th>
 						<th>周期</th>
+						<th>进度</th>
 						<th>负责人</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
+					%for item in allProjects:
 					<tr>
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-						<td>第五列</td>
-						<td>第六列</td>
+						<td>${item.state}</td>
+						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
+						<td>${WEIGHT[item.weight]}</td>
+						<td>${item.ctime}</td>
+						<td>${item.starttime}</td>
+						<td>${item.period} 天</td>
+						<td>${item.degree}</td>
+						<td><a href="/system/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
+						<td><a href="#">编辑</a></td>
 					</tr>
-					<tr class="even">
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-						<td>第五列</td>
-						<td>第六列</td>
-					</tr>
+					%endfor
 				</tbody>
 			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
 		</div>
 	</div>
 	<div class="box">
 		<div class="bt">
 			<span class="tit">最新任务</span>
+			<span class="icon_guide">
+				%for k,v in WEIGHT.items():
+					<i class="item ${k}">&nbsp;</i>${v}
+				%endfor
+			</span>
 		</div>
 		<div class="bc">
+			%if len(allTasks):
 			<table class="table">
 				<thead>
 					<tr>
+						<th>状态</th>
 						<th>编号</th>
 						<th>名称</th>
-						<th>状态</th>
 						<th>优先级</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
+					%for item in allTasks:
 					<tr>
-						<td><a href="#">#500</a></td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
+						<td>${item.state}</td>
+						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						<td class="${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
+						<td>${WEIGHT[item.weight]}</td>
+						<td><a href="#">编辑</a></td>
 					</tr>
-					<tr class="even">
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-					</tr>
+					%endfor
 				</tbody>
 			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
 		</div>
 	</div>
 
@@ -121,12 +153,12 @@
 		</div>
 		<div class="bc">
 			<p>
-				<a href="/system/add/project">add project</a> |
-				<a href="/system/add/task">add task</a>
+				<a href="/system/add/project/">add project</a> |
+				<a href="/system/add/task/">add task</a>
 			</p>
 			<p>
-				<a href="/system/add/user">add user</a> |
-				<a href="/system/add/group">add group</a>
+				<a href="/system/add/user/">add user</a> |
+				<a href="/system/add/group/">add group</a>
 			</p>
 		</div>
 	</div>

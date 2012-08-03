@@ -34,7 +34,7 @@
 					%for item in allProjects.order_by("-id"):
 					<tr>
 						<td>${item.state}</td>
-						<td><a href="/system/v/project/${item.id}">${item.name_zh}</a></td>
+						<td><a href="/system/v/project/${item.id}/">${item.name_zh}</a></td>
 						<td>${item.starttime}</td>
 						<td>${item.period}</td>
 						<td>${sm.User.objects.get(id= item.manager).name_zh}</td>
@@ -72,7 +72,7 @@
 			<span class="tit">新建项目</span>
 		</div>
 		<div class="bc">
-			<a href="/system/add/project">新建项目</a>
+			<a href="/system/add/project/">新建项目</a>
 		</div>
 	</div>
 </%def>
