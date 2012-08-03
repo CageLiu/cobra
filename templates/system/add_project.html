@@ -1,38 +1,73 @@
 ##-*-coding:utf-8-*-
-<form action="" method="post">
-	<p>项目名-英文:<input type="text" name="name_en" /></p>
-	<p>项目名-中文:<input type="text" name="name_zh" /></p>
-	<p>项目介绍:<textarea name="summary"></textarea></p>
-	<p>项目状态:
-		<select name="state">
-			<option value="nostart">未开始</option>
-			<option value="developing">开发中</option>
-			<option value="confirming">确认中</option>
-			<option value="nostart">调整中</option>
-			<option value="developing">已完成</option>
-		</select>
-	</p>
-	<p>开始时间:<input type="text" name="starttime" /></p>
-	<p>项目周期:<input type="text" name="period" /></p>
-	<p>
-		<label><input name="member" type="checkbox" value="0" />刘峰</label>
-		<label><input name="member" type="checkbox" value="1" />李凡凡</label>
-		<label><input name="member" type="checkbox" value="2" />朱新勇</label>
-		<label><input name="member" type="checkbox" value="3" />张益扬</label>
-		<label><input name="member" type="checkbox" value="4" />王卫红</label>
-		<label><input name="member" type="checkbox" value="5" />丸美</label>
-		<label><input name="member" type="checkbox" value="6" />赵飞</label>
-	</p>
-	<p>项目状态:
-		<select name="manager">
-			<option value="1">刘峰</option>
-			<option value="2">李凡凡</option>
-			<option value="3">朱新勇</option>
-			<option value="4">张益扬</option>
-			<option value="5">王卫红</option>
-			<option value="6">丸美</option>
-			<option value="7">赵飞</option>
-		</select>
-	</p>
-	<p><input type="submit" value="submit" /></p>
-</form>
+<%inherit file="base.html" />
+
+<%def name="title()">
+	新建项目
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+
+<!-- main -->
+<%def name="main()">
+
+	<%
+		from cobra.apps.system.config import PROJECT_STATE
+	%>
+
+	<div class="box">
+		<div class="bt">
+			<span class="tit">开始新项目</span>
+		</div>
+		<div class="bc">
+			<form action="" method="post">
+				<p>项目名-英文:<input type="text" name="name_en" /></p>
+				<p>项目名-中文:<input type="text" name="name_zh" /></p>
+				<p>项目介绍:<textarea name="summary"></textarea></p>
+				<p>项目状态:
+				<select name="state">
+					%for item in PROJECT_STATE:
+					<option value="${item.keys()[0]}">${item.values()[0]}</option>
+					%endfor
+				</select>
+				</p>
+				<p>开始时间:<input type="text" name="starttime" /></p>
+				<p>项目周期:<input type="text" name="period" /></p>
+				<p>
+				<label><input name="member" type="checkbox" value="0" />刘峰</label>
+				<label><input name="member" type="checkbox" value="1" />李凡凡</label>
+				<label><input name="member" type="checkbox" value="2" />朱新勇</label>
+				<label><input name="member" type="checkbox" value="3" />张益扬</label>
+				<label><input name="member" type="checkbox" value="4" />王卫红</label>
+				<label><input name="member" type="checkbox" value="5" />丸美</label>
+				<label><input name="member" type="checkbox" value="6" />赵飞</label>
+				</p>
+				<p>项目状态:
+				<select name="manager">
+					<option value="1">刘峰</option>
+					<option value="2">李凡凡</option>
+					<option value="3">朱新勇</option>
+					<option value="4">张益扬</option>
+					<option value="5">王卫红</option>
+					<option value="6">丸美</option>
+					<option value="7">赵飞</option>
+				</select>
+				</p>
+				<p><input type="submit" value="submit" /></p>
+			</form>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/system/v/project">项目</a>
+	<em>&gt;</em>
+	<span>新建项目</span>
+</%def>

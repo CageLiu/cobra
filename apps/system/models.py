@@ -36,7 +36,7 @@ class Project(models.Model):
     name_en   = models.CharField(max_length = 100, unique = True)
     name_zh   = models.CharField(max_length = 200 ,unique = True)
     summary   = models.TextField()
-    state     = models.CharField(max_length = 20)
+    state     = models.CharField(max_length = 20, default = "nostart")
     starttime = models.DateTimeField()
     period    = models.IntegerField()
     author    = models.IntegerField()
