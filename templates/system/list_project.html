@@ -1,10 +1,77 @@
 ## -*-coding:utf-8 -*-
-<h1>项目列表页面</h1>
-<ul>
-	<li>项目列表页面</li>
-	<li>项目列表页面</li>
-	<li>项目列表页面</li>
-	<li>项目列表页面</li>
-	<li>项目列表页面</li>
-	<li>项目列表页面</li>
-</ul>
+<%inherit file="base.html" />
+
+<%def name="title()">
+	项目列表
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">项目列表</span>
+		</div>
+		<div class="bc">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>状态</th>
+						<th>名称</th>
+						<th>开始时间</th>
+						<th>周期</th>
+						<th>负责人</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+					<tr class="even">
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">项目统计</span>
+		</div>
+		<div class="bc">
+            <p>已完成:10个</p>
+            <p>未完成:3个</p>
+            <p>完成百分比:77%</p>
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">新建项目</span>
+		</div>
+		<div class="bc">
+			<a href="#">新建项目</a>
+		</div>
+	</div>
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<span>项目</span>
+</%def>

@@ -1,2 +1,67 @@
 ##-*-coding:utf-8-*-
-<h1>user list</h1>
+<%inherit file="base.html" />
+
+<%def name="title()">
+	成员
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">成员列表</span>
+		</div>
+		<div class="bc">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>状态</th>
+						<th>名称</th>
+						<th>开始时间</th>
+						<th>周期</th>
+						<th>负责人</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+					<tr class="even">
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+<div class="box">
+	<div class="bt">
+		<span class="tit"></span>
+	</div>
+	<div class="bc">
+		如果是管理员帐号，则显示和添加成员链接
+	</div>
+</div>
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<span>成员</span>
+</%def>

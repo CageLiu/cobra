@@ -1,2 +1,68 @@
 ##-*-coding:utf-8-*-
-task details
+<%inherit file="base.html" />
+
+<%def name="title()">
+	任务列表
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">任务信息</span>
+		</div>
+		<div class="bc">
+			task info
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">参与成员</span>
+		</div>
+		<div class="bc">
+			任务需要管理员字段
+			<ul>
+				<li><a href="#">user1</a></li>
+				<li><a href="#">user1</a></li>
+				<li><a href="#">user1</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">添加成员</span>
+		</div>
+		<div class="bc">
+			<select>
+				<option>成员1</option>
+				<option>成员2</option>
+				<option>成员3</option>
+				<option>成员4</option>
+				<option>成员5</option>
+			</select>
+			<input type="submit" value="添加" />
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">新建任务</span>
+		</div>
+		<div class="bc">
+			<a href="#">新建任务</a>
+		</div>
+	</div>
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/system/v/task">任务</a>
+	<em>&gt;</em>
+	<span>#500</span>
+</%def>

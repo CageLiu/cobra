@@ -357,7 +357,7 @@
 
 		scroll : function(options){
 			this.scroll.init = function(options){
-				var body = this.body = document.getElementById(options.body);
+				var body = this.body = options.body;
 				var slider = this.slider = $.DragDrop(options.drag);
 				this.bodyHeight = body.offsetHeight;
 				this.sHeight = slider.drag.parentNode.offsetHeight;
@@ -368,8 +368,12 @@
 				}
 
 				function moveBody(e){
-					var t = -parseInt(slider.drag.style.top);
-					body.style.marginTop = t * (this.bodyHeight - this.sHeight) / (this.sHeight - slider.drag.offsetHeight) + "px";
+					var t = -(parseInt(slider.drag.style.top));
+					if(this.sHeight - slider.drag.offsetHeight){
+						body.style.marginTop = t * (this.bodyHeight - this.sHeight) / (this.sHeight - slider.drag.offsetHeight) + "px";
+					}else{
+						body.style.marginTop = 0;
+					}
 				}
 				slider.interface.addHandler("doDrag",$.bind(moveBody,this));
 				slider.interface.addHandler("mousewheel",$.bind(moveBody,this));
@@ -378,10 +382,10 @@
 				function resize(){
 					var body = this.body;
 					var slider = this.slider;
+					var oldH = slider.drag.offsetHeight;
 					var present = slider.drag.parentNode.offsetHeight / this.sHeight;
 					var bodyHeight = this.bodyHeight = body.offsetHeight;
 					var clientHeight = this.sHeight = slider.drag.parentNode.offsetHeight;
-					var bodyStop = parseInt(body.style.marginTop) || 0;
 					var t = 0;
 					if(bodyHeight < clientHeight){
 						slider.drag.style.height = "100%";
@@ -402,9 +406,9 @@
 						slider.rectB = slider.rectT + slider.limit.offsetHeight;
 						slider.rectR = slider.rectL + slider.limit.offsetWidth;
 					}
-					t = parseInt(slider.drag.style.top) * present;
+					t = (slider.drag.offsetHeight == clientHeight) ? 0 : (parseInt(slider.drag.style.top) * present);
 					slider.drag.style.top = t + "px";
-					body.style.marginTop = -t * (bodyHeight - clientHeight) / (clientHeight - slider.drag.offsetHeight) + "px";
+					body.style.marginTop = t ? (-t * (bodyHeight - clientHeight) / (clientHeight - slider.drag.offsetHeight) + "px") : 0; 
 				};
 
 				$.addEvent(window,"resize",$.bind(function(){
@@ -420,43 +424,11 @@
 }(window));
 
 $.ready(function(){
-	var oLayout = null;
-
-	function createScroll(){
-		oLayout = $.scroll({
-			body : "J_layout_body",
-			drag : {
-				drag : document.getElementById("J_layout_slider"),
-				limit : document.getElementById("J_layout_scroll")
-			}
-		});
-	}
-
-	createScroll();
+	var oLayout = $.scroll({
+		body : document.getElementById("J_layout_body"),
+		drag : {
+			drag : document.getElementById("J_layout_slider"),
+			limit : document.getElementById("J_layout_scroll")
+		}
+	});
 });
-
-
-/*
-$.ready(function(){
-	var a = $.DragDrop({
-		drag : document.getElementById("J_layout_slider"),
-		limit : document.getElementById("J_layout_scroll")
-		//limit : document
-		//lockY : true
-		//lockX : true
-	});
-	a.interface.addHandler("startDrag",function(e){
-		document.title = e.x + "||" + e.y;
-	});
-	a.interface.addHandler("doDrag",function(e){
-		var t = "-" + a.drag.style.top;
-		document.getElementById("J_layout_body").style.marginTop = t;
-	});
-	a.interface.addHandler("mousewheel",function(e){
-		var t = "-" + a.drag.style.top;
-		document.getElementById("J_layout_body").style.marginTop = t;
-	});
-	//alert($.offsetParent(a.drag).nodeName);
-	//alert(a.drag.offsetParent.id);
-});
-*/

@@ -64,6 +64,14 @@ def logout(request):
 def index(request):
     '''index view'''
 
+    pfix = "index"
+
+    uid = request.session.get("uid",None)
+    try:
+        cuser = sm.User.objects.get(id = uid)		
+    except sm.User.DoesNotExist:
+        cuser = None
+
     img = request.IMG
     dirs = request.GET.get("dir",None)
 
@@ -73,6 +81,8 @@ def index(request):
 def add(request,**args):
 
     t = args["t"]
+
+    pfix = t
 
     def create(model,flist = ["csrfmiddlewaretoken"]):
         data = {k:v for k,v in request.POST.items() if k not in flist}
@@ -101,6 +111,8 @@ def edit(request,**args):
 
     t    = args["t"]
     item = args["item"]
+
+    pfix = t
 
     if not t and not item:
         return HttpResponse("edit index page")
@@ -164,6 +176,8 @@ def p(request,p = "", tpl = ""):
     img = request.IMG
     static = request.STATIC
 
+    pfix = p
+
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p
         tpl_path = sc.P_PROJECT_PATH + "/" + p
@@ -194,6 +208,15 @@ def p(request,p = "", tpl = ""):
 
 def v(request,t = "", tid = ""):
     '''user view'''
+
+    uid = request.session.get("uid",None)
+
+    if t == "user" and tid == str(uid):
+        pfix = "gallery"
+        uname = u"我"
+    else:
+        pfix = t
+        uname = u"xx"
 
     if t:
         try:

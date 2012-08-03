@@ -90,6 +90,9 @@ body{
 	height:100%;
 	background:#555;
 }
+.scroll:hover .slider{
+	background:#3b5998;
+}
 
 /* scroll box end */
 .form .txt{
@@ -175,10 +178,6 @@ body{
 	z-index:9999;
 	_position:absolute;
 }
-.hd .nav{
-	border-bottom-style:solid;
-	border-bottom-width:1px;
-}
 .hd{
 	background-color:#3B5998;
 	top:0;
@@ -198,18 +197,28 @@ body{
 }
 .hd .nav{
 	height:36px;
-	border-bottom-color:#2C4270;
 	padding-right:300px;
 	margin-left:192px;
+	padding-left:24px;
+	border-bottom:1px solid #2C4270;
 	box-shadow:0 -1px 1px #2C4270 inset;
 }
 .hd .nav li{
-	padding:0 10px;
+	padding:0 2px;
 }
 .hd .nav a{
 	font-size:14px;
 	color:#fff;
-	line-height:36px;
+	display:inline-block;
+	margin-top:8px;
+	padding-left:8px;
+	padding-right:8px;
+}
+.hd .nav .current,
+.hd .nav a:hover{
+	background:#FFF;
+	color:#3B5998;
+	border-radius:2px;
 }
 .hd .search{
 	position:absolute;
@@ -249,6 +258,7 @@ body{
 }
 .wp{
 	padding-top:6px;
+	padding-bottom:12px;
 }
 .main{
 	width:100%;
@@ -296,7 +306,7 @@ body{
 .box{
 	background:#FFF;
 	border-bottom:2px solid #E2E2E9;
-	margin:0 3px 6px;
+	margin:0 3px 12px;
 	border-radius:3px;
 	filter: progid:DXImageTransform.Microsoft.Shadow(color='#CCCCCC', Direction=135, Strength=3);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);

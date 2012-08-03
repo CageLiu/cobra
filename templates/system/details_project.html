@@ -1,2 +1,100 @@
 ##-*-coding:utf-8-*-
-<h1>项目详情页面</h1>
+<%inherit file="base.html" />
+
+<%def name="title()">
+	项目详细
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">项目信息</span>
+		</div>
+		<div class="bc">
+			项目信息
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">相关任务</span>
+		</div>
+		<div class="bc">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>名称</th>
+						<th>状态</th>
+						<th>优先级</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#">#500</a></td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+					</tr>
+					<tr class="even">
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">参与成员</span>
+		</div>
+		<div class="bc">
+			<ul>
+				<li><a href="#">成员1</a></li>
+				<li><a href="#">成员2</a></li>
+				<li><a href="#">成员3</a></li>
+				<li><a href="#">成员4</a></li>
+				<li><a href="#">成员5</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">添加成员</span>
+		</div>
+		<div class="bc">
+			<select>
+				<option>成员1</option>
+				<option>成员2</option>
+				<option>成员3</option>
+				<option>成员4</option>
+				<option>成员5</option>
+			</select>
+			<input type="submit" value="添加" />
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">新建项目</span>
+		</div>
+		<div class="bc">
+			<a href="#">新建项目</a>
+		</div>
+	</div>
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/system/v/project">项目</a>
+	<em>&gt;</em>
+	<span>项目详情</span>
+</%def>

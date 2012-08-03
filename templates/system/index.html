@@ -8,114 +8,115 @@
 <!-- outfile -->
 <%def name="outfile()"></%def>
 
-<!-- side -->
-<%def name="side()">
-	<div class="box">
-		<div class="bt">
-			<span class="tit">任务信息</span>
-		</div>
-		<div class="bc">
-            <p>已完成:10个</p>
-            <p>未完成:3个</p>
-            <p>完成百分比:77%</p>
-		</div>
-	</div>
-</%def>
 
 <!-- main -->
 <%def name="main()">
+
+	<div style="height:30px;text-align:center;border:1px solid #ccc;line-height:30px;background:#ffbcad;border-radius:3px;margin:0 12px 12px;">
+		提示信息
+	</div>
+	
 	<div class="box">
 		<div class="bt">
-			<span class="tit">表单模块</span>
+			<span class="tit">最新项目</span>
 		</div>
 		<div class="bc">
-			<div id="time"></div>
-			<form action="">
-				<div class="form">
-					<div class="item">
-						<label class="field">输入框：</label>
-						<input type="text" class="txt w250" />
-					</div>
-					<div class="item">
-						<label class="field">输入框：</label>
-						<input type="text" class="txt w250 focus" />
-					</div>
-					<div class="item">
-						<label class="field">输入框：</label>
-						<input type="text" class="txt w250 err" />
-					</div>
-					<div class="item">
-						<label class="field">单选按钮：</label>
-						<span class="radio" name="">
-							单选按钮
-							<input type="hidden" />
-						</span>
-						<span class="radio r_checked" name="">
-							单选按钮
-							<input type="hidden" />
-						</span>
-					</div>
-					<div class="item">
-						<label class="field">单选按钮：</label>
-						<span class="radio r_checked" name="">
-							单选按钮
-							<input type="hidden" />
-						</span>
-					</div>
-					<div class="item">
-						<label class="field">复选框：</label>
-						<span class="checkbox" name="">
-							复选框
-							<input type="hidden" />
-						</span>
-						<span class="checkbox" name="">
-							复选框
-							<input type="hidden" />
-						</span>
-					</div>
-					<div class="item">
-						<label class="field">复选框：</label>
-						<span class="checkbox c_checked" name="">
-							复选框
-							<input type="hidden" />
-						</span>
-					</div>
-					<div class="item">
-						<label class="field">按钮：</label>
-						<a href="javascript:;" class="btn">
-							<span>按钮</span>
-							<input type="submit" value="按钮" />
-						</a>
-					</div>
-				</div>
-			</form>
-
-			<br/>
-            <hr/>
-			<br/>
-
-			<ul class="hor_list">
-				%for i in range(9):
-				<li>${img(w="120",h="90",c="thums")}</li>
-				%endfor
-			</ul>
-
-			<br/>
-            <hr/>
-			<br/>
-
-			<div id="dirtree">
-				<div class="path" id="path" data="/system/getree/?dir=/var/www/cobra/apps">查看 Apps 的相关文件</div>
-			</div>
-
-			<br/>
-            <hr/>
-			<br/>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>状态</th>
+						<th>名称</th>
+						<th>开始时间</th>
+						<th>周期</th>
+						<th>负责人</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+					<tr class="even">
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+						<td>第五列</td>
+						<td>第六列</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">最新任务</span>
+		</div>
+		<div class="bc">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>名称</th>
+						<th>状态</th>
+						<th>优先级</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#">#500</a></td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+					</tr>
+					<tr class="even">
+						<td>第一列</td>
+						<td>第二列</td>
+						<td>第三列</td>
+						<td>第四列</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </%def>
 
+<!-- side -->
+<%def name="side()">
+	%if cuser:
+	<div class="box">
+		<div class="bt">
+			<span class="tit">创建和添加</span>
+		</div>
+		<div class="bc">
+			<p>
+				<a href="/system/add/project">add project</a> |
+				<a href="/system/add/task">add task</a>
+			</p>
+			<p>
+				<a href="/system/add/user">add user</a> |
+				<a href="/system/add/group">add group</a>
+			</p>
+		</div>
+	</div>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">系统信息</span>
+		</div>
+		<div class="bc">
+            <p>项目 10 个</p>
+            <p>任务 10 个</p>
+            <p>成员 10 个</p>
+		</div>
+	</div>
+	%endif
+</%def>
+
 <%def name="crumbs()">
-	<em>&gt;</em>
-	<span>我的工作台</span>
+
 </%def>
