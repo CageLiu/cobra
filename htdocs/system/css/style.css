@@ -336,11 +336,11 @@ body{
 }
 .form .txt{
 	background-color:#fff;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #888;
     height: 30px;
     line-height: 30px;
     padding-left: 2px;
-	border-radius:3px;
+	border-radius:2px;
 }
 .form .field{
 	font-size:14px;
@@ -349,6 +349,7 @@ body{
 	margin-left:-100px;
 	text-align:right;
 }
+
 .form .radio,
 .form .checkbox{
 	display:inline-block;
@@ -360,6 +361,13 @@ body{
 	cursor:pointer;
 	background-image:url(../img/icon.png);
 	background-repeat:no-repeat;
+	position:relative;
+	zoom:1;
+}
+.form .hide_field{
+	position:absolute;
+	top:0;
+	left:0;
 }
 .form .radio{
 	background-position:0 7px;
@@ -545,3 +553,10 @@ body{
 }
 
 
+/* emptybox  */
+.emptybox{
+	line-height:45px;
+	text-align:center;
+}
+
+/* info_list  */

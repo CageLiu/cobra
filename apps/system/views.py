@@ -84,21 +84,33 @@ def add(request,**args):
 
     pfix = t
 
-    def create(model,flist = ["csrfmiddlewaretoken"]):
+    cuser = args["User"]
+
+    allProjects = sm.Project.objects.all()
+    allUsers = sm.User.objects.all()
+    allTasks = sm.Task.objects.all()
+    allGroups = sm.Group.objects.all()
+    allRights = sm.Rights.objects.all()
+
+    def create(model, flist = ["csrfmiddlewaretoken"] ,extra= {}):
         data = {k:v for k,v in request.POST.items() if k not in flist}
-        model.objects.create(**data)
+        data.update(extra)
+        return model.objects.create(**data)
 
     if t:
         try:
             model = sm.__dict__[t.capitalize()]
             if request.method == "POST":
                 if t == "project":
-                    create(model,["csrfmiddlewaretoken","member"])
+                    extra = {"author" : cuser.id}
+                    newObj = create(model ,flist = ["csrfmiddlewaretoken","member"], extra = extra)
                 elif t == "user":
-                    create(model,['csrfmiddlewaretoken','upic'])
+                    create(model,flist = ['csrfmiddlewaretoken','upic'])
+                elif t == "task":
+                    create(model)
                 elif t == "group":
                     create(model)
-                elif t == "task":
+                elif t == "rights":
                     create(model)
                 return HttpResponseRedirect("/system/v/" + t)
         except KeyError:
@@ -223,6 +235,11 @@ def v(request,t = "", tid = ""):
             model = sm.__dict__[t.capitalize()]
         except KeyError:
             return HttpResponse(u"404 page")
+        allProjects = sm.Project.objects.all()
+        allUsers = sm.User.objects.all()
+        allTasks = sm.Task.objects.all()
+        allGroups = sm.Group.objects.all()
+        allRights = sm.Rights.objects.all()
     if not t and not tid:
         return HttpResponseRedirect("/system/")
     elif t and not tid:

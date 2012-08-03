@@ -1,7 +1,41 @@
 ##-*-coding:utf-8-*-
-<form action="" method="post">
-	<p>name:<input type="text" name="name" /></p>
-	<p>rights:<input type="text" name="rights" /></p>
-	<p>desc:<input type="text" name="desc" /></p>
-	<p><input type="submit" value="submit" /></p>
-</form>
+<%inherit file="base.html" />
+
+<%def name="title()">
+	新建项目
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+
+<!-- main -->
+<%def name="main()">
+
+	<div class="box">
+		<div class="bt">
+			<span class="tit">用户组管理</span>
+		</div>
+		<div class="bc">
+			<form action="" method="post">
+				<p>英文:<input type="text" name="name_en" /></p>
+				<p>中文:<input type="text" name="name_zh" /></p>
+				<p>权限:<input type="text" name="rights" /></p>
+				<p>说明:<textarea name="desc"></textarea></p>
+				<p><input type="submit" value="submit" /></p>
+			</form>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/system/v/project">项目</a>
+	<em>&gt;</em>
+	<span>新建项目</span>
+</%def>

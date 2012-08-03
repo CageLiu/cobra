@@ -1,4 +1,61 @@
 ##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	添加成员
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+
+<!-- main -->
+<%def name="main()">
+	<%
+		from cobra.apps.system.config import DEPARTMENT
+	%>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">添加新成员</span>
+		</div>
+		<div class="bc">
+			<form action="" method="post">
+				<p>用户名:<input type="text" name="usm" /></p>
+				<p>姓名:<input type="text" name="name_zh" /></p>
+				<p>密码:<input type="password" name="pwd" /></p>
+				<p>确认密码:<input type="password" name="pwd" /></p>
+				<p>Email:<input type="text" name="email" /></p>
+				<p>用户组:
+				<select name="group">
+					%for item in allGroups:
+						<option value="${item.id}">${item.name_zh}</option>
+					%endfor
+				</select>
+				</p>
+				<p>部门:
+				<select name="department">
+					%for item in DEPARTMENT:
+						<option value="${item}">${item}</option>
+					%endfor
+				</select>
+				<p><input type="submit" value="submit" /></p>
+			</form>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/system/v/project">项目</a>
+	<em>&gt;</em>
+	<span>新建项目</span>
+</%def>
+<!--
 <form action="" method="post">
 	<p>usm:<input type="text" name="usm" /></p>
 	<p>pwd:<input type="password" name="pwd" /></p>
@@ -8,4 +65,4 @@
 	<p>upic:<input type="file" name="upic" /></p>
 	<p><input type="submit" value="submit" /></p>
 </form>
-
+-->

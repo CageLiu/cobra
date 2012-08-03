@@ -4,12 +4,13 @@ from django.db import models
 
 #用户组
 class Group(models.Model):
-    name   = models.CharField(max_length = 20, unique = True)
+    name_en   = models.CharField(max_length = 20, unique = True)
+    name_zh   = models.CharField(max_length = 40, unique = True)
     rights = models.TextField()
     desc   = models.CharField(max_length = 255)
 
     def __unicode__(self):
-        return self.name
+        return self.name_zh
 
 #权限
 class Rights(models.Model):
@@ -20,13 +21,14 @@ class Rights(models.Model):
 
 #用户
 class User(models.Model):
-    usm     = models.CharField(max_length = 100, unique = True)
-    pwd     = models.CharField(max_length = 32)
-    name_zh = models.CharField(max_length = 100)
-    email   = models.EmailField(unique = True)
-    group   = models.IntegerField()
-    state   = models.IntegerField(default = 0)
-    upic    = models.CharField(max_length = 30, blank = True)
+    usm        = models.CharField(max_length = 100, unique = True)
+    pwd        = models.CharField(max_length = 32)
+    name_zh    = models.CharField(max_length = 100)
+    email      = models.EmailField(unique = True)
+    group      = models.IntegerField()
+    department = models.CharField(max_length = 30)
+    state      = models.IntegerField(default = 0)
+    upic       = models.CharField(max_length = 30, default = "normal.png")
 
     def __unicode__(self):
         return self.name_zh
