@@ -38,14 +38,14 @@ class Project(models.Model):
     name_en   = models.CharField(max_length = 100, unique = True)
     name_zh   = models.CharField(max_length = 200 ,unique = True)
     summary   = models.TextField()
-    state     = models.CharField(max_length = 20, default = "nostart")
+    state     = models.CharField(max_length = 20, default = "a_nostart")
     starttime = models.DateTimeField()
     period    = models.IntegerField()
     author    = models.IntegerField()
     manager   = models.IntegerField()
     ctime     = models.DateTimeField(auto_now_add = True)
     degree    = models.IntegerField(default = 0)
-    weight    = models.CharField(max_length = 20, default = "commonly")
+    weight    = models.CharField(max_length = 20, default = "a_commonly")
 
     def __unicode__(self):
         return self.name_zh
@@ -55,10 +55,10 @@ class Task(models.Model):
     name    = models.CharField(max_length = 255)
     desc    = models.TextField()
     author  = models.IntegerField()
-    state   = models.CharField(max_length = 50, default = "new")
+    state   = models.CharField(max_length = 50, default = "a_new")
     manager = models.IntegerField()
     degree  = models.IntegerField(default = 0)
-    weight  = models.CharField(max_length = 20, default = "commonly")
+    weight  = models.CharField(max_length = 20, default = "a_commonly")
 
     def __unicode__(self):
         return self.name

@@ -451,7 +451,7 @@ $.ready(function(){
 			oFt.style.width = "1000px";
 			oDhtml.style.overflowX = "scroll";
 		}else{
-			oLayout.style.width = "auto";
+			oLayout.style.width = "100%";
 			oHd.style.width = "100%";
 			oFt.style.width = "100%";
 			oDhtml.style.overflowX = "hidden";

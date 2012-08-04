@@ -13,16 +13,14 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import WEIGHT,TASK_STATE
+		from cobra.apps.system.config import TASK_STATE,WEIGHT
 	%>
 
 	<div class="box">
 		<div class="bt">
 			<span class="tit">最新项目</span>
 			<span class="icon_guide">
-				%for k,v in WEIGHT.items():
-					<i class="item ${k}">&nbsp;</i>${v}
-				%endfor
+				${icon_guide_html}
 			</span>
 		</div>
 		<div class="bc">
@@ -77,9 +75,7 @@
 		<div class="bt">
 			<span class="tit">最新任务</span>
 			<span class="icon_guide">
-				%for k,v in WEIGHT.items():
-					<i class="item ${k}">&nbsp;</i>${v}
-				%endfor
+				${icon_guide_html}
 			</span>
 		</div>
 		<div class="bc">

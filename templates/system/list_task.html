@@ -16,6 +16,9 @@
 	<div class="box">
 		<div class="bt">
 			<span class="tit">任务列表</span>
+			<span class="icon_guide">
+				${icon_guide_html}
+			</span>
 		</div>
 		<div class="bc">
 			%if len(allTasks):
@@ -30,11 +33,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					%for item in allTasks.order_by("-id"):
-					<tr class="${item.weight}">
+					%for item in allTasks:
+					<tr>
 						<td>${item.state}</td>
 						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
-						<td><a href="/system/v/task/${item.id}/">${item.name}</a></td>
+						<td class="${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
 						<td>${WEIGHT[item.weight]}</td>
 						<td><a href="#">编辑</a></td>
 					</tr>

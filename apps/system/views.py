@@ -8,6 +8,7 @@ import os,re
 from md5 import md5
 
 from cobra import config as sc
+from cobra.apps.system.config import PROJECT_STATE,TASK_STATE,WEIGHT
 from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
 
@@ -66,7 +67,13 @@ def index(request):
 
     pfix = "index"
 
-    allProjects = sm.Project.objects.all().order_by("-id")[:10]
+    WEIGHT_KEYS = WEIGHT.keys()
+    WEIGHT_KEYS.sort()
+    icon_guide_html = ""
+    for key in WEIGHT_KEYS:
+        icon_guide_html += '''<i class="item ''' + key + '''">&nbsp;</i>''' + WEIGHT[key]
+
+    allProjects = sm.Project.objects.all().order_by("weight")[:10]
     allTasks = sm.Task.objects.all().order_by("-id")[:10]
 
     uid = request.session.get("uid",None)
@@ -103,20 +110,28 @@ def add(request,**args):
     if t:
         try:
             model = sm.__dict__[t.capitalize()]
-            if request.method == "POST":
-                if t == "project":
-                    extra = {"author" : cuser.id}
-                    newObj = create(model ,flist = ["csrfmiddlewaretoken","member"], extra = extra)
-                elif t == "user":
-                    create(model,flist = ['csrfmiddlewaretoken','upic'])
-                elif t == "task":
-                    extra = {"author" : cuser.id}
-                    create(model, flist = ["csrfmiddlewaretoken","member"], extra = extra)
-                elif t == "group":
-                    create(model)
-                elif t == "rights":
-                    create(model)
-                return HttpResponseRedirect("/system/v/" + t + "/")
+            try:
+                if request.method == "POST":
+                    if t == "project":
+                        extra = {"author" : cuser.id}
+                        member = request.POST.getlist("member")
+                        newObj = create(model ,flist = ["csrfmiddlewaretoken","member"], extra = extra)
+                        for item in member:
+                            u_p = {"uid":item,"pid":newObj.id}
+                            sm.User_Project.objects.create(**u_p)
+                    elif t == "user":
+                        create(model,flist = ['csrfmiddlewaretoken','upic'])
+                    elif t == "task":
+                        extra = {"author" : cuser.id}
+                        create(model, flist = ["csrfmiddlewaretoken","member"], extra = extra)
+                    elif t == "group":
+                        create(model)
+                    elif t == "rights":
+                        create(model)
+                    return HttpResponseRedirect("/system/v/" + t + "/")
+            except :
+                err_msg = u"请按正确的格式填写"
+                return render_to_response("system/add_" + t + ".html",locals())
         except KeyError:
             return HttpResponse(u"404 page")
         return render_to_response("system/add_" + t + ".html",locals())
@@ -227,6 +242,13 @@ def v(request,t = "", tid = ""):
 
     uid = request.session.get("uid",None)
 
+
+    WEIGHT_KEYS = WEIGHT.keys()
+    WEIGHT_KEYS.sort()
+    icon_guide_html = ""
+    for key in WEIGHT_KEYS:
+        icon_guide_html += '''<i class="item ''' + key + '''">&nbsp;</i>''' + WEIGHT[key]
+
     if t == "user" and tid == str(uid):
         pfix = "gallery"
         uname = u"我"
@@ -254,5 +276,6 @@ def v(request,t = "", tid = ""):
         return render_to_response(templates,locals())
     else:
         templates = "system/details_" + t + ".html"
+        obj = model.objects.get(id = tid)
         return render_to_response(templates,locals())
 

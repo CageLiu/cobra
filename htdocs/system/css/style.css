@@ -454,28 +454,28 @@ body{
 	text-align:left;
 	text-indent:1em;
 }
-.table .rightnow,
-.table .exigence,
-.table .higher,
-.table .commonly,
+.table .a_commonly,
+.table .b_higher,
+.table .c_exigence,
+.table .d_rightnow,
 .icon_guide .item{
 	border-left-width:5px;
 	border-left-style:solid;
 }
-.table .rightnow,
-.icon_guide .rightnow{
+.table .d_rightnow,
+.icon_guide .d_rightnow{
 	border-left-color:#f00;
 }
-.table .exigence,
-.icon_guide .exigence{
+.table .c_exigence,
+.icon_guide .c_exigence{
 	border-left-color:#f99;
 }
-.table .higher,
-.icon_guide .higher{
+.table .b_higher,
+.icon_guide .b_higher{
 	border-left-color:#fdd;
 }
-.table .commonly,
-.icon_guide .commonly{
+.table .a_commonly,
+.icon_guide .a_commonly{
 	border-left-color:#eee;
 }
 /* dir tree */

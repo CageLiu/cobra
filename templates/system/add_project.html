@@ -22,6 +22,11 @@
 			<span class="tit">开始新项目</span>
 		</div>
 		<div class="bc">
+			%if err_msg:
+			<div class="message err_msg">
+				${err_msg}
+			</div>
+			%endif
 			<form action="" method="post">
 				<p>项目名-英文:<input type="text" name="name_en" /></p>
 				<p>项目名-中文:<input type="text" name="name_zh" /></p>

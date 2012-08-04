@@ -10,9 +10,17 @@
 
 <!-- main -->
 <%def name="main()">
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.apps.system.config import TASK_STATE,WEIGHT
+	%>
+
 	<div class="box">
 		<div class="bt">
 			<span class="tit">${uname}的项目</span>
+			<span class="icon_guide">
+				${icon_guide_html}
+			</span>
 		</div>
 		<div class="bc">
 			<table class="table">
@@ -50,6 +58,9 @@
 	<div class="box">
 		<div class="bt">
 			<span class="tit">${uname}的任务</span>
+			<span class="icon_guide">
+				${icon_guide_html}
+			</span>
 		</div>
 		<div class="bc">
 			<table class="table">
