@@ -33,7 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					%for item in allTasks:
+					%for item in allTasks.order_by("-id"):
 					<tr>
 						<td>${item.state}</td>
 						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
@@ -68,7 +68,7 @@
 			<span class="tit">新建任务</span>
 		</div>
 		<div class="bc">
-			<a href="#">新建任务</a>
+			<a href="/system/add/task/">新建任务</a>
 		</div>
 	</div>
 </%def>

@@ -29,6 +29,7 @@ class User(models.Model):
     department = models.CharField(max_length = 30)
     state      = models.IntegerField(default = 0)
     upic       = models.CharField(max_length = 30, default = "normal.png")
+    regtime    = models.DateTimeField(auto_now_add = True)
 
     def __unicode__(self):
         return self.name_zh
@@ -56,7 +57,8 @@ class Task(models.Model):
     desc    = models.TextField()
     author  = models.IntegerField()
     state   = models.CharField(max_length = 50, default = "a_new")
-    manager = models.IntegerField()
+    manager = models.IntegerField(default = 0)
+    pid     = models.IntegerField(default = 0)
     degree  = models.IntegerField(default = 0)
     weight  = models.CharField(max_length = 20, default = "a_commonly")
 
@@ -88,11 +90,3 @@ class User_Task(models.Model):
 
     def __unicode__(self):
         return self.uid
-
-#项目 - 任务
-class Project_Task(models.Model):
-    pid = models.IntegerField()
-    tid = models.IntegerField()
-
-    def __unicode__(self):
-        return self.pid

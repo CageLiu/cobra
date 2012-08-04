@@ -123,7 +123,11 @@ def add(request,**args):
                         create(model,flist = ['csrfmiddlewaretoken','upic'])
                     elif t == "task":
                         extra = {"author" : cuser.id}
-                        create(model, flist = ["csrfmiddlewaretoken","member"], extra = extra)
+                        member = request.POST.getlist("member")
+                        newObj = create(model, flist = ["csrfmiddlewaretoken","member"], extra = extra)
+                        for item in member:
+                            u_t = {"uid":item,"tid":newObj.id}
+                            sm.User_Task.objects.create(**u_t)
                     elif t == "group":
                         create(model)
                     elif t == "rights":

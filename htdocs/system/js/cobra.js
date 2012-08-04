@@ -376,8 +376,14 @@
 					}
 				}
 				slider.interface.addHandler("doDrag",$.bind(moveBody,this));
+				slider.interface.addHandler("doDrag",$.bind(function(){
+					this.slider.drag.style.backgroundColor = "#3B5998";
+				},this));
 				slider.interface.addHandler("mousewheel",$.bind(moveBody,this));
 				slider.interface.addHandler("click",$.bind(moveBody,this));
+				slider.interface.addHandler("stopDrag",$.bind(function(){
+					this.slider.drag.style.backgroundColor = "#555";
+				},this));
 
 				function resize(){
 					var body = this.body;

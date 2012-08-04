@@ -49,7 +49,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					%for item in allProjects:
+					%for item in allProjects.order_by("-id"):
 					<tr>
 						<td>${item.state}</td>
 						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>

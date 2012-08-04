@@ -3,7 +3,7 @@
 #项目状态
 PROJECT_STATE = {
     u"a_nostart"    : u"未开始",\
-    u"b_developing" : u"开发中",\
+    u"b_doing"      : u"开发中",\
     u"c_confirming" : u"确认中",\
     u"d_reviseing"  : u"调整中",\
     u"e_over"       : u"已完成"

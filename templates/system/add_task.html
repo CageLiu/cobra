@@ -21,23 +21,18 @@
 		<div class="bc">
 			<form action="" method="post">
 				<p>名称:<input type="text" name="name" /></p>
-				<p>成员:
-					%for item in allUsers:
-					<label><input name="member" type="checkbox" value="${item.id}" />${item.department} - ${item.name_zh}</label>
-					%endfor
-				</p>
-				<p>负责人:
-					<select name="manager">
-						<option value="0">请选择</option>
-						%for item in allUsers:
-						<option value="${item.id}">${item.department} - ${item.name_zh}</option>
-						%endfor
-					</select>
-				</p>
 				<p>优先级:
 					<select name="weight">
 						%for k,v in WEIGHT.items():
 						<option value="${k}">${v}</option>
+						%endfor
+					</select>
+				</p>
+				<p>项目：
+					<select name="pid">
+						<option value="0">请选择</option>
+						%for item in allProjects:
+						<option value="${item.id}">${item.name_zh}</option>
 						%endfor
 					</select>
 				</p>
