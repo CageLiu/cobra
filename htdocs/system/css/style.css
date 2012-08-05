@@ -781,12 +781,24 @@ tr:hover .a_new{
 
 /* userlist */
 .user_list{
-	margin-right:-64px;
+	margin-left:-24px;
 	margin-bottom:-10px;
 }
 .user_list .media{
 	*zoom:-1;
 }
 .user_list .user_item{
-	margin:12px 32px 20px 8px;
+	margin:12px 0 20px 32px;
+}
+
+/* related_users */
+.related_users{
+	overflow:hidden;
+	position:relative;
+	zoom:1;
+}
+.related_users .user_item{
+	padding:8px 0;
+	border-top:1px dotted #ccc;
+	margin-top:-1px;
 }

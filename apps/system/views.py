@@ -282,5 +282,13 @@ def v(request,t = "", tid = ""):
     else:
         templates = "system/details_" + t + ".html"
         obj = model.objects.get(id = tid)
+        if t == "project":
+            related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
+            related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
+        elif t == "task":
+            related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
+        elif t == "user":
+            related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
+            related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")
         return render_to_response(templates,locals())
 

@@ -22,17 +22,43 @@
 
 <!-- side -->
 <%def name="side()">
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.apps.system.config import TASK_STATE,WEIGHT
+	%>
 	<div class="box">
 		<div class="bt">
 			<span class="tit">参与成员</span>
 		</div>
 		<div class="bc">
-			任务需要管理员字段
-			<ul>
-				<li><a href="#">user1</a></li>
-				<li><a href="#">user1</a></li>
-				<li><a href="#">user1</a></li>
+			%if len(related_users):
+			<ul class="related_users">
+				%for item in related_users:
+				<%
+					useritem = sm.User.objects.get(id = item.uid)
+				%>
+				<li class="user_item">
+					<div class="hor_box media">
+						<div class="hor_item pic">
+							<a href="/system/v/user/${useritem}/">
+								<img src="/s/media/user_pic/${useritem.upic}" alt="${useritem.name_zh}" width="32" height="32">
+							</a>
+						</div>
+						<div class="hor_item txt">
+							<p class="item">
+								姓名:<a href="/system/v/user/${useritem.id}/">${useritem.name_zh}</a>
+							</p>
+							<p class="item">部门:${useritem.department}</p>
+						</div>
+					</div>
+				</li>
+				%endfor
 			</ul>
+			%else:
+			<div class="emptybox">
+				尚未分派
+			</div>
+			%endif
 		</div>
 	</div>
 	<div class="box">
@@ -55,7 +81,11 @@
 			<span class="tit">新建任务</span>
 		</div>
 		<div class="bc">
-			<a href="#">新建任务</a>
+			<div class="btnbox newitem" style="text-align:center">
+				<a class="btn gray_btn" href="/system/add/project/">
+					<span>新项目</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </%def>

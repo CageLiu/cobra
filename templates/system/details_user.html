@@ -12,7 +12,7 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
 	%>
 
 	<div class="box">
@@ -23,36 +23,59 @@
 			</span>
 		</div>
 		<div class="bc">
+			%if len(related_projects):
 			<table class="table">
+				<colgroup>
+					<col width="4%"/>
+					<col width="28%"/>
+					<col width="8%"/>
+					<col width="9%"/>
+					<col width="9%"/>
+					<col width="8%"/>
+					<col width="12%"/>
+					<col width="10%"/>
+					<col width="12%"/>
+				</colgroup>
 				<thead>
 					<tr>
 						<th>状态</th>
 						<th>名称</th>
+						<th>优先级</th>
+						<th>创建时间</th>
 						<th>开始时间</th>
 						<th>周期</th>
+						<th>进度</th>
 						<th>负责人</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
+					%for pitem in related_projects:
+					<%
+						item = sm.Project.objects.get(id = pitem.pid)
+					%>
 					<tr>
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-						<td>第五列</td>
-						<td>第六列</td>
+						<td><i class="icon_state ${item.state}" title="${PROJECT_STATE[item.state]}">&nbsp;</i></td>
+						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
+						<td>${WEIGHT[item.weight]}</td>
+						<td>${item.ctime}</td>
+						<td>${item.starttime}</td>
+						<td>${item.period} 天</td>
+						<td>
+							<div class="degreebar">
+								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
+								<span class="degree_number">${item.degree}%</span>
+							</div>
+						</td>
+						<td><a href="/system/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
+						<td><a href="#">编辑</a></td>
 					</tr>
-					<tr class="even">
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-						<td>第五列</td>
-						<td>第六列</td>
-					</tr>
+					%endfor
 				</tbody>
 			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
 		</div>
 	</div>
 	<div class="box">
@@ -63,30 +86,57 @@
 			</span>
 		</div>
 		<div class="bc">
+			%if len(related_tasks):
 			<table class="table">
+				<colgroup>
+					<col width="4%"/>
+					<col width="28%"/>
+					<col width="10%"/>
+					<col width="24%"/>
+					<col width="12%"/>
+					<col width="10%"/>
+					<col width="12%"/>
+				</colgroup>
 				<thead>
 					<tr>
-						<th>编号</th>
-						<th>名称</th>
 						<th>状态</th>
+						<th>名称</th>
+						<th>编号</th>
+						<th>项目</th>
+						<th>进度</th>
 						<th>优先级</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
+					%for titem in related_tasks:
+					<%
+						item = sm.Task.objects.get(id = titem.tid)
+					%>
 					<tr>
-						<td><a href="#">#500</a></td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
+						<td><i class="icon_state ${item.state}" title="${TASK_STATE[item.state]}">&nbsp;</i></td>
+						<td class="aleft ${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
+						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						%if item.pid:
+							<td class="aleft"><a href="/system/v/project/${item.pid}/">${sm.Project.objects.get(id = item.pid)}</a></td>
+						%else:
+							<td>---</td>
+						%endif
+						<td>
+							<div class="degreebar">
+								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
+								<span class="degree_number">${item.degree}%</span>
+							</div>
+						</td>
+						<td>${WEIGHT[item.weight]}</td>
+						<td><a href="#">编辑</a></td>
 					</tr>
-					<tr class="even">
-						<td>第一列</td>
-						<td>第二列</td>
-						<td>第三列</td>
-						<td>第四列</td>
-					</tr>
+					%endfor
 				</tbody>
 			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
 		</div>
 	</div>
 </%def>
