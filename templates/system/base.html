@@ -89,10 +89,24 @@
 						%if cuser:
 						<div class="box">
 							<div class="bt">
-								<span class="tit">欢迎您! ${cuser.name_zh}</span>
+								<span class="tit">登录为</span>
 							</div>
 							<div class="bc">
-								${cuser.name_zh} <a href="/system/logout/">登出</a>
+								<div class="hor_box media">
+									<div class="hor_item pic">
+										<a href="/system/v/user/${cuser.id}/">
+											<img src="/s/media/user_pic/${cuser.upic}" alt="${cuser.name_zh}" width="32" height="32" />
+										</a>
+									</div>
+									<div class="hor_item txt">
+										<p class="item">
+											姓名:<a href="/system/v/user/${cuser.id}/">${cuser.name_zh}</a>
+											<a href="/system/edit/user/${cuser.id}/">管理</a>
+											<a href="/system/logout/">退出</a>
+										</p>
+										<p class="item">部门:${cuser.department}</p>
+									</div>
+								</div>
 							</div>
 						</div>
 						%else:

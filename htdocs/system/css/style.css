@@ -736,3 +736,57 @@ tr:hover .f_over{
 tr:hover .a_new{
 	background-position:2px -347px;
 }
+
+/* media */
+.media .pic{
+	margin-right:5px;
+}
+.media .txt{
+	margin-top:-2px;
+}
+
+/* project_count */
+.count_box .item{
+	margin-bottom:5px;
+}
+.count_box .icon_state{
+	margin-right:8px;
+}
+
+/* degreebar */
+.degreebar{
+	height:11px;
+	border:1px solid #ADBEDA;
+	margin:0 5px;
+	position:relative;
+	text-align:left;
+	zoom:1;
+}
+.degreebar .degree{
+	height:100%;
+	overflow:hidden;
+	text-indent:-999em;
+	background:#7F96C1;
+}
+.degreebar .degree_number{
+	position:absolute;
+	width:80px;
+	height:18px;
+	line-height:18px;
+	left:50%;
+	margin-left:-40px;
+	top:-3px;
+	text-align:center;
+}
+
+/* userlist */
+.user_list{
+	margin-right:-64px;
+	margin-bottom:-10px;
+}
+.user_list .media{
+	*zoom:-1;
+}
+.user_list .user_item{
+	margin:12px 32px 20px 8px;
+}

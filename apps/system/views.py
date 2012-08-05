@@ -73,8 +73,9 @@ def index(request):
     for key in WEIGHT_KEYS:
         icon_guide_html += '''<i class="item ''' + key + '''">&nbsp;</i>''' + WEIGHT[key]
 
-    allProjects = sm.Project.objects.all().order_by("weight")[:10]
-    allTasks = sm.Task.objects.all().order_by("-id")[:10]
+    allProjects = sm.Project.objects.all().order_by("-id")
+    allTasks = sm.Task.objects.all().order_by("-id")
+    allUsers = sm.User.objects.all().order_by("department")
 
     uid = request.session.get("uid",None)
     try:

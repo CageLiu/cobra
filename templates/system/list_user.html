@@ -16,26 +16,26 @@
 		</div>
 		<div class="bc">
 			%if len(allUsers):
-			<table class="table">
-				<thead>
-					<tr>
-						<th>用户名</th>
-						<th>姓名</th>
-						<th>Email</th>
-						<th>部门</th>
-					</tr>
-				</thead>
-				<tbody>
-					%for item in allUsers.order_by("department"):
-					<tr>
-						<td>${item.usm}</td>
-						<td>${item.name_zh}</td>
-						<td>${item.email}</td>
-						<td>${item.department}</td>
-					</tr>
-					%endfor
-				</tbody>
-			</table>
+			   <ul class="hor_list user_list">
+				  	%for item in allUsers.order_by("department"):
+				   <li class="user_item"> 
+					   <div class="hor_box media">
+						   <div class="hor_item pic">
+							   <a href="/system/v/user/${item.id}/">
+								   <img src="/s/media/user_pic/${item.upic}" alt="${item.name_zh}" width="32" height="32" />
+							   </a>
+						   </div>
+						   <div class="hor_item txt">
+							   <p class="item">
+								   姓名:<a href="/system/v/user/${item.id}/">${item.name_zh}</a>
+							   </p>
+							   <p class="item">部门:${item.department}</p>
+							   <p class="item">Email:${item.email}</p>
+						   </div>
+					   </div>
+				   </li>
+				   %endfor
+			   </ul>
 			%else:
 			<div class="emptybox">暂无数据</div>
 			%endif
@@ -50,8 +50,11 @@
 		<span class="tit">增加成员</span>
 	</div>
 	<div class="bc">
-		如果是管理员帐号，则显示和添加成员链接
-		<a href="/system/add/user/">增加成员</a>
+			<div class="btnbox newitem" style="text-align:center">
+				<a class="btn gray_btn" href="/system/add/user/">
+					<span>新成员</span>
+				</a>
+			</div>
 	</div>
 </div>
 </%def>

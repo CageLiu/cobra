@@ -12,7 +12,7 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
 	%>
 	<div class="box">
 		<div class="bt">
@@ -51,13 +51,18 @@
 				<tbody>
 					%for item in allProjects.order_by("-id"):
 					<tr>
-						<td>${item.state}</td>
+						<td><i class="icon_state ${item.state}" title="${PROJECT_STATE[item.state]}">&nbsp;</i></td>
 						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
 						<td>${WEIGHT[item.weight]}</td>
 						<td>${item.ctime}</td>
 						<td>${item.starttime}</td>
 						<td>${item.period} 天</td>
-						<td>${item.degree}</td>
+						<td>
+							<div class="degreebar">
+								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
+								<span class="degree_number">${item.degree}%</span>
+							</div>
+						</td>
 						<td><a href="/system/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
 						<td><a href="#">编辑</a></td>
 					</tr>
@@ -73,17 +78,24 @@
 
 <!-- side -->
 <%def name="side()">
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+	%>
+
 	<div class="box">
 		<div class="bt">
 			<span class="tit">项目统计</span>
 		</div>
 		<div class="bc">
-			<ul class="info_list">
-				<li class="item">项目总数：${len(allProjects)}</li> 
-				<li class="item">项目总数：${len(allProjects)}</li> 
-				<li class="item">项目总数：${len(allProjects)}</li> 
-				<li class="item">项目总数：${len(allProjects)}</li> 
-			</ul>
+			<div class="count_box">
+				<p class="item">项目总数：${len(allProjects)}</p>
+				<p class="item"><i class="icon_state a_nostart"></i>未开始：${len(sm.Project.objects.filter(state = "a_nostart"))}</p>
+				<p class="item"><i class="icon_state b_doing"></i>进行中：${len(sm.Project.objects.filter(state = "b_doing"))}</p>
+				<p class="item"><i class="icon_state c_confirming"></i>确认中：${len(sm.Project.objects.filter(state = "c_confirming"))}</p>
+				<p class="item"><i class="icon_state d_reviseing"></i>调整中：${len(sm.Project.objects.filter(state = "d_reviseing"))}</p>
+				<p class="item"><i class="icon_state e_over"></i>已结束：${len(sm.Project.objects.filter(state = "e_over"))}</p>
+			</div>
 		</div>
 	</div>
 	<div class="box">
@@ -91,7 +103,11 @@
 			<span class="tit">新建项目</span>
 		</div>
 		<div class="bc">
-			<a href="/system/add/project/">新建项目</a>
+			<div class="btnbox newitem" style="text-align:center">
+				<a class="btn gray_btn" href="/system/add/project/">
+					<span>新项目</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </%def>
