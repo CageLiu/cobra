@@ -802,3 +802,12 @@ tr:hover .a_new{
 	border-top:1px dotted #ccc;
 	margin-top:-1px;
 }
+
+/* details */
+.details .dleft,
+.details .dright{
+	width:50%;
+}
+.details .dright{
+	overflow-x:auto;
+}

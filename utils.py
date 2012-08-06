@@ -79,21 +79,21 @@ def dirTree(path,pattern = ""):
     r = re.compile(pattern)
     def tree(path):
         if(os.path.isdir(path)):
-            container.append(r'''<li class="dir close clearfix"><span class="dir_name"><a href="#">''' + \
+            container.append(ur'''<li class="dir  clearfix"><span class="dir_name"><a href="#">''' + \
             os.path.basename(path) + \
-            r'''</a><i class="flag">&nbsp;</i><i class="type">&nbsp;</i></span></strong><ul class="sub_dir">''')
+            ur'''</a><i class="flag">&nbsp;</i><i class="type">&nbsp;</i></span></strong><ul class="sub_dir">''')
             for item in os.listdir(path):
                 tree(path+'/'+item)
-            container.append("</ul></li>")
+            container.append(ur"</ul></li>")
         else:
             if pattern:
-               not r.search(os.path.basename(path)) and container.append(r'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
+               not r.search(os.path.basename(path)) and container.append(ur'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
                os.path.basename(path) + \
-               r'''</a><i class="type"></i></span></li>''')
+               ur'''</a><i class="type"></i></span></li>''')
             else:
-               container.append(r'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
+               container.append(ur'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
                os.path.basename(path) + \
-               r'''</a><i class="type"></i></span></li>''')
+               ur'''</a><i class="type"></i></span></li>''')
     tree(path)
-    container = r'''<ul class="root" id="root">''' + "".join(container) + r'''</ul>'''
-    return container
+    container = ur'''<ul class="root" id="root">''' + "".join(container) + ur'''</ul>'''
+    return container.decode().encode()

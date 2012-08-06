@@ -20,7 +20,14 @@
 			<span class="tit">${obj.name_zh} 的详情</span>
 		</div>
 		<div class="bc">
-			项目信息
+			<div class="hor_box details">
+				<div class="hor_item dleft">
+					
+				</div>
+				<div class="hor_item dright">
+					${dirHtml}
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="box">
@@ -96,7 +103,7 @@
 				<li class="user_item">
 					<div class="hor_box media">
 						<div class="hor_item pic">
-							<a href="/system/v/user/${useritem}/">
+							<a href="/system/v/user/${useritem.id}/">
 								<img src="/s/media/user_pic/${useritem.upic}" alt="${useritem.name_zh}" width="32" height="32">
 							</a>
 						</div>

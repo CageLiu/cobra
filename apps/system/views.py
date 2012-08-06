@@ -285,6 +285,9 @@ def v(request,t = "", tid = ""):
         if t == "project":
             related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
+            dirHtml = dirTree("/var/www/cobra/www/test")
+            #dirHtml = dirHtml.encode()
+            dirHtml = unicode(dirHtml.decode().encode('utf-8'),'utf-8')
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":
