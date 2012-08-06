@@ -1,0 +1,68 @@
+{template "content","simple_header_peixun"}
+
+
+<div class="content clearfix">
+	<div class="left">
+		<div class="art_details">
+			<h1 class="art_tit">
+				{$title}
+			</h1>
+			<div class="art_bar clearfix">
+				<span class="art_from">来源：{$copyfrom}</span>
+				<span class="art_author">作者：{if empty($author)}未知{/if}{$author}</span>
+				<span class="pubtime">时间：{$inputtime}</span>
+				<span class="art_tool">
+					<span class="bg_sel">背景色：
+						<a title="无" class="none" href="javascript:set_bg('normal_bg','art_cont')">白</a>
+						<a title="黄" class="yellow" href="javascript:set_bg('yellow_bg','art_cont')">黄</a>
+						<a title="蓝" class="blue" href="javascript:set_bg('blue_bg','art_cont')">蓝</a>
+					</span>
+					<span class="font_sel">字体：
+						<a title="小" href="javascript:set_font(12,'art_cont')">小</a>
+						<a title="中" class="cur" href="javascript:set_font(14,'art_cont')">中</a>
+						<a title="大" href="javascript:set_font(18,'art_cont')">大</a>
+					</span>
+				</span>
+			</div>
+			<div class="details normal_bg" id="art_cont">
+				 {$content}
+				<div class="page">
+					{$pages}
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+    <div class="right">
+    	<div class="sidebox">
+			<div class="t">
+				<h3>
+					<span>最新公告</span>
+				</h3>
+			</div>
+			<div class="c">
+				<ul class="newslist">
+					{pc:content action="lists" catdir="pzxgg" order="updatetime DESC" num="8"}
+					{loop $data $val}
+                    <li><a href="{$val['url']}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+					{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+        <div class="sidebox">
+			<div class="t">
+				<h3>
+					<span>课程安排</span>
+				</h3>
+			</div>
+			<div class="c">
+				{pc:block pos="peixun_index_course_100"}{/pc}
+			</div>
+		</div>
+    </div>
+</div>
+
+
+
+{template "content","footer_peixun"}

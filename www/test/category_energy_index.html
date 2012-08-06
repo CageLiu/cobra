@@ -1,0 +1,672 @@
+{template "content","header_energy"}
+<div class="wrap">
+	<div class="layout">
+		<div class="main_col">
+			<div class="col_wrap split_col clearfix">
+				<div class="main_left">
+					<div class="flash">
+                        <div class="soChange p2_sc" id="soChange">
+                            {pc:block pos="energy_index_101" action="customtpl" num=3}
+                            {loop $data $val}
+                            <a class="change_img" target="_blank" href="{$val['url']}" style="display:none"><img src="{thumb($val['thumb'], 330, 212)}" height="212" width="330" alt="{htmlspecialchars($val['title'])}" title="{htmlspecialchars($val['title'])}" /></a>
+                            <h4 style="display:none"><a target="_blank" href="{$val['url']}">{str_cut(htmlspecialchars($val['title']),16)}</a></h4>
+                            {/loop}
+                            {/pc}
+                        </div>
+					</div>
+					<div class="box_item">
+						<div class="hd">
+							<h2>
+								<a>最新统计</a>
+							</h2>
+						</div>
+						<div class="ct brief_news">
+							<ul class="text_list">
+								{pc:block action="customtpl" pos="energy_index_102" num="6"}
+								{loop $data $val}
+                                <li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+								{/loop}
+								{/pc}
+							</ul>				
+						</div>
+					</div>
+				</div>
+				<div class="main_right">
+					<div class="focus_news" id="safe_focus">
+						<div class="hd">
+							{pc:block action="customtpl" pos="energy_index_103" num="1"}
+							{loop $data $val}
+                            <strong>
+                                <a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),16)}</a>
+                            </strong>
+                            <p class="focus_summary">{str_cut(htmlspecialchars($val['desc']),78)}...<a target="_blank" href="{$val[url]}">[详情]</a>
+							</p>
+							{/loop}
+							{/pc}
+                        </div>
+						<div class="box_ct">						
+							<ul class="text_list">
+								{pc:block action="customtpl" pos="energy_index_104" num="5"}
+								{loop $data $val}
+                                <li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+								{/loop}
+								{/pc}
+							</ul>
+							<div class="row_media_list">								
+								{pc:block action="customtpl" pos="energy_index_105"}
+								{loop $data $val}
+								<div class="media clearfix">
+									<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),9)}</a></h4>
+									<div class="pic">
+										<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75" width="100"></a>
+									</div>
+									<div class="txt">
+										<p class="summary">{str_cut($val[desc],34)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+									</div>
+								</div>
+								{/loop}
+								{/pc}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col_wrap">
+				<div class="col_hd  fixed_hd nyjr">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=nyjr')}" target="_blank" class="nyjr_t">能源金融</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_100"}{/pc}
+					</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					<div class="main_left">
+						<div class="box_item tab_a">
+							<div class="tab tab2 clearfix">
+								<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=nyjj')}" class="tabs cur2"><span>能源经济</span></a>
+								<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=yhxd')}" class="tabs"><span>银行信贷</span></a>
+                                <span class="pr more">{pc:block pos="energy_index_more_100"}{/pc}</span>
+							</div>
+							<div class="ct">
+								<div class="tabCont" style="display: none;">								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="nyjj" recommend="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+											<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+										
+										{pc:content action="lists" catdir="nyjj" recommend="0" order="updatetime DESC" num="8"}
+										{loop $data $val}
+										<li {if $n==3}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+								<div style="display: block;" class="tabCont">								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="yhxd" recommend="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+											<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+										
+										{pc:content action="lists" catdir="yhxd" recommend="0" order="updatetime DESC" num="8"}
+										{loop $data $val}
+										<li {if $n==3}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="main_right">
+						<div class="box_item tab_a">
+							<div class="tab tab2 clearfix">
+								<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=hgjj')}" class="tabs cur2"><span>宏观经济</span></a>
+								<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=qydt')}" class="tabs"><span>企业动态</span></a>
+                                <span class="pr more">{pc:block pos="energy_index_more_101"}{/pc}</span>
+							</div>
+							<div class="ct">
+								<div class="tabCont" style="display: none;">								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="hgjj" recommend="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+											<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+										
+										{pc:content action="lists" catdir="hgjj" recommend="0" order="updatetime DESC" num="8"}
+										{loop $data $val}
+										<li {if $n==3}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+								<div style="display: block;" class="tabCont">								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="qydt" recommend="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+											<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+										
+										{pc:content action="lists" catdir="qydt" recommend="0" order="updatetime DESC" num="8"}
+										{loop $data $val}
+										<li {if $n==3}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="aimgd">
+                {pc:block pos="energy_index_ad_100"}{/pc}
+            </div>
+            <div class="col_wrap pt0">
+				<div class="col_hd fixed_hd dlny">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=elec')}" target="_blank" class="dlny_t">电力能源</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_101"}{/pc}
+					</span>
+                    <span class="pr more">{pc:block pos="energy_index_more_102"}{/pc}</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					<div class="main_left">
+						<div class="box_item">
+                            <div class="ct">
+								<div class="tabCont" style="display: block;">								
+									<div class="media clearfix">
+										{pc:content action="lists" catdir="elec" recommend="1" thumb="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+										{php $id[] = $val['id']}
+										<div class="pic"> <a href="{$val[url]}" target="_blank"><img height="108" width="144" src="{thumb($val[thumb],144,108)}" alt="{htmlspecialchars($v[title])}"></a> </div>
+										<div class="txt">
+											<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),10)}</a></h4>
+											<p class="summary">{str_cut($val[description],40)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+										</div>
+										{/loop}
+										{/pc}
+									</div>								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="elec" recommend="0" order="updatetime DESC" num="5"}
+										{loop $data $val}
+										{php $id_2[] = $val['id']}
+										<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+                        </div>
+					</div>
+					<div class="main_right">
+						<div class="box_item">
+                            <div class="ct">
+                                <ul class="text_list">
+									{php if(!empty($id)) $ids=implode(',', $id)}
+									{pc:content action="lists" catdir="elec" filter="$ids" recommend="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+										<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+									{/loop}
+									{/pc}
+									
+									{php if(!empty($id_2)) $ids_2=implode(',', $id_2)}
+									{pc:content action="lists" catdir="elec" filter="$ids_2" recommend="0" order="updatetime DESC" num="9"}
+									{loop $data $val}
+										<li {if $n==4}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+									{/loop}
+									{/pc}
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+            <div class="col_wrap pt0">
+				<div class="col_hd fixed_hd meit">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=mt')}" target="_blank" class="meit_t">煤炭</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_102"}{/pc}
+					</span>
+                    <span class="pr more">{pc:block pos="energy_index_more_103"}{/pc}</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					<div class="main_left">
+						<div class="box_item">
+                            <div class="ct">
+								<div class="tabCont" style="display: block;">								
+									<div class="media clearfix">
+										{pc:content action="lists" catdir="mt" recommend="1" thumb="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+										{php $id[] = $val['id']}
+										<div class="pic"> <a href="{$val[url]}" target="_blank"><img height="108" width="144" src="{thumb($val[thumb],144,108)}" alt="{htmlspecialchars($v[title])}"></a> </div>
+										<div class="txt">
+											<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),10)}</a></h4>
+											<p class="summary">{str_cut($val[description],40)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+										</div>
+										{/loop}
+										{/pc}
+									</div>								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="mt" recommend="0" order="updatetime DESC" num="5"}
+										{loop $data $val}
+										{php $id_2[] = $val['id']}
+											<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+                        </div>
+					</div>
+					<div class="main_right">
+						<div class="box_item">
+                            <div class="ct">
+                                <ul class="text_list">
+									{php if(!empty($id)) $ids=implode(',', $id)}
+                                    {pc:content action="lists" catdir="mt" filter="$ids" recommend="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+										<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+									{/loop}
+									{/pc}
+									
+									{php if(!empty($id_2)) $ids_2=implode(',',$id_2)}
+									{pc:content action="lists" catdir="mt" filter="$ids_2" recommend="0" order="updatetime DESC" num="9"}
+									{loop $data $val}
+										<li {if $n==4}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+									{/loop}
+									{/pc}
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+            <div class="col_wrap pt0">
+				<div class="col_hd fixed_hd sytrq">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=sytrq')}" target="_blank" class="sytrq_t">石油天然气</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_103"}{/pc}
+					</span>
+                    <span class="pr more">{pc:block pos="energy_index_more_104"}{/pc}</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					<div class="main_left">
+						<div class="box_item">
+                            <div class="ct">
+								<div class="tabCont" style="display: block;">								
+									<div class="media clearfix">
+										{pc:content action="lists" catdir="sytrq" recommend="1" thumb="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+										{php $id[] = $val['id']}
+										<div class="pic"> <a href="{$val[url]}" target="_blank"><img height="108" width="144" src="{thumb($val[thumb],144,108)}" alt="{htmlspecialchars($v[title])}"></a> </div>
+										<div class="txt">
+											<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),10)}</a></h4>
+											<p class="summary">{str_cut($val[description],40)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+										</div>
+										{/loop}
+										{/pc}
+									</div>								
+									<ul class="text_list">
+										{pc:content action="lists" catdir="sytrq" recommend="0" order="updatetime DESC" num="5"}
+										{loop $data $val}
+										{php $id_2[] = $val['id']}
+											<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+                        </div>
+					</div>
+					<div class="main_right">
+						<div class="box_item">
+                            <div class="ct">
+                                <ul class="text_list">
+									{php if(!empty($id)) $ids=implode(',', $id)}
+                                    {pc:content action="lists" catdir="sytrq" filter="$ids" recommend="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+										<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+									{/loop}
+									{/pc}
+									{php if(!empty($id_2)) $ids_2=implode(',',$id_2)}
+									{pc:content action="lists" catdir="sytrq" filter="$ids_2" recommend="0" order="updatetime DESC" num="9"}
+									{loop $data $val}
+										<li {if $n==4}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+									{/loop}
+									{/pc}
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+            <div class="col_wrap pt0">
+				<div class="col_hd fixed_hd xny">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=xny')}" target="_blank" class="xny_t">新能源</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_104"}{/pc}
+					</span>
+                    <span class="pr more">{pc:block pos="energy_index_more_105"}{/pc}</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					<div class="main_left">
+						<div class="box_item">
+                            <div class="ct">
+								<div class="tabCont" style="display: block;">								
+									<div class="media clearfix">
+										{pc:content action="lists" catdir="xny" recommend="1" thumb="1" order="updatetime DESC" num="1"}
+										{loop $data $val}
+										{php $id[] = $val['id']}
+										<div class="pic"> <a href="{$val[url]}" target="_blank"><img height="108" width="144" src="{thumb($val[thumb],144,108)}" alt="{htmlspecialchars($v[title])}"></a> </div>
+										<div class="txt">
+											<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),10)}</a></h4>
+											<p class="summary">{str_cut($val[description],40)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+										</div>
+										{/loop}
+										{/pc}
+									</div>								
+									<ul class="text_list">										
+										{pc:content action="lists" catdir="xny" recommend="0" order="updatetime DESC" num="5"}
+										{loop $data $val}
+										{php $id_2[] = $val['id']}
+											<li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+							</div>
+                        </div>
+					</div>
+					<div class="main_right">
+						<div class="box_item">
+                            <div class="ct">
+                                <ul class="text_list">
+									{php if(!empty($id)) $ids=implode(',', $id)}
+                                    {pc:content action="lists" catdir="xny" filter="$ids" recommend="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+										<li class="first_item"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+									{/loop}
+									{/pc}
+									
+									{php if(!empty($id_2)) $ids_2=implode(',',$id_2)}
+									{pc:content action="lists" catdir="xny" filter="$ids_2" recommend="0" order="updatetime DESC" num="4"}
+									{loop $data $val}
+										<li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+									{/loop}
+									{/pc}
+                                </ul>
+                                <div class="media_box clearfix">								
+									{pc:block action="customtpl" pos="energy_index_107"}
+									{loop $data $val}
+									<div class="media clearfix">
+										<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),9)}</a></h4>
+										<div class="pic">
+											<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75" width="100"></a>
+										</div>
+										<div class="txt">
+											<p class="summary">{str_cut($val[desc],24)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+										</div>
+									</div>
+									{/loop}
+									{/pc}
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+            <div class="aimgd">
+                {pc:block pos="energy_index_ad_101"}{/pc}
+            </div>
+            <div class="col_wrap pt0">
+				<div class="col_hd fixed_hd nytj">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=nysj')}" target="_blank" class="nytj_t">能源统计</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="energy_index_biaoqian_105"}{/pc}
+					</span>
+                    <span class="pr more">{pc:block pos="energy_index_more_106"}{/pc}</span>
+				</div>
+				<div class="col_ct bzzq_con clearfix">
+					{pc:content action="lists" catdir="nysj" recommend="0" order="updatetime DESC" num="18"}{/pc}
+					<div class="main_left">
+						<ul class="text_list">
+							{loop $data $val}
+							{if $n<=9}
+								<li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/if}
+							{/loop}
+							
+					</ul>
+					</div>
+					<div class="main_right">
+						<ul class="text_list">
+							{loop $data $val}
+							{if $n>9}
+								<li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/if}
+							{/loop}
+					
+                        </ul>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="side_col">
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a>精彩推荐</a>
+					</h2>
+				</div>
+				<div class="ct side_special_media">
+					{pc:block action="customtpl" pos="energy_index_106"}
+					{loop $data $val}
+					<div class="media clearfix">
+						<div class="pic">
+							<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{str_cut(htmlspecialchars($val['title']),8)}" height="75" width="100"></a>
+						</div>
+						<div class="txt">
+							<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut(htmlspecialchars($val['title']),8)}</a></h4>
+							<p class="summary">{str_cut($val[desc],40)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+						</div>
+					</div>
+					{/loop}
+					{/pc}
+				</div>
+			</div>
+            <div class="box_item jrbj">
+                <div class="hd">
+                    <h2>
+                        <a>今日报价</a>
+                    </h2>
+                </div>
+                <div class="ct tab_c">
+                    <div class="i_tag">
+                        <span class="tabs current">原油</span><!-- <span class="tabs current">天然气</span><span class="tabs current">煤炭</span><span class="tabs current">燃气</span> -->
+                    </div>
+                    <div class="tag_con">
+                    	<div class="tabCont">
+						{pc:content action="energy"}
+                            <table width="100%" class="stock_table">
+                                <thead>
+                                    <tr class="table_hd">
+                                        <th><span>名称</span></th>
+                                        <th><span>价格</span></th>
+                                        <th><span>涨跌</span></th>
+                                        <th><span style="border:none">幅度</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {loop $data $val}
+									{php $cls = $val[updown]>=0 ? 'up' : 'down'}
+									{php $syb = $val[updownrate]>=0 ? '+' : ''}
+                                    <tr>
+                                        <td>{$val[name]}</td>
+                                        <td>{$val[price]}</td>
+                                        <td class="{$cls}">{$syb}{number_format($val[updown], 2, '.', '')}</td>
+                                        <td class="{$cls}">{$syb}{number_format($val[updownrate], 2, '.', '')}%</td>
+										
+                                    </tr>
+                                    {/loop}
+                                </tbody>
+                            </table>
+						{/pc}
+                        </div>
+                        <!--
+                        成品油、煤炭和燃气
+						-->	
+                    </div>
+                </div>
+            </div>
+			<div class="aimgd" style="margin-bottom:8px">
+				{pc:block pos="energy_index_ad_102"}{/pc}
+			</div>
+            <div class="box_item tab_a bond_tip">
+				<div class="tab tab1 clearfix">
+					<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=fbsny')}" class="tabs cur2"><span>分布式能源</span></a>
+					<a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=dtjj')}" class="tabs"><span>低碳经济</span></a>
+                    <a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=jnjp')}" class="tabs"><span>节能减排</span></a>
+				</div>
+				<div class="ct side_text_list">
+					<div class="tabCont">
+						<ul class="text_list">
+							{pc:content action="lists" catdir="fbsny" order="updatetime DESC" num="10"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+					</div>
+					<div style="display:none" class="tabCont">
+						<ul class="text_list">
+							{pc:content action="lists" catdir="dtjj" order="updatetime DESC" num="10"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+					</div>
+                    <div style="display:none" class="tabCont">
+						<ul class="text_list">
+							{pc:content action="lists" catdir="jnjp"  order="updatetime DESC" num="10"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+					</div>
+				</div>
+			</div>
+            <div class="aimgd">
+				{pc:block pos="energy_index_ad_103"}{/pc}
+			</div>
+            <div class="box_item nykj">
+                <div class="hd">
+                    <h2>
+                        <a target="_blank" href="{h('/index.php?m=content&c=index&a=lists&catdir=nykj')}">能源科技</a>
+                    </h2>
+                </div>
+                <div class="ct tab_c">
+                    <div class="i_tag">
+                        <span class="tabs current"><a href="{h('/index.php?m=content&c=index&a=lists&catdir=xcl')}" target="_blank">新材料</a></span><span class="tabs"><a href="{h('/index.php?m=content&c=index&a=lists&catdir=xkj')}" target="_blank">新科技</a></span>
+                    </div>
+                    <div class="tag_con side_text_list">
+                    	<div class="tabCont">
+                            <ul class="text_list">
+							{pc:content action="lists" catdir="xcl"  order="updatetime DESC" num="10"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+                            </ul>
+                        </div>
+                        <div class="tabCont" style="display:none">
+                            <ul class="text_list">
+							{pc:content action="lists" catdir="xkj"  order="updatetime DESC" num="10"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=nyzs')}" target="_blank">能源知识</a>
+					</h2>
+				</div>
+				<div class="ct side_text_list">
+					<ul class="text_list">
+							{pc:content action="lists" catdir="nyzs" order="updatetime DESC" num="9"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+					</ul>
+				</div>
+                <span class="pr more">{pc:block pos="energy_index_more_107"}{/pc}</span>
+			</div>
+            <div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=nyfg')}" target="_blank">能源法规</a>
+					</h2>
+				</div>
+				<div class="ct side_text_list">
+					<ul class="text_list">
+							{pc:content action="lists" catdir="nyfg" order="updatetime DESC" num="9"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+					</ul>
+				</div>
+                <span class="pr more">{pc:block pos="energy_index_more_108"}{/pc}</span>
+			</div>
+            <div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('/index.php?m=content&c=index&a=lists&catdir=nyorg')}" target="_blank">能源机构</a>
+					</h2>
+				</div>
+				<div class="ct side_text_list">
+					<ul class="text_list">
+							{pc:content action="lists" catdir="nyorg" order="updatetime DESC" num="9"}
+							{loop $data $val}
+								<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+							{/loop}
+							{/pc}
+					</ul>
+				</div>
+                <span class="pr more">{pc:block pos="energy_index_more_109"}{/pc}</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+{template "content","link_energy"}
+{template "content","footer_energy"}

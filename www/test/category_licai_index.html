@@ -1,0 +1,723 @@
+{php $head='licai_index'}
+{template "content","header_licai"}
+<div class="wrap">
+	<div class="layout">
+		<div class="l_col">
+			<div class="focus_news" id="money_focus">
+				<!-- 左上方文字-->
+				{pc:block pos="licai2_index_100"}{/pc}
+			</div>			
+			<div class="box_item false_tab">
+				<div class="tab tab1 clearfix">
+					<h4>要闻</h4>
+					<a class="tabs cur1" href="{h('[money]/lcyw/')}" target="_blank"><span>全部</span></a>
+					<a class="tabs" href="{h('[money]/bxyw/')}" target="_blank"><span>保险</span></a>
+					<a class="tabs" href="{h('[money]/yhyw/')}" target="_blank"><span>银行</span></a>
+					<a class="tabs" href="{h('[money]/lsyw/')}" target="_blank"><span>房产</span></a>
+				</div>
+				<div class="ct brief_news">
+					<div class="tabCont">
+						<strong class="hot_info">
+						{pc:content action="lists" catdir="lcyw" recommend="1" order="updatetime DESC" num="1"}
+							{loop $data $val}
+								<a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><br>
+							{/loop}
+						{/pc}
+						</strong>
+						<ul class="text_list">
+							{pc:content action="lists" catdir="lcyw" recommend="2"  order="updatetime DESC" num="6"}
+								{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],18)}</a></li>
+								{/loop}
+							{/pc}
+						</ul>
+						<p class="more"><a href="{h('[money]/lcyw/')}" target="_blank">浏览更多理财要闻</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="box_item tab_b">
+				<div class="tab tab1 clearfix">
+					<a class="tabs cur1" href="{h('[money]/lcgl/')}" target="_blank"><span>攻略</span></a>
+					<a class="tabs" href="{h('[money]/cfkx/')}" target="_blank"><span>快讯</span></a>
+				</div>
+				<div class="ct raiders">
+					<div class="tabCont">
+						{pc:content action="lists" catdir="lcgl" recommend="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="media clearfix">
+							<div class="pic">
+								<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75" width="100"></a>
+							</div>
+							<div class="txt">
+								<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],12)}</a></h4>
+								<p class="summary">{str_cut($val[description],60)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+							</div>
+						</div>
+						{/loop}
+						{/pc}
+						<ul class="text_list">
+							{pc:content action="lists" catdir="lcgl" recommend="2" order="updatetime DESC" num="2"}
+							{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+					</div>
+					<div class="tabCont" style="display:none">
+						{pc:content action="lists" catdir="cfkx" recommend="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="media clearfix">
+							<div class="pic">
+								<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75" width="100"></a>
+							</div>
+							<div class="txt">
+								<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],12)}</a></h4>
+								<p class="summary">{str_cut($val[description],60)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+							</div>
+						</div>
+						{/loop}
+						{/pc}
+						<ul class="text_list">
+							{pc:content action="lists" catdir="cfkx" recommend="2" order="updatetime DESC" num="2"}
+							{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m_col">
+			<div class="flash">
+				<div class="soChange p1_sc" id="soChange">
+					<!-- 焦点图-->
+					{pc:block action="customtpl" pos="licai2_index_202" num="3"}
+					{loop $data $val}
+				<p>
+					<a class="change_img" href="{$val['url']}"{if $n!=1} style="display: none;"{/if} target="_blank"><img alt="" height="206" src="{thumb($val['thumb'],394,206)}" title="{htmlspecialchars($val[title])}”
+				" uploadfile="" width="394" /></a></p>
+				<h4{if $n!=1} style="display: none;"{/if}>
+					<a href="{$val['url']}" target="_blank">{str_cut(strip_tags($val['title']),18)}</a></h4>
+					{/loop}
+					{/pc}
+				</div>
+			</div>
+			
+			<div class="rcmd_news">
+				<!-- 焦点图下方文字-->
+				{pc:block pos="licai2_index_103"}{/pc}
+			</div>
+			
+			<div class="special">
+				<div class="hd fixed_hd">
+					<h2 class="cjtbch">
+						<a>理财特别策划</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<div class="media clearfix">
+						{pc:content action="lists" catdir="lczt"  recommend="1" thumb="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="pic">
+							<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],144,108)}" alt="{htmlspecialchars($v[title])}" height="108" width="144"></a>
+						</div>
+						<div class="txt">
+							<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></h4>
+							<p class="summary">{str_cut($val[description],80)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+						</div>
+						{/loop}
+						{/pc}
+					</div>
+					<ul class="text_list clearfix">
+						{pc:content action="lists" catdir="lczt" recommend="0" order="updatetime DESC" num="6"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<!-- 往期专题 -->
+					{pc:block pos="licai2_index_114"}{/pc}
+				</span>
+			</div>
+			
+			<div class="current_topics">
+				<div class="hd">
+					<h2 class="clearfix">
+						<!-- 本期推荐话题title -->
+						<span>本期推荐话题</span>
+						{pc:block pos="licai2_index_104"}{/pc}
+					</h2>
+				</div>
+				<div class="ct">
+					<!-- 本期推荐话题内容 -->
+					{pc:block pos="licai2_index_105"}{/pc}
+				</div>
+			</div>
+		</div>
+		<!-- 股票信息图 -->
+		<div class="r_col">			
+			<div class="box_item tab_a market_info">
+				<div class="tab tab1 clearfix">
+					<a class="tabs cur2"  target="_blank"><span>上指</span></a>
+					<a class="tabs"  target="_blank"><span>深指</span></a>
+					<a class="tabs"  target="_blank"><span>基金</span></a>
+				</div>
+				{pc:content action="stock" type="index_info"}
+				{php $cls = $data[stock][sh000001][diff_percent]>0 ? 'up' : 'down';}
+	            {php $syb = $data[stock][sh000001][diff_percent]>0 ? '+' : '';}
+				<div class="ct" id="market_pic">
+					<div class="tabCont">
+					
+						<div class="pic_blank">
+							<ul>
+								<li>
+									<p><span>{$data[stock][sh000001][name]}</span><span class="up">{$data[stock][sh000001][cur_value]}</span><span class="up">{number_format($data[stock][sh000001][turnover]/100000000,2,'.','')}亿</span><span class="up">{$syb}{number_format($data[stock][sh000001][diff_percent] * 100, 2, '.','')}%</span></p>
+									<img src="{thumb($data[stock][sh000001][imageUrl],213,133)}" alt="{htmlspecialchars($data[stock][sh000001][name])}" width="213" height="133" />
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tabCont" style="display:none">
+						<div class="pic_blank">
+							<ul>
+								<li>
+									<p><span>{$data[stock][sz399001][name]}</span><span class="up">{$data[stock][sz399001][cur_value]}</span><span class="up">{number_format($data[stock][sz399001][turnover]/100000000,2,'.','')}亿</span><span class="up">{$syb}{number_format($data[stock][sz399001][diff_percent] * 100, 2, '.','')}%</span></p>
+									<img src="{thumb($data[stock][sz399001][imageUrl],213,133)}" alt="{htmlspecialchars($data[stock][sz399001][name])}" width="213" height="133" />
+								</li>
+							</ul>
+						</div>
+					</div>
+					         
+					<div class="tabCont" style="display:none">
+						<ul>
+							{php $stockname = 'fund'}
+							{loop $data[$stockname] $val}
+							<li>
+								<p><span>{$val[name]}</span><span class="up">{number_format($val[cur_value], 2, '.', '')}</span><span class="up">{$syb}{number_format($val[diff_value], 2, '.', '')}</span><span class="up">{$syb}{number_format($val[diff_percent] * 100, 2, '.', '')}%</span></p>
+								<img src="{thumb($val[imageUrl],213,133)}" alt="{htmlspecialchars({$val[name]})}" width="213" height="133" />
+							</li>
+							{/loop}
+						</ul>
+					</div>
+					
+				</div>
+				{/pc}
+
+				<script type="text/javascript">
+					$(document).ready(
+						function(){
+							$("#market_pic ul li").addClass("hide");
+							$("#market_pic ul").each(
+								function(){
+									$(this).find("li").eq(0).removeClass();
+								}
+							);
+							$("#market_pic ul li").mouseover(
+								function()
+								{
+									$(this).parent().find("li").addClass("hide");
+									$(this).removeClass();
+								});
+						}
+					);
+				</script>
+			</div>	
+			<div class="box_item front_five">
+				<div class="hd">
+					<h2>
+						<a target="_blank">沪深看涨幅前五播报</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<table class="stock_table" width="100%">
+						<thead>
+							<tr>
+								<th><span>股票名称</span></th>
+								<th><span>最新价</span></th>
+								<th><span>涨跌额</span></th>
+								<th><span>涨跌幅</span></th>
+							</tr>
+						</thead>
+						<tbody>
+						{pc:content action="stock" type="increase" cat="all" num="5"}
+						{loop $data $val}
+						{php $cls = $val[diff_percent]>=0 ? 'up' : 'down';}
+                        {php $syb = $val[diff_percent]>=0 ? '+' : ''}
+							<tr>
+								<td><a href="{$val[url]}" target="_blank" title="{$val[code]}">{$val[name]}</a></td>
+								<td>{$val[new]}</td>
+								{php $diff=$val['new']-$val['pre_close']}
+								<td class="{$cls}">{$syb}{number_format($diff, 2, '.', '')}</td>
+								<td class="{$cls}">{$syb}{number_format($val[diff_percent] * 100, 2, '.', '')}%</td>
+							</tr>
+						{/loop}
+						{/pc}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="box_item finance_express">
+				<div class="hd">
+					<h2>
+						<a  target="_blank">理财直通车</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<!-- 理财直通车 -->
+					{pc:block pos="licai2_index_106"}{/pc}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="aimgd">
+		<!-- 下部广告 -->
+		{pc:block pos="licai2_index_115"}{/pc}
+	</div>	
+	<div class="fun_nav">
+		<!-- 债券专区 -->
+		{pc:block pos="licai2_index_107"}{/pc}
+	</div>
+	<div class="layout layout_hbg">
+		<div class="l_col">
+			<div class="focus_news">
+				{pc:content action="lists" catdir="zqyw" recommend="1" order="updatetime DESC" num="1"}
+				{loop $data $val}
+				{php $boolean = 1}
+				<div class="hd">
+					<strong>
+						<a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a>
+					</strong>
+				</div>
+				<div class="ct">
+					<p class="focus_summary">{str_cut($val[description],60)}…<a href="{$val[url]}" target="_blank">[详情]</a>
+					</p>
+				{/loop}
+				{/pc}
+				{if $boolean != 1}
+				<div class="ct">
+				{/if}
+					<ul class="text_list">
+						<!-- 证券二级推荐 -->
+						{pc:content action="lists" catdir="zqyw" recommend="2" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li {if $n==4}class="list_blank"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+						<!-- 最新证券 -->
+						{pc:content action="lists" catdir="zqyw" recommend="0" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+					<div class="media clearfix">
+						{pc:content action="lists" catdir="zqyw" recommend="2" thumb="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="pic">
+							<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75px" width="100px"></a>
+						</div>
+						<div class="txt">
+							<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],8)}</a></h4>
+							<p class="summary">{str_cut($val[description],60)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+						</div>
+						{/loop}
+						{/pc}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m_col">
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/zqxt/')}" target="_blank">债券学堂</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 债券学堂一级推荐 -->
+						{pc:content action="lists" catdir="zqxt" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 债券学堂最新 -->
+						{pc:content action="lists" catdir="zqxt" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/zqxt/')}" target="_blank">更多</a>
+				</span>
+			</div>
+			
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/zqyj/')}" target="_blank">债市研究</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 债市研究一级推荐 -->
+						{pc:content action="lists" catdir="zqyj" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 债市研究最新 -->
+						{pc:content action="lists" catdir="zqyj" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/zqyj/')}" target="_blank">更多</a>
+				</span>
+			</div>
+			
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/hwzs/')}" target="_blank">债市市场周边</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 债市市场周边一级推荐 -->
+						{pc:content action="lists" catdir="hwzs" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 债市市场周边最新 -->
+						{pc:content action="lists" catdir="hwzs" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/hwzs/')}" target="_blank">更多</a>
+				</span>
+			</div>
+		</div>
+		<div class="r_col">
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/zsgg/')}" target="_blank">债市公告</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!--债市公告最新 -->
+						{pc:content action="lists" catdir="zsgg" order="updatetime DESC" num="5"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+			
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a>债券24小时热点关注</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 债券24小时热点关注 -->
+						{php $catid=catdirtocatid("lczq");}
+						{pc:content action="hits" catid="$catid" extra2="$catid" order="dayviews desc" day="1" num="10"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 广告 -->
+	<div class="aimgd">
+	{pc:block pos="licai2_index_108"}{/pc}
+	</div>
+	
+	<div class="fun_nav">
+	<!-- 保险专区 -->
+	{pc:block pos="licai2_index_109"}{/pc}
+	</div>
+	
+	<div class="layout layout_hbg">
+		<div class="l_col">
+			<div class="focus_news">
+				{php $boolean = 0}
+				{pc:content action="lists" catdir="bxyw" recommend="1" order="updatetime DESC" num="1"}
+				{loop $data $val}
+				{php $boolean = 1}
+				<div class="hd">
+					<strong>
+						<a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a>
+					</strong>
+				</div>
+				<div class="ct">
+					<p class="focus_summary">{str_cut($val[description],60)}…<a href="{$val[url]}" target="_blank">[详情]</a>
+					</p>
+				{/loop}
+				{/pc}
+				{if $boolean != 1}
+				<div class="ct">
+				{/if}
+					<ul class="text_list">
+						<!-- 保险二级推荐 -->
+						{pc:content action="lists" catdir="bxyw" recommend="2" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li {if $n==4}class="list_blank"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+						<!-- 最新保险 -->
+						{pc:content action="lists" catdir="bxyw" recommend="0" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+					<div class="media clearfix">
+						{pc:content action="lists" catdir="bxyw" recommend="2" thumb="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="pic">
+							<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75px" width="100px"></a>
+						</div>
+						<div class="txt">
+							<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></h4>
+							<p class="summary">{str_cut($val[description],60)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+						</div>
+						{/loop}
+						{/pc}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="m_col">
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/bxxx/')}" target="_blank">行业动态</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 行业动态一级推荐 -->
+						{pc:content action="lists" catdir="bxxx" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 行业动态最新 -->
+						{pc:content action="lists" catdir="bxxx" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/bxxx/')}" target="_blank">更多</a>
+				</span>
+			</div>
+			
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/bxxt/')}" target="_blank">保险学堂</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 保险学堂一级推荐 -->
+						{pc:content action="lists" catdir="bxxt" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 保险学堂最新 -->
+						{pc:content action="lists" catdir="bxxt" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/bxxt/')}" target="_blank">更多</a>
+				</span>
+			</div>
+			
+			<div class="zone_news">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/bxcp/')}" target="_blank">保险产品咨询</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 保险产品咨询一级推荐 -->
+						{pc:content action="lists" catdir="bxcp" recommend="1,2" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+
+						<!-- 保险产品咨询最新 -->
+						{pc:content action="lists" catdir="bxcp" recommend="0" order="updatetime DESC" num="3"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+				<span class="pr">
+					<a href="{h('[money]/bxcp/')}" target="_blank">更多</a>
+				</span>
+			</div>
+		</div>
+		<div class="r_col">
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/bxfg/')}" target="_blank">保险法规</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						{pc:content action="lists" catdir="bxfg" order="updatetime DESC" num="5"}
+						{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+			
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a>保险24小时热点关注</a>
+					</h2>
+				</div>
+				<div class="ct">
+					<ul class="text_list">
+						<!-- 保险24小时热点关注 -->
+						{php $catid=catdirtocatid("lcbx");}
+						{pc:content action="hits" catid="165" extra2="$catid" order="dayviews desc" day="1" num="10"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- 广告 -->
+	<div class="aimgd">
+	{pc:block pos="licai2_index_110"}{/pc}
+	</div>
+	<div class="layout">
+		<div class="l_col">
+			<div class="box_item">
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/yssc/')}" target="_blank">收藏</a>
+					</h2>
+				</div>
+				<div class="ct collect">
+					<div class="media clearfix">
+						{pc:content action="lists" catdir="yssc" recommend="1" thumb="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="pic">
+							<a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($v[title])}" height="75" width="100"></a>
+						</div>
+						<div class="txt">
+							<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></h4>
+							<p class="summary">{str_cut($val[description],60)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+						</div>
+						{/loop}
+						{/pc}
+					</div>
+					<ul class="text_list">
+						<!-- 收藏一、二级推荐 -->
+						{pc:content action="lists" catdir="yssc" recommend="1,2" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li {if $n==4}class="list_blank"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+						<!-- 最新收藏 -->
+						{pc:content action="lists" catdir="yssc" recommend="0" order="updatetime DESC" num="4"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="m_col">
+			<div class="box_item">
+				<!-- 房产 -->
+				<div class="hd">
+					<h2>
+						<a href="{h('[money]/fc/')}" target="_blank">房产</a></h2>
+				</div>
+				<div class="ct estate">
+					{pc:block pos="licai2_index_111"}{/pc}
+					<ul class="text_list">
+						<!-- 房产一、二级推荐 -->
+						{pc:content action="lists" catdir="fc" recommend="1,2" order="updatetime DESC" num="6"}
+						{loop $data $val}
+						<li {if $n==6}class="list_blank"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+						<!-- 最新房产 -->
+						{pc:content action="lists" catdir="fc" recommend="0" order="updatetime DESC" num="6"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a><span class="pr">{date("Y-m-d",$val[updatetime])}</span></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<div class="r_col">
+			<div class="box_item credit_card">
+				<!-- 信用卡中心入口 -->
+				{pc:block pos="licai2_index_112"}{/pc}
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+{php $blockpage='licai2_index'}
+{template "content","link_licai"}
+{template "content","footer_licai"}

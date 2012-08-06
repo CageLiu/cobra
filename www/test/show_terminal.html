@@ -1,0 +1,75 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <script type="text/javascript" src="{JS_PATH}AC_RunActiveContent.js"></script>
+    <body class="inner">
+        <div class="wp">
+            {php $catinfo = catinfo($catid)}
+            {php $catinfo = $catinfo[1]}
+            {php $catdir = $cur_catdir}
+            {template 'content','menu_terminal'}
+            <div class="box wp_box">
+                <div class="bt">
+                    <span class="icon icon3">{$catinfo[catname]}</span>
+                    <em>&gt;</em>
+                    <span>正文内容</span>
+                    <div class="extra">
+                        <a href="/index.php?m=content&c=index&a=lists&catdir={$cur_catdir}">返回{$catinfo[catname]}列表</a>
+                    </div>
+                </div>
+                <div class="bc">
+                    <div class="details">
+                        <div class="title">
+                            <h1>{$title}</h1>
+                            <span>{date('Y年m月d日',strtotime($inputtime))}</span>
+                        </div>
+                        <div class="cont" id="pdf">
+                            {php $content=strip_tags($content,"<br><br /><p><table><tr><td><tbody><th>")}
+                            <!--<span id="full"><a href="javascript:void(0)" hidefocus="0" onclick="full()">全屏</a></span>-->
+                            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="100%" height="100%" id="myFlash">
+                                <param name="movie" value="{$content}" />
+                                <param name="allowScriptAccess" value="always" />
+                                <param name="quality" value="high" />
+                                <param name="wmode" value="transparent" />
+                            </object>
+                        </div>
+                        <div class="statement">
+                            <div>
+                                <h2>免责声明</h2>
+                                <p>CCTV证券资讯网网站和第三方内容提供商对用户提供的所有数据和信息仅供参考，刊载这些文档并不构成对任何股份的收购、购买、认购、抛售或持有的邀约或意图。参阅本网站上所刊的文档的人士，应被视为已确认得悉上述立场。投资者依据本网站提供的信息、资料及图表进行金融、证券等投资项目所造成的盈亏与本网站无关。</p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+    var $pdf = document.getElementById("pdf");
+    function fitHeight() {
+        $pdf.style.height = 672 + "px";
+    }
+
+    window.onResize = fitHeight()
+    var f=true;
+    function full(){
+            $body = document.getElementsByTagName("body")[0];
+            $full = document.getElementById("full").getElementsByTagName("a")[0];
+        if(f){
+            $body.className="";
+            fitHeight();
+            f=false;
+            $full.innerHTML="返回";
+            $full.title="退出全屏"
+        }else{
+            $body.className="normal";
+            fitHeight();
+            f=true;
+            $full.innerHTML="全屏";
+            $full.title="启动全屏"
+        }
+    }
+</script>
+    </body>
+</html>
+

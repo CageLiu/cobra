@@ -1,0 +1,464 @@
+{php $head='shixun_index'}
+{template "content","header_shixun"}
+	<div class="box_single">
+		<div class="box_inner clearfix">
+			<div class="box_main">
+				<div class="box_first">
+					<div class="ct">
+						<!--焦点图-->
+                        {pc:block pos="shixun_spdp_101"}{/pc}<!-- 视讯视频点播 - 焦点图 -->
+
+                        <!--//焦点图-->
+					</div>	
+				</div>
+				<div class="box_item" id="hd_tab">
+					<div class="hd">
+						<h2>节目列表</h2>
+					</div>
+					<div class="ct pro_list">
+						<!--节目列表-->
+                        <ul class="program_list clearfix">
+                            {pc:content action="category" catid="522" num="50"}
+                            {loop $data $val}
+							    {if $val['catdir'] != 'zxbj'}
+                                <li><a href="{$val[url]}" target="_blank">{str_cut($val[catname], 10)}</a></li>
+                                {/if} 
+                            {/loop}
+                            {/pc}    
+                        </ul>
+                        <!--//节目列表-->
+                        <div class="line dashed"></div>
+                        <!--图片列表-->
+                            <ul class="row_pic_list news_pic_list">
+                            {pc:block action="customtpl" pos="shixun_spdp_123"}
+                            {loop $data $v}
+                                <li>
+                                    <a href="{$v[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($v[title])}" src="{thumb($v[thumb],150,90)}"><span>{str_cut($v[title], 10)}</span></a>
+                                </li>
+                            {/loop}
+                            {/pc}
+                           </ul>
+                         <!--//图片列表-->
+					</div>
+					<span class="more">
+                    {pc:block pos="shixun_spdp_102"}{/pc}<!-- 视讯视频点播 - 节目列表 - 更多 -->
+                    	
+                    </span>				
+				</div>
+                <div class="ads_area">
+                    <!--广告-->
+                    {pc:block pos="shixun_spdp_103"}{/pc}<!-- 视讯视频点播 - 中间栏广告 -->
+                    
+                    <!--//广告-->
+                </div>
+                <div class="box_item">
+					<div class="hd">
+						<h2>A股</h2>
+					</div>
+					<div class="ct clearfix">
+						{pc:content action="lists" catid="522" prop="A股" order="inputtime DESC" num="12"}
+								{php $c=count($data)}
+								{loop $data $val}
+								{if $n==1||$n==7}
+									<div class="col2_box">
+									<div class="media row_media">
+										<div class="m_pic">
+											<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+										</div>
+										<div class="m_txt">
+											<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+
+											<p class="m_summary">
+												{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+											</p>
+										</div>
+									</div>
+									<ul class="text_list video_list">
+								{/if}
+
+								{if $n!=1&&$n!=7}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if ($n%6==0)||$n==$c}
+								</ul>
+								</div>
+								{/if}
+								{/loop}
+						{/pc}
+                        
+					</div>
+					<span class="more">
+                    {pc:block pos="shixun_spdp_106"}{/pc}<!-- 视讯视频点播 - A股 - 更多 -->
+                    </span>				
+				</div>
+				<div class="box_whole col2 clearfix">
+					<div class="box_col">
+						<div class="hd">
+							<h2>港股</h2>
+						</div>
+						<div class="ct wid80">
+                            {pc:content action="lists" catid="529" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=529')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+					<div class="box_col">
+						<div class="hd">
+							<h2>期货</h2>
+						</div>
+						<div class="ct wid80">
+							{pc:content action="lists" catid="538" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=538')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+				</div>
+                <div class="box_whole col2 clearfix">
+					<div class="box_col">
+						<div class="hd">
+							<h2>外汇</h2>
+						</div>
+						<div class="ct wid80">
+							{pc:content action="lists" catid="523" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=523')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+					<div class="box_col">
+						<div class="hd">
+							<h2>基金</h2>
+						</div>
+						<div class="ct wid80">
+							{pc:content action="lists" catid="539" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=539')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+				</div>
+                 <div class="box_whole col2 clearfix">
+					<div class="box_col">
+						<div class="hd">
+							<h2>投资名家</h2>
+						</div>
+						<div class="ct wid80">
+							{pc:content action="lists" catid="528" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=528')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+					<div class="box_col">
+						<div class="hd">
+							<h2>理财课堂</h2>
+						</div>
+						<div class="ct wid80">
+							{pc:content action="lists" catid="532" order="inputtime DESC" num="6"}
+								{php $count = count($data)}
+                                {loop $data $val}
+                                {if $n==1}
+								<div class="media row_media">
+									<div class="m_pic">
+										<a href="{$val[url]}" target="_blank"><img height="90px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,90)}"></a>
+									</div>
+									<div class="m_txt">
+										<h3 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></h3>
+										<p class="m_summary">
+											{str_cut($val[description], 40)}...<a href="{$val[url]}" target="_blank">详情</a>
+
+										</p>
+									</div>
+								</div><ul class="text_list video_list">
+								{else}
+								<li>
+									<span class="text">
+										<a href="{$val[url]}" target="_blank">{str_cut($val[title], 25)}</a>
+									</span>
+								</li>
+								{/if}
+								{if $n==$count&&$n>1}
+								</ul>
+								{/if}
+                                {/loop}
+                            {/pc}
+						</div>
+						<span class="more">
+						<a href="{h('/index.php?m=content&c=index&a=lists&catid=532')}" target="_blank">更多>></a>
+                        </span>
+					</div>
+				</div>
+			</div>
+			<div class="box_side">
+				<div class="box_first">
+                	<div class="hd">
+						<h2>推荐视频</h2>
+					</div>
+					<div class="ct">
+						<!--推荐视频-->
+                        <div class="hot_video_list side_filler">
+                        	{pc:block pos="shixun_spdp_119"}{/pc}<!-- 视讯视频点播 - 推荐视频 - 图片文章 -->
+                            
+						</div>
+                        <!--//推荐视频-->
+					</div>				
+				</div>
+                <div class="box_aimgd">
+                	<!--广告-->
+                    {pc:block pos="shixun_spdp_120"}{/pc}<!-- 视讯视频点播 - 右侧广告第一栏 -->
+			
+                    <!--//广告-->
+				</div>
+				<div id="video_tab" class="box_item">
+					<div class="hd">
+						<h2>视频排行</h2>
+					</div>
+					<div class="ct wid80">
+						<!--视频排行-->
+                        <ul class="video_ranking tabCont">
+                        {pc:content  action="hits" catid="522" day="1" num="10" order="views DESC"}
+                        	{loop $data $val}
+                            {if $n==1}
+                            <li class="current">
+                                <span class="front">{$n}</span><a href="{$val[url]}" target="_blank"><img height="95px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,95)}"><span class="video_name">{str_cut($val[title], 15)}</span></a>
+                            </li>
+                            {/if}
+                            {if $n>1 and $n<=3}
+                            <li>
+                               <span class="front">{$n}</span><a href="{$val[url]}" target="_blank">
+                               <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                            </li>
+                            {/if}
+                            {if $n>3}
+                            <li>
+                                <span class="normal">{$n}</span><a href="{$val[url]}" target="_blank">
+                                <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                            </li>
+                            {/if}
+                            {/loop}
+                        {/pc}
+                        </ul>
+                        <ul class="video_ranking tabCont">
+                            {pc:content  action="hits" catid="522" day="7" num="10" order="views DESC"}
+                                {loop $data $val}
+                                {if $n==1}
+                                <li class="current">
+                                    <span class="front">{$n}</span><a href="{$val[url]}" target="_blank"><img height="95px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,95)}"><span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {if $n>1 and $n<=3}
+                                <li>
+                                   <span class="front">{$n}</span><a href="{$val[url]}" target="_blank">
+                                   <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {if $n>3}
+                                <li>
+                                    <span class="normal">{$n}</span><a href="{$val[url]}" target="_blank">
+                                    <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {/loop}
+                            {/pc}
+                        </ul>
+                        <ul class="video_ranking tabCont">
+                            {pc:content  action="hits" catid="522" day="30" num="10" order="views DESC"}
+                                {loop $data $val}
+                                {if $n==1}
+                                <li class="current">
+                                    <span class="front">{$n}</span><a href="{$val[url]}" target="_blank"><img height="95px" width="150px" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],150,95)}"><span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {if $n>1 and $n<=3}
+                                <li>
+                                   <span class="front">{$n}</span><a href="{$val[url]}" target="_blank">
+                                   <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {if $n>3}
+                                <li>
+                                    <span class="normal">{$n}</span><a href="{$val[url]}" target="_blank">
+                                    <span class="video_name">{str_cut($val[title], 15)}</span></a>
+                                </li>
+                                {/if}
+                                {/loop}
+                            {/pc}
+                        </ul>
+                        <!--//视频排行-->
+					</div>
+					<span class="more"><em class="tabs cur_tab">日</em>|<em class="tabs">周</em>|<em class="tabs">月</em> </span>				
+				</div>
+                <div class="box_aimgd">
+                	<!--广告-->
+                    {pc:block pos="shixun_spdp_121"}{/pc}<!-- 视讯视频点播 - 右侧广告第二栏 -->
+					
+                    <!--//广告-->
+				</div>
+                <div class="box_item">
+					<div class="hd">
+						<h2>其他人在关注</h2>
+					</div>
+					<div class="ct wid80">
+						<!--其他人在关注-->
+                        <ul class="trends">
+                            {pc:content action="reading" catid="554" num="10"}
+                                {loop $data $val}
+                                    <li><strong>{timetostring($val['time'])}</strong>
+                                    <a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></li>
+                                {/loop}
+                            {/pc}
+                        </ul>
+                        <!--//其他人在关注-->
+					</div>			
+				</div>
+                <div class="box_aimgd">
+                	<!--广告-->
+                    {pc:block pos="shixun_spdp_122"}{/pc}<!-- 视讯视频点播 - 右侧广告第三栏 -->
+				
+                    <!--//广告-->
+				</div>
+			</div>
+		</div>
+	</div>
+{template "content","footer_shixun"}

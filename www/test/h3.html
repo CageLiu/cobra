@@ -1,0 +1,707 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+
+<div class="wp">
+	<div class="crumb_nav">
+		当前所在位置：
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">酒店预订</a>
+		<span>&gt;</span>
+		<a href="#">酒店列表</a>
+		<span>&gt;</span>
+		<em>支付成功</em>
+	</div>
+	<div class="radiusbox">
+		<div class="radius radius_top">
+			<div>radius top</div>
+		</div>
+		<div class="radius_cont">
+			<div class="radius_inner radius_inner2">
+				<div class="radius_title">
+					<h2>预订国内酒店</h2>
+				</div>
+				<div class="radius_table_box">
+					<form action="">
+						<div class="form has_field offset90">
+							<table class="radius_table">
+								<colgroup>
+									<col width="33%">
+									<col width="33%">
+									<col width="34%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<td>
+											<div class="item">
+												<label class="field"><em>*</em>入住城市</label>
+												<input type="text" class="txt" value="中文/拼音">
+											</div>
+										</td>
+										<td>
+											<div class="item">
+												<label class="field"><em>*</em>入住时间</label>
+												<input type="text" class="txt date">
+											</div>
+										</td>
+										<td>
+											<div class="item">
+												<label class="field"><em>*</em>离店时间</label>
+												<input type="text" class="txt date">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="item">
+												<label class="field">房价范围</label>
+												<input type="text" class="txt w75">
+												~
+												<input type="text" class="txt w75">
+											</div>
+										</td>
+										<td>
+											<div class="item">
+												<label class="field">星级要求</label>
+												<select>
+													<option>不限星级</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="item">
+												<label class="field">酒店位置</label>
+												<input type="text" class="txt" value="街道/地标/建筑物">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="item">
+												<label class="field">酒店名称</label>
+												<input type="text" class="txt" value="中文/拼音">
+											</div>
+										</td>
+										<td>
+											<div class="item">
+												<a href="javascript:;" class="btn btn3">
+													查询
+													<input type="submit" value="查询" />
+												</a>
+											</div>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="radius radius_bottom">
+			<div>radius bottom</div>
+		</div>
+	</div>
+	<div class="box box2">
+		<div class="bt">
+			<strong>酒店列表</strong>
+		</div>
+		<div class="bc">
+			<ul class="hotel_list">
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i>三星</i>
+								<i>四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr id="details_info">
+								<td colspan="7">
+									<div class="popdiv">
+										<em class="arrow">arrow</em>
+										<div class="hotel_media_box1 clearfix">
+											<div class="media_pic">
+												<a href="#"><img src="/static_url/base/img/01.jpg" width="120" height="90" alt=""></a>
+											</div>
+											<dl class="hotel_media hotel_media1 ov_hidden">
+												<dd><span>面积：</span>42 - 45平米</dd>
+												<dd><span>床型：</span>此房型为1张1.8m大床</dd>
+												<dd><span>宽带：</span>全部收费有线</dd>
+												<dd><span>是否无烟房：</span>该房型可无烟处理</dd>
+												<dd><span>楼层：</span>3 - 10</dd>
+												<dd><span>加床费用：</span>1879元</dd>
+												<dd><span>可住人数：</span>2人</dd>
+											</dl>
+										</div>
+										<span class="hide_btn">隐藏</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i>三星</i>
+								<i>四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i>三星</i>
+								<i class="no_star">四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i class="no_star">三星</i>
+								<i class="no_star">四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i>三星</i>
+								<i>四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+				<li>
+				<div class="hotel_media_box1 clearfix">
+					<div class="media_pic">
+						<a href="#"><img src="/static_url/base/img/01.jpg" width="160" height="120" alt=""></a>
+					</div>
+					<dl class="hotel_media hotel_media1 ov_hidden">
+						<dt>上海嘉正国际安内吉酒店</dt>
+						<dd><span>地址：</span>上海市黄浦路199号<a href="#">地图</a></dd>
+						<dd><span>商圈：</span><a href="#" class="pl0">外滩</a><a href="#">人民广场</a></dd>
+						<dd><span>简介：</span>上海外滩茂悦大酒店位于上海市黄浦区黄浦路199号，享有银叶级绿色旅游饭店、诚信单位称号，享有银叶级绿色旅游饭店、诚信单位称号</dd>
+					</dl>
+					<div class="hotel_money_box">
+						<div class="hotel_money pink">
+							<em class="yen">¥</em>
+							<strong>160</strong>起
+						</div>
+						<div class="hotel_star">
+							<span class="star">
+								<i>一星</i>
+								<i>二星</i>
+								<i>三星</i>
+								<i>四星</i>
+								<i class="no_star">五星</i>
+							</span>	
+						</div>
+					</div>
+				</div>
+				<div class="hotel_table_box">
+					<table class="hotel_table">
+						<colgroup>
+							<col width="7%">
+							<col width="13%">
+							<col width="13%">
+							<col width="13%">
+							<col width="14%">
+							<col width="14%">
+							<col width="26%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>房型</th>
+								<th>早餐</th>
+								<th>宽带</th>
+								<th>床型</th>
+								<th>门市价</th>
+								<th>优惠价</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="no_border">
+								<td><a href="#" class="hotel_icon">标准房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">单人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn5">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="#" class="hotel_icon">双人房</a></td>
+								<td>双早</td>
+								<td>免费</td>
+								<td>双床</td>
+								<td class="del"><em class="yen">¥</em><span class="pink">2200</span></td>
+								<td><em class="yen">¥</em><span class="pink">1783</span></td>
+								<td class="table_r">
+									<a href="#" class="btn btn4">
+										<span>预订</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</li>
+			</ul>
+			<div class="page_nav page_nav1">
+				<a href="#" class="page_btn">&lt;上一页</a>
+				<strong>1</strong>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<span class="point">...</span>
+				<a href="#">80</a>
+				<a href="#">下一页&gt;</a>
+			</div>
+		</div>
+	</div>
+</div>
+<%include file="simple_footer.html" />

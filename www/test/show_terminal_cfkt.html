@@ -1,0 +1,75 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <script type="text/javascript" src="{JS_PATH}jquery.min.js?v=2010122901"></script>
+    <script type="text/javascript" src="{JS_PATH}swfobject.js?v=2010122901"></script>
+    <script type="text/javascript" src="{JS_PATH}get_flash.js?v=2010122901"></script>
+    <body class="inner">
+        <div class="wp">
+            {php $catinfo = catinfo($catid)}
+            {php $catinfo = $catinfo[1]}
+            {php $pcatinfo = catinfo($catinfo[parentid])}
+            {php $pcatinfo = $pcatinfo[1]}
+            {php $catdir = $pcatinfo[catdir]}
+            {template 'content','menu_terminal'}
+            {php $author = urldecode($_GET['author'])}
+            {pc:author action="author_info" author="$author"}
+            {php $image = $data[photo]}
+            {php $intro = nl2br($data[description])}
+            {php $ar = urlencode($author)}
+            {/pc}
+            <div class="box wp_box">
+                <div class="bt">
+                    <span class="icon icon1">{$pcatinfo[catname]}</span>
+                    <em>&gt;</em>
+                    <span>{$author}老师</span>
+                    <em>&gt;</em>
+                    <span>播放视频</span>
+                    <div class="extra">
+                        <a href="/index.php?m=content&c=index&a=lists&catdir={$catinfo[catdir]}&author={$ar}">返回讲师</a>
+                    </div>
+                </div>
+                <div class="bc hor_box">
+                    <div class="main hor_item">
+                        <div class="moive">
+                            <div class="videotitle">
+                                正在播出：{$title}
+                            </div>
+                            <div class="playerbox">
+                                <div class="player">
+                                <div id="flashContent">
+                                </div>
+                                <script type="text/javascript">
+                                    var option = {}
+                                    option.width = "515";
+                                    option.height = "417";
+                                    var file = '{$video}';
+                                    var itemid = 'flashContent';
+                                    var flash_path = "{IMG_PATH}video/";
+                                    var tokenval = '{php echo video_token();}';
+                                    get_flash(file,itemid,flash_path,tokenval,'{$thumb}',option);
+                                </script>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="side hor_item">
+                        <div class="box box1">
+                            <div class="bt">
+                                <span class="icon icon2">讲师介绍</span>
+                            </div>
+                            <div class="bc lmjs" style="height:364px;">
+                                <div class="media">
+                                    <img src="{$image}" alt="" width="140" height="112" />
+                                    <p>{$intro}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,91 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <body class="inner">
+        <div class="wp">
+            {template 'content','menu_terminal'}
+            <div class="box wp_box">
+                <div class="bt">
+                    <span class="icon icon1">搜索结果</span>
+                    <div class="extra">
+                        <!--<a href="#">返回</a>-->
+                    </div>
+                </div>
+                <div class="bc">
+                    {php $stype=$_GET[stype]}
+                    {php $tkey = $_GET[tkey]}
+                    {php $GLOBALS["page_style"]='page_style2'}
+                    {php $urlrule=h("/index.php?m=content&c=index&a=lists&catdir=tsearch&stype=$stype&tkey=$tkey&page={\$page}")}
+                    {if ($stype=='video')}
+                    <table class="table">
+                        <colgroup>
+                            <col width="44%" />
+                            <col width="23%" />
+                            <col width="23%" />
+                            <col width="10%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>节目标题</th>
+                                <th>发布人</th>
+                                <th>所属板块</th>
+                                <th style="text-align:center;">时长</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+				{pc:content action="lists" stype="$stype" tkey="$tkey" catdir="terminal" page="$page" urlrule="$urlrule" order="inputtime DESC" num="11"}
+				{loop $data $val}
+                            <tr>
+                                <td><a href="{$val[url]}&author={$val[author]}">{str_cut($val[title], 20)}</a></td>
+                                <td>{if $val[author]==""}CCTV证券资讯{else}{$val[author]}{/if}</td>
+                                <td>{$val[cats][catname]}</td>
+                                <td style="text-align:center;">{$val[timeline]}</td>
+                            </tr>
+				{/loop}
+				{/pc}
+                        </tbody>
+                    </table>
+                    <div class="page">
+                        {$pages}
+                    </div>
+                    {/if}
+                    {if ($stype=='info')}
+                    <table class="table">
+                        <colgroup>
+                            <col width="44%" />
+                            <col width="23%" />
+                            <col width="23%" />
+                            <col width="10%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>节目标题</th>
+                                <th>发布人</th>
+                                <th>所属板块</th>
+                                <th style="text-align:center;">时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+				{pc:content action="lists" stype="$stype" tkey="$tkey" catdir="ttznc" page="$page" urlrule="$urlrule" order="inputtime DESC" num="11"}
+				{loop $data $val}
+                                <tr>
+                                    <td><a href="{$val[url]}">{str_cut($val[title], 20)}</a></td>
+                                    <td>{$val[author]}</td>
+                                    <td>{$val[cats][catname]}</td>
+                                    <td align="center">{date("Y-m-d",$val[inputtime])}</td>
+                                </tr>
+				{/loop}
+				{/pc}
+                        </tbody>
+                    </table>
+                    <div class="page">
+                        {$pages}
+                    </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,171 @@
+{template "content","header_zxjy"}
+        <div class="wrap clearfix">
+            <div class="main">
+                <div class="about_us" id="about_us">
+                    <h2>关于中新教育</h2>
+                    <p style="font-size:14px;line-height:23px"><strong>中新教育集团 ——中国再教育行业新标杆</strong><br>
+                  中新教育集团成立于 2009 年，依托 CCTV 证券资讯和中新金融工程研究院的强大资源优势，拥有数百位来自著名院校经济、商学院和各类金融机构从事研究、管理工作的资深专家、知名学者和高层管理人员的人才优势，具备世界水平的跨地域、跨领域、跨媒体的强大研究能力，充分保证了中新教育集团在战略发展、人才培养、学术研究、业务拓展等方面的领袖地位。 <br>
+                  以规范中国再教育培训事业发展为原则，致力于树立中国完整再教育体系行业标杆，提供远程教育与线下培训等人性化模式，为学员提供全方位、全时段的再教育新体验。<br>
+                  </p>
+              </div>    
+                <div class="lector_introduce bt" id="lector_introduce">
+                    <div class="lector_box clearfix">
+                        <h2>特邀培训讲师</h2>
+						{pc:content action="lists" catid="$catid" page="$page" order="updatetime DESC" num="4"}
+						{php $c=count($data);}
+            			{loop $data $val}
+                        <div class="media  {if $n%2==0}media2{/if} clearfix">
+                            <img class="img" src="{$val['thumb']}" alt="{$val['title']}" width="103" height="118">
+                            <h4><a href="{$val['url']}">{$val['title']}</a></h4>
+                            <p>
+                            {$val['description']}
+                            </p>
+                            <a href="{$val['url']}" class="link">课程介绍</a>
+                        </div>
+						{/loop}
+						{/pc}
+                    </div>
+                    <a href="{h('[zxjy]/pxjs')}" class="more">更多讲师</a>
+                </div>
+                <div class="project bt" id="jion_us">
+                    <div class="project_box">
+                        <h2>CCTV证券资讯培训项目介绍</h2>
+                        <div class="project_text">
+                            <p>CCTV证券资讯金融投资培训依托于CCTV证券资讯和中新金融工程研究院的强大资源优势，本着为中国投资教育事业规范发展贡献力量的原则，以提高股民投资技能、升华股民投资理念为宗旨，汇集了一批国内知名基金经理、明星分析师、私募精英、民间高手等金融人士，分别采用案例教学、实战教学、互动教学、体系教学等多种教学模式，生动、快速的帮助学员树立自己的投资理念和方法，使学员获得持续盈利的能力。<br>
+<p>主要采取线上培训和线下培训两种教学方式对客户开展投资教育培训。线上培训主要通过《CCTV证券培训终端》和CCTV证券资讯官网等网络在线来实现远程投资培训；线下培训指金融类投资课程培训，其中又分为以投资者为主体的实战类课程培训和以高校学生为主体的金融投资类证书培训，线下培训主要以现场面对面教学为主，学员所颁发的证书经CCTV证券资讯官方网站查询。<br />
+<p>CCTV证券培训终端：CCTV证券资讯官网出品的以金融资讯和金融视讯为主的资讯终端。
+
+                              <br>
+                              <br>
+                              <span style="font-size:13px"><strong>项目优势：</strong></span><br>
+                              教材权威：CCTV证券资讯培训中心和中新金融工程研究院联合编著，教材注重理论与实践的结合，特别重点突出实战投资技巧应用。<br>
+                              教师权威：全部由中新金融工程研究院提供，并且经CCTV证券资讯讲师认证中心认证，汇集了一批私募基金经理、炒股大赛高手等，实战经验非常丰富。<br>
+                              证书权威：中国中央电视台证券资讯和中新金融工程研究院联合颁证。<br>
+                              教学模式多样：案例教学、实战教学、互动教学让你迅速掌握投资分析的精髓。<br>
+                          <br>
+                          </p>
+                      </div>
+                  </div>
+                </div>
+                <div class="process bt" id="join_us">
+                    <div class="process_box">
+                        <div class="process_title clearfix">
+                            <h2>CCTV证券资讯职业经理人高校培训合作流程</h2>
+                            <a class="apply" href="{h('[www]/da/zhaoshang/download/')}加盟商资格申请与审批流程.doc">申请加盟</a>
+                        </div>
+                        <div class="process_text">
+                            <img src="{IMG_PATH}zxjy/circuit.png" width="607" height="112" />
+                            <ol>
+                                <li>1、业务咨询。详细了解CCTV证券资讯高校培训项目，初步了解双方意向，确认合法资质。</li>
+                                <li>2、洽谈确认方案。双方确定合作意向，商讨合作最终方案和细节。</li>
+                                <li>3、签订合同。明确双方权利及义务，授权合作方开展业务。</li>
+                                <li>4、高校宣传、招生。合作方依据协议范围展开宣传及招生。</li>
+                                <li>5、开课。按照我方提供的教材内容提供培训课程。</li>
+                                <li>6、考试。课程培训结束之后一个月内安排统一考试。</li>
+                                <li>7、发证。培训结束考试合格，CCTV证券资讯、中新金融工程研究院颁发合格证书。</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="join_us bt" id="partner">
+                    <div class="join_box">
+                        <h2>CCTV证券高校培训代理商</h2>
+                        <div class="join_text clearfix">
+                            <dl>
+                                <dt>乌鲁木齐善翔益恒投资咨询有限公司</dt>
+                                <dd>联系电话： 0991 - 6674496</dd>
+                                <dd>联系地址：新疆乌鲁木齐新市区友谊路199号</dd>
+                            </dl>
+                            <dl>
+                                <dt>浙江甬洲投资管理有限公司</dt>
+                                <dd>联系电话：0574 - 27707899</dd>
+                                <dd>联系地址：中国浙江宁波江东北路308-2</dd>
+                                <br />
+                            </dl>   
+                            <dl>
+                                <dt>湖南省长沙市尼克文化传播有限公司</dt>
+                                <dd>联系电话：18274820168</dd>
+                                <dd>联系地址：湖南省长沙市营盘路108号领御大厦2211室</dd>
+                            </dl>   
+                            <dl>
+                                <dt>河南弘德投资有限公司</dt>
+                                <dd>联系电话：0371 - 55972000  0371 - 53772608</dd>
+                                <dd>联系地址：河南省郑州市金水路与英协路交叉口盛润白宫二单元1301室</dd>
+                            </dl>   
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="siderbar">
+                <div class="search">
+                    <form id="cert" action="/zsrz" method="post" target="_blank">
+                        <label>证书编号:</label>
+                        <input id="cert_id" type="text" class="txt" name="cert_id" ></input>
+                        <button class="btn" vallue="查询" type="submit"></button>
+                    </form>
+                </div>      
+                <div class="case">
+                    <div class="case_box">
+                        <a name=""></a>
+                        <h2>案例展示</h2>
+                        <div class="case_show">
+                            <ul id="case">
+                                <li> <p><strong>CCTV证券资讯《股民学苑》走进衡阳暨培训合作招商</strong></p> <p>时间：2012年6月16日下午2点</p>
+                                    <p>地址：衡阳市解放西路54号五环广场五环大酒店一楼报告厅 </p>
+                                    <p>联合主办单位：衡阳晚报、衡阳电台交通频道、衡阳网</p>
+                                    <p>报名电话：18274820168</p>
+                                    <p>上海总部电话：021-64476606-8015</p>
+                                </li>
+                                <br />
+                                <li><img src="{IMG_PATH}zxjy/anli1.gif" width="290" heght="152" />
+                                    <p>2012年6月16日陈奥军在CCTV证券资讯《股民学苑》走进衡阳活动现场进行演讲</p>
+                                </li>
+                                <li><img src="{IMG_PATH}zxjy/anli2.gif" width="290" heght="152" />
+                                    <p>2012年6月16日王培源在CCTV证券资讯《股民学苑》走进衡阳活动现场进行授课</p>
+                                </li>
+
+                            <!--
+                                <li><img src="{IMG_PATH}zxjy/05.png" width="290" heght="152" />
+                                    <p>4043年第三期培训学员，现任中新金融工程研究院资深证券评论员</p>
+                                </li>
+                            -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    /*
+                    var H = $("#case li").eq(0).height();
+                    var timer = setInterval(S,3000);
+                    $("#case").hover(function(){
+                        clearInterval(timer);   
+                    },
+                    function(){
+                        timer = setInterval(S,3000);
+                    });
+                    function S(){
+                        $("#case").append($("#case li").first().clone());
+                        $("#case li").first().stop().animate({"marginTop":-H + "px"},800,function(){
+                            $("#case li").first().remove();
+                        });
+                    };
+                    */
+
+                    $("#cert").submit(function(){
+                        $cert_id = $.trim($('#cert_id').val());
+                        if($cert_id.length > 0) return true;
+                        else{
+                            alert("请输入证书编号!");
+                            return false;
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
+{template "content","footer_zxjy"}

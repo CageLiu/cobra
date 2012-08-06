@@ -1,0 +1,98 @@
+{template "content","header_zhuanti"}
+<div class="wrap sub_page clearfix">
+	<div class="main">
+		<div class="box_item">
+			<div class="box_hd">
+				<span class="page_guide">
+					<a href="{siteurl($siteid)}">CCTV证券资讯</a>&gt;{catpos($catid)}
+				</span>
+			</div>
+			<div class="box_ct">
+				<div class="news_list">
+					<div class="news_title">
+				        {php $catinfo = catinfo($catid)}
+                        <h1>{$catinfo[1][catname]}</h1>
+						<span class="related_tags">
+						{pc:block pos="zhuanti_index_203"}{/pc}
+						</span>
+					</div>
+					{pc:content  action="lists" catid="$catid" order="updatetime DESC" page="$page" num="30"}
+					<div class="dynamic">
+						<ul class="text_list">
+							{loop $data $val}
+							<li{if $n%10==0} class="list_space"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title], 26)}</a><span class="date">{date("Y-m-d",$val[updatetime])}</span></li>
+							{/loop}
+						</ul>
+					</div>
+					<div class="page">
+						{$pages}
+					</div>
+					{/pc}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="side">		
+		<div class="box_item dyue">
+			<div class="box_hd">
+				<h2>
+					<a style="cursor:hand">邮件订阅</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<form action="">
+					<ul>
+						<li><input type="checkbox"><label>财经专题</label></li>
+						<li><input type="checkbox"><label>股票专题</label></li>
+						<li><input type="checkbox"><label>基金专题</label></li>
+						<li><input type="checkbox"><label>期货专题</label></li>
+						<li><input type="checkbox"><label>黄金专题</label></li>
+						<li><input type="checkbox"><label>外汇专题</label></li>
+						<li><input type="checkbox"><label>私募专题</label></li>
+						<li><input type="checkbox"><label>生活专题</label></li>
+					</ul>
+					<div class="dyue_mail">
+						<input class="mail" value="输入您的常用邮箱" type="text"><input value="" class="btn" type="submit">
+					</div>
+				</form>							
+				<p class="dyue_tips">
+					腾讯提供订阅技术支持，邮件末尾有退订功能按钮。
+				</p>
+				<a href="#" class="rss">免费订阅独家证券报道</a>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a style="cursor:hand">最新专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">				
+				<ul class="text_list text_col">
+				{pc:content action="lists" catdir="special" order="updatetime DESC" num="10" recommend="0,2,3"}
+				{loop $data $val}
+					<li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 22)}</a></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="sub_box_hd">
+				<h2>
+					<a style="cursor:hand">推荐专题</a>
+				</h2>
+			</div>
+			<div class="sub_box_ct">
+				<ul class="text_list text_col">
+					{pc:content action="lists" catdir="special" order="updatetime DESC" num="10" recommend="1"}
+					{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 22)}</a></li>
+					{/loop}
+					{/pc}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer_zhuanti"}

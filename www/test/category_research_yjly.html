@@ -1,0 +1,82 @@
+{template "content","simple_header_research"}
+<body id="area">
+{template "content","header_research"}
+<div class="banner">
+	<img src="{IMG_PATH}research/banner3.jpg" height="244" width="960" alt="" />
+</div>
+<div class="content">
+	<div class="b_wp">
+		<div class="b_tt"><h2>研究领域<em>Research Area</em></h2></div>
+		<div class="b_ct">
+			<div class="t_hori">
+				<ul class="clearfix">
+				{php $yjly_catid =  catdirtocatid("zxresearch")}
+				{php $catinfo = catinfo($catid)}
+				{pc:content action="category" catid="$yjly_catid" siteid="$this->siteid" order="listorder ASC"}
+				{loop $data $r}
+					<li {if $r[catid] == $catid}class="current"{/if}><a href="{h('/index.php?m=content&c=index&a=lists&catdir='.$r[catdir].'')}" title="{$r[catname]}">{$r[catname]}</a></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<p>
+				{pc:content action="category" catid="$catid" siteid="$this->siteid" order="listorder ASC"}
+				{loop $data $r}
+				{if $n == "1"}
+					{php $catid=$r[catid]}
+				{/if}
+				<a href="{h('/index.php?m=content&c=index&a=lists&catdir='.$r[catdir].'')}" title="{$r[catname]}">{$r[catname]}</a>　
+				{/loop}
+				{/pc}
+				</p>				
+			</div>
+            <div class="director clearfix">
+				{php $catinfo = catinfo($catid)}
+				{php $catname = $catinfo[1][catname]}
+				{pc:author action="authors" catid="$catid" posid="1"}
+				{loop $data $r}
+                <div class="item">
+                    <h2><strong>{$r[name]}</strong>  {$r[position]}</h2>
+                    <div class="foto">
+                        <img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <p>{$r[description]}</p>
+                    </div>
+                </div>
+				{/loop}
+				{/pc}
+				{pc:author action="authors" catid="$catid" posid="2"}
+				{loop $data $r}
+                <div class="item">
+                    <h2><strong>{$r[name]}</strong>  {$r[position]}</h2>
+                    <div class="foto">
+                        <img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <p>{$r[description]}</p>
+                    </div>
+                </div>
+				{/loop}
+				{/pc}
+            </div>
+            <div class="normal clearfix">
+            {pc:author action="authors" catid="$catid" posid="0"}
+			{loop $data $r}
+                <div class="item">
+                    <h2><strong>{$catname}</strong></h2>
+                    <div class="foto">
+                        <h3>{$r[name]} {$catname} {$r[position]}</h3>
+                        <img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <p>{$r[description]}</p>
+                        <ul class="text_list">
+						{pc:content action="author_news_list" author="$r[name]" order="inputtime DESC" num="5" return="articles"}
+							{loop $articles $article}
+                            <li><span>{$r[name]}</span><a href="{$article[url]}" title="{htmlspecialchars($article[title])}" target="_blank">{str_cut($article[title], 18)}</a></li>
+							{/loop}
+						{/pc}
+                        </ul>
+                    </div>
+                </div>
+			 {/loop}
+             {/pc}
+            </div>
+		</div>
+	</div>
+</div>
+{template "content","footer_research"}

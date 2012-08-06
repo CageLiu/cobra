@@ -1,0 +1,98 @@
+{php $head='gupiao_list'}
+{template "content","simple_header_gupiao"}
+<div class="wrap sub_page">
+	<div class="posit clearfix">
+        <div class="bread clearfix"><a class="posit_title gppd" href="{h('[stock]/')}">&nbsp;</a><span><a href="{siteurl($siteid)}">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			<form action="{h('[quote]/stock/index.php')}" class="search_form" id="sform" method="post" target="_blank">
+				<input class="search_code" id="stock_code" name="stock_code" type="hidden" />
+				<input checked="checked" name="sType" onclick="searchchange('search_stock_str', 'search_key', 'hq')" type="radio" /><label>股票/基金</label><input name="sType" onclick="searchchange('search_key', 'search_stock_str', 'zx')" type="radio" /><label>资讯</label><span class="search"><input class="sCont search_stock_str" id="stock_str" name="stock_str" type="text" name="" value="代码/简称/拼音"><input class="sCont search_key" name="key" style="display: none;" value="关键字" /><button class="search_btn" type="submit" title="搜索">搜索</button></span>
+			</form>
+		</div>
+	</div>
+	<div class="content clearfix">
+		<div class="main">
+			<div class="news_list">
+				<div class="news_title">
+					{php $cat =catinfo($catid); }
+					<h1>{$cat[1][catname]}</h1>
+					{pc:block pos="gupiao2_zuhe_100"}{/pc}
+				</div>
+				<div class="dynamic">
+					{pc:content action="multilists" catid="$catid" order="id DESC" num="10"}
+					{loop $data $list}
+					{php $catlink=h('[stock]/'.$list[catdir].'/')}
+					<div class="box_news">
+						<div class="hd">
+							<h2>
+								<span class="btn title_btn current">
+									<a href="{h('/index.php?m=content&c=index&a=lists&catid='.$list[catid])}" target="_blank">{$list[catname]}</a>
+								</span>
+							</h2>
+						</div>
+						<div class="ct">
+								<ul class="text_list">
+								{php $c=count($list[data]);}
+								{loop $list[data] $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 31)}</a><span class="date">{date('Y-m-d',$val[inputtime])}</span></li>
+								{/loop}
+								</ul>
+						</div>
+						<span class="pr">
+							<a href="{$catlink}" target="_blank">更多</a>
+						</span>
+					</div>
+					{/loop}
+					{/pc}
+				</div>
+			</div>
+		</div>
+		<div class="side">
+			<div class="box_item">
+				<div class="box_hd">
+					<h2>
+						<a>编辑推荐</a>
+					</h2>
+				</div>
+				<div class="box_ct side_pic_list">
+					{pc:block action="customtpl" pos="gupiao2_list_tj" num="4"}
+					<ul class="pic_list clearfix">
+					{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank"><img alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb], 75, 100)}" height="75" width="100"><span>{str_cut($val[title], 11)}</span></a></li>
+					{/loop}
+					</ul>
+					{/pc}
+					<h3>&nbsp;【热点关注】</h3>
+					{pc:content action="lists" catid="$catid" recommend="1,2,3"  order="inputtime DESC" num="6"}
+					<ul class="text_list">
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+					</ul>
+					{/pc}
+				</div>
+			</div>
+			<div class="aimgd side_aimg">
+				<!-- 广告 -->
+				{pc:block pos="gupiao2_zuhe_101"}{/pc}
+			</div>
+			<div class="box_item last_item">
+				<div class="box_hd">
+					<h2>
+						<a>股票热门资讯排行</a>
+					</h2>
+				</div>
+				<div class="box_ct side_text_list">
+					{pc:content action="hits" catid="76" num=10}
+                    <ul class="text_list">
+                    {loop $data $val}
+                    <li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 18)}</a></li>
+                    {/loop}
+                    </ul>
+                    {/pc}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer"}

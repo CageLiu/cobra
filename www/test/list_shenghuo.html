@@ -1,0 +1,99 @@
+{php $head = "list"}
+{template "content","simple_header_shenghuo"}
+<div class="wrap">
+	<div class="posit clearfix">
+        <div class="bread clearfix"><a href="{h('[life]/')}" class="posit_title shpd">生活频道</a><span><a href="{siteurl($siteid)}">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			<!-- 全文搜索 -->
+			{pc:block pos="licai2_licai_list_102"}{/pc}
+			<!-- 全文搜索的js -->
+			<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+		</div>
+	</div>
+	<div class="main">
+		<div class="news_list">
+				<div class="news_title">
+					{php $cat =catinfo($catid); }
+					<h1>{$cat[1][catname]}</h1>
+					<span class="related_tags">
+						{pc:block pos="shenghuo_list_tags"}{/pc}
+					</span>
+				</div>
+				<div class="dynamic">
+					<ul class="text_list">
+						{pc:content action="lists" catid="$catid" page="$page" order="inputtime DESC" num="25"}
+						{php $c=count($data);}
+            			{loop $data $val}
+							<li {if $n%5==0||$n==$c}class="list_space"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title], 30)}</a><span class="pr">{date('Y-m-d',$val[inputtime])}</span></li>
+						{/loop}
+                        {/pc}			
+                    </ul>
+
+				</div>
+				<div class="page">
+					{$pages}
+				</div>
+			</div>
+	</div>
+
+	<div class="side">
+		<div class="box_side">
+			<div class="hd">
+				<h2 class="jczt">
+                    <a>精彩专题</a>
+				</h2>
+			</div>
+			<div class="ct media_list">
+				{pc:content action="lists" catdir="lifezt" recommend="1,2,3" order="updatetime DESC" num="4"}
+                {loop $data $val}
+				<div class="media clearfix">
+					<div class="pic">
+                        <a href="{$val['url']}" target="_blank"><img src="{thumb($val['thumb'],65,65)}" alt="{htmlspecialchars($val['title'])}" width="65" height="65"></a>
+					</div>
+					<div class="txt">
+                        <h4 class="m_title"><a href="{$val['url']}" target="_blank">{str_cut($val['title'],8)}</a></h4>
+						<p class="summary">{str_cut($val['description'],25)}...<a href="{$val['url']}" target="_blank">[详情]</a></p>
+					</div>
+                </div>
+                {/loop}
+                {/pc}
+			</div>
+		</div>
+		<div class="aimgd side_aimgd">
+            {pc:block pos="shenghuo_list_102"}
+            {/pc}
+		</div>
+		<div class="box_side">
+			<div class="hd">
+				<h2 class="bjtj">
+                    <a>编辑推荐</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+				{pc:content action="lists" catdir="life" recommend="1" order="updatetime DESC" num="9"}
+                {loop $data $val}
+                {if $n==1}
+				<div class="media clearfix">
+					<div class="pic">
+                        <a href="{$val['url']}" target="_blank"><img src="{thumb($val['thumb'],65,65)}" alt="{htmlspecialchars($val['title'])}" width="65" height="65"></a>
+					</div>
+					<div class="txt">
+                        <h4 class="m_title"><a href="{$val['url']}" target="_blank">{str_cut($val['title'],8)}</a></h4>
+						<p class="summary">{str_cut($val['description'],25)}...<a href="{$val['url']}" target="_blank">[详情]</a></p>
+					</div>
+				</div>
+                {/if}
+                {/loop}
+				<ul class="text_list">
+                    {loop $data $val}
+                    {if $n>1}
+                    <li><a href="{$val['url']}" target="_blank">{str_cut($val['title'],15)}</a></li>
+                    {/if}
+                    {/loop}
+				</ul>
+                {/pc}
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer_shenghuo"}

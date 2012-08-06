@@ -1,0 +1,79 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <body class="inner">
+        <div class="wp">
+            {php $catinfo = catinfo($catid)}
+            {php $catinfo = $catinfo[1]}
+            {php $pcatinfo = catinfo($catinfo[parentid])}
+            {php $pcatinfo = $pcatinfo[1]}
+            {php $catdir = $pcatinfo[catdir]}
+            {template 'content','menu_terminal'}
+            {php $catdir = $catinfo[catdir]}
+            {php $author = urldecode($_GET['author'])}
+            {pc:author action="author_info" author="$author"}
+            {php $image = $data[photo]}
+            {php $intro = nl2br($data[description])}
+            {php $position = $data[position]}
+            {/pc}
+            <div class="box wp_box">
+                <div class="bt">
+                    <span class="icon icon1">软件使用教学</span>
+                    <div class="extra">
+                        <a href="/index.php?m=content&c=index&a=lists&catdir={$pcatinfo[catdir]}">返回{$pcatinfo[catname]}列表</a>
+                    </div>
+                </div>
+                <div class="bc hor_box">
+                    <div class="main hor_item">
+                        <table class="table">
+                            <colgroup>
+                                <col width="60%" />
+                                <col width="25%" />
+                                <col width="15%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>发布人</th>
+                                    <th>时长</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                {php $urlrule=h("/index.php?m=content&c=index&a=lists&catdir=$catdir&author=$author&page={\$page}")}
+                {php $GLOBALS["page_style"]='page_style2'}
+				{pc:content action="lists" author="$author" catdir="$catdir" page="$page" urlrule="$urlrule" order="inputtime DESC" num="11"}
+				{loop $data $val}
+                                <tr>
+                                    <td><a href="{$val[url]}&author={$author}">{str_cut($val[title], 20)}</a></td>
+                                    <td>{if $val[author]==""}CCTV证券资讯{else}{$val[author]}{/if}</td>
+                                    <td>{$val[timeline]}</td>
+                                </tr>
+				{/loop}
+				{/pc}
+                            </tbody>
+                        </table>
+                        <div class="page">
+                            {$pages}
+                        </div>
+                    </div>
+                    <div class="side hor_item">
+                        <div class="box box1">
+                            <div class="bt">
+                                <span class="icon icon2">讲师介绍</span>
+                            </div>
+                            <div class="bc lmjs">
+                                <div class="media">
+                                    <img src="{$image}" alt="" width="124" height="97" />
+                                    <span class="title">{$position}</span>
+                                    <p>{$intro}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {template 'content','search_terminal'}
+            </div>
+        </div>
+    </body>
+</html>

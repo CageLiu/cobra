@@ -1,0 +1,86 @@
+{template "content","header_scoop"}
+<div id="content" class="col2 nmbl">
+    <div class="colMain">
+    	<div class="box">
+        	<div class="t t2">
+            	{pc:block pos="dujia_nmbl_101"}{/pc}
+            	
+            </div>
+            <div class="c">
+            	{pc:block pos="dujia_nmbl_102"}{/pc}
+
+            </div>
+        </div>
+        <div class="box">
+        	<div class="mediaList clearFix">
+            	{pc:block pos="dujia_nmbl_103"}{/pc}
+            
+            </div>
+        </div>
+    </div>
+    <div class="colSide">
+    	<div class="box">
+        	<div class="t t2">
+            	{pc:block pos="dujia_nmbl_104"}{/pc}
+            	
+            </div>
+            <div class="c" id="tabs">
+                <form id="blForm" class="form" action="{h('[info]/index.php?m=lowdown&c=index&a=add')}" method="POST">
+                    <div class="tab">
+                        <span class="tabs current">欺诈</span><span class="tabs">税务</span><span class="tabs">环境</span><span class="tabs">道德</span><span class="tabs">其他</span>
+                        <input type="hidden" name="class" id="type" value="欺诈" />
+                    </div>
+                    <div class="textarea">
+                        <span><em id="curNum">0</em>/2000</span>
+                        <textarea name="content">请填写爆料内幕信息。</textarea>
+                    </div>
+                    <ul>
+                        <li><label>姓名：</label><input name="username" class="txt" type="text" size="12" />&nbsp;&nbsp;<input class="chbox" type="checkbox" name="anonymity"/>&nbsp;<label>匿名爆料</label></li>
+                        <li><label>邮箱：</label><input name="email" class="txt" type="text" size="18" /></li>
+                        <li><label>电话：</label><input name="phone_number" class="txt" type="text" size="12" /></li>
+                    </ul>
+                    <p>注： 若经查实该爆料属实，CCTV证券发展研究中心将给予一定数额的现金奖励。</p>
+                    <input class="btn" type="submit" value="确&nbsp;认" />
+                </form>  	
+            </div>
+        </div>
+        <div class="aimgd">
+        	{pc:block pos="dujia_nmbl_106"}{/pc}
+        	
+        </div>
+        <div class="box">
+        	<div class="t t1">
+            	{pc:block pos="dujia_nmbl_107"}{/pc}
+            	
+            </div>
+            <div class="c">
+            	{pc:block pos="dujia_nmbl_108"}{/pc}
+
+                {pc:block pos="dujia_nmbl_109"}{/pc}
+               
+                {pc:block pos="dujia_nmbl_110"}{/pc}
+                
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+        <em class="clt"></em>
+        <em class="crt"></em>
+        <em class="clb"></em>
+        <em class="crb"></em>
+    </div>
+    <div class="aimgd">
+    	{pc:block pos="dujia_nmbl_111"}{/pc}
+    	
+    </div>
+    <div class="box">
+    	<div class="c">
+            <ul class="picList">
+            	{pc:block pos="dujia_nmbl_112"}{/pc}
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+{template 'content', 'footer_scoop'}

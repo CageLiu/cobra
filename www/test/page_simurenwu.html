@@ -1,0 +1,114 @@
+{template "content","header_simu"}
+<div id="content">
+	<div class="nav_bar">
+	<form action="/smjj/smjl/" method="post">
+		<div class="sub_search">
+			<strong>人物搜索：</strong>
+			<input type="text" name="key" class="sub_sec_txt"/><input type="submit" value="搜索" class="sub_sec_btn" />
+		</div>
+	</form>
+	<div class="hot_tags">
+		<strong>热门：</strong>
+        {pc:content action="position" posid="917" catid="$catid" thumb="0" num="10"}
+        {loop $data $r}
+
+        <a href="/smjj/smjl/{$r[id]}.shtml" target="_blank">{$r[title]}</a>
+        {/loop}
+        {/pc}
+	</div>
+</div>
+    <div class="s_content clearFix">
+        <div class="s_main">
+            <div class="s_box">
+                <div class="s_t s_t1">
+                    <h3>私募名人</h3>
+                </div>
+                <div class="s_c clearFix">
+                    {pc:content action="position" posid="916" catid="$catid" order="id DESC" thumb="1" num="4"}
+                    {php pc_base::load_app_func('supervisor', 'simu');$ids=getManagerIdFromPosition($data);$managerMod=pc_base::load_app_class('supervisor','simu', 1);$data=$managerMod->getManagerFullInfo($ids, true, false, false, true ,ture);}
+						{php $i=0}
+                        {loop $data $r}
+                         {php $info = explode('：',$r['extend']['intro']);if(empty($info[1])) $info[1]= '';}
+						{php $i++}
+                        <div class="s_media1">
+                            <div class="pic">
+                                <a href="{$r[url]}" target="_blank"><img src="{$r[thumb]}" height="120" width="120" alt="{$r[title]}" /></a>
+                            </div>
+                            <div class="txt">
+                                <h4><a href="{$r[url]}" target="_blank">{$r[title]}</a></h4>
+                                <p>{str_cut($info[1],34)}...<a href="{$r[url]}" target="_blank">[详情]</a></p>
+                            </div>
+                            <ul class="s_txtList clear" {if $i<3}style="height:120px"{/if}>
+                                {loop $r[news] $v}
+                                <li><a href="{$v[url]}" target="_blank" title="{$v[title]}">{str_cut($v[title],22)}</a></li>
+								{php if($n>4)break;}
+                                {/loop}
+                            </ul>
+                        </div>
+                        {/loop}
+                    {/pc}
+                </div>
+            </div>
+            <div class="s_box">
+                <div class="s_t s_t1">
+                    <h3>私募人物</h3>
+                </div>
+                <div class="s_c clearFix">
+                    {loop $zenquanManagersTop $r}
+                         {php $info = explode('：',$r['extend']['intro']);if(empty($info[1])) $info[1]= '';}
+                        <div class="s_media1">
+                            <div class="pic">
+                                <a href="{$r[url]}" target="_blank"><img src="{$r[thumb]}" height="120" width="120" alt="{$r[title]}" /></a>
+                            </div>
+                            <div class="txt">
+                                <h4><a href="{$r[url]}" target="_blank">{$r[title]}</a></h4>
+                                <p>{str_cut($info[1],34)}...<a href="{$r[url]}" target="_blank">[详情]</a></p>
+                            </div>
+                        </div>
+                    {/loop}
+                    <ul class="aLinks clearFix">
+                        {loop $zenquanManagers $r}
+                            <li><a href="{$r[url]}" target="_blank">{$r['title']}</a></li>
+                        {/loop}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="s_side">
+            <div class="s_box">
+                <div class="s_t s_t2">
+                    <h3>最新加入</h3>
+                </div>
+                <div class="s_c">
+                    <ul class="aLinks clearFix">
+                        {loop $recentJoinManagers $r}
+                            <li><a href="{$r[url]}" target="_blank">{$r[title]}</a></li>
+                        {/loop}
+                    </ul>
+                </div>
+            </div>
+            <div class="s_box">
+                <div class="s_t s_t2">
+                    <h3>私募人物排行榜</h3>
+                </div>
+                <div class="s_c">
+                    <ul class="s_hotTop">
+                        {pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+                            {php $i=1;}
+                            {loop $data $r}
+							{php $r[url]='/smjj/smjl/'.$r[id].'.shtml'}
+                            <li><span class="{if $i<4}front{else}after{/if}">{$i}</span><a href="{$r[url]}" target="_blank">{$r[title]}</a><span class="pr"><em>点击数</em>{$r[views]}</span></li>
+                            {php $i++;}
+                            {/loop}
+                        {/pc}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottomLine clearFix">
+        <div class="mainBLine"></div>
+        <div class="sideBLine"></div>
+    </div>
+</div>
+{template "content","footer_simu"}

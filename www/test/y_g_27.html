@@ -1,0 +1,130 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<em>我的购物车</em>
+	</div>
+
+	<div class="admin_flow_steps admin_flow_steps2">
+		<ul class="hor_list">
+			<li class="cur"><span>1 填写核对订单</span></li>
+			<li><span>2 线上付款</span></li>
+			<li><span>3 确认收货</span></li>
+			<li class="last"><span>4 完成</span></li>
+		</ul>
+	</div>
+
+	<div class="admin_box clear">				
+		<div class="admin_bc">
+			<form action="">
+				<div class="table_box innertable">			
+					<table class="table">
+						<tbody>
+							<tr>
+								<td class="order_table_th">购物清单</td>
+								<td colspan="2">
+									<table class="table">
+										<colgroup>
+											<col width="50%" />
+											<col width="13%" />
+											<col width="8%" />
+											<col width="8%" />
+											<col width="13%" />
+											<col width="8%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th>商品名称</th>
+												<th>单价</th>
+												<th>优惠</th>
+												<th>数量</th>
+												<th>总价</th>
+												<th>赠送积分</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<img src="/static_url/caifuzhongguo/img/shopico.png" alt="" />
+													<a href="#" class="link">仅售168元，价值368元茶馆收阿斯大速度</a>
+												</td>
+												<td class="red">29.00</td>
+												<td>-5.00</td>
+												<td>1</td>
+												<td class="red">290.00</td>
+												<td>14</td>
+											</tr>
+										</tbody>
+									</table>
+									<p class="pay_tips">
+									此订单包含财富卡专享产品，需使用财富卡足额支付。
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="order_table_th">订单结算</td>
+								<td class="order_settle">
+									<ul>
+										<li class="open">
+										<h4>使用账户余额</h4>
+										<div class="uzhye">
+											可用余额：<span class="red">304.64</span>元
+											<span class="check checked">使用账户余额付款</span>
+										</div>
+										</li>
+										<li class="close">
+										<h4>使用财富卡</h4>
+										<div class="ucfk">
+											<div class="form has_field">
+												<div class="item">
+													<label class="field">卡号:</label>
+													<input type="text" class="txt" />
+												</div>
+												<div class="item">
+													<label class="field">密码:</label>
+													<input type="text" class="txt" />
+													<a href="#" class="btn btn1">
+														<span>使用</span>
+														<input type="submit" value="使用" />
+													</a>
+												</div>
+												<div class="err_tips clear">
+													卡号或密码错误！请重新输入正确的卡号和密码
+												</div>
+												<div class="item clear">
+													<label class="field">备注:</label>
+													<textarea class="tarea"></textarea>
+												</div>
+											</div>
+										</div>
+										</li>
+									</ul>
+								</td>
+								<td class="fens">
+									<div class="submit_order">
+										<p><span>商品总重:</span>4.080千克</p>
+										<p><span>商品总价:</span>&yen;3569.00</p>
+										<p><span>运费金额:</span>&yen;0.00</p>
+										<p><span>优惠金额:</span>&yen;0.00</p>
+										<p><span>财 富 卡</span>&yen;110.00</p>
+										<p class="count"><span>应付金额:</span><em class="red">&yen;110.00</em></p>
+										<p class="btnbox">
+										<a href="javascript:;" class="btn btn7">
+											提交订单
+											<input type="submit" value="提交订单" />
+										</a>
+										</p>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>		
+	</div>
+</div>
+			
+<%include file="footer.html" />

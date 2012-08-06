@@ -1,0 +1,202 @@
+{template "content","simple_header_research"}
+<body id="about">
+{template "content","header_research"}
+
+<div class="content">
+
+	<div class="b_wp">
+
+		<div class="b_ct clearfix">
+
+			{template "content","left_research_menu"}
+
+			<div class="detail">
+				<h1>中新金融工程研究院研究员申请表</h1>
+				<div class="frm">
+					<h2>我们承诺保护您的信息安全，不会将它提供给任何第三方。</h2>
+					<form id="form" name="form" action="{h('/index.php?m=lowdown&c=index&a=apply')}" method="post" enctype="multipart/form-data" onsubmit="return check_form();">
+					<table>
+						<colgroup>
+							<col style="width:140px;" />
+							<col />
+						</colgroup>
+						<tr>
+							<th>姓名：</th>
+							<td><input type="text" name="xm" class="ipt" /></td>
+						</tr>
+						<tr>
+							<th>性别：</th>
+							<td>
+								<select name="xb">
+									<option value="男" selected="selected">男</option>
+									<option value="女">女</option>
+									<option value="保密">保密</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>照片：</th>
+							<td><input type="file" name="myfile" class="ipt" /></td>
+						</tr>
+						<tr>
+							<th>出生日期：</th>
+							<td>
+								<select name="year">
+								{php $year=date("Y")}
+								{php for($i=$year;$i>1920;$i--):}
+									<option value="{$i}">{$i}年</option>
+								{php endfor;}
+								</select>
+								<select name="month">
+								{php for($i=1;$i<=12;$i++):}
+									<option value="{$i}">{$i}月</option>
+								{php endfor;}
+								</select>
+								<select name="day">
+								{php for($i=1;$i<=31;$i++):}
+									<option value="{$i}">{$i}日</option>
+								{php endfor;}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>证件类型：</th>
+							<td>
+								<select name="zjlx">
+									<option value="身份证" selected="selected">身份证</option>
+									<option value="军人证">军人证</option>
+								</select>
+                                <input type="text" name="zjhm" class="ipt" />
+							</td>
+						</tr>
+						<tr>
+							<th>职务/职称：</th>
+							<td><input type="text" name="zc" class="ipt" /></td>
+						</tr>
+						<tr>
+							<th>研究方向：</th>
+                            <td><textarea name="zyfx" rows="5" cols="30"></textarea></td>
+						</tr>
+						<tr>
+							<th>研究成果：</th>
+                            <td><textarea name="yjcg" rows="5" cols="30"></textarea></td>
+						</tr>
+						<tr>
+							<th>自我介绍：</th>
+                            <td><textarea name="intro" rows="5" cols="30"></textarea></td>
+						</tr>
+						<tr>
+							<th>工作单位：</th>
+							<td><input type="text" name="gzdw" class="ipt" size="40" /></td>
+						</tr>
+						<tr>
+							<th>通信地址：</th>
+							<td><input type="text" name="txdz" class="ipt" size="40" /></td>
+						</tr>
+						<tr>
+							<th>邮政编码：</th>
+							<td><input type="text" name="yzbm" class="ipt" /></td>
+						</tr>
+						<tr>
+							<th>联系电话：</th>
+							<td><input type="text" name="lxdh" class="ipt" /></td>
+						</tr>
+						<tr>
+							<th>申请方向：</th>
+							<td>
+								<label><input type="radio" name="szfx" value="政界人士" />政界人士</label>
+								<label><input type="radio" name="szfx" value="知名学者" />知名学者</label>
+								<label><input type="radio" name="szfx" value="金融机构" />金融机构</label>
+                                <label><input type="radio" name="szfx" value="民间专家" />民间专家</label>
+							</td>
+                        </tr>
+						<tr id="yxzj">
+							<th>有效证件：</th>
+							<td>
+                                <input type="file" name="yxzj" class="ipt" />
+							</td>
+						</tr>
+					</table>
+					<div class="operate">
+						<button type="submit">提交</button>
+						<button type="reset">重置</button>
+					</div>
+					</form>
+					<p>注：以上信息为必填内容，会员部收到回传的申请表后会及时与您联系，感谢您的合作。</p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript">
+    function check_form() {
+        var form = $("#form")[0], str = [];
+        if(form.xm.value == "")
+            str.push("请输入姓名！");
+
+        if(form.myfile.value == "")
+            str.push("请上传照片！");
+
+        if(form.zjhm.value == "")
+            str.push("请输入"+form.zjlx.value+"号码！");
+
+        if(form.zc.value == "")
+            str.push("请输入职务/职称！");
+
+        if(form.zyfx.value == "")
+            str.push("请输入研究方向！");
+
+        if(form.yjcg.value == "")
+            str.push("请输入研究成果！");
+
+        if(form.intro.value == "")
+            str.push("请输入自我介绍！");
+
+        if(form.gzdw.value == "")
+            str.push("请输入工作单位！");
+
+        if(form.txdz.value == "")
+            str.push("请输入通讯地址！");
+
+        if(form.yzbm.value == "")
+            str.push("请输入邮政编码！");
+
+        if(form.yzbm.value != "" && !/^\d+$/.test(form.yzbm.value))
+            str.push("邮政编码必须为数字！");
+
+        if(form.lxdh.value == "")
+            str.push("请输入联系电话！");
+
+        if(form.lxdh.value != "" && !/^[\d\-]+$/.test(form.lxdh.value))
+            str.push("联系电话必须为数字！");
+
+        if($(":radio[name='szfx']:checked").length == 0)
+            str.push("请选择申请方向！");
+        else if($(":radio[name='szfx']:checked").val() == "政界人士" && form.yxzj.value == "")
+            str.push("请上传有效证件！");
+        
+        if(str.length > 0) {
+            alert(str.join("\n"));
+            return false;
+        }
+        //alert("OK");
+        return true;
+
+    }
+
+
+    $(function() {
+        $("tr#yxzj").hide();
+        $(document.form.szfx).click(function() {
+            if($(this).val() == "政界人士")
+                $("tr#yxzj").show();
+            else
+                $("tr#yxzj").hide();
+        });
+        $(":button[type='reset']", document.form).click(function() {
+            $("tr#yxzj").hide();    
+        });
+    });
+</script>
+{template "content","footer_research"}

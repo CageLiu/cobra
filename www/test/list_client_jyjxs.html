@@ -1,0 +1,58 @@
+{if SYS_CONDITION=="p"&&!defined('IN_ADMIN')}
+{pc:content action="client_loginuser"}
+{if isset($data['data']['authority'])&&$data['data']['authority']['trading_time']==1}
+{else}
+{php $domain = getConfig('SYS_URL');}
+{php header('Location:'.$domain['client'].'/no_auth.php');}
+{/if}
+{/pc}
+{/if}{template 'content','header_client'}
+{php $stime=$_GET['stime'];if(empty($stime))$stime=date('Y-m-d');}
+<body>
+<link href="{JS_PATH}datapicker/jquery.datepick.css" type="text/css" rel="stylesheet" />
+<script src="{JS_PATH}datapicker/jquery.datepick.js" type="text/javascript"></script>
+
+	<div class="box">
+		<div class="news_hd">
+			<span>市况直播</span>
+			<span class="date_btn">选择日期</span>
+			<strong><input type="text" id="seldate" value="{$stime}" title="选择日期" style="width:100px" onchange="dosearch()"></strong>
+		</div>
+		<div class="news_ct">
+			<ul class="news_list">
+				{php $where="catid=$catid and from_unixtime(inputtime,'%Y-%m-%d')='$stime'";}
+				{pc:content action="lists" catid="$catid" where="$where" moreinfo="1" readCache="0" order="inputtime DESC" num="100"}
+				{loop $data $val}
+				{php $val[content]=strip_tags($val[content])}
+				{php $val[content]=create_stock_link($val[stock],$val[content])}
+				<li class="{if $n%2==1}odd{else}even{/if}">
+					<p class="text">
+						<strong>CCTV证券资讯直播员</strong>
+						<span>来源：CCTV证券资讯</span>
+						<span>时间：{date("Y-m-d H:i",$val[inputtime])}</span>
+					</p>
+					<div class="text">
+						<strong>{str_cut($val[title], 20)}</strong>&nbsp;{$val[content]}
+					</div>
+				</li>
+				{/loop}
+				{/pc}
+			</ul>
+		</div>
+	</div>
+<script type="text/javascript">
+$(function(){
+    $.datepick._defaults.yearRange = "-70:+10";
+	$.datepick._defaults.beforeShowDay=$.datepick.noWeekends;
+	$('#seldate').datepick({
+        dateFormat: 'yy-mm-dd'
+    });
+	
+});
+function dosearch(){
+	var url="/index.php?m=content&c=index&a=lists&catdir=jiaoyijinxingshi&stime="+$('#seldate').val();
+	window.location.href=url;
+}
+</script>
+</body>
+</html>

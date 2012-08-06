@@ -1,0 +1,68 @@
+{if SYS_CONDITION=="p"&&!defined('IN_ADMIN')}
+{pc:content action="client_loginuser"}
+{if isset($data['data']['authority'])&&$data['data']['authority']['interal_info']==1}
+{else}
+{php $domain = getConfig('SYS_URL');}
+{php header('Location:'.$domain['client'].'/no_auth.php');}
+{/if}
+{/pc}
+{/if}{template 'content','header_client'}
+<body>
+	<div class="table_stock">
+		<table>
+			<thead>
+				<tr>
+					<th width="6%">序号</th>
+					<th width="15%">发表时间</th>
+					<th width="11%">私募名称</th>
+					<th class="new_t">
+						<span>内参标题</span>
+						<div class="search">
+							<form action="{h('/index.php?m=content&c=index&a=lists&catdir='.$catdir.'&simu=')}" method="POST" class="search_form">
+							<label>私募内参</label>
+							<input type="text" class="txt simu_str" name="simu" value="{if $_REQUEST['simu']}{$_REQUEST['simu']}{else}请输入私募名称{/if}" />
+							<input type="submit" name="submit" value="搜索" class="btn" onclick="return check_simu();" />
+							</form>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			{php $urlrule=h("/index.php?m=content&c=index&a=lists&catdir=".$catdir."&simu=".$_REQUEST["simu"]."&page={\$page}")}
+			{pc:content action="lists" catid="$catid" page="$page" urlrule="$urlrule" simu="$_REQUEST['simu']" order="inputtime DESC" num="20"}
+				{loop $data $val}
+				<tr {if $n%2==1}class="even"{/if}>
+					<td>{php echo 20*($page-1)+$n}</td>
+					<td>{date("Y-m-d  H:i",$val[inputtime])}</td>
+					<td>{$val[simu_name]}</td>
+					<td class="news"><a href="{$val[url]}">{str_cut($val[title], 20)}</a></td>
+				</tr>
+				{/loop}
+			{/pc}
+			</tbody>
+		</table>
+		<div class="page">
+		{$pages}
+		</div>
+	</div>
+
+<SCRIPT type=text/javascript>
+//搜索
+function check_simu(){
+	if($(".simu_str").val()==''||$(".simu_str").val()=='请输入私募名称'){
+		alert("请输入私募名称");
+		return false;
+	}
+}
+
+$().ready(function() {
+var str=$(".simu_str").val();
+$(".simu_str").focus(function (){
+    if($(this).val()==str){
+        $(this).val("");
+        }
+    });
+});
+</SCRIPT>
+</body>
+</html>

@@ -1,6 +1,6 @@
 #-*-coding:utf-8-*-
 import os
-from cobra.config import TEMP_IMG_PATH,STATIC_PATH,STATIC_URL_STRING
+from cobra.config import TEMP_IMG_PATH,STATIC_PATH,STATIC_URL_STRING,SITE_ROOT
 from random import Random
 from cobra.apps.system.config import INTERVAL
 import re
@@ -68,32 +68,45 @@ class RandomImg(object):
         request.STATIC = "/" + STATIC_URL_STRING + "/static"
 
 
+def getChineseName(filename):
+    name = ""
+    if os.path.exists(filename):
+        f = open(filename)
+        for line in f.readlines():
+            if line.startswith('''##title:'''):
+                name = unicode(line,"utf-8")[8:] + u" : "
+                break
+    return name
+    
+
 
 #目录树生成方法
-def dirTree(path,pattern = ""):
+def dirTree(path, url = "/", pattern = ""):
     '''生成目录树的html'''
 
-    if not path:
-        return ""
+    if not path or not os.path.exists(path):
+        return u"目录不存在或为空"
     container = []
     r = re.compile(pattern)
     def tree(path):
+        rpath = re.sub(SITE_ROOT + "www/","",path)
         if(os.path.isdir(path)):
-            container.append(ur'''<li class="dir  clearfix"><span class="dir_name"><a href="#">''' + \
-            os.path.basename(path) + \
-            ur'''</a><i class="flag">&nbsp;</i><i class="type">&nbsp;</i></span></strong><ul class="sub_dir">''')
+            container.append(r'''<li class="dir  clearfix"><span class="dir_name"><a href="''' + url + rpath + r'''/">''' + \
+            unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+            r'''</a><i class="flag">&nbsp;</i><i class="type">&nbsp;</i></span></strong><ul class="sub_dir">''')
             for item in os.listdir(path):
                 tree(path+'/'+item)
-            container.append(ur"</ul></li>")
+            container.append(r"</ul></li>")
         else:
+            title = getChineseName(path)
             if pattern:
-               not r.search(os.path.basename(path)) and container.append(ur'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
-               os.path.basename(path) + \
-               ur'''</a><i class="type"></i></span></li>''')
+               not r.search(os.path.basename(path)) and container.append(r'''<li class="file clearfix"><span class="file_name"><a href="''' + url + rpath + r'''/">''' + \
+               title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+               r'''</a><i class="type"></i></span></li>''')
             else:
-               container.append(ur'''<li class="file clearfix"><span class="file_name"><a href="#">''' + \
-               os.path.basename(path) + \
-               ur'''</a><i class="type"></i></span></li>''')
+               container.append(r'''<li class="file clearfix"><span class="file_name"><a href="''' + url + rpath + r'''/">''' + \
+               title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+               r'''</a><i class="type"></i></span></li>''')
     tree(path)
-    container = ur'''<ul class="root" id="root">''' + "".join(container) + ur'''</ul>'''
-    return container.decode().encode()
+    container = r'''<ul class="root" id="root">''' + "".join(container) + r'''</ul>'''
+    return container

@@ -1,0 +1,19 @@
+{template "content","simple_header_research"}
+<body id="intro">
+{template "content","header_research"}
+
+<div class="banner">
+
+	<img src="{IMG_PATH}research/banner5.jpg" alt="" width="960px" height="244px" />
+
+</div>
+
+{pc:content action="lists" catdir="grow" order="updatetime DESC" num="10"}
+
+
+{/pc}
+
+
+
+
+{template "content","footer_research"}

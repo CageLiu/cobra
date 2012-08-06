@@ -1,0 +1,70 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <body class="inner">
+        <div class="wp">
+            {template 'content','menu_terminal'}
+            <div class="box wp_box">
+                <div class="bt">
+                    <span class="icon icon1">软件使用教学</span>
+                </div>
+                <div class="bc hor_box">
+                    <div class="main hor_item">
+                        <table class="table">
+                            <colgroup>
+                                <col width="60%" />
+                                <col width="25%" />
+                                <col width="15%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>发布人</th>
+                                    <th>时长</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                {php $urlrule=h("/index.php?m=content&c=index&a=lists&catdir=$catdir&page={\$page}")}
+                {php $GLOBALS["page_style"]='page_style2'}
+				{pc:content action="lists" catdir="$catdir" page="$page" urlrule="$urlrule" order="inputtime DESC" num="11"}
+				{loop $data $val}
+                                <tr>
+                                    <td><a href="{$val[url]}&author={urlencode($val[author])}">{str_cut($val[title], 20)}</a></td>
+                                    <td>{if $val[author]==""}CCTV证券资讯{else}{$val[author]}{/if}</td>
+                                    <td>{$val[timeline]}</td>
+                                </tr>
+				{/loop}
+				{/pc}
+                            </tbody>
+                        </table>
+                        <div class="page">
+                            {$pages}
+                        </div>
+                    </div>
+                    <div class="side hor_item">
+                        <div class="box box1">
+                            <div class="bt">
+                                <span class="icon icon2">知名讲师</span>
+                            </div>
+                            <div class="bc lmjs">
+                            {pc:author action="authors" catdir="$catdir" order="listorder ASC" num="3" terminal="1"}
+                            {loop $data $r}
+                            {php $author = urlencode($r[name])}
+                                <div class="media">
+                                    <a href="/index.php?m=content&c=index&a=lists&catdir=useteach&author={$author}">
+                                        <img src="{$r[photo]}" alt="{$author}" width="124" height="97" />
+                                        <span>{str_cut($r[position],16)}</span>
+                                    </a>
+                                </div>
+                            {/loop}
+                            {/pc}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

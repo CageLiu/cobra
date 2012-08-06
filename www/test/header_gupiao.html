@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="baidu-site-verification" content="qZ21fRc4Qc3xdhNo" />
+{if $title!=''}
+<title>{$title}-{$SEO['site_title']}</title>
+{else}
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+{/if}
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<link rel="shortcut icon" href="{IMG_PATH}favicon.ico"/>
+<link href="{CSS_PATH}gupiao/global.css?v=2011062201" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}gupiao/main.css?v=2011062201" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{JS_PATH}jquery.min.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}util.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}jquery.sGallery.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}easing.js?v=2011062201"></script>
+<script type="text/javascript" src="{JS_PATH}gupiao/global.js?v=2011062201"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script>
+function sublogin()
+{
+	document.getElementById("login_form").submit();
+}
+
+function addFav(){
+	if (document.all)
+	window.external.AddFavorite('{siteurl($siteid)}', 'CCTV证券资讯');
+	else if (window.sidebar)
+	window.sidebar.addPanel('CCTV证券资讯', '{siteurl($siteid)}', "")
+}
+</script>
+<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+<LINK href="{CSS_AUTOCOMPLETE_URL}" type=text/css rel=stylesheet>
+<SCRIPT src="{JQUERY_AUTOCOMPLETE_URL}" type=text/javascript></SCRIPT>
+<SCRIPT type=text/javascript> 
+function searchchange(show_div, hide_div, link)
+{
+$("."+show_div).show();
+$("."+hide_div).hide();
+if (link == "hq")
+{
+	$(".search_form").attr("action", "{h('[quote]/stock/index.php')}");
+}
+else if (link == "zx")
+{
+	$(".search_form").attr("action", "{h('[misc]/search.php')}");
+}
+
+}
+//搜索
+$().ready(function() {
+var str=$(".search_stock_str").val();
+var str1=$(".search_key").val();
+$(".search_stock_str").focus(function (){
+	if($(this).val()==str){
+		$(this).val("");
+		}   
+	});
+	$(".search_key").focus(function (){
+		if($(this).val()==str1){
+			$(this).val("");
+		}   
+	});
+	$(".search_stock_str").autocomplete("/api.php?op=ajax_agent&f=stock_auto", {
+		width: 300,
+		selectFirst: false,
+		minChars: 1,
+		autoFill: false,
+		extraParams: {
+		show_type:"stock"
+		}
+	});
+	
+	$(".search_stock_str").result(function(event, data, formatted) {
+			//$("#stock_str").val("");
+			$(".search_code").val(data[1]);
+			$(".search_stock_str").val("");
+			$(".search_form").submit();
+
+	});
+	$(".search_btn").click(function (){
+		$(".search_code").val($(".search_stock_str").val());
+		return true;
+	});
+
+	$(".search_stock_str").setOptions({
+			max: 10
+	});
+});
+</SCRIPT>
+</head>
+
+<body>
+<div id="header">
+	<div class="header_area">
+       <div class="top_area">
+            <div class="topbar">
+                <div class="top_login">
+				{pc:content action="loginuser"}
+				{if $data[status]!=1}
+				<form action="{$data[data][action]}" method="POST" id="login_form">
+                    用户名：<input type="text" name="username" id="username" value="" class="txt" />
+                    密码：<input type="password" name="passwd" id="passwd" value="" class="txt"  />
+                    <input class="btn" type="button" value="登录" onclick="sublogin()">
+                    <a href="{$data[data][register]}" class="btn" target="_blank">注册</a>
+                    <label><input type="checkbox"  name="auto_login" id="auto_login" value="on" /> 自动登录</label> <a href="{$data[data][getpasswd]}" target="_blank">忘记密码</a>
+				</form>
+				{else}
+				<span>欢迎您，{$data[data][username]}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$data[data][index_url]}">进入会员中心</a>&nbsp;&nbsp;<a href="{$data[data][logout_url]}">退出</a>
+				 {/if}
+				 {/pc}
+                </div>
+
+                <div class="pr">
+                    <a href="javascript:void(0);" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('{siteurl($siteid)}');event.returnValue=false;" class="set_index">设置首页</a>
+                    <a href="javascript:addFav();" class="favorite">加入收藏</a>
+                </div>
+           </div>
+        </div>
+        <div class="logobar clearfix">
+           <div class="logo">
+                <a href="{siteurl($siteid)}"><img src="{IMG_PATH}gupiao/logo.jpg" alt="CCTV证券资讯" /></a>
+            </div>
+            <div class="menu clearfix">
+               {pc:block pos="top_licai_2"}{/pc}
+            </div>
+        </div>
+        <div class="tip_scroll clearfix">
+        	{pc:block pos="licai_search"}{/pc}
+            <div id="tip_scroll" class="scroll_section">
+                <ul>
+                {pc:content action="stock" type="index_info"}
+				{loop $data[index_page_stock] $val}
+                {php $cls = $val[diff_value]>=0 ? 'up' : 'down'}
+                {php $syb = $val[diff_value]>=0 ? '+' : ''}
+
+				{if $n%2==1}<li>{/if}
+				<span>{$val[name]}</span><em>{$val[cur_value]}</em><em class="{$cls}">{$val[diff_value]}</em><em class="{$cls}">{number_format($val[diff_percent], 2, '.', '')}%</em>
+				{if $n%2==0}</li>{/if}
+
+				{/loop}
+				{/pc}
+
+                </ul>
+            </div>
+        </div>
+		<SCRIPT type=text/javascript> 
+/***********菜单默认选中 ************/
+$(document).ready(function(){
+        var pathname = window.location.pathname;
+            if(pathname=='/'){
+                    $('#scyw').addClass('cur1');
+                        } else {
+                                $('#'+pathname.replace('/','')).addClass('cur1');
+                                    }
+    var status_index=0;  //默认停留第一个
+	$(".menu_two .tab").find(".tabs").each(function(i){
+		if($(this).hasClass("cur1")){
+			status_index=i;
+			$(".menu_two").find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+		}
+	})
+	if(status_index==0){
+		$(".menu_two").find(".tabs").eq(status_index).addClass("cur1").siblings().removeClass("cur1");
+		$(".menu_two").find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+	}
+	$(".menu_two").hover(function(){},function(){
+		$(this).find(".tabs").eq(status_index).addClass("cur1").siblings().removeClass("cur1");
+		$(this).find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+	}).tabs({className:"cur1"});
+});
+</script>
+		{pc:block pos="gupiao_index_200"}{/pc}
+        <div class="gupiao_scroll" id="tip_scroll_2">
+            <ul>   
+                <li><strong>沪市涨幅：</strong>
+				{pc:content action="stock" type="increase" cat="sha" num="5"} 
+				{loop $data $val}
+				{php $cls = $val[diff_percent]>=0 ? 'up' : 'down'}
+				{php $syb = $val[diff_percent]>=0 ? '+' : ''}
+				{php $diff=$val[diff_percent]*100}
+				<span>{$val[name]}</span><em class="{$cls}">{$val[high]}&nbsp;{$syb}{number_format($diff, 2, '.', '')}%</em>
+				{/loop}
+				{/pc}
+				</li>
+			 
+                <li><strong>深市涨幅：</strong>
+				{pc:content action="stock" type="increase" cat="sza" num="5"} 
+				{loop $data $val}
+				{php $cls = $val[diff_percent]>=0 ? 'up' : 'down'}
+				{php $syb = $val[diff_percent]>=0 ? '+' : ''}
+				{php $diff = $val[diff_percent]*100}
+				<span>{$val[name]}</span><em class="{$cls}">{$val[high]}&nbsp;{$syb}{number_format($diff, 2, '.', '')}%</em>
+				{/loop}
+				{/pc}
+				</li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,184 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">个人管理中心</a>
+		<span>&gt;</span>
+		<a href="#">订单管理</a>
+		<span>&gt;</span>
+		<em>我的订单</em>
+	</div>
+
+	<div class="order_box">
+		<div class="order_item info">
+			<strong>单号：<em class="order_num">50099982</em></strong>
+			<strong>状态：<em>等待付款/付款成功/已使用/已过期</em></strong>
+		</div>
+		<div class="order_item tips">
+			您的订单已提交，请及时付款，谢谢!
+		</div>
+	</div>
+
+
+	<div class="admin_box">
+		<div class="admin_bt"><span class="title">订单信息</span></div>
+		<div class="admin_bc">
+			<dl class="flight_info">
+				<dt>酒店信息</dt>
+				<dd>
+					<table class="hbxx">
+						<colgroup>
+							<col width="25%" />
+							<col width="20%" />
+							<col width="25%" />
+							<col width="20%" />
+							<col width="10%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>酒店名称</th>
+								<th>房型</th>
+								<th>星级</th>
+								<th>床型</th>
+								<th>优惠价</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>上海外滩毛月大酒店</td>	
+								<td>高级标准间</td>	
+								<td>
+									<span class="star">
+										<i class="on">1星</i>
+										<i class="on">2星</i>
+										<i class="on">3星</i>
+										<i class="on">4星</i>
+										<i class="on">5星</i>
+									</span>
+								</td>	
+								<td>双人床</td>
+								<td>&yen;1872</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+				<dt>价格信息</dt>
+				<dd>
+					<table class="jgxx">
+						<thead>
+							<tr>
+								<th>入住日期</th>
+								<th>离店日期</th>
+								<th>入住人数</th>
+								<th>预订间数</th>
+								<th>支付方式</th>
+								<th>订单总价</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2012-03-14</td>
+								<td>2013-03-14</td>
+								<td>1000</td>
+								<td>1</td>
+								<td>在线支付</td>
+								<td class="red">&yen;1185.00</td>
+							</tr>
+							<tr>
+								<td>2012-03-14</td>
+								<td>2013-03-14</td>
+								<td>1000</td>
+								<td>1</td>
+								<td>在线支付</td>
+								<td class="red">&yen;1185.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+				<dt>联系人信息</dt>
+				<dd>
+					<span class="item">联系人姓名：阿斯大卡死看到</span>
+					<span class="item">联系人手机：13812345678</span>
+					<span class="item">联系人电话：021-11011011</span>
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+
+	<div class="admin_box">				
+		<div class="admin_bc">
+			<div class="table_box innertable">			
+				<table class="table">
+					<thead>
+						<tr>
+							<th>酒店名称</th>
+							<th>宾客姓名</th>
+							<th>房型</th>
+							<th>床型</th>
+							<th>间数</th>
+							<th>预订时间</th>
+							<th>总价</th>
+							<th>订单状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>上海航空酒店（浦东机场店）</td>
+							<td>张三</td>
+							<td>高级标准间</td>
+							<td>双人床</td>
+							<td>2</td>
+							<td>
+								<p>2011-01-01</p>
+								<p>15:15:15</p>
+							</td>
+							<td>8888.00</td>
+							<td>预订成功</td>
+							<td>
+								<a href="#" class="link">去评价</a>
+								<a href="#" class="link">再次购买</a>
+							</td>
+						</tr>
+						<tr>
+							<td>上海航空酒店（浦东机场店）</td>
+							<td>张三</td>
+							<td>高级标准间</td>
+							<td>双人床</td>
+							<td>2</td>
+							<td>
+								<p>2011-01-01</p>
+								<p>15:15:15</p>
+							</td>
+							<td>8888.00</td>
+							<td>未付款</td>
+							<td>
+								<a href="#" class="link">付款</a>
+								<a href="#" class="link">取消</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		
+	</div>
+
+
+	<div class="order_box align_right">
+		<div class="order_item info">
+			<span class="amount">商品金额：&yen;85.00</span>
+			<span class="amount">+运费：&yen;85.00</span>
+			<span class="amount">-优惠：&yen;85.00</span>
+		</div>
+		<div class="order_item tips">
+			<p><strong>订单支付金额：<em class="red">&yen;85.00</em></strong></p>
+			<p>（余额支付：&yen;85.00 财富卡：&yen;85.00 网上银行：&yen;85.00）</p>
+		</div>
+	</div>
+
+</div>
+			
+<%include file="footer.html" />

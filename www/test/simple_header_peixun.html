@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $title!=''}<title>{$title} - {$SEO['site_title']}</title>{else}<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>{/if}
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}peixunzhongxin/global.css">
+<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}peixunzhongxin/global.js"></script>
+<script type="text/javascript" src=" http://cbjs.baidu.com/js/m.js"></script>
+<script type="text/javascript">BAIDU_CLB_preloadSlots("243317");</script>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="topNav">
+			{pc:block pos="peixun_simple_head_meau1"}{/pc}
+        </div>
+        <div class="banner">
+            <h1><a href="{h('[www]/')}" title="CCTV证劵资讯">证劵资讯</a></h1>
+        </div>
+        <div class="nav">
+			{pc:block pos="peixun_simple_head_meau2"}{/pc}
+        </div>
+    </div>

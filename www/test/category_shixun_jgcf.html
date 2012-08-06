@@ -1,0 +1,108 @@
+{php $head='shixun_index'}
+{template "content","header_shixun"}
+<div class="box_whole clearfix">
+    <div class="box_col">
+        <div class="ct clearfix">
+            <!--焦点图-->
+            <div class="soChange" id="p11_soChange">
+            	{pc:block pos="shixun_jgcf_101"}{/pc}<!-- 视讯机构采风 - 焦点图 -->
+
+            </div>
+            <!--//焦点图-->
+            <div class="art_info">
+            	{pc:block pos="shixun_jgcf_102"}{/pc}<!-- 视讯机构采风 - 第一栏 - 文章列表 -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box_single">
+    <div class="box_inner clearfix">
+        <div class="box_main no_bt">	
+            <div class="box_whole col2 clearfix">
+                <div class="box_col">
+                    <div class="hd">
+                        <h2>机构推荐</h2>
+                    </div>
+                    <div class="ct wid80">
+                        <!--机构推荐-->
+                        {pc:block pos="shixun_jgcf_103"}{/pc}<!-- 视讯机构采风 - 机构推荐 - 文章列表 -->
+                        
+                        <!--//机构推荐-->
+                    </div>
+                    <span class="more"> 
+                    {pc:block pos="shixun_jgcf_104"}{/pc}<!-- 视讯机构采风 - 机构推荐 - 更多 -->
+                   
+                    </span>
+                </div>
+                <div class="box_col">
+                    <div class="hd">
+                        <h2>机构人物推荐</h2>
+                    </div>
+                    <div class="ct wid80">
+                        <!--机构人物推荐-->
+                        {pc:block pos="shixun_jgcf_105"}{/pc}<!-- 视讯机构采风 - 机构人物推荐 - 文章列表 -->
+
+                        <!--//机构人物推荐-->
+                    </div>
+                    <span class="more">
+                    {pc:block pos="shixun_jgcf_106"}{/pc}<!-- 视讯机构采风 - 机构人物推荐 - 更多 -->
+                    
+                    </span>
+                </div>
+            </div>
+            <div class="ads_area">
+                <!--广告-->
+                {pc:block pos="shixun_jgcf_107"}{/pc}<!-- 视讯机构采风 - 第三栏广告 -->
+               
+                <!--//广告-->
+            </div>
+            <div class="box_item">
+                <div class="hd">
+                    <h2>机构风采</h2>
+                </div>
+                <div class="ct pro_list">
+                    <!--图片列表-->
+                    {pc:block pos="shixun_jgcf_108"}{/pc}<!-- 视讯机构采风 - 机构风采 - 图片标题列表 -->
+
+                    <!--//图片列表-->
+                </div>
+                <span class="more">
+                {pc:block pos="shixun_jgcf_109"}{/pc}<!-- 视讯机构采风 - 机构风采 - 更多 -->
+                
+                </span>
+            </div>
+        </div>
+        <div class="box_side">
+            <div class="box_first">
+                <div class="hd">
+                    <h2>产品推荐</h2>
+                </div>
+                <div class="ct">
+                    <div class="product_rcmd side_filler">
+                    	{pc:block pos="shixun_jgcf_110"}{/pc}<!-- 视讯机构采风 - 产品推荐 - 列表 -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="box_item">
+                <div class="hd">
+                    <h2>其他人在关注</h2>
+                </div>
+                <div class="ct wid80">
+                    <!--其他人在关注-->
+                    <ul class="trends">
+                        {pc:content action="reading" catid="554" num="10"}
+                            {loop $data $val}
+                                <li><strong>{timetostring($val['time'])}</strong>
+                                <a href="{$val[url]}" target="_blank">{str_cut($val[title], 10)}</a></li>
+                            {/loop}
+                        {/pc}
+                    </ul>
+                    <!--//其他人在关注-->
+                </div>			
+            </div>
+        </div>
+    </div>
+</div>
+{template "content","footer_shixun"}

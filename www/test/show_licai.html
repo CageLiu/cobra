@@ -1,0 +1,231 @@
+﻿{php $head='licai_list'}
+{template "content","simple_header_licai"}
+<div class="wrap outline">	
+	<div class="posit clearfix">
+        {php $top_channel = getChannel($catid)}
+		{php $channels = array('money','lcbx','fc','lcyh','lczq')}
+		{php $channel = getChannel($catid, $channels);}
+        {php $class = array('money'=>'zsjh', 'lcbx'=>'bxpd','fc'=>'fcpd','lcyh'=>'yhpd','lczq'=>'zqpd')}
+		<div class="bread clearfix"><a href="{h($channel[url])}" class="posit_title {$class[$channel['catdir']]}"></a><span> <a href="{siteurl($siteid)}" title="首页">首页</a>&gt;{catpos($top_parentid)}&gt;<a>正文</a></span></div>
+		<div class="search_box posit_search">
+			<!-- 全文搜索 -->
+			{pc:block pos="licai2_licai_list_102"}{/pc}
+			<!-- 全文搜索的js -->
+			<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+			<SCRIPT type=text/javascript> 
+			function searchchange(show_div, hide_div, link)
+			{
+			$("."+show_div).show();
+			$("."+hide_div).hide();
+			if (link == "hq")
+			{
+				$(".search_form").attr("action", "{h('[quote]/stock/index.php')}");
+			}
+			else if (link == "zx")
+			{
+				$(".search_form").attr("action", "{h('[misc]/search.php')}");
+			}
+
+			}
+			//搜索
+			$().ready(function() {
+			var str=$(".search_stock_str").val();
+			var str1=$(".search_key").val();
+			$(".search_stock_str").focus(function (){
+				if($(this).val()==str){
+					$(this).val("");
+					}   
+				});
+				$(".search_key").focus(function (){
+					if($(this).val()==str1){
+						$(this).val("");
+					}   
+				});
+				$(".search_stock_str").autocomplete("/api.php?op=ajax_agent&f=stock_auto", {
+					width: 300,
+					selectFirst: false,
+					minChars: 1,
+					autoFill: false,
+					extraParams: {
+					show_type:"stock"
+					}
+				});
+				
+				$(".search_stock_str").result(function(event, data, formatted) {
+						//$("#stock_str").val("");
+						$(".search_code").val(data[1]);
+						$(".search_stock_str").val("");
+						$(".search_form").submit();
+
+				});
+				$(".search_btn").click(function (){
+					$(".search_stock_code").val($(".search_stock_str").val());
+					return true;
+				});
+
+				$(".search_stock_str").setOptions({
+						max: 10
+				});
+			});
+			</SCRIPT>	
+		</div>
+	</div>						
+	<div class="main_col">
+		<div class="details">
+            <div class="article">
+                <div class="art_head">
+                    <h1>{$title}</h1>
+                    <div class="art_bar clearfix">
+                        <span class="art_from">来源：{$copyfrom}</span>
+                        <span class="art_author">作者：{if empty($author)}未知{/if}{$author}</span>
+                        <span class="pubtime">时间：{$inputtime}</span>
+                        <span class="art_tool">
+                            <span class="bg_sel">背景色：<a href="javascript:set_bg('no_bg','art_cont')" class="none" title="无">白</a><a href="javascript:set_bg('yellow_bg','art_cont')" class="yellow" title="黄">黄</a><a href="javascript:set_bg('blue_bg','art_cont')" class="blue" title="蓝">蓝</a></span>
+                            <span class="font_sel">字体：<a href="javascript:set_font(12,'art_cont')" title="小">小</a><a href="javascript:set_font(14,'art_cont')" class="cur" title="中">中</a><a href="javascript:set_font(18,'art_cont')" title="大">大</a></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="no_bg" id="art_cont">
+					{$content}
+                </div>
+                {template "content","weibo_share"}
+                <div class="page">
+					{$pages}
+				</div>
+            </div>
+            <div class="statement">
+                <dl>
+                    <dt></dt>
+                    <dd><p>转载上述内容出于传递更多信息之目的，不表明证实其描述或赞同其观点。文章内容仅供参考，不构成投资建议。投资者据此操作，风险自担。</p></dd>
+                </dl>
+            </div>
+            <div class="details_b">
+                <dl class="alink">
+                    <dt><strong>相关阅读</strong></dt>
+					{pc:content action="relation" relation="$relation" id="$id" catid="$catid" num="5" keywords="$rs[keywords]"}
+					{php //print_r($rs[keywords]);exit("sdf");}
+					{loop $data $val}
+						<dd><a href="{$val[url]}"  title="{htmlspecialchars($val[title])}" target="_blank">{str_cut($val[title], 32)}</a><span class="pr">{date('Y/m/d',$val[inputtime])}</span></dd>
+					{/loop}
+	                {/pc}
+                </dl>
+                <div class="go_top"><a title="返回顶部" href="#"><span>返回顶部</span></a></div>
+                <dl class="videos">
+                    <dt><strong>视频专访</strong></dt>
+					<!-- 视频专访 -->
+					<dd>
+					<ul class="pic_list clearfix">
+					{pc:block pos="licai2_show_100" action="customtpl"}
+					{loop $data $i $r}
+						<li><a href="{$r[url]}" target="_blank"><img height="94" width="150" alt="" src="{thumb($r[thumb],150,94)}"><span>{$r[title]}</span></a></li>
+					{/loop}
+					{/pc}
+					</ul>
+					</dd>
+                </dl>
+                <dl class="news_dj">
+                    <dt><strong>独家新闻</strong></dt>
+					<!-- 独家新闻 -->
+					<dd>
+					<ul class="text_list clearfix">
+					{pc:block pos="licai2_show_101" action="customtpl"}
+					{loop $data $i $r}
+						<li><a href="{$r[url]}" target="_blank">{str_cut($r[title],14)}</a></li>
+					{/loop}
+					{/pc}
+					</ul>
+					</dd>
+                </dl>
+            </div>
+            <div class="back">
+                <a href="{h('/index.php?m=content&c=index&a=lists&catid=159')}" class="btn"><span>返回理财首页</span></a>
+            </div>
+        </div>
+	</div>
+	<div class="side_col">
+		<div class="aimgd side_ad">
+			<!-- 广告 -->
+			{pc:block pos="licai2_show_102"}{/pc}
+		</div>
+        <div class="box_side box_extra">
+        	<div class="tab_a mrtj">
+                <div class="tab tab1 clearfix">
+                    <h4>每日推荐</h4>
+                    <a class="tabs cur2" target="_blank" style="border-left:1px solid #D5D5D5"><span>视频</span></a>
+                    <a class="tabs" target="_blank"><span>新闻</span></a>
+                    <a class="tabs" target="_blank"><span>证券</span></a>
+                </div>
+                <div class="ct recomend">
+					<!-- 视频 -->
+					{pc:block pos="licai2_show_103" action="customtpl"}
+					<div class="tabCont">
+					<ul class="text_list">	
+					{loop $data $i $r}
+						<li><a href="{$r[url]}" target="_blank">{str_cut($r[title],14)}</a></li>
+					{/loop}
+					</ul>
+					</div>
+					{/pc}
+					<!-- 新闻 -->
+					{pc:block pos="licai2_show_104" action="customtpl"}
+					<div class="tabCont" style="display:none">
+						<ul class="text_list">	
+						{loop $data $i $r}
+							<li><a href="{$r[url]}" target="_blank">{str_cut($r[title],14)}</a></li>
+						{/loop}
+						</ul>
+					</div>
+					{/pc}
+					<!-- 证券 -->
+					{pc:block pos="licai2_show_105" action="customtpl"}
+					<div class="tabCont" style="display:none">
+						<ul class="text_list">	
+						{loop $data $i $r}
+							<li><a href="{$r[url]}" target="_blank">{str_cut($r[title],14)}</a></li>
+						{/loop}
+						</ul>
+					</div>
+					{/pc}
+                </div>
+            </div>
+		</div>
+		<div class="box_side box_extra">
+			<div class="hd">
+				<h2>
+                    <a>精彩图文</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+				<ul class="pic_list clearfix">
+					{pc:block action="customtpl" pos="licai2_show_tj" num="6"}
+					{loop $data $val}
+						<li><a target="_blank" href="{$val[url]}"><img height="75" width="100" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"><span>{str_cut($val[title], 10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_side box_last">
+			<div class="hd">
+				<h2>
+                    <a>热点专题</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+            	<div class="hot_spc">
+                    <ul class="text_list">
+						<!-- 热点专题 -->
+					{php $new_catid = getparentid($catid)}
+					{pc:content action="lists" catid="$new_catid[0]" order="updatetime DESC" num="10"}
+						{loop $data $val}
+						<li><a target="_blank" href="{$val[url]}">{str_cut($val[title], 10)}</a></li>
+						{/loop}
+					{/pc}
+                    </ul>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}&extra={$top_channel[catid]}&extra2={$channel[catid]}"></script>
+{template "content","footer"}

@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		{if $title!=''}
+        <title>{$title}-{$SEO['site_title']}</title>
+        {else}
+        <title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+        {/if}
+        <link href="{CSS_PATH}energyl/main.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="outer_wp">
+			<div class="inner_wp">
+				<div class="header">
+					<img src="{IMG_PATH}energyl/header.jpg" alt="" />
+				</div>
+				<div class="column">
+					<div class="box">
+						<div class="bt">
+							大宗产品要闻
+						</div>
+						<div class="bc justify_box">
+							<div class="justify_item l">
+								<a href="http://video.cctvcj.com/2865.shtml" target="_blank">
+									<img src="{IMG_PATH}energyl/img1.png" alt="我们将考核能源消费总量控制" title="我们将考核能源消费总量控制" width="236" height="156" />
+								</a>
+								<dl class="dl1">
+								  <dt>最新统计</dt>
+								  <dd>
+								    <ul>
+                                        {pc:block action="customtpl" pos="energy_index_102" num="4"}
+                                        {loop $data $val}
+                                        {if $n<=4} <li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),20)}</a></li>{/if}
+                                        {/loop}
+                                        {/pc}
+								    </ul>
+								  </dd>
+								</dl>
+							</div>
+							<div class="justify_item m">
+                                {pc:block action="customtpl" pos="energy_index_103" num="1"}
+							    {loop $data $val}
+                                    <h1 class="hot">
+                                        <a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),16)}</a>
+                                    </h1>
+                                    <p class="summary">{str_cut(htmlspecialchars($val['desc']),60)}...<a href="{$val[url]}">[详情]</a>
+                                    </p>
+                                {/loop}
+                                {/pc}
+							    <ul class="list1">
+                                    {pc:content action="lists" catdir="hgjj" recommend="0,1" order="updatetime DESC" num="8"}
+                                    {loop $data $val}
+                                        <li><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),23)}</a></li>
+                                    {/loop}
+                                    {/pc}
+								</ul>
+							</div>
+							<div class="justify_item r">
+								<div class="box">
+									<div class="bt">
+										名家之音
+									</div>
+									<div class="bc">
+										<dl class="dl2">
+                                            {pc:block action="customtpl" pos="energy_index_106"}
+                                            {loop $data $val}
+                                                <dt>
+                                                    <a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),8)}</a>
+                                                </dt>
+                                                <dd>{str_cut($val[desc],50)}...<a target="_blank" href="{$val[url]}">[详细]</a>
+                                                </dd>
+                                           	{/loop}
+					                        {/pc}
+										</dl>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="box">
+						<div class="bt">
+							国内指数
+						</div>
+						<div class="hor_box bc">
+							<div class="hor_item left">
+								<img src="{IMG_PATH}energyl/img2.png" alt="" />
+							</div>
+							<div class="hor_item right">
+								<dl class="dl3">
+									<dt>即时评论</dt>
+									<dd>
+									<ul>
+										{pc:content action="lists" catdir="yhxd" recommend="0" order="updatetime DESC" num="12"}
+										{loop $data $val}
+										<li {if $n==3}class="list_blank"{/if}><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+									</ul>
+									</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="box">
+						<div class="bt">
+							国外指数
+						</div>
+						<div class="hor_box bc">
+							<div class="hor_item left">
+								<img src="{IMG_PATH}energyl/img3.png" alt="" />
+							</div>
+							<div class="hor_item right">
+								<dl class="dl3">
+									<dt>即时评论</dt>
+									<dd>
+									<ul>
+										{pc:content action="lists" catdir="sytrq" recommend="0,1" order="updatetime DESC" num="12"}
+										{loop $data $val}
+										{php $id_2[] = $val['id']}
+											<li ><a target="_blank" href="{$val[url]}">{str_cut(htmlspecialchars($val['title']),18)}</a></li>
+										{/loop}
+										{/pc}
+
+									</ul>
+									</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="box">
+						<div class="bt">
+							 现货交易
+						</div>
+						<div class="bc">
+							<div class="table">
+								<ul class="list2 hor_box" id="scroll">
+									<li>
+										<span class="hor_item type">内蒙古-赤峰-铅精矿-50%以上 </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">8800</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">500</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">佛山-茂名石化-PP-T30S</span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10700</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">36</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">灵宝-栾川-铅精矿-35-40% </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">7300</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">600</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">临河-大冶-铅精矿-40% </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">8500</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">600</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">宁夏-青铜峡-铜精矿-15-20% </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10400</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">400</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">天津-大庆石化-LDPE-18D </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10600</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">28</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">北京-大庆石化-ABS-750A </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">15300</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">29</span>
+										<span class="hor_item time">2012-6-21 9:00</span>n>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">佛山-茂名石化-PP-T30S </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10800</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">32</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">上海-马钢-中厚板Q235-10*2000*800... </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">4530</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">100</span>
+										<span class="hor_item time">2012-6-21 9:00</span>>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">天津-茂名石化-HDPE-5502 </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10500</span>
+										<span class="hor_item count">15</span>
+										<span class="hor_item kcun">13</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">上海-马钢-中厚板Q235-8*2000*8000... </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">4570</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">200</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">邯郸-邯郸-炼焦煤-回收60以上G60以上 </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">800</span>
+										<span class="hor_item count">600</span>
+										<span class="hor_item kcun">400</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">上海-马钢-中厚板Q235-50*2000*800...</span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">4550</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">200</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">邯郸-邯郸-炼焦煤-精G70以上 </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">1559</span>
+										<span class="hor_item count">280</span>
+										<span class="hor_item kcun">720</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">上海-马钢-中厚板Q235-40*2000*800... </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">4460</span>
+										<span class="hor_item count">45</span>
+										<span class="hor_item kcun">155</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">内蒙古-赤峰-铅精矿-50%以上 </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">8800</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">500</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">佛山-茂名石化-PP-T30S </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10700</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">36</span>
+									    <span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li class="even">
+										<span class="hor_item type">灵宝-栾川-铅精矿-35-40%</span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">7300</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">600</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+									<li>
+										<span class="hor_item type">临河-大冶-铅精矿-40% </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">8500</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">600</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+
+ 									<li class="even">
+										<span class="hor_item type">宁夏-青铜峡-铜精矿-15-20% </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10400</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">400</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+                                   
+									<li>
+										<span class="hor_item type">天津-大庆石化-LDPE-18D </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">10600</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">28</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+
+									<li class="even">
+										<span class="hor_item type">北京-大庆石化-ABS-750A </span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">15300</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">29</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+
+									<li>
+										<span class="hor_item type">灵宝-栾川-铅精矿-35-40%</span>
+										<span class="hor_item date">即期</span>
+										<span class="hor_item price">7300</span>
+										<span class="hor_item count">0</span>
+										<span class="hor_item kcun">600</span>
+										<span class="hor_item time">2012-6-21 9:00</span>
+										<span class="hor_item buy">购买</span>
+									</li>
+
+								</ul>
+								<script type="text/javascript">
+									(function(){
+										var oScroll = document.getElementById("scroll");
+										oScroll.style.position = "relative";
+										var aLi = oScroll.childNodes;
+										var i = aLi.length;
+										var aTemp = [];
+										while(i--){
+											if(aLi[i].nodeType === 1){
+												aTemp.push(aLi[i]);
+											}
+										}
+										(function(){
+											var first = aTemp[aTemp.length - 1];
+											if(first.offsetTop > -25){
+												first.style.marginTop = first.offsetTop - 2 + "px";
+											}else{
+												aTemp.unshift(aTemp.pop());
+												aTemp[0].style.marginTop = 0;
+												oScroll.appendChild(aTemp[0]);
+											}
+											setTimeout(arguments.callee,400);
+										}());
+									}());
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="box">
+						<div class="bt">
+						友情链接	
+						</div>
+						<div class="bc">
+							<ul class="list3 hor_list">
+                                <li><a href="http://www.forex.com.cn" target="_blank">外汇通</a></li>
+                                <li><a href="http://www.eastmoney.com" target="_blank">东方财富网</a></li>
+                                <li><a href="http://finance.21cn.com/" target="_blank">21CN财经</a></li>
+                                <li><a href="http://money.msn.com.cn/" target="_blank">MSN理财</a></li>
+                                <li><a href="http://finance.southcn.com/" target="_blank">南方财经网</a></li>
+                                <li><a href="http://www.ceeh.com.cn" target="_blank">城市经济导报</a></li>
+                                <li><a href="http://www.cnstock.com/" target="_blank">中国证券网</a></li>
+                                <li><a href="http://money.zjol.com.cn/" target="_blank">浙江理财网</a></li>
+                                <li><a href="http://www.imeigu.com/" target="_blank">i美股</a></li>
+                                <li><a href="http://www.stockstar.com/" target="_blank">证券之星</a></li>
+                                <li><a href="http://www.1news1.cn/" target="_blank">焦点中国网</a></li>
+                                <li><a href="http://www.jjmmw.com/" target="_blank">基金买卖网</a></li>
+                                <li><a href="http://caijing.17guagua.com/" target="_blank">呱呱财经</a></li>
+                                <li><a href="http://www.icaijing.com/" target="_blank">爱财经</a></li>
+                                <li><a href="http://www.caijing.com.cn/" target="_blank">《财经网》</a></li>
+                                <li><a href="http://www.nbd.com.cn/" target="_blank">每日经济新闻</a></li>
+                                <li><a href="http://www.FX168.com/" target="_blank">FX168外汇宝</a></li>
+                                <li><a href="http://www.hc360.com/" target="_blank">慧聪网</a></li>
+                                <li><a href="http://www.oilchem.net/" target="_blank">隆众石化商务网</a></li>
+                                <li><a href="http://stock.hexun.com/" target="_blank">和讯股票</a></li>
+                                <li><a href="http://www.chinavalue.net/" target="_blank">价值中国网</a></li>
+                                <li><a href="http://www.fx678.com/" target="_blank">外汇牌价</a></li>
+                                <li><a href="http://www.gold678.com/" target="_blank">黄金价格</a></li>
+                                <li><a href="http://www.10jqka.com.cn" target="_blank">同花顺金融服务网</a></li>
+                                <li><a href="http://www.tfx888.com" target="_blank">汇丰外汇网</a></li>
+                                <li><a href="http://www.guzhiwang.com" target="_blank">股指期货网</a></li>
+                                <li><a href="http://www.caixun.com/" target="_blank">财讯网</a></li>
+                                <li><a href="http://www.gold58.com/" target="_blank">BEST黄金投资网</a></li>
+                                <li><a href="http://www.etnet.com.cn/" target="_blank">经济通</a></li>
+							</ul>
+						</div>
+					</div>
+                </div>
+
+				<div class="ft">
+					<p>
+                        <a href="{h('[www]/about/sitemap.shtml')}">网站导航</a> |
+                        <a href="{h('[www]/about/company.shtml')}">公司动态</a> |
+                        <a href="{h('[www]/about/about.shtml')}">公司简介</a> |
+                        <a href="{h('[misc]/help_center.php?action=cooperation')}">合作伙伴</a> |
+                        <a href="{h('[www]/about/statement.shtml')}">免责条款</a> |
+                        <a href="{h('[www]/about/recruitment.shtml')}">诚聘英才</a> |
+                        <a href="{h('[www]/about/cooperation.shtml')}">广告服务</a> |
+                        <a href="{h('[www]/about/help.shtml')}">帮助中心</a>
+					</p>
+					欢迎访问中能能源大宗产品电子商务平台&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;版权所有  Copyright ©2012~2014 
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

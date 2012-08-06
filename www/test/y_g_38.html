@@ -1,0 +1,113 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp hor_box">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">个人管理中心</a>
+		<span>&gt;</span>
+		<em>我的财富卡</em>
+	</div>
+	<div class="admin_side hor_item">
+		<dl class="admin_sub_nav">
+			<dt>店铺管理</dt>
+			<dd>
+				<a href="#">店铺信息管理</a>
+				<a href="#">优惠券管理</a>
+			</dd>
+			<dt>订单管理</dt>
+			<dd>
+				<a href="#">电子消费券</a>
+				<a href="#">实物商品</a>
+				<a href="#">售后管理</a>
+				<a href="#">订单查询</a>
+			</dd>
+			<dt class="current">商品管理</dt>
+			<dd class="current">
+				<a class="current" href="#">商品列表</a>
+			</dd>
+			<dt>账户管理</dt>
+			<dd>
+				<a href="#">账户设置</a>
+				<a href="#">账单管理</a>
+			</dd>
+			<dt>站内消息</dt>
+			<dd>
+				<a href="#">我的消息</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="admin_main hor_item">
+		<div class="admin_box tab">
+			<div class="tab_tag admin_tab">
+				<ul class="hor_list">
+					<li class="current"><a href="javascript:;">财富卡</a></li>
+				</ul>
+			</div>
+			<div class="admin_bc caifuka">
+				<div class="admin_box">
+					<div class="admin_bt">
+						<span class="title">财富卡绑定</span>
+					</div>
+					<div class="admin_bc">
+						<div class="radiusbox">
+							<div class="radius radius_top">
+								<div>radius-top</div>
+							</div>
+							<div class="radius_cont">
+								<form action="">
+									<div class="form has_field offset100">
+										<div class="item">
+											<label class="field">财富卡卡号：</label>
+											<span class="b">
+												<input type="text" class="txt">
+											</span>
+										</div>
+										<div class="item">
+											<label class="field">财富卡密码：</label>
+											<span class="b">
+												<input type="pwd" class="txt">
+											</span>
+										</div>
+										<div class="item">
+											<a class="btn btn2 bind_acc" href="javascript:;">
+												<span >绑定帐号</span>
+												<input class="dialog_handler" name="bind_acc" type="button" value="绑定帐号" />
+											</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="radius radius_bottom">
+								<div>radius-bottom</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="dialog" id="bind_acc">
+				<div class="dcont notit">
+					<form action="">
+						<div class="form has_field offset68">
+							<p>您申请绑定次财富卡后,此卡<strong class="orange">不能再用作线下消费</strong>。请知悉!</p>
+							<div class="item">
+								<a href="javascript:;" class="btn btn1">
+									<span>确认绑定</span>
+									<input type="submit" value="确认绑定">
+								</a>
+								<a href="javascript:;" class="btn btn1" onclick="eval(document.getElementById('bind_acc').style.display = 'none')">
+									<span>取消</span>
+									<input type="button" value="取消">
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+				<em class="close">close</em>
+			</div>
+		</div>
+	</div>
+</div>
+			
+<%include file="footer.html" />

@@ -1,0 +1,69 @@
+{template "content","header_scoop"}
+<div id="content" class="other clearFix">
+    <div class="main">
+    	<!--新闻列表 开始-->
+        <div class="newsList">
+            {pc:content action="lists" catid="$catid" page="$page" keywords="$_GET[keywords]" order="inputtime DESC" num="25"}
+            <div class="mBoxLC">
+                {php $c=count($data)}
+                {loop $data $val}
+                {if $n%5==1}<ul class="txtList txtList1">{/if}
+                	<li><a href="{$val[url]}" target="_blank" {title_style($val[style])} title="{htmlspecialchars($val[title])}">
+                    {str_cut($val[title], 60)}</a><span class="date pr">{date('m-d H:i:s',$val[inputtime])}</span></li>
+                {if $n%5==0 || $n==$c}</ul>{/if}
+                {/loop}
+                <div class="page">
+                    {$pages}
+                </div>
+            </div>
+            {/pc}
+        </div>
+    </div>
+    <div class="side">
+    	<div class="box">
+        	<div class="t">
+            	{pc:block pos="dujia_jyjxs_116"}{/pc}
+            	
+            </div>
+            <div class="c">
+            	{pc:block pos="dujia_jyjxs_109"}{/pc}
+
+                <div class="single">
+                    <ul class="txtList iconA">
+                    	{pc:block pos="dujia_jyjxs_108"}{/pc}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="aimgd">
+        	{pc:block pos="dujia_list_105"}{/pc}
+        	
+        </div>
+        <div class="box">
+        	<div class="t">
+            	{pc:block pos="dujia_list_106"}{/pc}
+            	
+            </div>
+            <div class="c">
+               <ul class="picList hotPerson">
+                	{pc:content action="hot_author_list" num="6"}
+                        {loop $data $val}
+                            <li><a href="{$val[id]}" target="_blank">
+                            	<img src="{thumb($val[photo],70,70)}" height="70" width="70" alt="" />
+                            	{$val[name]}</a>
+                            </li>
+                        {/loop}
+                    {/pc}   
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+        <em class="clt"></em>
+        <em class="crt"></em>
+        <em class="clb"></em>
+        <em class="crb"></em>
+    </div>
+</div>
+{template 'content', 'footer_scoop'}

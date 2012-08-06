@@ -1,0 +1,31 @@
+##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	i-Shu | 搜索
+</%def>
+
+<%def name="outfile()"></%def>
+
+<%def name="main()">
+<h2 class="crumbs" style="margin-bottom:10px;">
+	搜索结果
+</h2>
+<div class="searchresult">
+	%if count == 0:
+	<div class="empty">没有 <strong>${s}</strong> 相关的数据</div>
+	%else:
+	<ul class="list">
+		%for item in s_posts:
+		<li><a href="/posts/${item.id}">${item}</a></li>
+		%endfor
+		%for item in s_book:
+		<li><a href="/book/${item.id}">${item}</a></li>
+		%endfor
+		%for item in s_user:
+		<li><a href="/user/${item.id}">${item}</a></li>
+		%endfor
+	</ul>
+	%endif
+</div>
+</%def>

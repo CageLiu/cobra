@@ -1,0 +1,528 @@
+{php $head='caijing_guoji'}
+{template "content","header_caijing"}
+<div class="wrap">
+	<div class="col_wrap">
+		<div class="col_ct">
+			<div class="col_main">
+				<div class="main_ct split clearfix">
+					<div class="right">
+						<div class="box_item focus_news">
+							<dl>
+								{pc:block action="customtpl" pos="caijing2_guoji_100" num="1"}
+								{loop $data $val}
+								<dt><strong><a target="_blank" href="{$val[url]}">{str_cut($val[title],15)}</a></strong></dt>
+								<dd><p class="focus_summary">{str_cut($val['desc'],65)}...<a target="_blank" href="{$val[url]}">[详情]</a>
+								</p></dd>
+								{/loop}
+								{/pc}
+							</dl>
+						</div>	
+						<div class="box_item today_news">
+							<div class="box_hd fixed_hd">
+								<h2 class="jryw_news">
+									<a target="_blank" href="{h('[finance]/gjyw/')}">今日要闻</a>
+								</h2>
+							</div>
+							<div class="ct">
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjyw" recommend="1,2,3" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a target="_blank" href="{$val[url]}">{str_cut($val[title],21)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/gjyw/')}">更多</a>
+							</span>
+						</div>
+						<div class="box_item hot_news">
+							<ul class="text_list text_size">
+								{pc:content action="lists" catdir="xggp" recommend="1" order="updatetime DESC" num="1"}
+								{loop $data $val}
+								<li><span class="red">港股</span><a target="_blank" href="{$val[url]}">[{str_cut($val[title],20)}]</a></li>
+								{/loop}
+								{/pc}
+								{pc:content action="lists" catdir="gold" recommend="1" order="updatetime DESC" num="1"}
+								{loop $data $val}
+								<li><span class="red">黄金</span><a target="_blank" href="{$val[url]}">[{str_cut($val[title],20)}]</a></li>
+								{/loop}
+								{/pc}
+								{pc:content action="lists" catdir="forex" recommend="1" order="updatetime DESC" num="1"}
+								{loop $data $val}
+								<li><span class="red">外汇</span><a target="_blank" href="{$val[url]}">[{str_cut($val[title],20)}]</a></li>
+								{/loop}
+								{/pc}
+							</ul>
+						</div>
+                    </div>
+                    <div class="left">
+						<div class="flash">
+							<div class="soChange" id="soChange">
+								{pc:content  action="position" posid="85" catid="58" order="id DESC" thumb="1" num="3"}
+								{loop $data $val}
+								<a class="change_img" href="{$val[url]}" title="{htmlspecialchars($val[title])}" target="_blank"><img src="{thumb($val[thumb],212,330)}" height="212" width="330" alt="{htmlspecialchars($val[title])}" /></a>
+								<h4><a href="{$val[url]}" target="_blank">{str_cut($val[title],16)}</a></h4>
+								{/loop}
+								{/pc}
+							</div>
+						</div>
+						<div class="box_item tab_c">
+                            <div class="tab tab1 clearfix">
+                                <a class="tabs cur1" href="{h('[finance]/tzts/')}" target="_blank"><span>交易提示</span></a> <a class="tabs" href="{h('[finance]/zxsj/')}" target="_blank"><span>最新数据</span></a>  
+							</div>
+                            <div class="box_ct trading">
+								<div class="tabCont" style="display:block">
+									<ul class="text_list text_size">
+										{pc:content action="lists" catdir="tzts" order="updatetime DESC" num="6"}
+										{loop $data $val}
+										<li><a target="_blank" href="{$val[url]}">{str_cut($val[title],18)}</a><span class="date">{date('m月d日',$val[inputtime])}</span></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+								<div class="tabCont" style="display:none">
+									<ul class="text_list text_size">
+										{pc:content action="lists" catdir="zxsj" order="updatetime DESC" num="6"}
+										{loop $data $val}
+										<li><a target="_blank" href="{$val[url]}">{str_cut($val[title],18)}</a><span class="date">{date('m月d日',$val[inputtime])}</span></li>
+										{/loop}
+										{/pc}
+									</ul>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="main_hd fixed_hd">
+					<h2 class="hqsc">
+						<a target="_blank" href="{h('[finance]/hqsc/')}">环球市场</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="caijing2_guoji_101"}{/pc}
+					</span>
+				</div>
+				<div class="main_ct qtscCon clearfix">
+					<div class="right">
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/gjqs/')}" target="_blank"><span>国际期市</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="gjqs" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjqs" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/gjqs/')}">更多</a>
+							</span>
+						</div>
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/gjzs/')}" target="_blank"><span>国际债市</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="gjzs" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjzs" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/gjzs/')}">更多</a>
+							</span>
+						</div>
+					</div>
+					<div class="left">
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/gjgs/')}" target="_blank"><span>国际股市</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="gjgs" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjgs" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								{pc:block pos="caijing2_guoji_102"}{/pc}
+							</span>
+						</div>
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/gjhs/')}" target="_blank"><span>国际汇市</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="gjhs" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjhs" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								{pc:block pos="caijing2_guoji_103"}{/pc}
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="main_hd fixed_hd">
+					<h2 class="qqjj">
+						<a target="_blank" href="{h('[finance]/qqjj/')}">全球聚焦</a>
+					</h2>
+					<span class="related_tags">
+						{pc:block pos="caijing2_guoji_104"}{/pc}
+					</span>
+				</div>
+				<div class="main_ct qtscCon clearfix">
+					<div class="right">
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/yhgc/')}" target="_blank"><span>央行观察</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="yhgc" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="yhgc" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/yhgc/')}">更多</a>
+							</span>
+						</div>
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/hwgs/')}" target="_blank"><span>跨国公司</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="hwgs" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="hwgs" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/hwgs/')}">更多</a>
+							</span>
+						</div>
+					</div>
+					<div class="left">
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/sjjj/')}" target="_blank"><span>世界经济</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="sjjj" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="sjjj" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/sjjj/')}">更多</a>
+							</span>
+						</div>
+						<div class="box_item">
+							<div class="tab tab2 clearfix">
+								<a class="tabs cur2" href="{h('[finance]/gjcy/')}" target="_blank"><span>国际产业</span></a>
+							</div>
+							<div class="box_ct">
+								<div class="media clearfix">
+									{pc:content action="lists" catdir="gjcy" recommend="1,2,3" thumb="1" order="updatetime DESC" num="1"}
+									{loop $data $val}
+									<div class="pic"> <a target="_blank" href="{$val[url]}"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+									<div class="txt">
+										<h4 class="m_title"><a target="_blank" href="{$val[url]}">{str_cut($val[title],12)}</a></h4>
+										<p class="summary">{str_cut($val[description],42)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+									</div>
+									{/loop}
+									{/pc}
+								</div>
+								<ul class="text_list text_size">
+									{pc:content action="lists" catdir="gjcy" recommend="0" order="updatetime DESC" num="7"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="more">
+								<a target="_blank" href="{h('[finance]/gjcy/')}">更多</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col_side">
+				<div class="box_item">
+                    <div class="box_hd">
+                        <h2> <a target="_blank" href="{h('[finance]/ztmm/')}">国际财经专题</a> </h2>
+                    </div>
+                    <div class="box_ct">
+						{pc:content action="lists" catdir="ztmm" recommend="1,2,3" thumb="1" order="updatetime DESC" num="2"}
+						{loop $data $val}
+						<div class="cjzt">
+							<div class="media media_col clearfix">
+								<div class="pic">
+									<a href="{$val[url]}" target="_blank"><img width="100" height="75" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a>
+								</div>
+								<div class="txt">
+									<h4 class="m_title"><a href="{$val[url]}" target="_blank">{str_cut($val[title],8)}</a></h4>
+									<p class="summary">{str_cut($val[description],42)}...<a href="{$val[url]}" target="_blank">[详情]</a></p>
+								</div>
+							</div>
+						</div>
+						{/loop}
+						{/pc}
+                    </div>
+                </div>
+				<div class="box_item">
+                    <div class="box_hd">
+                        <h2> <a target="_blank" href="{h('[finance]/sckx/')}">市场快讯</a> </h2>
+                    </div>
+                    <div class="box_ct">
+                        <ul class="text_list text_col">
+							{pc:content action="lists" catdir="sckx" recommend="1,2,3" order="updatetime DESC" num="5"}
+							{loop $data $val}
+                            <li><a href="{$val[url]}" target="_blank">{str_cut($val[title],20)}</a></li>
+                            {/loop}
+							{/pc}
+                        </ul>
+                    </div>
+					<span class="more">
+						<a href="{h('[finance]/sckx/')}" target="_blank">更多</a>
+					</span>
+                </div>
+				<div class="aimgd"> 
+					{pc:block pos="caijing2_guoji_ad1"}{/pc}
+				</div>
+				<div id="gp_tab" class="box_item tab_a">
+                    <div class="tab tab1 clearfix"> <a class="tabs cur2" target="_blank"><span>股票</span></a> <a class="tabs"  target="_blank"><span>外汇</span></a><a class="tabs" target="_blank"><span>原油</span></a><a class="tabs" target="_blank"><span>黄金</span></a></div>
+                    <div class="box_ct">
+						{pc:content action="stock" type="index_info"}
+                        <div style="display: block;" class="tabCont">
+                            <table width="100%" style="display: table;" class="stock_table">
+                                <tbody>
+                                    {loop $data[stock] $val}
+									{php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+									{php $syb = $val[diff_percent]>0 ? '+' : '';}
+									{if $n<6}
+									<tr>
+										<td><strong>{$val[name]}</strong></td>
+										<td class="{$cls}">{$val[cur_value]}</td>
+										<td class="{$cls}">{$syb}{$val[diff_value]}</td>
+										<td class="{$cls}">{$syb}{number_format($val[diff_percent] * 100, 2, '.', '')}%</td>
+									</tr>
+									{/if}
+									{/loop}
+                                </tbody>
+                            </table>
+						</div>
+						<div style="display: none;" class="tabCont">
+                            <table width="100%" style="display: table;" class="stock_table">
+                                <tbody>
+                                    {loop $data[foreign_exchange] $val}
+									{php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+									{php $syb = $val[diff_percent]>0 ? '+' : '';}
+									<tr>
+										<td><strong>{$val[name]}</strong></td>
+										<td class="{$cls}">{$val[cur_value]}</td>
+										<td class="{$cls}">{$syb}{$val[diff_value]}</td>
+										<td class="{$cls}">{$syb}{number_format($val[diff_percent] * 100, 4, '.', '')}%</td>
+									</tr>
+									{/loop}
+                                </tbody>
+                            </table>
+						</div>
+						<div style="display: none;" class="tabCont">
+                            <table width="100%" style="display: table;" class="stock_table">
+                                <tbody>
+                                    {loop $data[crude_oil] $val}
+									{php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+									{php $syb = $val[diff_percent]>0 ? '+' : '';}
+									<tr>
+										<td><strong>{$val[name]}</strong></td>
+										<td class="{$cls}">{$val[cur_value]}</td>
+										<td class="{$cls}">{$syb}{$val[diff_value]}</td>
+										<td class="{$cls}">{$syb}{number_format($val[diff_percent] * 100, 2, '.', '')}%</td>
+									</tr>
+									{/loop}
+                                </tbody>
+                            </table>
+						</div>
+						<div style="display: none;" class="tabCont">
+                            <table width="100%" style="display: table;" class="stock_table">
+                                <tbody>
+                                    {loop $data[gold] $val}
+									{php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+									{php $syb = $val[diff_percent]>0 ? '+' : '';}
+									<tr>
+										<td><strong>{$val[name]}</strong></td>
+										<td class="{$cls}">{$val[cur_value]}</td>
+										<td class="{$cls}">{$syb}{$val[diff_value]}</td>
+										<td class="{$cls}">{$syb}{number_format($val[diff_percent] * 100, 2, '.', '')}%</td>
+									</tr>
+									{/loop}
+                                </tbody>
+                            </table>
+						</div>
+						{/pc}
+                    </div>
+                </div>
+				<div class="box_item">
+                    <div class="box_hd">
+                        <h2> <a target="_blank">全球主要央行利率</a> </h2>
+                    </div>
+                    <div class="box_ct">
+						{pc:block pos="caijing_index_12"}{/pc}
+                    </div>
+                </div>
+				<div class="aimgd">
+					{pc:block pos="caijing2_guoji_ad2"}{/pc}
+				</div>
+				<div class="box_item">
+                    <div class="box_hd">
+                        <h2> <a target="_blank" href="{h('[forex]/')}">外汇</a> </h2>
+                    </div>
+                    <div class="box_ct">
+                        <table width="100%" class="stock_table">
+                            <thead>
+                                <tr>
+                                    <th><span>货币</span></th>
+                                    <th><span>最高</span></th>
+                                    <th><span>最低</span></th>
+                                    <th><span>涨跌幅</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {pc:content action="stock" type="exchange_rate"}
+								{loop $data $val}
+								{php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+								{php $syb = $val[diff_percent]>0 ? '+' : '';}
+								<tr {if $n%2==0}class="odd"{/if}>
+									<td>{$val[name]}</td>
+									<td class="{$cls}">{number_format($val[high], 4, '.', '')}</td>
+									<td><span class="{$cls}">{number_format($val[low], 4, '.', '')}</span></td>
+									<td><span class="{$cls}">{$syb}{number_format($val[diff_value],4, '.', '')}</span></td>
+								</tr>
+								{php if($n>7)break;}
+								{/loop}
+								{/pc}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+				<div class="box_item">
+                    <div class="box_hd">
+                        <h2> <a>财经资讯热门点击</a> </h2>
+                    </div>
+                    <div class="box_ct" style="height:252px">
+                        <ul class="text_list text_col">
+							{pc:content  action="hits" catid="6" extra2="58" day="1" num="10"}
+							{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],15)}</a></li>
+							{/loop}
+							{/pc}
+                        </ul>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","link_caijing"}
+{template "content","footer_caijing"}

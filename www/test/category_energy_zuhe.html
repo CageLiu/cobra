@@ -1,0 +1,99 @@
+{template "content","simple_header_energy"}
+<div class="wrap outline">	
+	<div class="posit clearfix">
+		<div class="bread clearfix"><a href="{h('[energy]/')}" class="posit_title cjpd">能源频道</a><span><a href="{siteurl($siteid)}">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			<form>
+			{pc:block pos="energy_search"}{/pc}
+			</form>
+		</div>
+	</div>						
+	<div class="main_col">
+		<div class="news_list">
+			<div class="news_title">
+				{php $cat =catinfo($catid); }
+				<h1>{$cat[1][catname]}</h1>
+				<span class="related_tags">
+					{pc:block pos="energy_list_tags"}{/pc}
+				</span>
+			</div>
+			<div class="dynamic">
+				{pc:content action="multilists" catid="$catid" order="id DESC" num="10"}
+				{loop $data $list}
+				{php $catlink=h('[energy]/'.$list[catdir].'/')}
+				<div class="box_news">
+					<div class="hd">
+						<h2>
+							<span class="btn title_btn current">
+								<a title="{$list[catname]}" href="{$catlink}"  target="_blank">{$list[catname]}</a>
+							</span>
+						</h2>
+					</div>
+					<div class="ct">
+							<ul class="text_list">
+								{loop $list[data] $val}
+								<li {if $n%5==0}class="list_space"{/if}><a href="{$val[url]}" target="_blank">{str_cut($val[title], 31)}</a><span class="date">{date('Y-m-d',$val[inputtime])}</span></li>
+								{/loop}
+							</ul>
+					</div>
+					<span class="pr">
+						<a href="{$catlink}" target="_blank">更多</a>
+					</span>
+				</div>
+				{/loop}
+				{/pc}
+
+			</div>
+		</div>
+	</div>
+	<div class="side_col">
+		<div class="box_side box_extra">
+			<div class="hd">
+				<h2 class="ywen">
+					<a>编辑推荐</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+				<ul class="pic_list clearfix">
+					<!-- 编辑推荐 -->
+				{pc:block action="customtpl" pos="energy_list_tj" num="4"}
+				{loop $data $val}
+					<li><a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($val[title])}" width="100" height="75" /><span>{str_cut($val[title],14)}</span></a></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<div class="hot_attention">
+					<h2>【热点关注】</h2>
+					<ul class="text_list">
+						<!-- 热点关注 -->
+						{pc:content action="lists" catid="$catid" recommend="1,2,3"  order="updatetime DESC" num="6"}
+						{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box_side box_last">
+			<div class="hd">
+				<h2>
+					<a>能源热门资讯排行</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+				<div class="hot_attention">
+					<ul class="text_list">
+						{php $catid=catdirtocatid('energy')}
+						{pc:content action="hits" catid="$catid" extra="$catid" day="1" num="10"}
+						{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],19)}</a></li>
+						{/loop}
+                        {/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer"}

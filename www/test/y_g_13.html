@@ -1,0 +1,212 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">个人管理中心</a>
+		<span>&gt;</span>
+		<a href="#">订单管理</a>
+		<span>&gt;</span>
+		<em>我的订单</em>
+	</div>
+
+	<div class="order_box">
+		<div class="order_item info">
+			<strong>单号：<em class="order_num">50099982</em></strong>
+			<strong>状态：<em>等待付款/付款成功/已使用/已过期</em></strong>
+		</div>
+		<div class="order_item tips">
+			您的订单已提交，请及时付款，谢谢!
+		</div>
+	</div>
+
+
+	<div class="admin_box">
+		<div class="admin_bt"><span class="title">订单信息</span></div>
+		<div class="admin_bc">
+			<dl class="flight_info">
+				<dt>航班信息</dt>
+				<dd>
+					<table class="hbxx">
+						<colgroup>
+							<col width="5%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>&nbsp;</th>
+								<th>航空公司</th>
+								<th>航班号</th>
+								<th>舱位</th>
+								<th>起降时间</th>
+								<th>起降机场</th>
+								<th>航程</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><img src="/static_url/caifuzhongguo/img/img1.jpg" alt="上海吉祥航空公司" title="上海吉祥航空公司" width="17" height="17" /></td>
+								<td>上海吉祥航空公司</td>
+								<td>HO1293 空客A380</td>
+								<td>成人：K</td>
+								<td>06月12日08:25</td>
+								<td>
+									<p>上海浦东国际机场</p>
+									<p>香港国际机场</p>
+								</td>
+								<td>去程</td>
+							</tr>
+							<tr>
+								<td><img src="/static_url/caifuzhongguo/img/img1.jpg" alt="上海吉祥航空公司" title="上海吉祥航空公司" width="17" height="17" /></td>
+								<td>上海吉祥航空公司</td>
+								<td>HO1293 空客A380</td>
+								<td>成人：K</td>
+								<td>06月12日08:25</td>
+								<td>
+									<p>上海浦东国际机场</p>
+									<p>香港国际机场</p>
+								</td>
+								<td>去程</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+				<dt>价格信息</dt>
+				<dd>
+					<table class="jgxx">
+						<thead>
+							<tr>
+								<th>乘机人类型</th>
+								<th>票面价</th>
+								<th>机建/燃油</th>
+								<th>单张小计</th>
+								<th>人数</th>
+								<th>订单总价</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>成人</td>
+								<td>398</td>
+								<td>50/70</td>
+								<td>51</td>
+								<td>1</td>
+								<td class="red">&yen;85.00</td>
+							</tr>
+							<tr>
+								<td>成人</td>
+								<td>398</td>
+								<td>50/70</td>
+								<td>51</td>
+								<td>1</td>
+								<td class="red">&yen;85.00</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="count">
+						<span>人数：<em class="red">1</em></span>
+						<span>票价：<em class="red">&yen;85.00</em></span>
+						<span>机建/燃油费：<em class="red">&yen;85.00</em></span>
+						<span>保险：<em class="red">&yen;85.00</em></span>
+						<span>其他：<em class="red">&yen;85.00</em></span>
+					</p>
+				</dd>
+				<dt>乘机人信息</dt>
+				<dd>
+					<span class="item">乘机人数：1</span>
+					<span class="item">乘机人类型：成人</span>
+					<span class="item">乘机人姓名：阿斯大打卡快速的</span>
+					<span class="item">身份证：490721198705290517X</span>
+					<span class="item">保险：1823912933</span>
+					<span class="item">票号：12939129838123812</span>
+				</dd>
+				<dt>联系人信息</dt>
+				<dd>
+					<span class="item">联系人：宋雯</span>
+					<span class="item">手机：13812345678</span>
+					<span class="item">电子邮件：songwen@cctvcjw.com</span>
+				</dd>
+				<dt>温馨提示</dt>
+				<dd>
+					<p class="text">国内航班提前45分钟停止办理登记手续，国际航班提前1小时停止办理登记手续。任何液体都不允许带上飞机，包括牙膏一类的东西；因为安检手续要求严格，国际航班必须提前3小时到达机场。</p>
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+
+	<div class="admin_box">				
+		<div class="admin_bc">
+			<div class="table_box innertable">			
+				<table class="table">
+					<thead>
+						<tr>
+							<th>航空公司</th>
+							<th>航班号</th>
+							<th>舱位</th>
+							<th>起降时间</th>
+							<th>起降机场</th>
+							<th>航程</th>
+							<th>乘机人</th>
+							<th>总价</th>
+							<th>订单状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>南方航空</td>
+							<td>HO1293 空客A380</td>
+							<td>K</td>
+							<td>2012-06-11 15:15:14</td>
+							<td>
+								<p>上海虹桥机场</p>
+								<p>香港国际机场</p>
+							</td>
+							<td>去程</td>
+							<td>张三</td>
+							<td>888.00</td>
+							<td>预订成功</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>春秋航空</td>
+							<td>HO1293 空客A380</td>
+							<td>K</td>
+							<td>2012-06-11 15:15:14</td>
+							<td>
+								<p>上海虹桥机场</p>
+								<p>香港国际机场</p>
+							</td>
+							<td>去程</td>
+							<td>张三</td>
+							<td>888.00</td>
+							<td>未付款</td>
+							<td>
+								<a href="#" class="link">付款</a>
+								<a href="#" class="link">取消</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		
+	</div>
+
+
+	<div class="order_box align_right">
+		<div class="order_item info">
+			<span class="amount">商品金额：&yen;85.00</span>
+			<span class="amount">+运费：&yen;85.00</span>
+			<span class="amount">-优惠：&yen;85.00</span>
+		</div>
+		<div class="order_item tips">
+			<p><strong>订单支付金额：<em class="red">&yen;85.00</em></strong></p>
+			<p>（余额支付：&yen;85.00 财富卡：&yen;85.00 网上银行：&yen;85.00）</p>
+		</div>
+	</div>
+
+</div>
+			
+<%include file="footer.html" />

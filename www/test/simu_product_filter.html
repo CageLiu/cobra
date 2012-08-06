@@ -1,0 +1,223 @@
+{template "content","header_simu"}
+<div id="content">
+	<div class="nav_bar">
+	<div class="site_position">
+		<a href="{siteurl(1)}" title="首页">首页</a>
+		<span>&gt;</span>
+		<a href="{h('/smjj')}/">私募</a>
+		<span>&gt;</span>
+		私募筛选
+	</div>
+	{template "simu","common_search"}
+</div>
+	<!--  私募筛选首页 start -->
+	<div class="layout l_layout">
+		<div class="l_lc">
+			<div class="l_box">
+				<div class="l_t">
+					<h4><em>私募产品 &gt; </em>基金筛选器</h4>
+				</div>
+				<div class="l_c">
+					<p class="warning">
+						过分严格的筛选条件可能导致搜索结果不完全!
+					</p>
+					<form id="frmfilter" action="{h('/smjj/smcp/filterresult/')}" target="_self" method="post">
+					<dl class="selector">
+						<dt>
+							<strong>请选择</strong>
+						</dt>
+						<dd>
+								<div class="l_sub_search">
+									&nbsp;&nbsp;
+									{pc:simu action="form_companylist" defvalue="$company_id"}
+									<select name="company_id">
+									<option value="">基金公司</option>
+									{loop $data $val}
+									<option value="{$val['key']}" {$val['selected']}>{$val['value']}</option>
+									{/loop}
+									</select>
+									{/pc}&nbsp;&nbsp;
+									{pc:simu action="form_yearlist" defvalue="$year"}
+									<select name="year">
+									<option value="0">成立时间</option>
+									{loop $data $val}
+									<option value="{$val['value']}" {$val['selected']}>{$val['value']}</option>
+									{/loop}
+									</select>						
+									{/pc}
+								</div>
+						</dd>
+						<dt>
+							<strong>收益情况</strong>
+						</dt>
+						<dd>
+							<ul class="btn_list">
+								<li>
+									<span class="item_title">收益率(年初至今)：</span>
+									<a href="#" class="l_btn selector_btn" v=";-10"><span>&lt;=-10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="-10;0"><span>-10%~0%</span></a>
+									<a href="#" class="l_btn selector_btn" v="0;10"><span>0%~10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="10;"><span>&gt;=10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="def"><span>手动输入</span></a>
+									<span class="select_txt" style="display:none"><input type="text" name="ty_from"/>%~<input type="text" name="ty_to"/>%</span>
+								</li>
+								<li>
+									<span class="item_title">收益率(本月)：</span>
+									<a href="#" class="l_btn selector_btn" v=";-10"><span>&lt;=-10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="-10;0"><span>-10%~0%</span></a>
+									<a href="#" class="l_btn selector_btn" v="0;10"><span>0%~10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="10;"><span>&gt;=10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="def"><span>手动输入</span></a>
+									<span class="select_txt" style="display:none"><input type="text" name="m1_from"/>%~<input type="text" name="m1_to"/>%</span>
+								</li>
+								<li>
+									<span class="item_title">收益率(三个月)：</span>
+									<a href="#" class="l_btn selector_btn" v=";-10"><span>&lt;=-10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="-10;0"><span>-10%~0%</span></a>
+									<a href="#" class="l_btn selector_btn" v="0;10"><span>0%~10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="10;"><span>&gt;=10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="def"><span>手动输入</span></a>
+									<span class="select_txt" style="display:none"><input type="text" name="m3_from"/>%~<input type="text" name="m3_to"/>%</span>
+								</li>
+								<li>
+									<span class="item_title">收益率(六个月)：</span>
+									<a href="#" class="l_btn selector_btn" v=";-10"><span>&lt;=-10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="-10;0"><span>-10%~0%</span></a>
+									<a href="#" class="l_btn selector_btn" v="0;10"><span>0%~10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="10;"><span>&gt;=10%</span></a>
+									<a href="#" class="l_btn selector_btn" v="def"><span>手动输入</span></a>
+									<span class="select_txt" style="display:none"><input type="text" name="m6_from"/>%~<input type="text" name="m6_to"/>%</span>
+								</li>
+								<li>
+									<span class="item_title">收益率(一年)：</span>
+									<a href="#" class="l_btn selector_btn" v=";0"><span>&lt;=0%</span></a>
+									<a href="#" class="l_btn selector_btn" v="0;30"><span>0%~30%</span></a>
+									<a href="#" class="l_btn selector_btn" v="30;50"><span>30%~50%</span></a>
+									<a href="#" class="l_btn selector_btn" v="50;"><span>&gt;=50%</span></a>
+									<a href="#" class="l_btn selector_btn" v="def"><span>手动输入</span></a>
+									<span class="select_txt" style="display:none"><input type="text" name="m12_from"/>%~<input type="text" name="m12_to"/>%</span>
+								</li>
+								<li>
+									<span class="item_title">单位净值(元)：</span>
+									<a href="#" class="l_btn selector_btn" v=",0.5"><span>&lt;=0.5</span></a>
+									<a href="#" class="l_btn selector_btn" v="0.5,0.8"><span>0.5~0.8</span></a>
+									<a href="#" class="l_btn selector_btn" v="0.8,1"><span>0.8~1</span></a>
+									<a href="#" class="l_btn selector_btn" v="1,1.5"><span>1~1.5</span></a>
+									<a href="#" class="l_btn selector_btn" v="1.5,2"><span>1.5~2</span></a>
+									<a href="#" class="l_btn selector_btn" v="2,"><span>&gt;=2</span></a>
+									<input type="hidden" name="worth_range"/>
+								</li>
+								<li>
+									<span class="item_title">累计净值(元)：</span>
+									<a href="#" class="l_btn selector_btn" v=",0.5"><span>&lt;=0.5</span></a>
+									<a href="#" class="l_btn selector_btn" v="0.5,0.8"><span>0.5~0.8</span></a>
+									<a href="#" class="l_btn selector_btn" v="0.8,1"><span>0.8~1</span></a>
+									<a href="#" class="l_btn selector_btn" v="1,1.5"><span>1~1.5</span></a>
+									<a href="#" class="l_btn selector_btn" v="1.5,2"><span>1.5~2</span></a>
+									<a href="#" class="l_btn selector_btn" v="2,"><span>&gt;=2</span></a>
+									<input type="hidden" name="worth_range2"/>
+								</li>
+							</ul>
+						</dd>
+						<dt>
+							<strong>一年期评级</strong>
+						</dt>
+						<dd class="star_sort">
+							<a href="#" class="l_btn selector_btn" v="1"><span><span class="star"><em class="star1"></em></span></span></a>
+							<a href="#" class="l_btn selector_btn" v="2"><span><span class="star"><em class="star2"></em></span></span></a>
+							<a href="#" class="l_btn selector_btn" v="3"><span><span class="star"><em class="star3"></em></span></span></a>
+							<a href="#" class="l_btn selector_btn" v="4"><span><span class="star"><em class="star4"></em></span></span></a>
+							<a href="#" class="l_btn selector_btn" v="5"><span><span class="star"><em class="star5"></em></span></span></a>
+							<input type="hidden" name="star"/>
+						</dd>
+					</dl>
+					</form>
+					<div class="btn_box">
+						<a href="javascript:void(0)" class="l_btn contrast_btn" id="btnsubmit"><span>筛选</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="l_btn contrast_btn" id="clear_selected"><span>重置</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 私募筛选首页 end -->
+</div>
+
+<script type="text/javascript">
+var setflg=false;
+$(document).ready(
+	function()
+	{
+		$("dl.selector a.l_btn").click(
+			function()
+			{
+				setflg=true;
+				$(this).parent().children("a.l_btn").removeClass("selected");
+				$(this).addClass("selected").blur();
+				$(this).siblings("span.select_txt").css("display","none");
+				var str = $(this).attr('v');
+				if(str=='def'){
+					$(this).siblings("span.select_txt").css("display","block");
+					$(this).parent().find("input").val("");
+                    }else if(str.indexOf(';')>-1){
+					var arr=str.split(';');
+					$(this).parent().find("input").eq(0).val(arr[0]);
+					$(this).parent().find("input").eq(1).val(arr[1]);
+				}else{
+					$(this).parent().find("input").eq(0).val(str);
+				}
+
+               	return false;
+			}
+		);
+		$("#btnsubmit").click(
+			function()
+			{
+        
+             $('.btn_list .select_txt input').each(function(){
+                var _this= $(this);
+                if(isNaN(Number(_this.val()))){
+                        setflg=false;
+                    }
+                });
+
+
+
+				if(setflg==false){
+					alert('【收益情况】至少选择一项筛选条件 或 输入不合法！');
+					return;
+				}
+				$("#frmfilter").submit();
+				$(this).blur();
+				return false;
+			}
+		);
+		$("#clear_selected").click(
+			function()
+			{
+				setflg=false;
+				$("dl.selector a.l_btn").removeClass("selected");
+				$("dl.selector span.select_txt").css("display","none");
+				$("dl.selector input[type='text']").val("");
+				$(this).blur();
+				return false;
+			}
+            );
+        
+        $('.btn_list .select_txt input').each(function(){
+                var _this= $(this);
+                _this.blur(function(){
+                    if(isNaN(Number(_this.val()))){
+                         alert(_this.val()+" 不是合法数字，请重新输入。")
+                         _this.css({"color":"red"});
+                   }else{
+                        setflg=true
+                         _this.css({"color":"black"});
+                   }
+                })
+
+        });
+	}
+);
+</script>
+{template "content","footer_simu"}

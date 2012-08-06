@@ -1,0 +1,17 @@
+<form action="" method="get">
+    <div class="search">
+        <select name="stype" id="stype"><option value="info">资讯</option><option value="video">视频</option></select>
+        <span><input type="text" id="tkey" name="tkey" class="txt" value="关键词搜索" /></span>
+        <input type="button" onclick="javascript:ser();" class="btn" value="GO" />
+        <em>GO</em>
+    </div>
+</form>
+<script>
+    function ser()
+    {
+        var stype = $("#stype").val();
+        var tkey = $("#tkey").val();
+        var url ="/index.php?m=content&c=index&a=lists&catdir=tsearch&stype="+stype+"&tkey="+tkey; 
+        location.href=url;
+    }
+</script>

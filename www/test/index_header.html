@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="baidu-site-verification" content="Nj8bMuk3O7322vKO" />
+<meta property="qc:admins" content="02001502246326375" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CCTV证券资讯-中央电视台证券资讯频道官方网站</title>
+<meta name="keywords" content="CCTV,证券,资讯,股票,原创,财经新闻,商业,投资,财经网站,金融,基金,外汇">
+<meta name="description" content="CCTV证券资讯是中国金融业官方权威媒体，业务涵盖电视、互联网、移动互联网、平面杂志、研究院、俱乐部等全媒体业务，面向全球华人提供24小时×365天的全天候海内外重大财经新闻，全面覆盖财经、金融、股票、基金、银行、外汇、期货、黄金、保险等领域。">
+<meta name="baidu-site-verification" content="Y3ZDJv2SnB7n9m71" />
+<link rel="shortcut icon" href="{IMG_PATH}favicon.ico"/>
+
+<link href="{CSS_PATH}index/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{JS_PATH}jquery.min.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}easing.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}index/index.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}index/play_bill.js?v=2010122901"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script>
+function addFav(){
+	if (document.all)
+	window.external.AddFavorite('{siteurl($siteid)}', 'CCTV证券资讯');
+	else if (window.sidebar)
+	window.sidebar.addPanel('CCTV证券资讯', '{siteurl($siteid)}', "")
+}
+</script>
+<LINK href="{CSS_AUTOCOMPLETE_URL}" type=text/css rel=stylesheet>
+<SCRIPT src="{JQUERY_AUTOCOMPLETE_URL}" type=text/javascript></SCRIPT>
+<SCRIPT type=text/javascript> 
+function searchchange(show_div, hide_div, link)
+{
+$("."+show_div).show();
+$("."+hide_div).hide();
+if (link == "hq")
+{
+	$(".search_form").attr("action", "{h('[quote]/stock/index.php')}");
+}
+else if (link == "zx")
+{
+	$(".search_form").attr("action", "{h('[misc]/search.php')}");
+}
+
+}
+//搜索
+$().ready(function() {
+var str=$(".search_stock_str").val();
+var str1=$(".search_key").val();
+$(".search_stock_str").focus(function (){
+	if($(this).val()==str){
+		$(this).val("");
+		}   
+	});
+	$(".search_key").focus(function (){
+		if($(this).val()==str1){
+			$(this).val("");
+		}   
+	});
+	$(".search_stock_str").autocomplete("/api.php?op=ajax_agent&f=stock_auto", {
+		width: 300,
+		selectFirst: false,
+		minChars: 1,
+		autoFill: false,
+		extraParams: {
+		show_type:"stock"
+		}
+	});
+	
+	$(".search_stock_str").result(function(event, data, formatted) {
+			//$("#stock_str").val("");
+			$(".search_code").val(data[1]);
+			$(".search_stock_str").val("");
+			$(".search_form").submit();
+
+	});
+	$(".search_btn").click(function (){
+		$(".search_code").val($(".search_stock_str").val());
+		return true;
+	});
+
+	$(".search_stock_str").setOptions({
+			max: 10
+	});
+});
+</SCRIPT>
+
+</head>
+<body>
+<div id="header">
+	<div class="header_area">
+        <div class="top_area">
+            <div class="topbar">
+                <div class="top_login">
+					{pc:content action="loginuser"}
+					<form action="{$data[data][action]}" method="POST" id="login_form">
+					{if $data[status]!=1}
+					用户名：<input type="text" name="username" id="username" class="txt" />
+                    密码：<input type="password" name="passwd" id="passwd" class="txt"  />
+                    <input type="submit" class="btn" value="登录" />
+                    <a href="{$data[data][register]}" class="btn" target="_blank">注册</a>
+                    <label><input type="checkbox" name="auto_login" id="auto_login" value="on" /> 自动登录</label> <a href="{$data[data][getpasswd]}" target="_blank">忘记密码</a>
+					{else}
+					<span>欢迎您，{$data[data][username]}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$data[data][index_url]}">进入会员中心</a>&nbsp;&nbsp;<a href="{$data[data][logout_url]}">退出</a>
+					{/if}
+					</form>
+					{/pc}
+                </div>
+                <div class="pr">
+                    <a href="javascript:void(0);" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('{siteurl($siteid)}');event.returnValue=false;" class="set_index">设置首页</a>
+                    <a href="javascript:addFav();" class="favorite">加入收藏</a>
+                </div>
+            </div>
+        </div>
+        <div class="logobar clearfix">
+            <div class="logo">
+                <a href="{siteurl($siteid)}"><img src="{IMG_PATH}index/logo.jpg" alt="CCTV证券资讯" /></a>
+            </div>
+            <div class="menu clearfix">
+               {pc:block pos="top_licai_2"}{/pc}
+               {pc:block pos="top_index_3"}{/pc}
+            </div>
+        </div>
+        <div class="tip_scroll clearfix">
+            <div class="search_box">
+        	    {pc:block pos="licai_search"}{/pc}
+            </div>
+            <div id="tip_scroll" class="scroll_section">
+			{pc:content action="stock" type="index_info"}
+                <ul>
+                    <li><strong>A股</strong>
+                    {php $stockname = 'china'}
+				    {loop $data[$stockname] $val}
+					{php $val[name] = str_replace('指数', '', $val[name])}
+					{php $val[name] = str_replace('成指', '', $val[name])}
+				    {php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+                    {if $n<4}
+                    <span class="t_type">{$val[name]}</span><em class="{$cls}">{$val[cur_value]}</em><em class="{$cls} icon_{$cls}">{$val[diff_value]}</em><em class="{$cls} icon_{$cls}">{number_format($val[diff_percent] * 100, 2, '.', '')}%</em>
+                    {/if}
+                    {/loop}
+                    </li>
+                    <li><strong>全球</strong>
+                    {php $stockname = 'europeusa'}
+				    {loop $data[$stockname] $val}
+				    {php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+                    {if $n<3}
+                    <span class="t_type">{$val[name]}</span><em class="{$cls}">{$val[cur_value]}</em><em class="{$cls} icon_{$cls}">{$val[diff_value]}</em><em class="{$cls} icon_{$cls}">{number_format($val[diff_percent] * 100, 2, '.', '')}%</em>
+                    {/if}
+                    {/loop}
+                    </li>
+                    <li><strong>港股</strong>
+                    {php $stockname = 'hongkang'}
+                    {loop $data[$stockname] $val}
+					{php $val[name] = str_replace('指数', '', $val[name])}
+                    {php $val[name] = str_replace('港股国企指数', '国企', $val[name])}
+					{php $val[name] = str_replace('港股红筹指数', '红筹', $val[name])}
+				    {php $cls = $val[diff_percent]>0 ? 'up' : 'down';}
+                    {if $n<3}
+                    <span class="t_type">{$val[name]}</span><em class="{$cls}">{$val[cur_value]}</em><em class="{$cls} icon_{$cls}">{$val[diff_value]}</em><em class="{$cls} icon_{$cls}">{number_format($val[diff_percent] * 100, 2, '.', '')}%</em>
+                    {/if}
+                    {/loop}
+                    </li>
+
+                </ul>
+            {/pc}
+            </div>
+        </div>
+    </div>
+</div>

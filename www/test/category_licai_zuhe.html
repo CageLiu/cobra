@@ -1,0 +1,86 @@
+{php $head='licai_list'}
+{template "content","header_licai"}
+<div id="content" class="indexZH clearFixA">
+	    <div class="posit">
+	        <a href="{siteurl($siteid)}" title="首页">首页</a>&gt;{catpos($catid)}
+	    </div>
+		<div class="main">
+            {pc:content action="multilists" catid="$catid" order="id DESC" num="10"}
+            {loop $data $list}
+            <div class="zhList">
+				<div class="mt mt3">
+                    <strong title="{$list[catname]}">{$list[catname]}</strong><a title="{$list[catname]}" href="{h('/index.php?m=content&c=index&a=lists&catid='.$list[catid])}" class="more">更多</a>
+				</div>
+				<div class="mc">
+	                {php $c=count($list[data]);}
+	                {loop $list[data] $val}
+	                {if $n%5==1}<ul class="txtList txtlistA">{/if}
+	                    <li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 31)}</a><span class="more">{date('Y-m-d',$val[inputtime])}</span></li>
+	                {if $n%5==0 || $n==$c}</ul>{/if}
+	                {/loop}
+				</div>
+			</div>
+            {/loop}
+            {/pc}
+		</div>
+		<div class="side">
+			<div class="mBox">
+				<div class="t">
+                    <strong>编辑推荐</strong>
+				</div>
+				<div class="c">
+					{pc:content action="position" posid="888" catid="159" thumb="1" order="id DESC" num="3"}
+                   	{loop $data $val}
+					<div class="imgTxt">
+						<a href="{$val[url]}" class="pic" target="_blank"><img src="{thumb($val[thumb],80,60)}" width="80" height="60" /></a>
+						<div class="txt">
+							<h3><a href="{$val[url]}" target="_blank">{str_cut($val[title], 12)}</a></h3>
+							<p>{str_cut($val[description], 26)} ...</p>
+						</div>
+					</div>
+					{/loop}
+                    {/pc}
+				</div>
+			</div>
+			<div class="mBox">
+				<div class="t">
+                	<strong>理财热门资讯排行</strong>
+				</div>
+				<div class="c">
+					<ul class="hotTop">
+                		{pc:content action="hits" catid="159" num=10}
+                        {loop $data $val}
+						<li><span{if $n<4} class="front"{else} class="num"{/if}>{$n}</span><a href="{$val[url]}" target="_blank">{str_cut($val[title], 16)}</a></li>
+                        {/loop}
+					</ul>
+				</div>
+			</div>
+			<div class="mBox mBox1">
+				<div class="t">
+                	<strong>理财专题</strong>
+				</div>
+				<div class="c">
+           			{pc:content action="position" posid="891" catid="159" order="id DESC" num="2"}
+					{loop $data $val}
+					<div class="imgTxt">
+						<a href="{$val[url]}" class="pic" target="_blank"><img src="{thumb($val[thumb],80,60)}" width="80" height="60" /></a>
+						<div class="txt">
+							<h3><a href="{$val[url]}" target="_blank">{str_cut($val[title], 11)}</a></h3>
+							<p>{str_cut($val[description], 26)} ...</p>
+						</div>
+					</div>
+					{/loop}
+					{/pc}
+            		{pc:content action="position" posid="892" catid="159" order="id DESC" num="6"}
+					<ul class="txtList">
+                    	{loop $data $val}
+						<li><a href="{$val[url]}" target="_blank">{str_cut($val[title], 21)}</a></li>
+						{/loop}
+					</ul>
+					{/pc}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{template "content","footer"}

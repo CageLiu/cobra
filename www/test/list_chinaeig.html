@@ -1,0 +1,45 @@
+{template "content","header_chinaeig"}
+
+<div class="hor_box cont">
+	<div class="hor_item main">
+		<div class="box">
+			<div class="bt">
+                <a href="javascript:;" style="cursor:default">{get_catname($catid)}</a>
+			</div>
+			<div class="bc">
+				<ul class="news_list">
+                    {pc:content action="lists" catid="$catid" page="$page" order="updatetime DESC" num="25"}
+                    {php $c=count($data);}
+                    {loop $data $val}
+					<li>
+                    <a target="_blank" href="{$domain}{$val['id']}.shtml">{$val['title']}</a>
+						<span class="time">{date('Y-m-d',$val[updatetime])}</span>
+					</li>
+                    {/loop}
+                    {/pc}
+				</ul>
+				<div class="page">
+					{$pages}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hor_item side">
+		<div class="box">
+			<div class="bt">
+				<a href="{$domain}eigmember" target="_blank" class="red">会员服务</a>
+			</div>
+			<div class="bc">
+				<ul class="text_list vip_ser">
+                    {pc:content action="lists" catdir="eigmember" order="inputtime ASC" num="5"}
+                    {loop $data $val}
+                    <li><a target="_blank" href="{$domain}{$val['id']}.shtml">{str_cut(htmlspecialchars($val['title']),14)}</a></li>
+                    {/loop}
+                    {/pc}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+{template "content","footer_chinaeig"}

@@ -1,0 +1,119 @@
+{php $head='shixun_index'}
+{php $catid=554}
+{template "content","header_shixun"}
+<div class="box box_single">
+		<div class="box_inner clearfix">
+			<div class="box_main">
+				<div class="box_detail">
+					<div class="bread">当前位置：<a href="{siteurl($siteid)}">首页</a>&gt; <a href="/">视讯中心</a> &gt; 视频搜索</div>
+					<div class="ct">
+						<div class="search_video_result">
+							{pc:content action="search_content_list" q="$q" order="$order" starttime="$starttime" endtime="$endtime" catid="554" urlrule="$urlrule" num="15" page="$page"}
+							<div class="search_sort">
+								<span class="sort_type">
+									<a href="{h('/index.php?m=search&c=index&a=search_content&q='.$q.'&starttime='.$starttime.'&endtime='.$endtime.'&order=relate&page='.$page)}" {$order_relate}>相关程度</a> |
+									<a href="{h('/index.php?m=search&c=index&a=search_content&q='.$q.'&starttime='.$starttime.'&endtime='.$endtime.'&order=inputtime&page='.$page)}" {$order_inputtime}>上传时间</a> |
+									<a href="{h('/index.php?m=search&c=index&a=search_content&q='.$q.'&starttime='.$starttime.'&endtime='.$endtime.'&order=views&page='.$page)}" {$order_views}>播放次数</a>
+								</span>
+								<form method="POST" action="{h('/index.php?m=search&c=index&a=search_content&q='.$q.'&starttime=&endtime=&order='.$order.'&page='.$page)}">
+									<span class="time_select">
+										<label>开始时间：<input name="starttime" type="text" class="date-pick dp-applied" id="start-date" value=""/></label>
+										<label>结束时间：<input name="endtime" type="text" class="date-pick dp-applied" id="end-date" value=""/></label>
+                                    <input type="submit" value="搜索" class="time_sec_btn">
+									</span>
+								</form>
+                                <p>找到{if !empty($starttime)&&!empty($endtime)}{$starttime}至{$endtime}{/if} “{$q}”相关视频 {$data['total']} 个</p>
+							</div>
+
+							<ul class="row_pic_list video_pic_list">
+								{loop $data $val}
+								{if is_array($val)}
+								<li>
+									<a href="{$val[url]}"><img src="{thumb($val[thumb],150,90)}" alt="{htmlspecialchars($val[title])}" width="150px" height="95px" /><span class="video_title">{str_cut($val[title], 11)}</span></a>
+									<p>上传时间：{date('Y-m-d',$val[inputtime])}</p>
+									<p>时长：{if !empty($val[totaltime])}{$val[totaltime]}{else}不详{/if}</p>
+									<p>播放：{intval($val[views])}</p>
+
+								</li>
+								{/if}
+								{/loop}
+							</ul>
+							{/pc}
+							<div class="page">
+								{$pages}
+							</div>
+						</div>
+					</div>				
+				</div>
+			</div>
+			<div class="box_side">
+				<div class="box_first">
+					<div class="hd">
+						<h2>热门视频</h2>
+					</div>
+					<div class="ct">
+						<div class="hot_video_list side_filler">
+							{pc:content action="hits" catid="554" num=4}
+							{loop $data $val}
+							<div class="media col_media">
+								<div class="m_pic">
+									<a href="{$val[url]}"><img src="{thumb($val[thumb],150,90)}" alt="{htmlspecialchars($val[title])}" width="150px" height="90px" /></a>
+								</div>
+								<div class="m_txt">
+									<h3 class="m_title">
+										<a href="{$val[url]}">{str_cut($val[title], 12)}</a>
+									</h3>
+									<p class="m_summary">
+										{str_cut($val[description], 46)}...<a href="{$val[url]}" target="_blank">详情</a>
+									</p>
+								</div>
+							</div>
+							{/loop}
+							{/pc}
+						</div>
+					</div>
+				</div>
+				<div class="box_aimgd">
+					{pc:block pos="shixun_list_101"}
+					{/pc}
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="{JS_PATH}shixun/datepicker.js" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+Date.format = 'yyyy-mm-dd';
+$(function()
+{	
+	$('.date-pick').datePicker(
+		{
+			startDate: '1949-01-01',
+			clickInput:true
+		}
+	);
+	$('#start-date').bind(
+		'dpClosed',
+		function(e, selectedDates)
+		{
+			var d = selectedDates[0];
+			if (d) {
+				d = new Date(d);
+				$('#end-date').dpSetStartDate(d.addDays(1).asString());
+			}
+		}
+	);
+	$('#end-date').bind(
+		'dpClosed',
+		function(e, selectedDates)
+		{
+			var d = selectedDates[0];
+			if (d) {
+				d = new Date(d);
+				$('#start-date').dpSetEndDate(d.addDays(-1).asString());
+			}
+		}
+	);
+});
+</script>
+
+{template "content","footer_shixun"}

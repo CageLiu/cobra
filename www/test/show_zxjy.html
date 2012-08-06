@@ -1,0 +1,126 @@
+{template "content","header_zxjy"}
+        <div class="wrap clearfix">
+            <div class="main">
+                <div class="crumb">
+                    <a href="{h('[zxjy]/')}">中新教育</a>
+                    <em>&gt;</em>
+                    <a href="{h('[zxjy]/pxjs')}">培训讲师</a>
+                    <em>&gt;</em>
+                    <span>讲师详情</span>
+                </div>
+                <div class="lector_introduce bt lector_details" id="lector_introduce">
+                    <div class="lector_box clearfix">
+                        <div class="media clearfix">
+                            <img class="img" src="{$thumb}" alt="{$title}" width="103" height="118">
+                            <h4>{$title}</h4>
+                            <p>
+                                {$description} 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="details_cont">
+                        {$content}
+                </div>
+            </div>
+
+            <div class="siderbar">
+                <div class="search">
+                    <form id="cert" action="/zsrz" method="post" target="_blank">
+                        <label>证书编号:</label>
+                        <input id="cert_id" type="text" class="txt" name="cert_id" ></input>
+                        <button class="btn" vallue="查询" type="submit"></button>
+                    </form>
+                </div>       
+                <div class="case">
+                    <div class="case_box">
+                        <a name=""></a>
+                        <h2>案例展示</h2>
+<!--
+                        <div class="case_show">
+
+                            <ul id="case">
+
+                                <li><img src="../statics/images/zxjy/05.png" width="290" heght="152" />
+
+                                    <p>1990年第三期培训学员，现任中新金融工程研究院资深证券评论员</p>
+
+                                </li>
+
+                                <li><img src="../statics/images/zxjy/05.png" width="290" heght="152" />
+
+                                    <p>2012年第三期培训学员，现任中新金融工程研究院资深证券评论员</p>
+
+                                </li>
+
+                                <li><img src="../statics/images/zxjy/05.png" width="290" heght="152" />
+
+                                    <p>3034年第三期培训学员，现任中新金融工程研究院资深证券评论员</p>
+
+                                </li>
+
+                                <li><img src="../statics/images/zxjy/05.png" width="290" heght="152" />
+
+                                    <p>4043年第三期培训学员，现任中新金融工程研究院资深证券评论员</p>
+
+                                </li>
+
+                            </ul>
+-->
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <script type="text/javascript">
+
+                    var H = $("#case li").eq(0).height();
+
+                    var timer = setInterval(S,3000);
+
+                    $("#case").hover(function(){
+
+                        clearInterval(timer);   
+
+                    },
+
+                    function(){
+
+                        timer = setInterval(S,3000);
+
+                    });
+
+                    function S(){
+
+                        $("#case").append($("#case li").first().clone());
+
+                        $("#case li").first().stop().animate({"marginTop":-H + "px"},800,function(){
+
+                            $("#case li").first().remove();
+
+                        });
+
+                    }
+
+
+                    $("#cert").submit(function(){
+                        $cert_id = $.trim($('#cert_id').val());
+                        if($cert_id.length > 0) return true;
+                        else{
+                            alert("请输入证书编号!");
+                            return false;
+                        }
+                    });
+
+
+                </script>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{template "content","footer_zxjy"}

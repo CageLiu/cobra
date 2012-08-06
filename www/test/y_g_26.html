@@ -1,0 +1,112 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<em>我的购物车</em>
+	</div>
+
+	<div class="admin_flow_steps">
+		<ul class="hor_list">
+			<li><span>1 我的购物车</span></li>
+			<li><span>2 填写核对订单</span></li>
+			<li class=""><span>3 线上付款</span></li>
+			<li class="cur_prev"><span>4 确认收货</span></li>
+			<li class="last_cur cur"><span>5 完成购物</span></li>
+		</ul>
+	</div>
+
+	<div class="admin_box clear">				
+
+		<div class="admin_bc">
+			<form action="">
+				<div class="table_box innertable">			
+					<table class="table order_table">
+						<thead>
+							<tr>
+								<th>
+									<input type="checkbox" />
+									全选
+								</th>
+								<th>商品名称</th>
+								<th>单价</th>
+								<th>优惠</th>
+								<th>数量</th>
+								<th>总价</th>
+								<th>赠送积分</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="checkbox" /></td>
+								<td class="text_left">
+									<a href="#" class="link">仅68元，价值363元长寿路店3-4人套餐，新鲜食材秘制</a>
+									<p class="red">这里显示提示商品数量</p>
+								</td>
+								<td>29.90</td>
+								<td>-5.00</td>
+								<td>
+									<button class="reduce">-</button>
+									<input type="text" class="quantity" value="1" /> 
+									<button class="add">+</button>
+								</td>
+								<td class="red">29.00</td>
+								<td>15</td>
+								<td>
+									<a href="#" class="link">加入收藏夹</a>
+									<a href="#" class="link">删除</a>
+								</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" /></td>
+								<td class="text_left"><a href="#" class="link">仅68元，价值363元长寿路店3-4人套餐，新鲜食材秘制</a></td>
+								<td>29.90</td>
+								<td>-5.00</td>
+								<td>
+									<button class="reduce">-</button>
+									<input type="text" class="quantity" value="1" /> 
+									<button class="add">+</button>
+								</td>
+								<td class="red">29.00</td>
+								<td>15</td>
+								<td>
+									<a href="#" class="link">加入收藏夹</a>
+									<a href="#" class="link">删除</a>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="8" class="delbox">
+									<span class="checkall"><input type="checkbox" />全选</span>
+									<a href="#" class="btn btn1">
+										<span>批量删除</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>		
+	</div>
+
+	<div class="order_box align_right">
+		<div class="order_item info">
+			<span class="amount">重量总计：11.2kg</span>
+			<span class="amount">原始金额：&yen;85.00</span>
+			<span class="amount">-优惠：&yen;0.00</span>
+		</div>
+		<div class="order_item tips">
+			<p class="wran">此订单包含财富卡专享产品，需使用财富卡足额支付。</p>
+			<p><strong>商品总金额(未包含运费)：<em class="red">&yen;85.00</em>元</strong></p>
+			<p class="btnbox">
+				<a href="#" class="btn btn5">继续购物</a>
+				<a href="#" class="btn btn6">去结算</a>
+			</p>
+		</div>
+	</div>
+
+</div>
+			
+<%include file="footer.html" />

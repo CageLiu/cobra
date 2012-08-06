@@ -1,0 +1,42 @@
+{template "content","simple_header_research"}
+<script type="text/javascript" src="{JS_PATH}swfobject.js?v=2010122901"></script><!--选项卡插件-->
+<script type="text/javascript" src="{JS_PATH}get_flash.js?v=2010122901"></script>
+<body id="content">
+{template "content","header_research"}
+<div class="content show_page">
+	<div class="b_wp">
+		<div class="b-ct">
+			<div class="article_box">
+				<div class="art_title">
+					<h1>{$title}</h1>
+				</div>
+				<div class="art_info">
+                    来源： {if empty($copyfrom)}未知{/if}{$copyfrom}&nbsp;&nbsp;&nbsp;&nbsp;作者： {if empty($author)}未知{/if}{$author} &nbsp;&nbsp;&nbsp;&nbsp; 时间： {$updatetime}
+				</div>
+				<div class="video_player">
+					<div style="width:512px;height:415px;border:1px solid #ccc;text-align:center;margin:0 auto">
+						<div id="flashContent">
+						</div> 
+						<script type="text/javascript"> 
+							var option = {}
+							option.width = "512";
+							option.height = "415";
+							var file = '{$video}';
+							var itemid = 'flashContent';
+							var flash_path = "{IMG_PATH}video/";
+							var tokenval = '{php echo video_token();}';
+							get_flash(file,itemid,flash_path,tokenval,'{$thumb}',option);
+						</script> 
+					</div>
+				</div>
+				<div class="art_content">
+					{$content}
+				</div>
+				<div class="page">
+				{$pages}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer_research"}

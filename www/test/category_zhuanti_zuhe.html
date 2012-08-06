@@ -1,0 +1,355 @@
+{template "content","header_zhuanti"}
+<div class="wrap clearfix">
+	<div class="main">
+		<div class="focus clearfix">
+			{pc:block action="customtpl" pos="zhuanti_index_201"}
+			<div id="pic_area">
+				<ul>
+				{loop $data $val}
+					<li><a href="{$val['url']}" target="_blank"><img src="{thumb($val['thumb'],320,204)}" title="{htmlspecialchars($val['title'])}" width="320" height="204"></a></li>
+				{/loop}
+				</ul>
+			</div>
+			<ul id="link_list">
+				{loop $data $val}
+				<li{if $n==1} class="curli"{/if}><a href="{$val['url']}" target="_blank" title="{htmlspecialchars($val['title'])}">{str_cut($val['title'],17)}</a></li>
+				{/loop}
+			</ul>
+			{/pc}
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialcj')}" target="_blank">财经专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialcj" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialcj" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=speciallc')}" target="_blank">理财专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="speciallc" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="speciallc" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialgp')}" target="_blank">股票专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialgp" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialgp" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialjj')}" target="_blank">基金专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialjj" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialjj" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialsm')}" target="_blank">私募专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialsm" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialsm" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialqh')}" target="_blank">期货专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialqh" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialqh" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialhj')}" target="_blank">黄金专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialhj" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialhj" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialwh')}" target="_blank">外汇专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialwh" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialwh" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a href="{h('/index.php?m=content&c=index&a=lists&catdir=specialsh')}" target="_blank">生活专题</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<ul class="pic_list pic_line clearfix">
+					{pc:content action="lists" catdir="specialsh" order="updatetime DESC" num="4" recommend="1,2" thumb="1"}
+                    {loop $data $val}
+					<li><a target="_blank" href="{$val['url']}"><img title="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],140,105)}" width="140" height="105"><span>{str_cut($val['title'],10)}</span></a></li>
+					{/loop}
+					{/pc}
+				</ul>
+				<ul class="text_list zt_list clearfix">
+				{pc:content action="lists" catdir="specialsh" order="updatetime DESC" num="8" recommend="0,3"}
+                {loop $data $val}
+					<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],17)}</a><span class="date">{date("Y-m-d",$val['updatetime'])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="side">
+		<div class="box_item dyue">
+			<div class="box_hd">
+				<h2>
+					<a style="cursor:hand">邮件订阅</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<form action="">
+					<ul>
+						<li><input type="checkbox"><label>财经专题</label></li>
+						<li><input type="checkbox"><label>股票专题</label></li>
+						<li><input type="checkbox"><label>基金专题</label></li>
+						<li><input type="checkbox"><label>期货专题</label></li>
+						<li><input type="checkbox"><label>黄金专题</label></li>
+						<li><input type="checkbox"><label>外汇专题</label></li>
+						<li><input type="checkbox"><label>私募专题</label></li>
+						<li><input type="checkbox"><label>生活专题</label></li>
+					</ul>
+					<div class="dyue_mail">
+						<input class="mail" value="输入您的常用邮箱" type="text"><input value="" class="btn" type="button">
+					</div>
+				</form>							
+				<p class="dyue_tips">
+					腾讯提供订阅技术支持，邮件末尾有退订功能按钮。
+				</p>
+				<a href="#" class="rss">免费订阅独家证券报道</a>
+			</div>
+		</div>
+		<div class="box_item">
+			<div class="box_hd">
+				<h2>
+					<a>CCTV独家资讯</a>
+				</h2>
+			</div>
+			<div class="box_ct">
+				<div class="box_item">
+					<div class="sub_box_hd">
+						<h2>
+                            <a href="{h('[info]/nmbl')}" target="_blank">独家揭秘</a>
+						</h2>
+					</div>
+					<div class="sub_box_ct">
+						<ul class="text_list text_col">
+							{pc:content action="lists" catdir="nmbl" order="updatetime DESC" num="5"}
+							{loop $data $val}
+								<li><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],18)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+						<div id="nmbl">
+							<form id="blForm" class="form" action="{h('[info]/index.php?m=lowdown&c=index&a=add')}"  method="POST" >
+								<div class="tab">
+									<span class="tab_t">爆料内幕</span><span class="tabs cur_tab">欺诈</span><span class="tabs">税务</span><span class="tabs">环境</span><span class="tabs">道德</span>
+									<input name="class" id="type" value="欺诈" type="hidden" />
+								</div>
+								<div class="textarea">
+									<textarea id="blTxt" name="content">请填写爆料内幕信息。</textarea>
+									<span><em id="curNum">0</em>/2000</span>
+								</div>
+								<input name="username" class="txt" type="hidden" size="12" value="匿名"/>
+								<input class="chbox" type="checkbox" name="anonymity" style="display:none"/>
+								<input name="email" class="txt" type="hidden" size="18" value="noreply@cctvcjw.com"/>
+								<input name="phone_number" class="txt" type="hidden" size="12" value="4000260010" />
+								<input class="btn" value="确&nbsp;认" type="submit">
+							</form>
+						</div>
+					</div>
+                    <span class="more"><a href="{h('[info]/nmbl')}" target="_blank">更多</a></span>
+				</div>
+				<div class="box_item">
+					<div class="sub_box_hd">
+						<h2>
+							<a style="cursor:hand">24小时热门资讯</a>
+						</h2>
+					</div>
+					<div class="sub_box_ct">
+						<ul class="text_list text_col">
+							{php $index_catid=catdirtocatid("finance");}
+							{pc:content action="hits" catid="$index_catid" order="dayviews desc" day="1" num="16"}
+							{loop $data $val}
+							<li{if $n==8} class="list_space"{/if}><a href="{$val['url']}" title="{htmlspecialchars($val['title'])}" target="_blank">{str_cut($val['title'],21)}</a></li>
+							{/loop}
+							{/pc}
+						</ul>
+						<div class="zt_pic">
+						{pc:block pos="zhuanti_index_202"}{/pc}
+                        <!--	<a href="#"><img height="309px" width="287px" alt="" src="temp/image/temp.png"></a>-->
+                        </div>
+					</div>
+				</div>
+				<div class="box_item">
+					<div class="sub_box_hd">
+						<h2>
+							<a style="cursor:hand">推荐专题</a>
+						</h2>
+					</div>
+					<div class="sub_box_ct">
+						<ul class="text_list text_col">
+						{pc:content action="lists" catdir="special" order="updatetime DESC" num="20" recommend="1,2,3" thumb="1"}
+						{loop $data $val}
+						<li{if $n==10} class="list_space"{/if}><a href="{$val['url']}" target="_blank" title="{htmlspecialchars($val['title'])}">{str_cut($val['title'],21)}</a></li>
+						{/loop}
+						{/pc}
+						</ul>
+					</div>
+				</div>
+				<div class="box_item hot_concern">
+					<div class="sub_box_hd">
+						<h2>
+							<a style="cursor:hand">热点关注</a>
+						</h2>
+					</div>
+					<div class="sub_box_ct">						
+						<ul class="text_list text_col clearfix">
+						{pc:hotword action="gethotwordbycatid" order="follow desc" num="60"}
+                        {loop $data $val}
+							<li{if $n % 20==0} class="list_space"{/if}><a href="{h('/index.php?m=hotword&c=index&a=lists&id='.$val['id'].'&type=comprehensive')}" target="_blank">{str_cut($val['hotword'],10)}</a></li>
+						{/loop}
+                        {/pc}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer_zhuanti"}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="baidu-site-verification" content="WmNeUd3YcAOLkcYC" />
+{if $title!=''}
+<title>{$title}-{$SEO['site_title']}</title>
+{else}
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+{/if}
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<link href="{CSS_PATH}huangjin/global.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}huangjin/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{JS_PATH}jquery.min.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}huangjin/global.js"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+</head>
+<script>
+function sublogin()
+{
+	document.getElementById("login_form").submit();
+}
+
+function addFav(){
+	if (document.all)
+	window.external.AddFavorite('{siteurl($siteid)}', 'CCTV证券资讯');
+	else if (window.sidebar)
+	window.sidebar.addPanel('CCTV证券资讯', '{siteurl($siteid)}', "")
+}
+</script>
+<body>
+<div id="header">
+	<div class="header_area">
+        <div class="top_area">
+            <div class="topbar">
+                <div class="top_login">
+				{pc:content action="loginuser"}
+				{if $data[status]!=1}
+				<form action="{$data[data][action]}" method="POST" id="login_form">
+                    用户名：<input type="text" name="username" id="username" value="" class="txt" />
+                    密码：<input type="password" name="passwd" id="passwd" value="" class="txt"  />
+                    <a href="javascript:void(0);" class="btn" onclick="sublogin();">登录</a>
+                    <a href="{$data[data][register]}" class="btn" target="_blank">注册</a>
+                    <label><input type="checkbox"  name="auto_login" id="auto_login" value="on" /> 自动登录</label> <a href="{$data[data][getpasswd]}" target="_blank">忘记密码</a>
+				</form>
+				{else}
+				<span>欢迎您，{$data[data][username]}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$data[data][index_url]}">进入会员中心</a>&nbsp;&nbsp;<a href="{$data[data][logout_url]}">退出</a>
+				 {/if}
+				 {/pc}
+                </div>
+
+               <div class="pr">
+                    <a href="javascript:void(0);" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('{siteurl($siteid)}');event.returnValue=false;" class="set_index">设置首页</a>
+                    <a href="javascript:addFav();" class="favorite">加入收藏</a>
+                </div>
+            </div>
+        </div>
+        <div class="logobar clearfix">
+            <div class="logo">
+                <a href="{siteurl($siteid)}"><img src="{IMG_PATH}licai/logo.jpg" alt="CCTV证券资讯" /></a>
+            </div>
+            <div class="menu clearfix">
+               {pc:block pos="top_licai_2"}{/pc}
+           </div>
+        </div>
+        <div class="tip_scroll clearfix">
+			{pc:block pos="licai_search"}{/pc}
+           <div id="tip_scroll" class="scroll_section">
+                <ul>
+                {pc:content action="stock" type="index_info"}
+				{loop $data[index_page_stock] $val}
+                {php $cls = $val[diff_value]>=0 ? 'up' : 'down'}
+                {php $syb = $val[diff_value]>=0 ? '+' : ''}
+
+				{if $n%2==1}<li>{/if}
+				<span>{$val[name]}</span><em>{$val[cur_value]}</em><em class="{$cls}">{$val[diff_value]}</em><em class="{$cls}">{number_format($val[diff_percent] * 100, 2, '.', '')}%</em>
+				{if $n%2==0}</li>{/if}
+
+				{/loop}
+				{/pc}
+
+                </ul>
+            </div>
+        </div>
+ 		<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+       <div class="menu_two tab_b">
+           {pc:block pos="huangjin_index_101"}
+       </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var pathname = window.location.pathname;
+		if(pathname=='/'){
+				$('#scyw').addClass('cur1');
+		} else {
+				$('#'+pathname.replace('/','')).addClass('cur1');
+		}
+
+	var status_index=0;  //默认停留第一个
+	$(".menu_two .tab").find(".tabs").each(function(i){
+		if($(this).hasClass("cur1")){
+			status_index=i;
+			$(".menu_two").find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+		}
+	})
+	if(status_index==0){
+		$(".menu_two").find(".tabs").eq(status_index).addClass("cur1").siblings().removeClass("cur1");
+		$(".menu_two").find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+	}
+	$(".menu_two").hover(function(){},function(){
+		$(this).find(".tabs").eq(status_index).addClass("cur1").siblings().removeClass("cur1");
+		$(this).find(".tabCont").eq(status_index).show(0).siblings().hide(0);
+	}).tabs({className:"cur1"});
+	
+})
+</script>

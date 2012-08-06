@@ -165,7 +165,7 @@ def getree(request):
     '''get the dir or files'''
     dirs = request.GET.get("dir",None)
     #html = dirTree(dirs,pattern = ".*\.pyc$|\.swp$|^(__).*|^(m_).*|\.py$")
-    html = dirTree(dirs)
+    html = dirTree(dirs,"")
     return HttpResponse(html)
 
 def inotify(request):
@@ -235,7 +235,7 @@ def p(request,p = "", tpl = ""):
             tpls.sort()
         
         if os.path.isdir(tpl_path + "/" + tpl):
-            return HttpResponse(dirTree(tpl_path + "/" + tpl))
+            return HttpResponse(dirTree(tpl_path + "/" + tpl),"")
         else:
             try:
                 return render_to_response("system/view.html",locals())
@@ -285,9 +285,7 @@ def v(request,t = "", tid = ""):
         if t == "project":
             related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
-            dirHtml = dirTree("/var/www/cobra/www/test")
-            #dirHtml = dirHtml.encode()
-            dirHtml = unicode(dirHtml.decode().encode('utf-8'),'utf-8')
+            dirHtml = dirTree(sc.P_PROJECT_PATH + "/" + obj.name_en,"/system/p/",pattern = ".*\.pyc$|\.swp$|\.py$|_import.html")
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":

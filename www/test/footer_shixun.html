@@ -1,0 +1,88 @@
+
+<div class="footer_wp">
+	<div class="footer">
+		<a href="{h('[www]/about/sitemap.shtml')}" target="_blank">网站导航</a> | <a href="{h('[www]/about/company.shtml')}" target="_blank">公司动态</a> | <a href="{h('[www]/about/about.shtml')}" target="_blank">公司简介</a> | <a href="{h('[www]/about/cooperation.shtml')}" target="_blank">合作伙伴</a> | <a href="{h('[www]/about/statement.shtml')}" target="_blank">免责条款</a> | <a href="{h('[www]/about/recruitment.shtml')}" target="_blank">诚聘英才</a> | <a href="{h('[www]/about/contact.shtml')}" target="_blank">联系我们</a> | <a href="{h('[www]/about/cooperation.shtml')}" target="_blank">广告服务</a> | <a href="{h('[www]/about/help.shtml')}" target="_blank">帮助中心</a> | <a href="{h('[www]/sitemap/')}" target="_blank">财经分类</a>
+		<address>Copyright 2009-2011 &copy; CCTV证券资讯 All Rights Reserved. </address>
+	</div>
+</div>
+<div style="display:none">
+{if $head=='caijing_show'}
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}&extra={$top_parentid}&extra2={$pcatid}"></script>
+{/if}
+<script src="http://s16.cnzz.com/stat.php?id=2836246&web_id=2836246" language="JavaScript"></script>
+</div>
+<script type="text/javascript">
+$(function(){   
+	//p7 p16焦点图
+	$('#p7_soChange .changeDiv').soChange({
+		thumbObj:'#p7_soChange .changeNum li',
+		thumbNowClass:'curNum',
+		changeTime:4000,
+		txtObj:"#p7_soChange .changeTxt li",
+		txtClass:"curTxt"
+	});
+	
+	//p8 p14焦点图
+	$('#p8_soChange .a_bigImg').soChange({
+		thumbObj:'#p8_soChange .sPic li', 
+		thumbNowClass:'cur',
+		changeTime:4000
+	});
+	
+	//p11焦点图
+	$('#p11_soChange .changeDiv').soChange({
+		thumbObj:'#p11_soChange .changeNum li',
+		thumbNowClass:'curNum',
+		changeTime:4000
+	});
+	
+	//p1精彩栏目滚动
+	$("#p1_tipScroll").tipScroll({
+		direction:"horizontal", //滚动方向 vertical(垂直方向) horizontal(水平方向)
+		oHeight:114, //单个滚动对象的高度(垂直滚动)或者宽度(水平滚动) 单位为像素px
+		timer:3000,
+		animate:300,
+		prev:"#p1_tipScroll .ts_prev",
+		next:"#p1_tipScroll .ts_next"
+	});
+	
+	//p2 p5 p10 p13推荐节目
+	$("#p2_tipScroll").tipScroll({
+		direction:"horizontal",
+		oHeight:220,
+		timer:4000,
+		animate:400,
+		prev:"#p2_tipScroll .ts_prev",
+		next:"#p2_tipScroll .ts_next"
+	});
+	
+	//p12、p17到场嘉宾
+	$("#p12_tipScroll").tipScroll({
+		direction:"horizontal",
+		oHeight:158,
+		timer:3000,
+		animate:400,
+		prev:"#p12_tipScroll .ts_prev",
+		next:"#p12_tipScroll .ts_next"
+	});
+	
+	//p15现场图片
+	$("#p15_tipScroll").tipScroll({
+		direction:"horizontal",
+		oHeight:182,
+		timer:4000,
+		animate:400,
+		prev:"#p15_tipScroll .ts_prev",
+		next:"#p15_tipScroll .ts_next"
+	});
+	
+	//视频选项卡
+	$("#video_tab").tabs({
+		className:"cur_tab"
+	})
+
+	
+})
+</script>
+</body>
+</html>

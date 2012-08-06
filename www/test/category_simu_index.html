@@ -1,0 +1,429 @@
+{template "content","header_simu"}
+<div id="content">
+	<div class="layout i_layout">
+		<div class="i_main">
+			<div class="i_mLeft i_mLeft1">
+				<div class="i_box">
+					<div class="Flash guoneiFlash">
+						<div class="c" id="main-slide">
+							<div class="changeDiv">
+								{pc:block pos="index_simu_hotpic_1"}{/pc}
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="i_box weekly">
+					<div class="i_t">
+                        <h4>
+							<span>私募观察<em class="cake"></em></span>
+                        </h4>
+					</div>
+					<div class="i_c">
+                        {pc:content  action="lists" catdir="smgc" thumb="1" order="updatetime DESC" num="1"}
+                        {loop $data $val}
+                        <h4 class="i_hotNews"><a href="{$val[url]}" target="_blank">{$val[title]}</a></h4>
+                        <div class="i_media">
+                            <div class="pic"><a href="{$val[url]}" class="i_detail" target="_blank"><img src="{thumb($val['thumb'],80,80)}" width="80" height="80" alt="" /></a></div>
+                            <div class="txt">
+                                <p>{str_cut($val['description'],60)}...<span><a href="{$val[url]}" target="_blank" class="i_detail">详情</a></span></p>
+                            </div>
+                        </div>
+                        {/loop}
+                        {/pc}
+					</div>
+				</div>
+				<div class="i_box txtCon">
+					<div class="i_t">
+						<h4>
+							<span>私募名人<em class="cake"></em></span><a href="{h('/smjj/smrw/')}" class="pr" target="_blank">更多</a>
+						</h4>
+					</div>
+					<div class="i_c">
+						<div class="media i_media">
+							{pc:content action="position" posid="914" thumb="1" num="1"}
+							{php $companyMod=pc_base::load_app_class('corporation','simu', 1);$data=$companyMod->append_companyInfo($data,true);}
+							{loop $data $r}
+							<div class="pic"><a href="{$r[url]}" target="_blank"><img src="{$r[thumb]}" width="80" height="80" alt="{$r[title]}" /></a></div>
+							<div class="txt">
+								<h4><a href="{$r[url]}" target="_blank">{$r[company_info][short_title]} > {$r[title]}</a></h4>
+								<p>{str_cut($r[intro],46,'..')}<span><a href="{$r[url]}" target="_blank" class="i_detail">详情</a></span></p>
+							</div>
+							{php break;}
+							{/loop}
+							{/pc}
+						</div>
+						<div class="i_aLink">
+							<ul>
+								{pc:content action="position" posid="915" num="9"}
+								{php $companyMod=pc_base::load_app_class('corporation','simu', 1);$data=$companyMod->append_companyInfo($data);}
+								{php $i=1;}
+                                {php $datanum=count($data)}
+								<li>
+									{loop $data $r}
+									<span><a href="{$r[url]}" target="_blank">{$r[company_info][short_title]} {$r[title]}</a></span>{if $i%3!=0 && $i!=$datanum}|{else}</li>
+									<li {if $i==3}class="odd"{/if}>{/if}
+									{php $i++}
+									{/loop}
+								</li>
+								{/pc}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="i_box txtCon2">
+					<div class="i_t">
+						<h4>
+							<span>私募报告<em class="cake"></em></span><a href="{h('/smjj/smbg/')}" class="pr" target="_blank">更多</a>
+						</h4>
+					</div>
+					<div class="i_c newsCon">
+						<div class="media i_media">
+							{pc:block pos="index_simu_report_1"}{/pc}
+						</div>
+						<ul class="txtList i_txtList">
+							{pc:block pos="index_simu_report_2"}{/pc}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="i_mRight i_mRight1">
+				<div class="i_box ">
+					<div class="news">
+						<div class="hot">
+							{pc:block pos="index_simu_topic_1"}{/pc}
+						</div>
+						<div class="hot">
+							<h4>{pc:block pos="index_simu_topic_2"}{/pc}</h4>
+							<div class="aLink">
+							{pc:block pos="index_simu_topic_3"}{/pc}
+							</div>
+						</div>
+						{pc:block pos="index_simu_topic_4"}{/pc}
+					</div>
+				</div>
+				<div class="i_box txtCon">
+					<div class="i_t">
+						<h4><span>私募动态</span><a href="{h('/smjj/smdt/')}" class="pr" target="_blank">更多</a></h4>
+					</div>
+					<div class="i_c newsCon">
+						<ul class="txtList i_txtList">
+							{pc:block pos="index_simu_dynamic"}{/pc}
+						</ul>
+					</div>
+				</div>
+				<div class="i_box txtCon">
+					<div class="i_t">
+						<h4><span>私募视点</span><a href="{h('/smjj/smsd/')}" class="pr" target="_blank">更多</a></h4>
+					</div>
+					<div class="i_c newsCon">
+						<ul class="txtList i_txtList">
+							{pc:block pos="index_simu_view"}{/pc}
+						</ul>
+					</div>
+				</div>
+				<div class="i_box txtCon2">
+					<div class="i_t">
+						<h4><span>私募策略</span><a href="{h('/smjj/smcl/')}" class="pr" target="_blank">更多</a></h4>
+					</div>
+					<div class="i_c newsCon">
+						<ul class="txtList i_txtList">
+							{pc:block pos="index_simu_ploy"}{/pc}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="i_side i_side1">
+			<div class="i_box tier">
+				<div class="i_t">
+					<h4><span>私募评级</span></h4>
+				</div>
+				<div class="i_c">
+					<div class="i_tag i_tag2" id="divpj">
+						<span class="four current" tab="1" >一个月</span><span tab="2">三个月</span><span tab="3">六个月</span><span tab="4">一年</span><span class="four" tab="5">今年</span>
+					</div>
+					<!-- swith tab -->
+					<div class="i_table">						
+						<table>
+							<thead>
+								<tr>
+                                    <th width='40px'><span>&nbsp;&nbsp;排名</span></th>
+                                    <th width='164px'><span>产品名称</span></th>
+                                    <th width='56px'><span>收益率</span></th>
+                                    <th width='70px'><span>基金排名</span></th>
+								</tr>
+							</thead>
+							{php $tabs=array('income_1','income_3','income_6','income_12','income_ty')}
+							{php $ranks=array('income_1'=>'rank_1','income_3'=>'rank_3','income_6'=>'rank_6','income_12'=>'rank_12','income_ty'=>'rank_ty')}
+							{php $idx=0}
+							{loop $tabs $tab}
+							{php $idx++}
+							{php $order=$tab.' desc'}
+							<tbody id="tab2_{$idx}" {if $idx>1}style="display:none"{/if}>
+								{pc:simu action="product_top" top="byyear" order="$order" num="10"}
+								{php $i=1;}
+								{loop $data $val}
+								<tr>
+									<td><span class="{if $i<4}front{else}after{/if}">{$i}</span></td>
+									<td align="left">&nbsp;<a href="{$val[url]}" title="{htmlspecialchars($val[title])}" target="_blank">{str_cut($val[title],15)}</a></td>
+									<td>{$val[$tab]}</td>
+									<td>{$val[$ranks[$tab]]}</td>
+								</tr>
+								{php $i++;}
+								{/loop}
+								{/pc}
+							</tbody>
+							{/loop}
+						</table>
+					</div>
+					<!-- swith tab -->
+
+				</div>
+			</div>
+			<div class="i_box newBang">
+				<div class="i_t">
+					<h4><span>私募基金新锐榜</span></h4>
+				</div>
+				<div class="i_c">
+					<div class="i_table">
+						<table>
+							<thead>
+								<tr>
+									<th><span>&nbsp;&nbsp;排名</span></th>
+									<th><span>公司名称</span></th>
+									<th><span>核心人物</span></th>
+									<th><span>成立时间</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								{pc:content action="position" posid="913" catdir="smgs" order="id DESC" thumb="0" num="10"}
+								{php pc_base::load_app_func('company', 'simu');$companyMod=pc_base::load_app_class('corporation','simu', 1);$data=$companyMod->getCompanyFullInfo(getCompanyIdFromPosition($data), false, true,false,true);}
+								{php $i=1;}
+								{loop $data $r}
+								<tr>
+									<td><span class="{if $i<4}front{else}after{/if}">{$i}</span></td>
+									<td align="left">&nbsp;<a href="{$r[url]}" target="_blank">{$r[short_title]}</a></td>
+									<td><a href="{$r[managerInfo][url]}" target="_blank">{$r[managerInfo][title]}</a></td>
+									<td>{if $r[ctime]==0}--{else}{$r[ctime]}年{/if}</td>
+								</tr>
+								{php $i++;}
+								{/loop}
+								{/pc}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="i_box txtCon3">
+				<div class="i_t">
+					<h4><span>24小时热门排行</span></h4>
+				</div>
+				<div class="i_c">
+					<ul class="txtList i_txtList2">
+						{pc:content action="hits" catid="514" day="1" num="10" order="views DESC"}
+                        {loop $data $val}
+						<li><span class="{if $n<4}front{else}after{/if}">{$n}</span><a href="{$val[url]}" title="{htmlspecialchars($val[title])}" target="_blank">{str_cut($val[title], 17)}</a></li>
+                        {/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="layout">
+		<div class="i_ad" style="height:90px;overflow:hidden">{pc:block pos="index_simu_banner"}{/pc}</div>
+	</div>
+	<div class="layout i_layout2">
+		<div class="i_main i_main1">
+			<div class="i_t">
+				<div class="i_tag i_tag1" id="divzxjj">
+                    <a href="{h('/smjj/smjz/')}"><span class="diff current" tab="1">基金最新净值<em class="cake"></em></span></a>
+				</div>
+			</div>
+			<div class="i_c i_item">
+				<div class="i_table">
+					<table>
+						<thead>
+							<tr>
+								<th width="47px"><span>&nbsp;&nbsp;序号</span></th>
+								<th width="131px"><span>产品名称</span></th>
+								<th width="80px"><span>投资顾问</span></th>
+								<th width="82px"><span>基金经理</span></th>
+								<th width="77px"><span>托管人</span></th>
+								<th width="105px"><span>成立时间</span></th>
+								<th width="82px"><span>最新净值</span></th>
+								<th width="95px"><span>更新时间</span></th>
+							</tr>
+						</thead>
+						{php $tabs=array('0')}
+						{php $idx=0}
+						{loop $tabs $tab}
+						{php $idx++}
+						<tbody id="tab3_{$idx}" {if $idx>1}style="display:none"{/if}>
+							{pc:simu action="new_worth_list" type="$tab" num="16"}
+							{php $i=1;}
+							{loop $data $val}
+							<tr {if $i%2==0}class="odd"{/if}>
+								<td><span>{$i}</span></td>
+								<td><a href="{$val[url]}" title="{htmlspecialchars($val[title])}" target="_blank">{str_cut($val[title],12)}</a></td>
+								<td><a href="{$val[company][url]}" target="_blank">{$val[company][title]}</a></td>
+								<td>{loop $val[manager] $m}<a href="{$m[url]}" target="_blank">{$m[title]}</a>&nbsp;{/loop}</td>
+								<td>{$val[custodian]}</a></td>
+								<td>{$val[ctime]}</td>
+								<td>{$val[new_worth]}</td>
+								<td>{$val[worth_date]}</td>
+							</tr>
+							{php $i++}
+							{/loop}
+							{/pc}
+						</tbody>
+						{/loop}
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="i_side i_side2">
+			<div class="i_box balance">
+				<div class="i_t">
+					<h4><span>基金对比</span></h4>
+				</div>
+				<div class="i_c">
+					<div class="balanceCon">
+						<form>
+							<div class="term">
+								<p>{pc:simu action="form_companylist" defvalue="$comany_id"}
+								<select id="selcomany_id" onchange="loadproduct()">
+								<option value="">基金公司</option>
+								{loop $data $val}
+								<option value="{$val['key']}" {$val['selected']}>{$val['value']}</option>
+								{/loop}
+								</select>
+								{/pc}</p>
+								<p><select id="selproduct_id"><option value="">请选择基金</option></select></p>
+								<p><a href="javascript:void(0)" id="bntaddtocompare" class="btn" onfocus="this.blur()">加入比对</a></p>
+							</div>
+							<div class="result">
+								<p class="red">注：可选2支基金比较收益率 </p>
+								<ul class="result_list">
+
+								</ul>
+								<p class="submit_btn">
+									<a href="javascript:void(0)" id="btncompare" class="than" onfocus="this.blur()">比对</a>
+									<a href="javascript:void(0)" id="btnempty" class="empty" onfocus="this.blur()">清空</a>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="i_box">
+				<div class="pic_aLink">{pc:block pos="index_simu_ad_1"}{/pc}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script language="javascript">
+$('#divgczb span').bind('mouseover',function(){
+	tab=$(this).attr('tab');
+	$('#divgczb span').removeClass('current');
+	$(this).addClass('current');
+	$('#tab1_1').hide();
+	$('#tab1_2').hide();
+	$('#tab1_'+tab).show();
+});
+
+$('#divpj span').bind('mouseover',function(){
+	tab=$(this).attr('tab');
+	$('#divpj span').removeClass('current');
+	$(this).addClass('current');
+	for(var i=1;i<6;i++){
+		$('#tab2_'+i).hide();
+	}
+	$('#tab2_'+tab).show();
+});
+$('#divzxjj span').bind('mouseover',function(){
+	tab=$(this).attr('tab');
+	$('#divzxjj span').removeClass('current');
+	$(this).addClass('current');
+	for(var i=1;i<8;i++){
+		$('#tab3_'+i).hide();
+	}
+	$('#tab3_'+tab).show();
+
+});
+function loadproduct(){
+	var cid=$('#selcomany_id').val();
+	if(cid==''){
+		$("#selproduct_id option").remove();
+		$("#selproduct_id").append("<option value=''>请选择基金</option>"); 
+		return;
+	}
+	$.ajax({
+	  url:"/index.php?m=simu&c=product&a=jsondata&cid="+cid,
+	  dataType:'json',
+	  success: function(data){
+		$("#selproduct_id option").remove();
+		$.each(data, function(key, val) {
+			$("#selproduct_id").append("<option value='"+val['id']+"'>"+val['title']+"</option>"); 
+		});
+	  }
+	});
+}
+
+function removecp(id){
+	$('#li'+id).remove();
+}
+
+$(function(){
+	new slide("#main-slide","cur",332,220,1);//焦点图
+	$('#bntaddtocompare').bind('click',function(){
+		var v=$("#selproduct_id").val(); 
+		var t=$("#selproduct_id").find("option:selected").text();
+		var flag=true;
+		var cnt=0;
+		if(v=='' || t==''){
+			alert('请选择要对比的基金！');
+			return;
+		}
+		$('.result_list li').each(function(i){
+			cnt++;
+			if($(this).attr('id')=='li'+v){
+				flag=false;
+			}
+		});
+		if(flag==false){
+			alert('该基金数据已加入对比框！');
+			return;
+		}
+		if(cnt<2){
+			var tip=t;
+			if(t.length>13)t=t.substr(0,13);
+			$('.result_list').append('<li id="li'+v+'"><span><a href="javascript:removecp(\''+v+'\')">删除</a></span><a href="/smjj/smcp/'+v+'.shtml" title="'+tip+'" target="_blank">'+t+'</a></li>');
+		}else{
+			alert('一次只能选择两只基金数据进行对比！');
+		}
+	});
+	$('#btncompare').bind('click',function(){
+		var cnt=0;
+		var pids='';
+		$('.result_list li').each(function(i){
+			cnt++;
+			if(cnt==1){
+				pids=$(this).attr('id').replace('li','');
+			}else{
+				pids+=','+$(this).attr('id').replace('li','');
+			}
+		});
+		if(cnt<2){
+			alert('请选择至少2只基金进行比较！');
+			return;
+		}
+		window.open('/smjj/smcp/compareresult/index_'+pids+'.shtml');
+	});
+	$('#btnempty').bind('click',function(){
+		$('.result_list li').remove();
+	});
+})
+</script>
+{template "content","footer_simu"}

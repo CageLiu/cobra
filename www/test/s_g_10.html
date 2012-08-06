@@ -1,0 +1,96 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp hor_box">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">商家管理中心</a>
+		<span>&gt;</span>
+		<a href="#">电子消费券订单</a>
+		<span>&gt;</span>
+		<em>有效订单</em>
+	</div>
+	<div class="admin_side hor_item">
+		<dl class="admin_sub_nav">
+			<dt>店铺管理</dt>
+			<dd>
+				<a href="#">店铺信息管理</a>
+				<a href="#">优惠券管理</a>
+			</dd>
+			<dt>订单管理</dt>
+			<dd>
+				<a href="#">电子消费券</a>
+				<a href="#">实物商品</a>
+				<a href="#">售后管理</a>
+				<a href="#">订单查询</a>
+			</dd>
+			<dt class="current">商品管理</dt>
+			<dd class="current">
+				<a class="current" href="#">商品列表</a>
+			</dd>
+			<dt>账户管理</dt>
+			<dd>
+				<a href="#">账户设置</a>
+				<a href="#">账单管理</a>
+			</dd>
+			<dt>站内消息</dt>
+			<dd>
+				<a href="#">我的消息</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="admin_main hor_item">
+		<div class="admin_box tab">
+			<div class="tab_tag admin_tab">
+				<ul class="hor_list">
+					<li><a href="#">全部订单</a></li>
+					<li><a href="#">有效订单</a></li>
+					<li class="current"><a href="javascript:;">消费登记</a></li>
+				</ul>
+			</div>
+			<div class="admin_bc returned">
+				<div class="dialog" style="display:block">
+					<div class="dcont notit">
+						<p><strong>友情提示：</strong></p>
+						<p>国内航班提前45分钟停止办理登记手续，国际航班提前1小时停止办理登记手续。任何液体都不允许带上飞机，包括牙膏一类的东西；因为安检手续要求严格，国际航班必须提前3小时到达机场。</p>
+					</div>
+				</div>
+				<div class="admin_con_reg">
+					<div class="admin_box">
+						<div class="admin_bt"><span class="title">消费登记</span></div>
+						<div class="admin_bc">
+							<form action="">
+								<ul class="form">
+									<li>
+										<label>订单号：</label>
+										<span class="b">
+											<input type="text" class="txt" value="请输入订单号">
+										</span>
+									</li>
+									<li>
+										<label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+										<span class="b">
+											<input type="text" class="txt" value="请输入消费密码">
+										</span>
+									</li>
+									<li>
+										<a class="btn btn1" href="#">
+											<span>确定消费</span>
+											<input type="submit" value="查询">
+										</a>
+										<a class="btn btn1" href="#">
+											<span>取消</span>
+											<input type="submit" value="查询">
+										</a>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			
+<%include file="footer.html" />

@@ -1,0 +1,119 @@
+{php $head='qihuo_list'}
+{template "content","simple_header_qihuo"}
+<div class="wrap">
+	<div class="posit clearfix">
+		<div class="bread clearfix"><a href="{h('[futures]/')}" class="posit_title qhpd">期货频道</a><span><a href="{siteurl($siteid)}">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			{pc:block pos="licai_search"}{/pc}
+		</div>
+	</div>
+	<div class="qh_cont clearfix">
+		<div class="qh_side">
+			<ul class="qh_submenu">
+				{php $arr_cls=array('sqscp'=>'sq','dsscp'=>'ds','zsscp'=>'zs','bhscp'=>'sq','zjscp'=>'zf')}
+				{pc:content action="category" catid="276" order="listorder"}
+				{loop $data $list}
+				{php $link=h('[futures]/'.$list[catdir].'/')}
+				{php $cur_id=$list[catid]}
+				<li class="{$arr_cls[$list[catdir]]} {if $catid==$cur_id}current{/if}"><a href="{$link}">{$list[catname]}</a></li>
+				{/loop}
+				{/pc}
+			</ul>
+		</div>
+		<div class="qh_main">
+			<div class="caption">
+			{if $catdir=='sqscp'}
+<p>上海期货交易所是在中国证监会集中统一监管下，依照有关法规设立、履行有关法规规定的职能、按其章程实行自律性管理的法人。上海期货交易所目前上市交易的有铜、铝、锌、天然橡胶、燃料油等5个品种的标准合约。</p>
+<p>上海期货交易所依循“法制、监管、自律、规范”的方针，围绕建设规范、高效、透明的，以金属、能源、化工等工业基础性产品及相关衍生品交易为主的国际化综合性期货交易所的战略目标，坚持科学发展观，以稳定为基础，以发展为主线，以创新为动力，严格依照法规政策制度组织交易，履行市场一线监管职能，致力于创造安全、有序、高效的市场机制，营造公开、公平、公正和诚信、透明的市场环境，发挥期货市场发现价格、规避风险的功能，为国民经济发展服务。</p>
+
+			{elseif $catdir=='dsscp'}
+<p>大连商品交易所成立于1993年2月28日，是经国务院批准的四家期货交易所之一，是实行自律性管理的法人。成立以来，大商所始终坚持规范管理、依法治市，保持了持续稳健的发展，成为中国最大的农产品期货交易所。</p>
+<p>经中国证监会批准，大商所目前的交易品种有玉米、黄大豆1号、黄大豆2号、豆粕、豆油、啤酒大麦，正式挂牌交易的品种是玉米、黄大豆1号、黄大豆2号、豆粕和豆油。开业至2006年底，大商所累计成交期货合约11.5亿手，累计成交额27.8万亿元，总交割量为807万吨，已发展成世界第二大玉米期货市场。</p>
+<p>近年来，大商所国际交流与合作不断拓展，成为美国期货业协会（FIA）和英国期货与期权协会（FOA）成员，与芝加哥商业交易所（CME）等十多家境外期货交易所签署了合作谅解备忘录和合作意向书，在信息共享、市场开发等方面积极与国际期货机构展开全方位合作。</p>
+
+			{elseif $catdir=='zsscp'}
+<p>郑州商品交易所（以下简称郑商所）是经国务院批准成立的我国首家期货市场试点单位、目前全国四家期货交易所之一，隶属中国证券监督管理委员会垂直管理。</p>
+<p>郑商所按照《期货交易管理条例》和《期货交易所管理办法》履行职能，依据《郑州商品交易所章程》、《郑州商品交易所交易规则》及其实施细则和办法实行自律性管理，遵循公开、公平、公正和诚实信用的原则，为期货合约集中竞价交易提供场所、设施及相关服务，并对期货交易进行一线监管。</p>
+
+			{elseif $catdir=='bhscp'}
+<p>渤海商品交易所在天津市政府和交易所市场监督管理委员会的支持和指导下，将秉持创新、高效、务实的服务宗旨，坚决贯彻市场的“公平、公正、公开”原则，为商品生产贸易企业和合格的商品投资者提供最佳的商品交易服务。</p>
+			{elseif $catdir=='zjscp'}
+<p>中国金融期货交易所是经国务院同意，中国证监会批准, 由上海期货交易所、郑州商品交易所、大连商品交易所、上海证券交易所和深圳证券交易所共同发起设立的交易所，于2006年9月8日在上海成立。中国金融期货交易所的成立，对于深化资本市场改革，完善资本市场体系，发挥资本市场功能，具有重要的战略意义。</p>
+			{/if}
+			</div>		
+			{pc:content action="category" catid="$catid" order="listorder"}
+			{php $res=$data}
+			{loop $res $list}
+			{php $link=h('[futures]/'.$list[catdir].'/')}
+			{php $dirjs=$list[catdir].'js'}
+			{php $dirzx=$list[catdir].'zx'}
+			{php $dirpl=$list[catdir].'pl'}
+			{php $zxlink=h('[futures]/'.$dirzx.'/')}
+			{php $pllink=h('[futures]/'.$dirpl.'/')}
+			<div class="qh_box">
+				<div class="qh_hd">
+					<h2><a href="{$link}" target="_blank">品名：{$list[catname]}</a></h2>
+				</div>
+				<div class="qh_ct clearfix">
+					<div class="media clearfix">
+						{pc:content action="lists" catdir="$dirjs" thumb="1" order="updatetime DESC" num="1"}
+						{loop $data $val}
+						<div class="pic"> <a target="_blank" href="{$val[url]}"><img height="75" width="100" alt="{htmlspecialchars($val[title])}" src="{thumb($val[thumb],100,75)}"></a> </div>
+						<div class="txt">
+							<p class="summary">{str_cut($val[description],180)}...<a target="_blank" href="{$val[url]}">[详情]</a></p>
+						</div>
+						{/loop}
+						{/pc}
+					</div>
+					<div class="beans_info clearfix">
+						<div class="box_news">
+							<div class="hd">
+								<h2>
+									<span class="btn title_btn current">
+										<a href="{$zxlink}" target="_blank">{$list[catname]}类资讯</a>
+									</span>
+								</h2>
+							</div>
+							<div class="ct">
+								<ul class="text_list text_col">
+									{pc:content action="lists" catdir="$dirzx" order="updatetime DESC" num="3"}
+									{loop $data $val}
+									<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],17)}</a><span class="date">{date('Y-m-d',$val[inputtime])}</span></li>
+									{/loop}
+									{/pc}
+								</ul>
+							</div>
+							<span class="pr">
+								<a href="{$zxlink}" target="_blank">更多</a>
+							</span>
+						</div>
+						<div class="box_news">
+							<div class="hd">
+								<h2>
+									<span class="btn title_btn current">
+										<a href="{$pllink}" target="_blank">{$list[catname]}类评论</a>
+									</span>
+								</h2>
+							</div>
+							<div class="ct">
+									<ul class="text_list text_col">
+										{pc:content action="lists" catdir="$dirpl" order="updatetime DESC" num="3"}
+										{loop $data $val}
+										<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],17)}</a><span class="date">{date('Y-m-d',$val[inputtime])}</span></li>
+										{/loop}
+										{/pc}
+									</ul>
+							</div>
+							<span class="pr">
+								<a href="{$pllink}" target="_blank">更多</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			{/loop}
+			{/pc}
+		</div>
+	</div>
+</div>
+{template "content","footer_qihuo"}

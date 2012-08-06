@@ -1,0 +1,108 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp hor_box">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">商家管理中心</a>
+		<span>&gt;</span>
+		<em>电子消费券订单</em>
+	</div>
+	<div class="admin_side hor_item">
+		<dl class="admin_sub_nav">
+			<dt>店铺管理</dt>
+			<dd>
+				<a href="#">店铺信息管理</a>
+				<a href="#">优惠券管理</a>
+			</dd>
+			<dt>订单管理</dt>
+			<dd>
+				<a href="#">电子消费券</a>
+				<a href="#">实物商品</a>
+				<a href="#">售后管理</a>
+				<a href="#">订单查询</a>
+			</dd>
+			<dt class="current">商品管理</dt>
+			<dd class="current">
+				<a class="current" href="#">商品列表</a>
+			</dd>
+			<dt>账户管理</dt>
+			<dd>
+				<a href="#">账户设置</a>
+				<a href="#">账单管理</a>
+			</dd>
+			<dt>站内消息</dt>
+			<dd>
+				<a href="#">我的消息</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="admin_main hor_item">
+		<div class="admin_box tab">
+			<div class="tab_tag admin_tab">
+				<ul class="hor_list">
+					<li class="current"><a href="javascript:;">优惠券列表</a></li>
+					<li><a href="#">添加新优惠券</a></li>
+				</ul>
+			</div>
+
+			<div class="admin_bc">
+
+				<form action="">
+					<div class="form inquiry">
+						<label>店铺名：</label>
+						<span class="b">
+							<input type="text" class="txt" />
+						</span>
+						<a class="btn btn1" href="#">
+							<span>搜索</span>
+							<input type="submit" value="搜索">
+						</a>
+					</div>
+				</form>
+
+				<div class="table_box innertable">
+					<table class="table">
+						<colgroup>
+							<col width="8%">
+							<col width="22%">
+							<col width="15%">
+							<col width="20%">
+							<col width="12%">
+							<col width="12%">
+							<col width="11%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>店铺ID</th>
+								<th>优惠券图片</th>
+								<th>对应短信</th>
+								<th>适用店铺</th>
+								<th>开始日期</th>
+								<th>结束日期</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="#" class="link">9999</a></td>
+								<td><img src="/static_url/caifuzhongguo/img/01.png" alt="" /></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>2012-01-01</td>
+								<td>
+									<a href="#" class="link">修改</a>
+									<a href="#" class="link">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+			
+<%include file="footer.html" />

@@ -1,0 +1,167 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp hor_box">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">商家管理中心</a>
+		<span>&gt;</span>
+		<a href="#">电子消费券订单</a>
+		<span>&gt;</span>
+		<em>有效订单</em>
+	</div>
+	<div class="admin_side hor_item">
+		<dl class="admin_sub_nav">
+			<dt>店铺管理</dt>
+			<dd>
+				<a href="#">店铺信息管理</a>
+				<a href="#">优惠券管理</a>
+			</dd>
+			<dt>订单管理</dt>
+			<dd>
+				<a href="#">电子消费券</a>
+				<a href="#">实物商品</a>
+				<a href="#">售后管理</a>
+				<a href="#">订单查询</a>
+			</dd>
+			<dt class="current">商品管理</dt>
+			<dd class="current">
+				<a class="current" href="#">商品列表</a>
+			</dd>
+			<dt>账户管理</dt>
+			<dd>
+				<a href="#">账户设置</a>
+				<a href="#">账单管理</a>
+			</dd>
+			<dt>站内消息</dt>
+			<dd>
+				<a href="#">我的消息</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="admin_main hor_item">
+		<div class="admin_box tab">
+			<div class="tab_tag admin_tab">
+				<ul class="hor_list">
+					<li class="current"><a href="javascript:;">订单详情</a></li>
+				</ul>
+			</div>
+			<div class="admin_bc returned">
+				<div class="admin_box">
+					<div class="admin_bt">
+						<span class="title">订单号：30133671</span>
+						<div class="extra">
+							<a href="javascript:;" class="btn btn1">
+								<span class="dialog_handler" name="deliver_goods">发货</span>
+							</a>
+							<div class="dialog" id="deliver_goods">
+								<div class="dcont notit">
+									<form action="">
+										<div class="form has_field offset68">
+											<div class="item">
+												<label class="field">物流公司：</label>
+												<select name="company" class="w150">
+													<option value="1">圆通</option>
+													<option value="2">顺丰</option>
+												</select>
+											</div>
+											<div class="item">
+												<label class="field">快递单号：</label>
+												<input type="text" class="txt w150">
+											</div>
+											<div class="item">
+												<a href="javascript:;" class="btn btn1">
+													<span>确认</span>
+													<input type="submit" value="确认">
+												</a>
+												<a href="javascript:;" class="btn btn1">
+													<span>取消</span>
+													<input type="button" value="取消" onclick="document.getElementById('deliver_goods').style.display = 'none'">
+												</a>
+											</div>
+										</div>
+									</form>
+								</div>
+								<em class="darow">arrow</em>
+							</div>
+						</div>
+					</div>
+					<div class="admin_bc">
+						<div class="admin_order_info">
+							<p><strong>收货人信息</strong></p>
+							<p><span>收货人：</span>张三</p>
+							<p><span>地址：</span>上海市杨浦区淞沪路303号9楼</p>
+							<p><span>固定电话：</span></p>
+							<p><span>手机号码：</span></p>
+							<p><span>电子邮件：</span></p>
+							<p><span>备注：</span>五点前送货</p>
+						</div>
+						<div class="admin_order_info">
+							<p><strong>支付及配送方式</strong></p>
+							<p><span>支付方式：</span>在线支付</p>
+							<p><span>运费：</span>&yen;110</p>
+							<p><span>送货日期：</span></p>
+							<p><span>配送时间：</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="admin_box">
+					<div class="table_box innertable">
+						<table class="table">
+							<colgroup>
+								<col width="30%">
+								<col width="10%">
+								<col width="15%">
+								<col width="25%">
+								<col width="20%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>商品名称</th>
+									<th>数量</th>
+									<th>总价</th>
+									<th>商品优惠</th>
+									<th>赠品</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><p><a href="#" class="link">midea美的 KFR-26GW/BP2DN1Y-GC(3)变频冷暖壁挂</a></p></td>
+									<td>2</td>
+									<td><span class="orange">¥85.00</span></td>
+									<td>单品促销优惠6.00</td>
+									<td>HP 8G U盘一只</td>
+								</tr>
+								<tr>
+									<td><p><a href="#" class="link">midea美的 KFR-26GW/BP2DN1Y-GC(3)变频冷暖壁挂</a></p></td>
+									<td>2</td>
+									<td><span class="orange">¥85.00</span></td>
+									<td>单品促销优惠6.00</td>
+									<td>HP 8G U盘一只</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="order_box align_right">
+					<div class="order_item info">
+						<span class="amount">商品金额：¥85.00</span>
+						<span class="amount">+运费：¥85.00</span>
+						<span class="amount">-优惠：¥85.00</span>
+					</div>
+					<div class="order_item tips">
+						<p><strong>订单支付金额：<em class="red">¥85.00</em></strong></p>
+						<p>（余额支付：¥85.00 财富卡：¥85.00 网上银行：¥85.00）</p>
+					</div>
+				</div>
+				<div class="align_right">
+					<a href="#" class="btn btn1">
+						<span>发货</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			
+<%include file="footer.html" />

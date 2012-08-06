@@ -1,0 +1,72 @@
+{if SYS_CONDITION=="p"&&!defined('IN_ADMIN')}
+{pc:content action="client_loginuser"}
+{if isset($data['data']['authority'])&&$data['data']['authority']['live_video']==1}
+{else}
+{php $domain = getConfig('SYS_URL');}
+{php header('Location:'.$domain['client'].'/no_auth.php');}
+{/if}
+{/pc}
+{/if}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}client/shaman.css"/>
+<script type="text/javascript" src="{JS_PATH}jquery.min.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}swfobject.js?v=2010122901"></script>
+<script type="text/javascript" src="{JS_PATH}play_bill.js?v=2010122901"></script>
+<title>视频直播 - CCTV证券资讯</title>
+</head>
+
+<body>
+<div class="video_section">
+	<div class="video_h">
+    	<div class="cur_next">
+        	<div class="cur">正在播放：<span id="current">暂无节目</span></div>
+            <div class="next">下期节目：<span id="next_time"></span><span id="next_name">暂无节目</span></div>
+        </div>
+    </div>
+    <div class="video_c">
+    	<div class="video_player">
+			<div id="flashContent">
+			</div>
+			<script type="text/javascript">
+				var swfVersionStr = "9.0.0";
+				var xiSwfUrlStr = "";
+				var flashvars = {};
+				flashvars.file = '{VIDEO_RTMP}'
+				flashvars.id = "live1";
+				flashvars.autostart = "true";
+				flashvars.backcolor = "0x000000";
+				flashvars.frontcolor = "0xCCCCCC";
+				flashvars.lightcolor = "0x99CC33";
+				flashvars.width = "510";
+				flashvars.height = "415";
+				flashvars.usefullscreen = "false";
+				var params = {};
+				params.allowscriptaccess = "always";
+				params.allowfullscreen = "true";
+				params.menu = "false";
+				var attributes = {};
+
+				swfobject.embedSWF(
+					"{IMG_PATH}video/flvplayer.swf", "flashContent",
+					"510", "415",
+					swfVersionStr, xiSwfUrlStr,
+					flashvars, params, attributes);
+			</script>
+        </div>
+        <div class="video_playlist">
+        	<dl>
+            	<dt><strong>节目表</strong></dt>
+                <dd class="listCont" id="list_cont">
+                	<div id="get_message">正在读取节目单...</div>
+                	<ul id="playlist" class="playlist">
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</body>
+</html>

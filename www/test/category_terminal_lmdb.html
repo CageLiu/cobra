@@ -1,0 +1,48 @@
+{template 'content','common_terminal'}
+<!doctype html>
+<html>
+    {template 'content','header_terminal'}
+    <body class="inner">
+        <div class="wp">
+            {template 'content','menu_terminal'}
+            <div class="box box3">
+                <div class="bt">
+                    <span class="icon icon1">{$catname}列表</span>
+                </div>
+                <div class="bc">
+                    <div class="programs" id="programs">
+                        <ul class="hor_list">
+                            {pc:content action="category" catid="$catid" order="listorder" num="100"}
+                            {loop $data $list}
+                            <li>
+                            <a href="/index.php?m=content&c=index&a=lists&catdir={$list[catdir]}">
+                                <img src="{$list[image]}" alt="{$list[catname]}" />
+                                    <span>{$list[catname]}</span>
+                                </a>
+                            </li>
+                            {/loop}
+                            {/pc}
+                        </ul>
+                    </div>
+                    <script type="text/javascript">
+                        (function(){
+                            var aLi = document.getElementById("programs").getElementsByTagName("li");
+                            var len = aLi.length;
+                            for(var i = 0; i < len; i++){
+                                var oLi = aLi[i];
+                                oLi.onmouseover = function(){
+                                    this.className = "hover";
+                                };
+                                oLi.onmouseout = function(){
+                                    this.className = "";
+                                }
+                            }
+                         }());
+                    </script>
+                </div>
+                {template 'content','search_terminal'}
+            </div>
+        </div>
+    </body>
+</html>
+

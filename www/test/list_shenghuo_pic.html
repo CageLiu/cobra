@@ -1,0 +1,28 @@
+{php $head = "list_pic"}
+{template "content","simple_header_shenghuo"}
+<div class="wrap">
+	<div class="posit clearfix">
+        <div class="bread clearfix"><a href="{h('[life]/')}" class="posit_title shpd">生活频道</a><span><a href="{siteurl($siteid)}">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			<!-- 全文搜索 -->
+			{pc:block pos="licai2_licai_list_102"}{/pc}
+			<!-- 全文搜索的js -->
+			<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+		</div>
+	</div>
+    <div class="inner">
+        <div class="img_list">
+            <ul class="pic_list clearfix">
+                {pc:content action="lists" catid="$catid" page="$page" order="inputtime DESC" num="20"}
+                {loop $data $val}
+                <li><a href="{$val['url']}" target="_blank"><img height="108" width="144" alt="{htmlspecialchars($val['title'])}" src="{thumb($val['thumb'],108,144)}"><span>{str_cut($val['title'],10)}</span></a></li>
+                {/loop}
+                {/pc}
+            </ul>
+            <div class="page">
+				{$pages}
+            </div>
+        </div>
+    </div>
+</div>
+{template "content","footer_shenghuo"}

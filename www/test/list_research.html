@@ -1,0 +1,27 @@
+{template "content","simple_header_research"}
+<body>
+{template "content","header_research"}
+{php $cat =catinfo($catid);}
+<div class="content list_page">
+	<div class="b_wp">
+		<div class="b_tt"><h2>{$cat[1][catname]}</h2></div>
+		<div class="b_ct">
+		{php $urlrule="/research/".$catdir."/index-{\$page}.shtml"}
+		{pc:content action="lists" catid="$catid" page="$page" keywords="$keywords" order="inputtime DESC" num="20" urlrule="$urlrule"}
+			<ul class="text_list">
+			{loop $data $val}
+			{php $extend_param = ""}
+			{if $cat[1][catdir]=="mediavideo"}
+				{php $extend_param = "mediavideo/"}
+			{/if}
+                <li{if $n%5==0} class="blank"{/if}><span>{date('Y-m-d',$val[inputtime])}</span><a href="{get_news_url($val,$root_url.$extend_param)}" target="_blank" title="{htmlspecialchars($val[title])}">{str_cut($val[title],35)}</a></li>
+			{/loop}
+            </ul>
+            <div class="page">
+                {$pages}
+            </div>
+		{/pc}
+		</div>
+	</div>
+</div>
+{template "content","footer_research"}

@@ -1,0 +1,102 @@
+{template "content","header_scoop"}
+<div id="content" class="clearFix">
+    <div class="rssLeft">
+        <div class="rssNav">
+
+            <dl>
+                <dt>独家订阅频道:</dt>
+			    {pc:content action="category" catid="447" siteid="$this->siteid" order="listorder ASC"}
+                {php $cats = $data}
+			    {loop $data $r}
+                <dd {if $n==1}class="curA"{/if} id="cat_{$r[catid]}"><a href="#">{$r[catname]}</a></dd>
+                {/loop}
+                {/pc}
+            </dl>
+        </div>
+        <div class="rssInfo">
+            <h4>RSS是什么？</h4>
+
+            <p>RSS是站点用来和其他站点之间共享内容的一种简易方式（也叫聚合内容），通常被用于新闻和其他按顺序排列的网站，例如Blog。一段项目的介绍可能包含新闻的全部介绍等。或者仅是额外的内容或者简短的介绍。</p>
+        </div>
+    </div>
+    <div class="rssCont">
+	{loop $cats $r}
+    {php $i++}
+    {php $catids .= $catids=='' ? 'cat_'.$r[catid] : ',cat_'.$r[catid]}
+    {php $catblkids .= $catblkids=='' ? 'cat_blk_'.$r[catid] : ',cat_blk_'.$r[catid]}
+    <div id="cat_blk_{$r[catid]}" {if $i>1}style="display:none"{/if}>
+        {php $subcat=subcat($r[catid],0,0,$this->siteid)}
+        {if empty($subcat)}
+            {php $subcat=array($r)}
+        {/if}
+        {loop $subcat $v}
+        <div class="box">
+            <div class="t">
+                <strong>{$v[catname]}</strong>
+                 {php $rss_url = h('/rss/' . $v[catdir] . '.xml')}
+                <div class="pr">
+                    <a class="btn rssBtn" title="RSS订阅" href="javascript:void(0)">RSS</a><a class="xmlBtn" href="{$rss_url}">XML</a>
+                    {php $o_rss_url = $rss_url}
+					{php $rss_url = urlencode($rss_url)}
+                    <div class="rssList">
+                        <a href="http://reader.youdao.com/b.do?keyfrom=163&url={$rss_url}" target="_blank" >有道</a>
+                        <a href="http://fusion.google.com/add?feedurl={$rss_url}" target="_blank" >Google</a>
+                        <a href="http://mail.qq.com/cgi-bin/feed?u={$o_rss_url}" target="_blank" >腾讯</a>
+                        <a href="http://add.my.yahoo.com/rss?url={$rss_url}" target="_blank" >YaHoo!</a>
+                        <a href="http://my.msn.com/addtomymsn.armx?id=rss&ut={$rss_url}" target="_blank" >My Msn</a>
+                        <a href="http://www.zhuaxia.com/add_channel.php?url={$rss_url}" target="_blank" >抓虾</a>
+                    </div>
+                </div>
+            </div>
+            <div class="c">
+                <ul class="txtList iconA">
+                {if count($subcat)<2}
+                    {pc:content action="lists" catid="$v[catid]" num="20" order="inputtime DESC" return="info"}
+                        {loop $info $c}
+                            <li><a href="{$c[url]}" target="_blank" >{str_cut($c[title],'40')}</a><span class="date pr">{date('Y-m-d H:i:s',$c[inputtime])}</span></li>
+                        {/loop}
+                    {/pc}
+                {else}
+                    {pc:content action="lists" catid="$v[catid]" num="6" order="inputtime DESC" return="info"}
+                        {loop $info $c}
+                            <li><a href="{$c[url]}" target="_blank" >{str_cut($c[title],'40')}</a><span class="date pr">{date('Y-m-d H:i:s',$c[inputtime])}</span></li>
+                        {/loop}
+                    {/pc}
+                {/if}
+                </ul>
+            </div>
+        </div>
+        {/loop}
+    </div>
+	{/loop}					
+    </div>
+    <script>bindSwitchTag('{$catids}','{$catblkids}','curA')</script>
+    <div class="clear">
+        <em class="clt"></em>
+        <em class="crt"></em>
+        <em class="clb"></em>
+        <em class="crb"></em>
+
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    //Rss订阅按钮
+    $(".rssBtn").bind("click",function(e){
+        if(e && e.stopPropagation){
+          e.stopPropagation(); //阻止非IE事件冒泡
+        }else{
+          window.event.cancelBubble = true; //阻止IE事件冒泡
+        }
+        $(this).parents(".t").toggleClass("pstatic").end().siblings(".rssList").slideToggle(0);
+    })
+    $(this).click(function(){
+		$(".pstatic").removeClass("pstatic");
+		$(".rssList").hide(0);
+	})
+})
+</script>
+
+{template 'content', 'footer_scoop'}
+
+

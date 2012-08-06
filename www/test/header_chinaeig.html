@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+{php $domain = "http://www.chinaeig.com/";}
+{php $SEO['site_title'] = "中能能源交易中心";}
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <title>{$SEO['site_title']}</title>
+        <link type="text/css" rel="stylesheet" href="{CSS_PATH}chinaeig/zn.css" />
+        <link rel="shortcut icon" href="{IMG_PATH}chinaeig/favicon.ico" >
+	</head>
+	<body>
+		<div class="outer_wp">
+			<div class="inner_wp">
+				<div class="header">
+					<div class="bar">
+						
+					</div>
+					<h1>
+						<a href="/" class="logo">中国中能能源交易中心</a>
+					</h1>
+                    <form action="{h('[misc]/search.php')}" method="post" target="_blank">
+						<div class="search">
+							<span class="lang">
+								<a href="javascript:;">English</a> |
+								<a href="javascript:;">中文</a>
+							</span>
+							站内查询
+							<input type="hidden" class="txt" name="catdir" value="chinaeig" />
+							<input type="text" class="txt" name="key" />
+							<span class="btn">
+								<input type="submit" value="go" />
+							</span>
+						</div>
+					</form>
+					<div class="nav">
+						<ul class="hor_list">
+							<li><a href="{$domain}eigabout">关于中能</a>|</li>
+                            <li><a href="{$domain}eigmember">会员服务</a>|</li>
+							<li><a href="{$domain}eignotice">最新公告</a>|</li>
+							<li><a href="{$domain}eignews">最新动态</a>|</li>
+							<li><a href="{$domain}eigtutorial">能源教程</a>|</li>
+							<li><a href="{$domain}eigrule">交易规则</a>|</li>
+							<li><a href="{$domain}eiglaw">法律法规</a>|</li>
+							<li><a href="{$domain}eigcontact">联系我们</a></li>
+						</ul>
+					</div>
+				</div>

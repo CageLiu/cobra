@@ -1,0 +1,259 @@
+{template "content","simple_header_research"}
+<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}research/index.js?v=2011071201"></script>
+<body id="index">
+{template "content","header_research"}
+<div class="content clearfix">
+	<div class="sidebar" style="overflow:hidden">
+			<div class="news b_wp">
+					<div class="b_tt"><h2>中新 &middot; 要闻<em>Tops</em></h2></div>
+					<div class="b_ct">
+							<div id="my_soChange" class="focus focus_extend">
+							{pc:content  action="lists" catdir="zxyw" thumb="1" order="inputtime DESC" num="4"}
+							{php $filter=""}
+							{loop $data $val}
+									<a href="{get_news_url($val,$root_url)}" target="_blank"><img src="{thumb($val['thumb'],220,155)}" height="155" width="220" alt="" title="{str_cut($val[title], 11)}" /></a>
+							{php $filter .= $val[id].","}
+							{/loop}
+							{/pc}
+							</div>
+							<ul class="text_list point">
+							{if $filter != ""}
+							{php $filter = substr($filter,0,-1)}
+							{/if}
+							{pc:content  action="lists" catdir="zxyw" order="inputtime DESC" num="10" filter="$filter"}
+							{loop $data $val}
+                            <li><a href="{get_news_url($val,$root_url)}" title="{htmlspecialchars($val[title])}" target="_blank">{str_cut($val[title], 16)}</a></li>
+							{/loop}
+							{/pc}
+							</ul>
+							<span class="b_mo">&nbsp;</span>
+					</div>
+			</div>
+		<div id="ads_l01" class="ads">{pc:block pos="research_index_100"}{/pc}</div>
+		<div class="intro b_wp">
+			<div class="b_tt"><h2>中新 &middot; 简介<em>Introduction</em></h2></div>
+			<div class="b_ct">
+				{pc:block pos="research_index_101"}{/pc}
+				
+                <p>{pc:block pos="research_index_120"}{/pc}<a href="{h('[www]/research/zxintro')}" target="_blank">[详细]</a></p>
+				
+			</div>
+		</div>
+		<div class="growth b_wp">
+			<div class="b_tt"><h2>成长 &middot; 之路<em>Growth Memories</em></h2></div>
+			<div class="b_ct">
+				<ul class="text_list">
+				{pc:content  action="lists" catdir="grow" order="inputtime DESC" num="7"}
+				{loop $data $val}
+						<li><a href="{get_news_url($val,$root_url)}" target="_blank">{date("Y-m",$val[inputtime])} {str_cut($val[title], 14)}</a></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<span class="b_mo"><a href="{h('[www]/research/grow')}" target="_blank">进入</a></span>
+			</div>
+		</div>
+		<div class="strat b_wp">
+			<div class="b_tt"><h2>战略 &middot; 合作<em>Strategy</em></h2></div>
+			<div class="b_ct">
+				{pc:block pos="research_index_102"}{/pc}
+				<span class="b_mo">&nbsp;</span>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div id="ads_m01" class="ads">{pc:block pos="research_index_117"}{/pc}</div>
+		<div class="atten b_wp">
+			<div class="b_tt"><h2>中新 &middot; 关注<em>Focus</em></h2></div>
+			<div class="b_ct">
+				<div class="headline">
+					{pc:content  action="lists" catdir="zxgz" order="inputtime DESC" num="1" recommend="1,2,3"}
+					{php $filter=""}
+					{loop $data $val}
+					<h1><a href="{get_news_url($val,$root_url)}" target="_blank">{str_cut($val[title], 20)}</a></h1>
+					<p>{str_cut($val['description'],70)}…[<a href="{get_news_url($val,$root_url)}" target="_blank">详细</a>]</p>
+					{php $filter .= $val[id].","}
+					{/loop}
+					{/pc}
+				</div>
+				<ul class="text_list point">
+				{if $filter != ""}
+				{php $filter = substr($filter,0,-1)}
+				{/if}
+				{pc:content action="lists" catdir="zxgz" order="inputtime DESC" num="9"  filter="$filter"}
+				{loop $data $val}
+					<li><a href="{get_news_url($val,$root_url)}" target="_blank">{$val[title]}</a><a class="extra">{date("Y-m-d",$val['inputtime'])}</a></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<span class="b_mo">&nbsp;</span>
+			</div>
+		</div>
+		<div class="b_wp tab_area" id="research_area">
+			<div class="b_tt">
+					<h2>中金 &middot; 风采<em>Academician Gallery</em></h2>
+            </div>
+			<div class="b_ct clearfix">
+					<div class="media">
+					{pc:block pos="research_index_130"}{/pc}
+					</div>
+					<div class="media">
+					{pc:block pos="research_index_131"}{/pc}
+					</div>
+			</div>
+		</div>
+		<div id="ads_m02" class="ads">{pc:block pos="research_index_118"}{/pc}</div>
+		<div class="b_wp tab_area" id="teachers_area">
+			<div class="b_tt">
+            	<h2>研究 · 力量</h2>
+				{pc:block pos="research_index_125"}{/pc}
+            </div>
+			<div class="b_ct">
+				<div class="tabCont clearfix" style="display:block">
+				{php $catdir = "zxzjrs"}
+				{php $catid=catdirtocatid($catdir)}
+				{pc:author action="authors" catid="$catid" posid="1" order="listorder ASC"}
+				{loop $data $r}
+                	<div class="media">
+                    	<img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <h3><a href="{h('[www]/research/'.$catdir.'')}" target="_blank">{$r[name]}</a></h3>
+                        {nl2br($r[index_intro])}
+                    </div>
+				{/loop}
+				{/pc}
+                </div>
+                <div class="tabCont clearfix" style="display:none">
+                {php $catdir = "zxzmxz"}
+				{php $catid=catdirtocatid($catdir)}
+				{pc:author action="authors" catid="$catid" posid="1" order="listorder ASC"}
+				{loop $data $r}
+                	<div class="media">
+                    	<img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <h3><a href="{h('[www]/research/'.$catdir.'')}" target="_blank">{$r[name]}</a></h3>
+                        {nl2br($r[index_intro])}
+                    </div>
+				{/loop}
+				{/pc}
+                </div>
+                <div class="tabCont clearfix" style="display:none">
+                {php $catdir = "zxjrjg"}
+				{php $catid=catdirtocatid($catdir)}
+				{pc:author action="authors" catid="$catid" order="listorder ASC" posid="1"}
+				{loop $data $r}
+                	<div class="media">
+                    	<img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <h3><a href="{h('[www]/research/'.$catdir.'')}" target="_blank">{$r[name]}</a></h3>
+                        {nl2br($r[index_intro])}
+                    </div>
+				{/loop}
+				{/pc}
+                </div>
+                <div class="tabCont clearfix" style="display:none">
+                {php $catdir = "zxmjzj"}
+				{php $catid=catdirtocatid($catdir)}
+				{pc:author action="authors" catid="$catid" order="listorder ASC" posid="1"}
+				{loop $data $r}
+                	<div class="media">
+                    	<img src="{thumb($r['photo'],96,110)}" height="110" width="96" alt="" />
+                        <h3><a href="{h('[www]/research/'.$catdir.'')}" target="_blank">{$r[name]}</a></h3>
+                        {nl2br($r[index_intro])}
+                    </div>
+				{/loop}
+				{/pc}
+                </div>
+				<span class="b_mo"><a href="{h('[www]/research/zxyz')}" target="_blank">更多</a></span>
+			</div>
+		</div>
+		<div class="media b_wp">
+			<div class="b_tt"><h2>媒体 &middot; 关注<em>Media Release</em></h2></div>
+			<div class="b_ct">			
+				<ul class="text_list">
+				{pc:content  action="lists" catdir="zxnews" order="inputtime DESC" num="10"}
+				{loop $data $val}
+					<li class="article"><a href="{get_news_url($val,$root_url)}" target="_blank" title="{htmlspecialchars($val['title'])}">{str_cut($val['title'],28)}</a><span class="time">{date("Y-m-d",$val[inputtime])}</span></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<span class="b_mo"><a href="{h('[www]/research/zxfocus')}" target="_blank">进入</a></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+	<div class="notice b_wp">
+		<div class="b_tt"><h2>最新 &middot; 公告<em>Press Center</em></h2></div>
+		<div class="b_ct">
+			<ul class="text_list point">
+			{pc:content  action="lists" catdir="zxgg" order="inputtime DESC" num="5"}
+			{loop $data $val}
+				<li><a href="{get_news_url($val,$root_url)}" title="{htmlspecialchars($val['title'])}">{str_cut($val['title'],16)}</a></li>
+			{/loop}
+			{/pc}
+			</ul>
+			<span class="b_mo">&nbsp;</span>
+		</div>
+	</div>
+	<div class="joinus b_wp">
+		<div class="enter"><a href="{h('[www]/research/zxnotice')}" title="中新金融工程研究院 入院须知"><img src="{IMG_PATH}research/btn_notice.jpg" alt="中新金融工程研究院 入院须知" title="中新金融工程研究院 入院须知" target="_blank" /></a></div>
+		<div class="b_ct">
+			<ul class="text_list point">
+				<li><a>研究员资格申请流程</a><a href="{h('[www]/research/zxnotice')}#apply" class="entry">进入</a></li>
+				<li><a>研究员资格取得</a><a href="{h('[www]/research/zxnotice')}#getzg" class="entry">进入</a></li>
+				<li><a>研究员资格认定及证书颁发</a><a href="{h('[www]/research/zxnotice')}#zsbf" class="entry">进入</a></li>
+				<li><a>研究员义务履行</a><a href="{h('[www]/research/zxnotice')}#yw" class="entry">进入</a></li>
+				<li><a>联系方式</a><a href="{h('[www]/research/zxnotice')}#fs" class="entry">进入</a></li>
+			</ul>
+		</div>	
+	</div>
+	<div id="ads_r01" class="ads">{pc:block pos="reseach_index_113"}{/pc}</div>
+	<div class="managers b_wp">
+		<div class="president">
+			<div class="item">
+			{pc:block pos="reseach_index_124"}{/pc}
+			</div>
+		</div>
+		<div class="subdecanal">
+			<div class="item">
+			{pc:block pos="reseach_index_123"}{/pc}
+			</div>
+		</div>
+	</div>
+	<div class="vision b_wp">
+	<div class="b_tt"><h2>我们的愿景<em>Our Vision</em></h2></div>
+		<div class="b_ct">
+			<p>{pc:block pos="reseach_index_112"}{/pc}<a href="{h('[www]/research/zxlocate')}" target="_blank">[详细]</a></p>
+		</div>
+	</div>
+	<div id="ads_r02" class="ads">{pc:block pos="reseach_index_122"}{/pc}</div>
+	<div class="coops b_wp">
+		<div class="b_tt"><h2>多方 &middot; 合作<em>Cooperation</em></h2></div>
+		<div class="b_ct">
+			<div class="uc">
+			{pc:block pos="reseach_index_114"}{/pc}
+			</div>
+			<div class="gc">
+			{pc:block pos="reseach_index_115"}{/pc}
+			</div>
+			<div class="dc">
+			{pc:block pos="reseach_index_116"}{/pc}
+			</div>
+			<div class="mc">
+			{pc:block pos="reseach_index_121"}{/pc}
+			</div>
+			<span class="b_mo"><a href="{h('[www]/research/multipartner')}" target="_blank">更多</a></span>
+		</div>
+	</div>
+</div>
+<div id="ads_b01" class="ads">{pc:block pos="reseach_index_117"}{/pc}</div>
+
+	</div>
+	<div id="footer">
+		{pc:block pos="reseach_footer"}{/pc}
+		<p>京ICP备10002655号-1 备案号查询电话：010-85953862 </p>
+		<p>经营许可证编号 广播电视节目制作经营许可证编号 京ICP证 100291号 </p>
+		<p>电信业务审批[2010]第223号函 </p>
+		<p>京公网安备1101054827号</p>
+	</div>
+</div> 
+</body>
+</html>

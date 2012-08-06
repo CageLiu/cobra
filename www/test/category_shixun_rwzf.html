@@ -1,0 +1,171 @@
+{php $head='shixun_index'}
+{template "content","header_shixun"}
+	<div class="box_single">
+		<div class="box_inner clearfix">
+			<div class="box_main">
+				<div class="box_first">
+					<div class="ct">
+						<!--焦点图-->
+                        <div class="soChange" id="p8_soChange">
+						  {pc:block pos="shixun_rwzf_100"}
+                        </div>
+						{/pc}
+                        <!--//焦点图-->
+					</div>	
+				</div>
+
+
+				<div class="box_item">
+					<div class="hd">
+						<h2>最新人物专访</h2>
+					</div>
+
+					<div class="ct clearfix">
+                    	<!--最新人物专访-->
+						{pc:content action="lists" catid="563" order="inputtime DESC" num="11"}
+						<div class="col2_box">
+							{loop $data $r}
+							{if $n==1}
+                        	<div class="media row_media">
+                                <div class="m_pic">
+                                    <a href="{$r['url']}" target=_blank><img height="90px" width="150px" alt="{htmlspecialchars($r[title])}" src="{thumb($r[thumb],150,90)}"></a>
+                                </div>
+                                <div class="m_txt">
+                                    <h3 class="m_title"><a href="{$r['url']}" target=_blank>{str_cut($r['title'], 11)}</a></h3>
+                                    <p class="m_summary">
+                                        {str_cut($r['description'],40)}....<a href="{$r['url']}" target="_blank">详情</a>
+                                    </p>
+                                </div>
+                            </div>
+							{/if}
+							{/loop}
+
+                            <ul class="text_list video_list">
+							{loop $data $r}
+							{if $n>1}
+								{if $n%2==0}<li><span class="text">{/if}
+										<a href="{$r['url']}" target=_blank>{str_cut($r['title'], 11)}</a>
+								{if $n%2==1 || $n==count($data)}</span></li>{/if}
+							{/if}
+							{/loop}
+                            </ul>
+                        </div>
+						{/pc}
+						
+						
+						{pc:content action="lists" catid="563" order="inputtime DESC" num="22"}
+						<div class="col2_box">
+							{loop $data $r}
+							{if $n==12}
+                        	<div class="media row_media">
+                                <div class="m_pic">
+                                    <a href="{$r['url']}" target=_blank><img height="90px" width="150px" alt="{htmlspecialchars($r[title])}" src="{thumb($r['thumb'],150,90)}"></a>
+                                </div>
+                                <div class="m_txt">
+                                    <h3 class="m_title"><a href="{$r['url']}" target=_blank>{str_cut($r['title'], 11)}</a></h3>
+                                    <p class="m_summary">
+                                        {str_cut($r['description'],40)}....<a href="{$r['url']}" target="_blank">详情</a>
+                                    </p>
+                                </div>
+                            </div>
+							{/if}
+							{/loop}
+                            <ul class="text_list video_list">
+							{loop $data $r}
+							{if $n>12}
+								{if $n%2==1}<li><span class="text">{/if}
+										<a href="{$r['url']}" target=_blank>{str_cut($r['title'], 11)}</a>
+								{if $n%2==0 || $n==count($data)}</span></li>{/if}
+							{/if}
+							{/loop}
+                            </ul>
+                        </div>
+						{/pc}
+
+
+                        <!--//最新人物专访-->
+					</div>
+				</div>
+
+                <div class="ads_area" style="padding-bottom:18px;*padding-bottom:13px;_padding-bottom:18px">
+				{pc:block pos="shixun_rwzf_101"}
+				{/pc}
+                </div>
+
+	
+                <div class="box_item">
+					<div class="hd">
+						<h2>人物风采</h2>
+					</div>
+					<div class="ct pro_list">
+                    	<!--人物风采-->	
+						{pc:content action="lists" catid="564" thumb=1 order="inputtime DESC" num="8"}
+                        <ul class="row_pic_list news_pic_list">
+						{loop $data $r}
+                            <li>
+                                <a href="{$r['url']}" target=_blank><img height="90px" width="150px" alt="{htmlspecialchars($r[title])}" src="{thumb($r['thumb'], 150, 90)}"><span>{str_cut($r['title'], 11)}</span></a>
+                            </li>
+						{/loop}
+                           
+                        </ul>
+					
+						{/pc}
+
+                        <!--//人物风采-->
+                    </div>
+                </div>
+	
+			</div>
+
+			<div class="box_side">
+				<div class="box_first">
+                	<div class="hd">
+						<h2>热门人物专访 TOP10</h2>
+					</div>
+					{pc:content action="hits" catid="$catid" num="10"}
+					<div class="ct hot_person">
+						<!--热门人物专访-->
+                        <ul class="video_ranking wid80">
+							{loop $data $r}
+                            <li><span {if $n>3}class="normal"{else}class="front"{/if}>{$n}</span><a href="{$r['url']}" target=_blank>{str_cut($r['title'],13)}</a></li>
+							{/loop}
+                        </ul>
+                        <!--//热门人物专访-->
+					</div>	
+					{/pc}
+				</div>
+                <div class="box_item">
+                	<div class="hd">
+						<h2>热门嘉宾讲谈</h2>
+					</div>
+					<div class="ct">
+						<!--热门嘉宾讲谈-->
+						
+						{pc:block pos="shixun_rwzf_104"}
+                        {/pc}
+                        <!--//热门嘉宾讲谈-->
+					</div>				
+				</div>
+                <div class="box_item">
+					<div class="hd">
+						<h2>其他人在关注</h2>
+					</div>
+					<div class="ct wid80">
+						<!--其他人在关注-->
+                        <ul class="trends">
+						{pc:content  action="reading"  num="10" catid="554"}
+							{loop $data $r}
+                            <li>
+                                <strong>{timetostring($r['time'])}</strong>
+                                <a href="{$r[url]}" target="_blank">{str_cut($r[title], 10)}</a></li>
+                            </li>
+							{/loop}
+						{/pc}
+                        </ul>
+                        <!--//其他人在关注-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{template 'content', 'footer_shixun'}

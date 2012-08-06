@@ -1,0 +1,167 @@
+﻿{php $head='type'}
+{template "content","simple_header_jijin"}
+<div class="wrap outline">	
+	<div class="posit clearfix">
+		{php $res = getChannel($catid);}
+        {php $class = array('fund'=>'jjpd')}
+		<div class="bread clearfix"><a href="{h($res[url])}" class="posit_title {$class[$res['catdir']]}"></a><span> <a href="{siteurl($siteid)}" title="首页">首页</a>&gt;{catpos($catid)}</span></div>
+		<div class="search_box posit_search">
+			<!-- 全文搜索 -->
+			{pc:block pos="licai2_licai_list_102"}{/pc}
+			<!-- 全文搜索的js -->
+			<script type="text/javascript" src="{JS_PATH}tipScroll.js"></script>
+			<SCRIPT type=text/javascript> 
+			function searchchange(show_div, hide_div, link)
+			{
+			$("."+show_div).show();
+			$("."+hide_div).hide();
+			if (link == "hq")
+			{
+				$(".search_form").attr("action", "{h('[quote]/stock/index.php')}");
+			}
+			else if (link == "zx")
+			{
+				$(".search_form").attr("action", "{h('[misc]/search.php')}");
+			}
+
+			}
+			//搜索
+			$().ready(function() {
+			var str=$(".search_stock_str").val();
+			var str1=$(".search_key").val();
+			$(".search_stock_str").focus(function (){
+				if($(this).val()==str){
+					$(this).val("");
+					}   
+				});
+				$(".search_key").focus(function (){
+					if($(this).val()==str1){
+						$(this).val("");
+					}   
+				});
+				$(".search_stock_str").autocomplete("/api.php?op=ajax_agent&f=stock_auto", {
+					width: 300,
+					selectFirst: false,
+					minChars: 1,
+					autoFill: false,
+					extraParams: {
+					show_type:"stock"
+					}
+				});
+				
+				$(".search_stock_str").result(function(event, data, formatted) {
+						//$("#stock_str").val("");
+						$(".search_code").val(data[1]);
+						$(".search_stock_str").val("");
+						$(".search_form").submit();
+
+				});
+				$(".search_btn").click(function (){
+					$(".search_stock_code").val($(".search_stock_str").val());
+					return true;
+				});
+
+				$(".search_stock_str").setOptions({
+						max: 10
+				});
+			});
+			</SCRIPT>	
+		</div>
+	</div>						
+	<div class="main_col">
+			<div class="news_list">
+				<div class="news_title">
+					<!-- 指数 -->
+					{php $cat =catinfo($catid); }
+					<h1>{$cat[1][catname]}</h1>
+					{pc:block pos="licai2_licai_listtype_101"}{/pc}
+				</div>
+				<div class="dynamic">
+					{pc:content action="multilists" catid="$catid" order="id DESC" num="10"}
+					{loop $data $list}
+					<div class="box_news">
+						<div class="hd">
+							<h2>
+								<span class="btn title_btn current">
+									<a href="{h('/index.php?m=content&c=index&a=lists&catid='.$list[catid])}" target="_blank">{$list[catname]}</a>
+								</span>
+							</h2>
+						</div>
+						<div class="ct">
+								<ul class="text_list">
+									{php $c=count($list[data]);}
+									{loop $list[data] $val}
+										<li {if $n%5==0}class="list_space"{/if}><a href="{$val[url]}"  target="_blank">{str_cut($val[title], 14)}</a><span class="pr">{date('Y-m-d',$val[inputtime])}</span></li>
+									{/loop}
+								</ul>
+						</div>
+						<span class="pr">
+							<a href="{h('/index.php?m=content&c=index&a=lists&catid='.$list[catid])}" target="_blank">更多</a>
+						</span>
+					</div>
+					{/loop}
+					{/pc}
+				</div>
+			</div>
+	</div>
+	<div class="side_col">
+		<div class="box_side box_extra">
+			<div class="hd">
+				<h2 class="ywen">
+                    <a>编辑推荐</a>
+				</h2>
+			</div>
+			<div class="ct recomend">
+				<ul class="pic_list clearfix">
+				<!-- 编辑推荐 -->
+				{pc:block action="customtpl" pos="jijin2_list_tj" num="4"}
+				{loop $data $val}
+					<li><a href="{$val[url]}" target="_blank"><img src="{thumb($val[thumb],100,75)}" alt="{htmlspecialchars($val[title])}" width="100" height="75" /><span>{str_cut($val[title],14)}</span></a></li>
+				{/loop}
+				{/pc}
+				</ul>
+				<div class="hot_attention">
+					<h2>【热点关注】</h2>
+					<ul class="text_list">
+						<!-- 热点关注 -->
+						{pc:content action="lists" catid="$catid" recommend="1,2,3"  order="inputtime DESC" num="6"}
+						{loop $data $val}
+							<li><a href="{$val[url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box_side box_last">
+			<div class="hd">
+				<h2>
+                    <a>网友正在关注</a>
+				</h2>
+			</div>
+            <div id="tags" class="tags">
+			{pc:hotword action="focusingon" catid="$catid" num="12"}
+			{loop $data $val}
+				<a href="{$val[url]}" {if $val[is_b]==1} class="bold"{/if} target="_blank">{str_cut($val[hotword],5)}</a>
+			{/loop}
+			{/pc}
+            </div>
+			<div class="ct recomend">
+				<div class="hot_attention">
+					{php $array = catinfo($catid); }
+					<h2>【关注{$array[1][catname]}】</h2>
+					<ul class="text_list">
+						<!-- 关注保监会动态 -->
+						{pc:hotword action="lists" catid="$catid" num="6"}
+						{loop $data $val}
+							<li><a href="{$val[link_url]}" target="_blank">{str_cut($val[title],14)}</a></li>
+						{/loop}
+						{/pc}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{template "content","footer"}

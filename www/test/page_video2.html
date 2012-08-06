@@ -1,0 +1,260 @@
+{php if( !( defined('IN_ADMIN')  && !defined('HTML') ) ) {cj_user_checklogin();}}
+
+{template "content","header_video"}
+    <div id="content">
+        <div class="posit">
+            <span><a href="{siteurl($siteid)}">首页</a></span>&gt;<span><a href="/">视讯中心</a></span>&gt;<span>正在直播</span>
+        </div>
+        <div class="videoPlay">
+            <!--视频播放 开始-->
+
+            <div class="play" id="JMB">
+                <div class="playH">
+                    <!--<span>下一节目：15:00 《盘后分析》 尽请关注！</span>正在直播:《远昌看市》-->
+                </div>
+                <div class="player" id="flashContent">
+                    <p>
+                        To view this page ensure that Adobe Flash Player version 
+                        9.0.0 or greater is installed. 
+                    </p>
+                    <script type="text/javascript"> 
+                        var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+                        document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+                                        + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+                    </script> 
+                </div> 
+                <script type="text/javascript">
+                    var swfVersionStr = "9.0.0";
+                    var xiSwfUrlStr = "";
+                    var flashvars = {};
+                    flashvars.file = '{VIDEO_RTMP}'
+                    flashvars.id = "{VIDEO_RTMP_ID}";
+                    flashvars.autostart = "true";
+                    flashvars.backcolor = "0x000000";
+                    flashvars.frontcolor = "0xCCCCCC";
+                    flashvars.lightcolor = "0x99CC33";
+                    flashvars.width = "593";
+                    flashvars.height = "488";
+                    var params = {};
+                    params.allowscriptaccess = "always";
+                    params.allowfullscreen = "true";
+                    var attributes = {};
+
+                    swfobject.embedSWF(
+                        "{IMG_PATH}video/flvplayer.swf", "flashContent", 
+                        "593", "488", 
+                        swfVersionStr, xiSwfUrlStr, 
+                        flashvars, params, attributes);
+                </script>
+
+            </div>
+            <div class="playList">
+            <script language="javascript" type="text/javascript">
+            $(function(){
+                //loadXML();
+                var now;
+                time();
+                function time(){
+                    now=new Date();
+                    var year=now.getFullYear();
+                    var month=now.getMonth()+1;
+                    var date=now.getDate();
+                    var day=now.getDay();
+                    var strDay="日一二三四五六";
+                    document.getElementById('time').innerHTML=year+"年"+month+"月"+date+"日&nbsp;&nbsp;星期"+strDay.charAt(day);
+                    setTimeout(time,1000);
+                    //alert(now.getHours()+":"+now.getMinutes())
+                }
+                get_PlayList()//获取节目
+                listRefresh();
+                function listRefresh(){    //节目列表每隔5分钟自动刷新
+                    //$("#ProList").find("ul").remove();  //刷新后第一时间清空原有节目
+                             
+                    var curUl=$(".listUl");
+                    var n=0; //节目索引
+                    var top=0; //滚动条位置
+                    curUl.find("span").each(function(index){
+                        var hour=parseInt($(this).text().split(":")[0],10); //截取当前项日期的小时
+                        var minute=parseInt($(this).text().split(":")[1],10);  //截取当前项日期的分钟
+                        if(hour==now.getHours()){    //进入当前时区
+                            if(minute>=now.getMinutes()){  //存在大于当前时间分钟的节目 
+                                n=index-1;    //赋值当前播放项
+                                return false;
+                            }else{ 
+                                n=index;     //否则赋值当前时区最后的节目
+                            }
+                        }else if(hour>now.getHours()){  //如果没有当前时区的节目 则直接赋值下节目索引
+                            n=index-1;
+                            return false;
+                        }
+                    })
+                    n=n==-1?0:n;
+                    curUl.find("li").eq(n).addClass("curli").siblings().removeClass("curli"); //当前播放节目标识
+                    for(var i=0; i<n ; i++){
+                        top+=curUl.find("li").eq(i).height();
+                    }
+                    $("#ProList").scrollTop(top); //将滚动条设置在当前节目的位置
+                    setTimeout(listRefresh,60000);
+                }
+            })
+            </script>
+                <dl>
+                    <dt>
+                        <span>节目表</span><strong id="time"></strong>
+                    </dt>
+                    <dd id="ProList">
+
+                        <div id="loading">
+                        正在获取节目单请稍后...
+                        </div>
+                        <div class="vid"></div>
+                    </dd>
+                </dl>
+            </div>
+            <!--视频播放 结束-->
+        </div>
+
+        <div class="layout">
+            <div class="commentator clearFixA">
+                <div class="layout" id="PLY">
+                    <div class="comBox noline">
+                        <div class="imgTxt iTa">
+                            <dl>
+                                <dt><span>频道执行总编辑</span>钮文新</dt>
+                                <dd>
+
+                                    <img src="{IMG_PATH}video/temp1.jpg" height="120" width="210" alt="" />
+                                    <p>1992年开始专业从事证券金融报道，1994年至1996年任《中国市场经济报》编委、副总编辑；1996年至2001年在中央电视台作为总编导制作大型系列片《走进国债》、《金融风暴》和《资本市场》。2001年进《财经》任金融首席编辑；2002年5月进《财经时报》任总编辑。现为CCTV证券资讯频道执行总编辑，首席财经分析师，证券发展研究中心顾问。在宏观经济领域有着独到的见解和观点，技术分析方面也极具造诣。</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="comBox noline">
+                        <div class="imgTxt iTa">
+
+                            <dl>
+                                <dt><span>知名评论员</span>杨远昌</dt>
+                                <dd>
+                                <img src="{IMG_PATH}video/temp.jpg" height="120" width="210" alt="" />
+                                    <p>CCTV证券研究发展中心副主任，CCTV证券资讯频道评论员，《远昌看市》栏目负责人。先后任职于北京东方趋势、北京首创期货，股票、期货两栖基金经理。江西财经大学投资经济管理专业毕业。参与2000年上海证券报主办的《南北夺擂》，股票十个月累计收益率2000%，
+同年创立“股票操作波动理论”。03年初进入北京首创期货，推出期货创新业务，半年期货操盘平均收益率800%，对国内外金融市场有自己独特理解。</p>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div> 
+                    <div class="comBox noline">
+                        <div class="imgTxt iTa">
+                            <dl>
+                                <dt><span>知名评论员</span>苏培科</dt>
+                                <dd>
+                                    <img src="{IMG_PATH}video/temp2.jpg" height="120" width="210" alt="" />
+
+                                    <p>现任CCTV证券资讯频道财经评论员。2004年4月加入国务院发展研究中心主办的《中国经济时报》，兼任中国金融记者俱乐部秘书长。之前曾任职在大鹏证券和一家投资公司。截至目前，已在国内各大主流财经媒体上发表文章数百万字，文章曾被多次评奖和广泛引用。2005、2006两年，连续被中国金融网、CCTV经济频道、搜狐网等联合评选为“中国金融新闻年度人物”。</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="layout">
+                    <div class="comBox">
+
+                        <div class="imgTxt iTa">
+                            <dl>
+                                <dt><span>热门节目</span>远昌看市</dt>
+                                <dd>
+                                    <img src="{IMG_PATH}video/temp3.jpg" height="120" width="210" alt="" />
+                                    <p>CCTV证券资讯频道《远昌看市》是在原《股期汇》基础上改版的栏目，《远昌看市》将延续以实战派的角度看市场，保留“指标日历”的事前说市，让信息变成信心；继续以全球化的视角对后市进行研判，让决策变成价值。《远昌看市》铂金版、机构版电子刊物也同步推出，电子刊物不单是节目的加长版，还增加了本周个股精选、盘中交易提示以及期货外汇每日操作建议。远见者胜，稳健者昌，《远昌看市》让我们走的更远。</p>
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="comBox">
+                        <div class="imgTxt iTa">
+                            <dl>
+                                <dt><span>热门节目</span>投资大参考</dt>
+                                <dd>
+
+                                    <img src="{IMG_PATH}video/temp4.jpg" height="120" width="210" alt="" />
+                                    <p>《投资大参考》是CCTV证券资讯频道为配合同名证券投资类电子日刊，强势推出的一档专业财经证券评论类节目。
+《投资大参考》力邀国内知名经济学家、CCTV证券资讯频道执行总编辑钮文新先生以及CCTV证券资讯频道证券发展研究中心主任、资深财经评论员张劲东先生，以高屋建瓴的视角解读焦点新闻背后更深刻的含义，以独特的技术分析为投资者全面点评当日行情热点，预判未来市场运行态势，从宏观到微观，从国计到民生，从证券市场出发，放眼经济生活的各个领域，全方位、多层次、新思维，在每个交易日晚间的黄金时段，为每个投资者送去一道每天不可或缺的理财盛宴。</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="comBox">
+                        <div class="imgTxt iTa">
+
+                            <dl>
+                                <dt><span>热门节目</span>投资名家</dt>
+                                <dd>
+                                    <img src="{IMG_PATH}video/temp5.jpg" height="120" width="210" alt="" />
+                                    <p>聆听投资故事，感悟投资之道！《投资名家》是CCTV证券资讯频道一档讲述投资故事的人物专题节目。《投资名家》采访对象不仅涉及PE/VC投资，还涉及股票、期货、外汇等专业领域，用我们的镜头记录一位位中国资本市场投资高手、运作高手的成长经历。目前，该栏目还不定期推出经济学人系列、期货名家系列、证券分析师系列、基金经理系列等系列专题节目，展示资本市场各细分领域里专业人士的研究成果、独到的投资理念和成长的心路历程。</p>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>             
+            </div>
+            <div class="host">
+                <div class="hostBox" id="ZCR">
+                    <div class="imgTxt iTb">
+                        <dl>
+                            <dt><span>主持人介绍</span></dt>
+
+                            <dd class="noline">
+                                <img src="{IMG_PATH}video/person1.jpg" height="45" width="45" alt="" />
+                                <h4>严楷晨</h4>
+                                <p>CCTV证券资讯频道新闻主播，曾任新华社记者。</p>
+                            </dd>
+                            <dd>
+                                <img src="{IMG_PATH}video/person2.jpg" height="45" width="45" alt="" />
+                                <h4>孟一</h4>
+
+                                <p>晚间期货，外汇节目主持人，加拿大渥太华大学金融MBA。</p>
+                            </dd>
+                            <dd>
+                                <img src="{IMG_PATH}video/person3.jpg" height="45" width="45" alt="" />
+                                <h4>吴沛聪</h4>
+                                <p>资深财经主播。毕业后进入中央电视台担任英语新闻主播</p>
+                            </dd>
+
+                            <dd>
+                                <img src="{IMG_PATH}video/person4.jpg" height="45" width="45" alt="" />
+                                <h4>冉莹颖</h4>
+                                <p>现任全天直播节目《行情直播》《港股直通车》主持人</p>
+                            </dd>
+                            <dd>
+                                <img src="{IMG_PATH}video/person5.jpg" height="45" width="45" alt="" />
+                                <h4>张雪松</h4>
+
+                                <p>13年股票7年期市实战经验，中央财经大学金融系硕士。</p>
+                            </dd>
+                            <dd>
+                                <img src="{IMG_PATH}video/person6.jpg" height="45" width="45" alt="" />
+                                <h4>李颖</h4>
+                                <p>金融学学士，07年进入频道，先后任多档栏目的编辑。</p>
+                            </dd>
+
+                            <dd>
+                                <img src="{IMG_PATH}video/person7.jpg" height="45" width="45" alt="" />
+                                <h4>朱艳芳</h4>
+                                <p>晚间外汇节目主持人。对外经济贸易大学法律硕士。</p>
+                            </dd>
+                            <dd>
+                                <img src="{IMG_PATH}video/person8.jpg" height="45" width="45" alt="" />
+                                <h4>王云凯</h4>
+
+                                <p>行情直播主持人，曾在金融投资公司担任风险控制部主管。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{template "content","footer"}
+

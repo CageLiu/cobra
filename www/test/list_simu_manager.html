@@ -1,0 +1,116 @@
+{template "content","header_simu"}
+<div id="content">
+	<div class="nav_bar">
+	<div class="site_position">
+		<a href="{siteurl(1)}" title="首页">首页</a>
+		<span>&gt;</span>
+		<a href="{h('/smjj')}/">私募</a>
+		<span>&gt;</span>
+		基金经理
+	</div>
+    {template "simu","common_search"}
+</div>
+	<!-- 私募经理首页 start -->
+	<div class="layout l_layout">
+		<div class="l_lc">
+			<div class="l_box">
+				<div class="l_t">
+					<h4>私募基金经理</h4>
+				</div>
+				
+				<div class="l_c clearFix">
+                    <form action="{h('/smjj/smjl/')}" method="post" >
+						<div class="l_sub_search">
+                            {pc:simu action="form_companylist" defvalue="$company_id"}
+                            <select name="company_id">
+                            <option value="">请选择投资顾问</option>
+                            {loop $data $val}
+                                <option value="{$val['key']}" {$val['selected']}>{$val['value']}</option>
+                            {/loop}
+                            </select>&nbsp;&nbsp;
+                            {/pc}
+                            {pc:simu action="form_managertypelist" defvalue="$faction"}
+                                <select name="faction">
+                                <option value="">请选择派系</option>
+                                {loop $data $val}
+                                    <option value="{$val['key']}" {$val['selected']}>{$val['value']}</option>
+                                {/loop}
+                                </select>						
+                            {/pc}&nbsp;&nbsp;
+							<input type="submit" value="搜索" class="l_btn" />
+						</div>
+					</form>
+					
+					<div class="l_left">
+						<div class="data_box">
+							<div class="d_c">
+								<table class="simu_data">
+									<tr class="t_hd">
+										<td><span style="border:none">姓名</span></td>
+										<td width="220px"><span>所在公司</span></td>
+										<td><span>派系</span></td>
+										<td><span>当前管理基金</span></td>
+									</tr>
+                                    {php $i=1;}
+                                    {loop $managerInfo $val}
+									<tr class="t_con">
+                                        <td><a href="{$val[url]}" target="_blank">{$val[title]}</a></td>
+                                        <td width="200"><a href="{$val[companyInfo][url]}" target="_blank">{$val[companyInfo][title]}</a></td>
+                                        <td>{$factionType[$val[faction]]}</td>
+                                        <td>
+											{php $j=0}
+                                            {loop $val[product] $p}
+												{php $j++}
+												{php if($j>5){echo '...';break;}}
+                                                <a href="{$p[url]}" target="_blank">{$p[title]}</a><br />
+                                            {/loop}
+                                        </td>
+                                    </tr>
+                                    {php $i++;}
+                                    {/loop}
+								</table>
+								<div class="data_from">
+									<strong>以上数据由好买基金网提供</strong>
+								</div>
+								<div class="page">
+                                    {$pages}
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="l_right">
+						<div class="ranking_box">
+							<div class="rb_t">
+								<h4>最新加入私募经理</h4>
+							</div>
+							
+							<div class="rb_c">
+								<table>
+									<tr>
+										<td>姓名</td>
+										<td>公司</td>
+										<td>所属派系</td>
+									</tr>
+								 {pc:simu action="manager_list" sql="company_id>0" order="id DESC" num="10"}
+									{php pc_base::load_app_func('supervisor', 'simu');$managerMod=pc_base::load_app_class('supervisor','simu', 1);$data=$managerMod->getManagerFullInfo(getManagerIdFromPosition($data), false, true,false,false,true,'id desc');}
+									{php $i=1;}
+									{loop $data $r}
+									<tr><td><a href="{$r[url]}" target="_blank">{$r[title]}</a></td><td><a href="{$r[companyInfo][url]}" target="_blank">{$r[companyInfo][title]}</a></td><td>{$factionType[$val[faction]]}</td></tr>
+									{php $i++;}
+									{/loop}
+								{/pc}
+									<tr>
+										<td colspan="4">{pc:block pos="simu_manager_ad_1"}{/pc}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 私募经理首页 end -->
+</div>
+{template "content","footer_simu"}

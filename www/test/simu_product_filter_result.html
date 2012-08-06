@@ -1,0 +1,62 @@
+{template "content","header_simu"}
+<div id="content">
+	<div class="nav_bar">
+	<div class="site_position">
+		<a href="{siteurl(1)}" title="首页">首页</a>
+		<span>&gt;</span>
+		<a href="{h('/smjj')}/">私募</a>
+		<span>&gt;</span>
+		基金筛选结果
+	</div>
+	{template "simu","common_search"}
+</div>
+	<!--  筛选结果查看 start -->
+	<div class="layout l_layout">
+		<div class="l_lc">
+			<div class="l_box">
+				<div class="l_t">
+					<h4><em>私募产品 &gt; </em>筛选结果</h4>
+				</div>
+				<div class="l_c">
+					<table class="simu_data">
+						<tr class="t_hd">
+							<td><span style="border:none">序号</span></td>
+							<td><span>基金名称</span></td>
+							<td><span>基金经理</span></td>
+							<td><span>一年期评级</span></td>
+							<td><span>成立日期</span></td>
+							<td><span>单位净值</span></td>
+							<td><span>累计净值</span></td>
+							<td><span>净值日期</span></td>
+							<td><span>今年收益%</span></td>
+							<td><span>一年收益%</span></td>
+						</tr>
+						{php $i=0}
+						{loop $data $val}
+						{php $i++}
+						{php $manager = pc_base::load_model('simu_manager_model');$manager_names = $manager->get_manager_name($val['manager_ids']);}
+						<tr class="t_con">
+							<td><strong>{$i}</strong></td>
+							<td width="190px"><a href="{$val['url']}" target="_blank">{$val['title']}</a></td>
+							<td>{$manager_names}</td>
+							<td width="65px"><span class="star"><em class="star{$val['star_12']}"></em></span></td>
+							<td>{$val['ctime']}</td>
+							<td>{$val['new_worth']}</td>
+							<td>{$val['total_worth']}</td>
+							<td>{$val['worth_date']}</td>
+							<td>{$val['income_ty']}</td>
+							<td>{$val['income_12']}</td>
+						</tr>
+						{/loop}
+					</table>
+					<div class="data_from">
+                    	<strong>以上数据由好买基金网提供</strong>
+                    </div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 筛选结果查看 end -->
+</div>
+{template "content","footer_simu"}

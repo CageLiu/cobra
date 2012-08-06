@@ -1,14 +1,14 @@
 ##-*-coding:utf-8-*-
 %if tpl.startswith("_"):
 <%include file="_header.html" />
-	%if tpl == "_merge.html":
-		<%include file="_merge.html" />
-	%else:
-		<%include file="/www/${p}/${tpl}" />
-	%endif
+%if tpl == "_merge.html":
+<%include file="_merge.html" />
+%else:
+<%include file="/www/${p}/${tpl}" />
+%endif
 <%include file="_footer.html" />
 %else:
-	<%include file="/www/${p}/${tpl}" />
+<%include file="/www/${p}/${tpl}" />
 %endif
 
 

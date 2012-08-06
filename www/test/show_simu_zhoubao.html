@@ -1,0 +1,64 @@
+{template "content","header_simu"}
+<div id="content">
+    <div class="s_content clearFix">
+        <div class="s_main">
+            <div class="s_box">
+                <div class="s_t s_t1">
+					{php $t=explode('：',$title);$t[0]=preg_replace('/^第([0-9]+)期$/is','第<strong>\1</strong>期',$t[0]);}
+                    <span>一周私募观点</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{$t[0]}
+                </div>
+                <div class="s_c">
+					{pc:content action="relation" relation="$relation" id="$id" catid="$catid" num="12"}
+					{loop $data $val}
+					{php $val[url]='/smjj/news/'.$val[id].'.shtml'}
+					{php if($val[thumb]=='')$val[thumb]=IMG_PATH.'simu/defphoto.jpg';}
+                    <div class="media s_media2">
+                        <div class="pic">
+                            <img src="{$val[thumb]}" height="120" width="90" alt="{htmlspecialchars($val[title])}"/>
+                        </div>
+                        <div class="txt">
+                            <h4><a href="{$val[url]}" target="_blank">{$val[title]}</a></h4>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{str_cut($val[description],150,'...')}<a href="{$val[url]}" target="_blank">详情</a></p>
+                        </div>
+                    </div>
+					{/loop}
+					{/pc}
+                </div>
+            </div>
+        </div>
+        <div class="s_side">
+            <div class="s_box">
+                <div class="s_t s_t2">
+                    <h3>每周私募观察</h3>
+                </div>
+                <div class="s_c">
+                    {pc:block pos="simu_zhoubao_topic_1"}{/pc}
+                </div>
+            </div>
+            <div class="s_box">
+                <div class="s_t s_t2">
+                    <h3>一周头条回顾</h3>
+                </div>
+                <div class="s_c">
+					{pc:block pos="simu_zhoubao_topic_2"}{/pc}
+                </div>
+            </div>
+            <div class="s_box">
+                <div class="s_t s_t2">
+                    <h3>推荐人物</h3><a class="pr" href="{h('/smjj/smrw/')}">更多</a>
+                </div>
+                <div class="s_c">
+                    <ul class="s_picList">
+						{pc:block pos="simu_manager_recommend"}{/pc}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottomLine clearFix">
+        <div class="mainBLine"></div>
+        <div class="sideBLine"></div>
+    </div>
+</div>
+
+{template "content","footer_simu"}

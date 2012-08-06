@@ -1,0 +1,164 @@
+##-*-coding:utf-8-*-
+<%include file="header.html" />
+<div class="admin_wp hor_box">
+	<div class="crumb_nav">
+		<a href="#">首页</a>
+		<span>&gt;</span>
+		<a href="#">个人管理中心</a>
+		<span>&gt;</span>
+		<a href="#">我的退换货</a>
+		<span>&gt;</span>
+		<em>申请退换</em>
+	</div>
+	<div class="admin_side hor_item">
+		<dl class="admin_sub_nav">
+			<dt>订单管理</dt>
+			<dd>
+				<a href="#">我的订单</a>
+				<a href="#">我的退换货</a>
+				<a href="#">我的收藏夹</a>
+				<a href="#">我的收藏夹</a>
+			</dd>
+			<dt>点评管理</dt>
+			<dd>
+				<a href="#">我的点评</a>
+			</dd>
+			<dt class="current">财富卡</dt>
+			<dd class="current">
+				<a href="#">余额查询</a>
+				<a class="current" href="#">交易查询</a>
+				<a href="#">修改密码</a>
+				<a href="#">财富卡绑定</a>
+			</dd>
+			<dt>积分管理</dt>
+			<dd>
+				<a href="#">我的积分</a>
+				<a href="#">积分兑换</a>
+				<a href="#">积分抽奖</a>
+				<a href="#">积分规则</a>
+			</dd>
+			<dt>账户管理</dt>
+			<dd>
+				<a href="#">账户设置</a>
+				<a href="#">配送地址</a>
+			</dd>
+			<dt>发票管理</dt>
+			<dd>
+				<a href="#">发票申请</a>
+				<a href="#">发票列表</a>
+				<a href="#">消费明细</a>
+			</dd>
+			<dt>站内消息</dt>
+			<dd>
+				<a href="#">我的消息</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="admin_main hor_item">
+		<div class="admin_box tab">
+			<div class="tab_tag admin_tab">
+				<ul class="hor_list">
+					<li><a href="javascript:;">我的退换货</a></li>
+					<li class="current"><a href="javascript:;">申请退换</a></li>
+				</ul>
+			</div>
+			<div class="admin_bc returned">
+				<div class="table_box innertable">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+							<col width="40%" />
+							<col width="20%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>订单号</th>
+								<th>商品名称</th>
+								<th>数量</th>
+								<th>金额</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="#" class="link">12319123123</a></td>
+								<td class="tl pl10">
+									<p><a href="#" class="normal">杨杨浦区淞沪路303号创智天地9楼浦区淞沪路303号创智天地9楼</a></p>
+								</td>
+								<td>1</td>
+								<td>85.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="dialog" style="display:block">
+					<div class="dcont notit">
+						<p><strong>友情提示：</strong></p>
+						<ol>
+							<li>1.财富中国电子消费券退换货规则</li>
+						</ol>
+					</div>
+				</div>
+
+				<form action="">
+					<div class="admin_box form has_field offset100">
+						<div class="admin_bt">
+							<span class="title">期望处理方式:</span>
+							<span class="deal_type">
+								<input type="radio" class="radio" />
+								<label>换货</label>
+								<input type="radio" class="radio" />
+								<label>退货</label>
+							</span>
+						</div>
+						<div class="admin_bc">
+							<div class="item">
+								<label class="field"><em>*</em>问题描述：</label>
+								<textarea class="tarea wh550_100"></textarea>
+							</div>
+							<div class="item">
+								<label class="field"><em>*</em>退款方式：</label>
+								<input type="radio" class="radio">
+								<label class="field_text">原路返还</label>
+								<span class="tips">
+									不收手续费，退至财富卡或银行卡
+								</span>
+							</div>
+							<div class="item">
+								<label class="field"><em>*</em>退款金额：</label>
+								<input type="text" class="txt w100" value="29.90"> 元
+							</div>
+							<div class="item">
+								<label class="field"><em>*</em>发票：</label>
+								<select>
+									<option>有</option>
+								</select>
+							</div>
+							<div class="item">
+								<label class="field"><em>*</em>联系人：</label>
+								<input type="text" class="txt w200" />
+							</div>
+							<div class="item">
+								<label class="field"><em>*</em>手机号码：</label>
+								<input type="text" class="txt w200" />
+							</div>
+							<div class="item">
+								<a href="javascript:;" class="btn btn1">
+									<span>提交申请</span>
+									<input type="submit" value="提交申请" />
+								</a>
+								<a href="javascript:;" class="btn btn1">
+									<span>取消</span>
+									<input type="reset" value="取消" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+			
+<%include file="footer.html" />
