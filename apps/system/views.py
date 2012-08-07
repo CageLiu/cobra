@@ -270,10 +270,10 @@ def v(request,t = "", tid = ""):
         except KeyError:
             return HttpResponse(u"404 page")
         allProjects = sm.Project.objects.all()
-        allUsers = sm.User.objects.all()
-        allTasks = sm.Task.objects.all()
-        allGroups = sm.Group.objects.all()
-        allRights = sm.Rights.objects.all()
+        allUsers    = sm.User.objects.all()
+        allTasks    = sm.Task.objects.all()
+        allGroups   = sm.Group.objects.all()
+        allRights   = sm.Rights.objects.all()
     if not t and not tid:
         return HttpResponseRedirect("/system/")
     elif t and not tid:
@@ -285,7 +285,9 @@ def v(request,t = "", tid = ""):
         if t == "project":
             related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
-            dirHtml = dirTree(sc.P_PROJECT_PATH + "/" + obj.name_en,"/system/p/",pattern = ".*\.pyc$|\.swp$|\.py$|_import.html")
+            pattern = ".*\.pyc$|\.swp$|\.py$|_import.html"
+            path = sc.P_PROJECT_PATH + "/" + obj.name_en
+            dirHtml = dirTree(path, "/system/p/", pattern)
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":
