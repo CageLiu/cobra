@@ -74,7 +74,9 @@ em{
 	border-left:2px solid #3b5998;
 	top:0;
 	right:-262px;
+	position:fixed;
 	zoom:1;
+	_position:absolute;
 }
 #J_system_reload_btn{
 	background-image:url(../img/power_btn.png);
@@ -143,10 +145,10 @@ em{
 }
 #J_system_control_lock{
 	position:absolute;
-	width:56px;
+	width:72px;
 	height:24px;
 	cursor:pointer;
-	right:50px;
+	right:30px;
 	top:2px;
 	background-image:url(../img/icon.png);
 	background-repeat:no-repeat;

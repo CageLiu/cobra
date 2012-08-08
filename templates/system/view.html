@@ -24,6 +24,9 @@
 		var oReloadBtn = null;
 		var oLockBtn = null;
 		var oArrow = null;
+		var aLinkList = null;
+		var host = "http://" + document.location.host.toString();
+		var currentLocation = document.location.toString();
 		var html = '';
 		oControlPanelStyle.href = "/s/system/css/view.css";
 		oControlPanelStyle.type = "text/css";
@@ -35,7 +38,7 @@
 		oControlPanel.style.cssText = cssText;
 		html += '<dl class="system_control_panel">';
 		html += '<dt class="system_control_btn"><div id ="J_system_reload_btn" class="on">自动刷新:'
-		html += '</div><span id="J_system_control_lock" class="unlock">锁定:</span></dt>';
+		html += '</div><span id="J_system_control_lock" class="unlock">锁定面板:</span></dt>';
 		html += '<dt><strong>文件列表</strong> <a href="/system/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
 		html += '<a href="/system/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
 		html += '<dd id="J_control_panel_files_list">';
@@ -49,6 +52,15 @@
 		oLockBtn   = document.getElementById("J_system_control_lock");
 		oArrow     = document.getElementById("J_system_control_arrow");
 		oFileList  = document.getElementById("J_control_panel_files_list");
+		aLinkList  = oFileList.getElementsByTagName("a");
+		var oFileListPositionTop = __$__.position(oFileList).top;
+		//alert(oFileListPositionTop);
+
+
+		oArrow.style.top = "50%";
+		oArrow.style.left = "-26px";
+		oArrow.style.marginTop = "-13px";
+
 
 		if(__$__.cookie().get("cpanel_lock") * 1){
 			oControlPanel.style.right = 0;
@@ -118,5 +130,24 @@
 				oControlPanel.style.right = "-262px";
 			}
 		});
+		setTimeout(function(){
+			for(var i = aLinkList.length - 1; i >= 0; i--){
+				var oLink = aLinkList[i];
+				if(oLink.parentNode.className === "dir_name"){
+					continue;
+				}
+				var sLinkHref = oLink.href.toString();
+				var argsLocation = sLinkHref.indexOf("?");
+				if(argsLocation > -1){
+					sLinkHref = sLinkHref.substr(0,argsLocation);
+				}
+				var hrefReg = new RegExp(sLinkHref);
+				if(hrefReg.test(currentLocation)){
+					oFileList.scrollTop = (__$__.position(oLink).top - oFileListPositionTop);
+					//document.getElementById("J_control_panel_files_list").scrollTop = 1000;
+					oLink.style.color = "#f30";
+				}
+			}
+		},100);
 	}());
 </script>
