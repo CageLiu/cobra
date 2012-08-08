@@ -54,8 +54,8 @@ em{
     overflow:hidden;
 }
 .clearfix,
-#root .dir,
-#root .file{
+#J_system_dir_root .dir,
+#J_system_dir_root .file{
 	*zoom:1;
 }
 body{
@@ -503,18 +503,18 @@ body{
 	border-left-color:#eee;
 }
 /* dir tree */
-#root{
+#J_system_dir_root{
 	margin-bottom:20px;
     margin-left:10px;
 }
-#root .dir,
-#root .file{
+#J_system_dir_root .dir,
+#J_system_dir_root .file{
 	background:url(../img/dir_icon.png) repeat-y -17px 0;
     padding-left:24px;
     position:relative;
 }
-#root .dir_name,
-#root .file_name{
+#J_system_dir_root .dir_name,
+#J_system_dir_root .file_name{
 	border-bottom:1px dotted #808080;
     float:left;
     left:-1px;
@@ -524,11 +524,11 @@ body{
 	z-index:9;
 	height:27px;
 }
-#root,
-#root .sub_dir{
+#J_system_dir_root,
+#J_system_dir_root .sub_dir{
 	clear:both;
 }
-#root a{
+#J_system_dir_root a{
 	background-color:#fff;
     display:inline-block;
     height:27px;
@@ -540,12 +540,12 @@ body{
     white-space:nowrap;
 	z-index:9;
 }
-#root a:hover{
+#J_system_dir_root a:hover{
 	color:#333;
 	text-decoration:underline;
 }
-#root .flag,
-#root .type{
+#J_system_dir_root .flag,
+#J_system_dir_root .type{
 	background-color:#FFFFFF;
     background-image:url("../img/dir_icon.png");
     background-repeat:no-repeat;
@@ -553,14 +553,14 @@ body{
     position:absolute;
 	z-index:9;
 }
-#root .type{
+#J_system_dir_root .type{
 	height:16px;
     left:17px;
     top:20px;
     width:16px;
 	background-position:0 -19px;
 }
-#root .flag{
+#J_system_dir_root .flag{
 	cursor:pointer;
     height:11px;
     left:-5px;
@@ -568,23 +568,23 @@ body{
     width:11px;
 	background-position:-3px -60px;
 }
-#root .dir_name{
+#J_system_dir_root .dir_name{
 	font-size:14px;
 	font-weight:700;
 }
-#root .dir_name a{
+#J_system_dir_root .dir_name a{
 	color:#333;
 }
-#root .file .type{
+#J_system_dir_root .file .type{
 	background-position:0 -40px;
 }
-#root .close .sub_dir{
+#J_system_dir_root .close .sub_dir{
 	display:none;
 }
-#root .close .dir_name .type{
+#J_system_dir_root .close .dir_name .type{
 	background-position:0 0;
 }
-#root .close .flag{
+#J_system_dir_root .close .flag{
 	background-position:-3px -75px;
 }
 #dirtree .path{

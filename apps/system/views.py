@@ -218,11 +218,23 @@ def p(request,p = "", tpl = ""):
         static_path = sc.P_STATIC_PATH + "/" + p
         tpl_path = sc.P_PROJECT_PATH + "/" + p
 
+        pattern = ".*\.pyc$|\.swp$|\.py$|_import.html|.*footer.*"
+        dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+        dirHtml = re.sub("\n","",dirHtml)
+
+        try:
+            pobj = sm.Project.objects.get(name_en = p)
+        except sm.Project.DoesNotExist:
+            pobj = None
+
     if not p and not tpl:
         return HttpResponseRedirect("/system/v/project/")
     elif p and not tpl:
         #应该返回具体项目的目录树
-        return HttpResponse(u"这里将显示项目的目录树")
+        if pobj:
+            return HttpResponse(u"这里将显示项目的目录树")
+        else:
+            return HttpResponse(u"404 page")
     else:
         css_reg = re.compile("\w+\.css$")
         js_reg = re.compile("\w+\.js$")
@@ -235,7 +247,8 @@ def p(request,p = "", tpl = ""):
             tpls.sort()
         
         if os.path.isdir(tpl_path + "/" + tpl):
-            return HttpResponse(dirTree(tpl_path + "/" + tpl),"")
+            dirHtml = dirTree(tpl_path + "/" + tpl, "/system/p/", pattern)
+            return HttpResponse(dirHtml)
         else:
             try:
                 return render_to_response("system/view.html",locals())

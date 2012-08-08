@@ -108,5 +108,5 @@ def dirTree(path, url = "/", pattern = ""):
                title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
                r'''</a><i class="type"></i></span></li>''')
     tree(path)
-    container = r'''<ul class="root" id="root">''' + "".join(container) + r'''</ul>'''
+    container = r'''<ul class="system_dir_root" id="J_system_dir_root">''' + "".join(container) + r'''</ul>'''
     return container

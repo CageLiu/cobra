@@ -177,6 +177,33 @@
 			};
 		},
 
+		children : function(ele){
+			var nodeList = [];
+			var temp = ele.childNodes;
+			var len = temp.length;
+			while(len--){
+				var o = temp[len];
+				o.nodeType === 1 && nodeList.unshift(o);
+			}
+			return nodeList;
+		},
+
+		first : function(ele){
+					
+		},
+
+		last : function(ele){
+			   
+		},
+
+		siblings : function(ele){
+				   
+		},
+
+		ajax : function(){
+			   
+		},
+
 
 
 

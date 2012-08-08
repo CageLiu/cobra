@@ -12,31 +12,111 @@
 %endif
 
 
-<!-- 用于生成控制面板的外部js文件 -->
-<script type="text/javascript" src="/s/system/js/base.js"></script>
+<!-- 生成控制面板 -->
+<script type="text/javascript" src="/s/system/js/view.js"></script>
 <script type="text/javascript">
 	(function(){
-		//自动刷新页面js
-		var a = cobra.ajax({
-			url : "/system/inotify/?path=/${p}",
-			success : function(data){
-				if(data * 1){
-					document.title = +(new Date());
-					location.reload();
-				}
-			},
-			error : function(data){},
-			loop : true,
-			interval : ${request.INTERVAL}
-		});
-	 	var oUl = document.createElement("ul");
-		oUl.style.cssText = "position:fixed;bottom:0;left:50%;margin-left:-310px"
-		for(var i = 0; i < 10; i++){
-			var oLi = document.createElement("li");
-			oLi.innerHTML = i;
-			oLi.style.cssText = "float:left;width:60px;height:20px;border:1px solid #000;background:#fff;text-align:center;line-height:20px;"
-			oUl.appendChild(oLi);
+		var oControlPanel = document.createElement("div");
+		var oControlPanelStyle = document.createElement("link");
+		var clientHeight = document.documentElement.clientHeight;
+		var cssText = "";
+		var oFileList = null;
+		var oReloadBtn = null;
+		var oLockBtn = null;
+		var oArrow = null;
+		var html = '';
+		oControlPanelStyle.href = "/s/system/css/view.css";
+		oControlPanelStyle.type = "text/css";
+		oControlPanelStyle.rel = "stylesheet";
+		document.getElementsByTagName("head")[0].appendChild(oControlPanelStyle);
+		oControlPanel.id = "J_system_control_panel";
+		cssText = "height:" + clientHeight + "px;";
+		__$__.css(document.body,"minWidth") === undefined ? (cssText += "position:absolute;") : (cssText += "position:fixed;");
+		oControlPanel.style.cssText = cssText;
+		html += '<dl class="system_control_panel">';
+		html += '<dt class="system_control_btn"><div id ="J_system_reload_btn" class="on">自动刷新:'
+		html += '</div><span id="J_system_control_lock" class="unlock">锁定:</span></dt>';
+		html += '<dt><strong>文件列表</strong> <a href="/system/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
+		html += '<a href="/system/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
+		html += '<dd id="J_control_panel_files_list">';
+		html += '${dirHtml}';
+		html += '</dd>';
+		html += '</dl><span id="J_system_control_arrow" class="arrow"></span>';
+		oControlPanel.innerHTML = html;
+		document.body.appendChild(oControlPanel);
+
+		oReloadBtn = document.getElementById("J_system_reload_btn");
+		oLockBtn   = document.getElementById("J_system_control_lock");
+		oArrow     = document.getElementById("J_system_control_arrow");
+		oFileList  = document.getElementById("J_control_panel_files_list");
+
+		if(__$__.cookie().get("cpanel_lock") * 1){
+			oControlPanel.style.right = 0;
+			oLockBtn.className = "lock";
 		}
-		document.body.appendChild(oUl);
+
+		oFileList.style.height = clientHeight - 60 + "px";
+
+		function resize(){
+			var clientHeight = document.documentElement.clientHeight;
+			oControlPanel.style.height = clientHeight + "px";
+			if(__$__.css(oControlPanel,"position") === "absolute"){
+				oControlPanel.style.top = document.documentElement.scrollTop + "px";
+			}
+			oFileList.style.height = clientHeight - 60 + "px";
+		}
+		__$__.addEvent(window,"resize",function(){
+			__$__.throttle(resize);
+		});
+		if(__$__.css(oControlPanel,"position") === "absolute"){
+			__$__.addEvent(window,"scroll",function(){
+				oControlPanel.style.top = document.documentElement.scrollTop + "px";
+			});
+		}
+		__$__.addEvent(oReloadBtn,"click",function(){
+			if(this.className === "on"){
+				this.className = "off";
+			}else{
+				this.className = "on";
+			}
+		});
+		__$__.addEvent(oLockBtn,"click",function(){
+			if(this.className === "lock"){
+				this.className = "unlock";
+				__$__.cookie().del({
+					"name" : "cpanel_lock",
+					"path" : "/system/p"
+				});
+			}else{
+				this.className = "lock";
+				__$__.cookie().set({
+					"name" : "cpanel_lock",
+					"value" : 1,
+					"path" : "/system/p"
+				});
+			}
+		});
+		__$__.addEvent(oArrow,"click",function(){
+			oControlPanel.style.right = "-262px";
+		});
+		__$__.addEvent(oControlPanel,"mouseover",function(e){
+			var e = __$__.getEvent(e);
+			if(e.target === oControlPanel && e.from === oControlPanel){
+				oControlPanel.style.right = "-262px";
+			}else{
+				oControlPanel.style.right = "0";
+			}
+		});
+		__$__.addEvent(oControlPanel,"mouseout",function(e){
+			var e = __$__.getEvent(e);
+			if(oLockBtn.className === "lock"){
+				return false;
+			}
+			if(e.target !== this && e.to === this){
+				oControlPanel.style.right = "-262px";
+			}else{
+				oControlPanel.style.right = "-262px";
+			}
+		});
 	}());
 </script>
