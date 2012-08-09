@@ -15,15 +15,15 @@
 <!-- 生成控制面板 -->
 <script type="text/javascript" src="/s/system/js/view.js"></script>
 <script type="text/javascript">
-	window.autoReloadTimer = null;
-	window.autoReloadLock = true;
-	window.autoReloadPath = "/system/inotify/?path=/${p}";
-	window.autoReloadInterval = "${request.INTERVAL}";
-	window.__INOTIFY__ = function(){
-		var url = window.autoReloadPath;
-		var interval = window.autoReloadInterval;
-		clearTimeout(window.autoReloadTimer);
-		if(!window.autoReloadLock){
+	__$__.autoReloadTimer = null;
+	__$__.autoReloadLock = true;
+	__$__.autoReloadPath = "/system/inotify/?path=/${p}";
+	__$__.autoReloadInterval = "${request.INTERVAL}";
+	__$__.__INOTIFY__ = function(){
+		var url = __$__.autoReloadPath;
+		var interval = __$__.autoReloadInterval;
+		clearTimeout(__$__.autoReloadTimer);
+		if(!__$__.autoReloadLock){
 			return false;
 		}else{
 			__$__.ajax({
@@ -35,7 +35,7 @@
 				}		
 			});
 		}
-		window.autoReloadTimer = setTimeout(arguments.callee,interval);
+		__$__.autoReloadTimer = setTimeout(arguments.callee,interval);
 	};
 	(function(){
 		var oControlPanel = document.createElement("div");
@@ -81,7 +81,7 @@
 				var aLinkList  = oFileList.getElementsByTagName("a");
 				for(var i = aLinkList.length - 1; i >= 0; i--){
 					var oLink = aLinkList[i];
-					if(oLink.parentNode.className === "dir_name"){
+					if(oLink.parentNode.className === "cobra_system_dir_name"){
 						continue;
 					}
 					var sLinkHref = oLink.href.toString();
@@ -129,11 +129,11 @@
 		__$__.addEvent(oReloadBtn,"click",function(){
 			if(this.className === "on"){
 				this.className = "off";
-				window.autoReloadLock = false;
+				__$__.autoReloadLock = false;
 			}else{
 				this.className = "on";
-				window.autoReloadLock = true;
-				window.__INOTIFY__();
+				__$__.autoReloadLock = true;
+				__$__.__INOTIFY__();
 			}
 		});
 		__$__.addEvent(oLockBtn,"click",function(){
@@ -173,6 +173,6 @@
 	}());
 
 	__$__.ready(function(){
-		window.__INOTIFY__();
+		__$__.__INOTIFY__();
 	});
 </script>
