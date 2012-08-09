@@ -15,6 +15,28 @@
 <!-- 生成控制面板 -->
 <script type="text/javascript" src="/s/system/js/view.js"></script>
 <script type="text/javascript">
+	window.autoReloadTimer = null;
+	window.autoReloadLock = true;
+	window.autoReloadPath = "/system/inotify/?path=/${p}";
+	window.autoReloadInterval = "${request.INTERVAL}";
+	window.__INOTIFY__ = function(){
+		var url = window.autoReloadPath;
+		var interval = window.autoReloadInterval;
+		clearTimeout(window.autoReloadTimer);
+		if(!window.autoReloadLock){
+			return false;
+		}else{
+			__$__.ajax({
+				url : url,
+				success : function(data){
+					if(data * 1){
+						document.location.reload();
+					}
+				}		
+			});
+		}
+		window.autoReloadTimer = setTimeout(arguments.callee,interval);
+	};
 	(function(){
 		var oControlPanel = document.createElement("div");
 		var oControlPanelStyle = document.createElement("link");
@@ -24,7 +46,7 @@
 		var oReloadBtn = null;
 		var oLockBtn = null;
 		var oArrow = null;
-		var aLinkList = null;
+		//var aLinkList = null;
 		var host = "http://" + document.location.host.toString();
 		var currentLocation = document.location.toString();
 		var html = '';
@@ -41,8 +63,7 @@
 		html += '</div><span id="J_system_control_lock" class="unlock">锁定面板:</span></dt>';
 		html += '<dt><strong>文件列表</strong> <a href="/system/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
 		html += '<a href="/system/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
-		html += '<dd id="J_control_panel_files_list">';
-		html += '${dirHtml}';
+		html += '<dd id="J_control_panel_files_list" class="loading">';
 		html += '</dd>';
 		html += '</dl><span id="J_system_control_arrow" class="arrow"></span>';
 		oControlPanel.innerHTML = html;
@@ -52,15 +73,34 @@
 		oLockBtn   = document.getElementById("J_system_control_lock");
 		oArrow     = document.getElementById("J_system_control_arrow");
 		oFileList  = document.getElementById("J_control_panel_files_list");
-		aLinkList  = oFileList.getElementsByTagName("a");
-		var oFileListPositionTop = __$__.position(oFileList).top;
-		//alert(oFileListPositionTop);
+		
+		__$__.ajax({
+			url : "/system/getree/?dir=/${p}",
+			success : function(data){
+				oFileList.innerHTML = data;
+				var aLinkList  = oFileList.getElementsByTagName("a");
+				for(var i = aLinkList.length - 1; i >= 0; i--){
+					var oLink = aLinkList[i];
+					if(oLink.parentNode.className === "dir_name"){
+						continue;
+					}
+					var sLinkHref = oLink.href.toString();
+					var argsLocation = sLinkHref.indexOf("?");
+					if(argsLocation > -1){
+						sLinkHref = sLinkHref.substr(0,argsLocation);
+					}
+					var hrefReg = new RegExp(sLinkHref);
+					if(hrefReg.test(currentLocation)){
+						oFileList.scrollTop = (__$__.position(oLink).top - clientHeight / 2 + 13);
+						oLink.style.color = "#f30";
+						document.title = oLink.innerHTML;
+					}
+				}
+				oFileList.className = "";
+			}
+		});
 
-
-		oArrow.style.top = "50%";
-		oArrow.style.left = "-26px";
-		oArrow.style.marginTop = "-13px";
-
+		oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
 
 		if(__$__.cookie().get("cpanel_lock") * 1){
 			oControlPanel.style.right = 0;
@@ -74,6 +114,7 @@
 			oControlPanel.style.height = clientHeight + "px";
 			if(__$__.css(oControlPanel,"position") === "absolute"){
 				oControlPanel.style.top = document.documentElement.scrollTop + "px";
+				oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
 			}
 			oFileList.style.height = clientHeight - 60 + "px";
 		}
@@ -88,8 +129,11 @@
 		__$__.addEvent(oReloadBtn,"click",function(){
 			if(this.className === "on"){
 				this.className = "off";
+				window.autoReloadLock = false;
 			}else{
 				this.className = "on";
+				window.autoReloadLock = true;
+				window.__INOTIFY__();
 			}
 		});
 		__$__.addEvent(oLockBtn,"click",function(){
@@ -124,30 +168,11 @@
 			if(oLockBtn.className === "lock"){
 				return false;
 			}
-			if(e.target !== this && e.to === this){
-				oControlPanel.style.right = "-262px";
-			}else{
-				oControlPanel.style.right = "-262px";
-			}
+			oControlPanel.style.right = "-262px";
 		});
-		setTimeout(function(){
-			for(var i = aLinkList.length - 1; i >= 0; i--){
-				var oLink = aLinkList[i];
-				if(oLink.parentNode.className === "dir_name"){
-					continue;
-				}
-				var sLinkHref = oLink.href.toString();
-				var argsLocation = sLinkHref.indexOf("?");
-				if(argsLocation > -1){
-					sLinkHref = sLinkHref.substr(0,argsLocation);
-				}
-				var hrefReg = new RegExp(sLinkHref);
-				if(hrefReg.test(currentLocation)){
-					oFileList.scrollTop = (__$__.position(oLink).top - oFileListPositionTop);
-					//document.getElementById("J_control_panel_files_list").scrollTop = 1000;
-					oLink.style.color = "#f30";
-				}
-			}
-		},100);
 	}());
+
+	__$__.ready(function(){
+		window.__INOTIFY__();
+	});
 </script>

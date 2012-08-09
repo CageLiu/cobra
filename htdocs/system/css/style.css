@@ -506,6 +506,7 @@ body{
 #J_system_dir_root{
 	margin-bottom:20px;
     margin-left:10px;
+	background:#fff;
 }
 #J_system_dir_root .dir,
 #J_system_dir_root .file{

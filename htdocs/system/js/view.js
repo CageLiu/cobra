@@ -204,8 +204,47 @@
 				   
 		},
 
-		ajax : function(){
-			   
+		ajax : function(options){
+		   function createXHR(){
+			   if (window.XMLHttpRequest) {
+				   return new XMLHttpRequest();
+			   }
+			   if (window.ActiveXObject) {
+				   var msxmls = ['MSXML3', 'MSXML2', 'Microsoft']
+					   for (var i=0; i < msxmls.length; i++) {
+						   try {
+							   return new ActiveXObject(msxmls[i]+'.XMLHTTP')
+						   } catch (e) { }
+					   }
+				   throw new Error("No XML component installed!")
+			   }
+		   };		   
+			this.ajax.init = function(options){
+				this.request = createXHR();
+				(function(options){
+					var request = this.request;
+					var url = this.url = options["url"] + "&r=" + (+new Date());
+					var success = this.success = options["success"];
+					var error = this.error = options["error"];
+					var loop = this.loop = options["loop"];
+					var interval = this.interval = options["interval"];
+
+					request.onreadystatechange = function(){
+						(function(){
+							if(this.readyState === 4){
+								if(this.status === 200){
+									success && (success(this.responseText));
+								}else if(this.status !== 200){
+									error && (error(this.responseText));
+								}
+							}
+						}).call(request);
+					};
+					request.open("GET",url,true);
+					request.send(null);
+				}.call(this,options));
+			};
+			return new this.ajax.init(options);
 		},
 
 		cookie : function(){
@@ -234,7 +273,6 @@
 					  	cookieText += "; path=" + options.path;
 					  }
 					  if(options.domain){
-						//alert(options.domain);
 					  	cookieText += "; domain=" + options.domain;
 					  }
 					  if(options.secure){
@@ -254,3 +292,16 @@
 
 	window.__$__ = cobra;
 }(window));
+
+/*
+ *var a = __$__.ajax({
+ *    url : "/system/inotify/?path=/p2",
+ *    success : function(data){
+ *        document.title = +(new Date());
+ *    },
+ *    error : function(data){
+ *    },
+ *    loop : true,
+ *    interval : 1000
+ *});
+ */

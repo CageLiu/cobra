@@ -1,9 +1,7 @@
-body{
-	background:#3b5998;
-	color:#333;
-}
 p{
 	border:3px solid #ccc;
 	margin:10px 100px;
-	border-radius:10px;
+}
+.wp{
+	height:500px;
 }

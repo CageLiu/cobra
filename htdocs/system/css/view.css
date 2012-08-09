@@ -127,6 +127,9 @@ em{
 	padding-left:8px;
 	zoom:1;
 }
+#J_system_control_panel .loading{
+	background:url(../img/loading.gif) no-repeat center center;
+}
 #J_system_control_panel .system_back_link{
 	background-image:url(../img/icon.png);
 	background-repeat:no-repeat;
@@ -174,6 +177,7 @@ em{
 	margin-bottom:20px;
     margin-left:10px;
 	margin-top:-12px;
+	background:#fff;
 }
 #J_system_dir_root .dir,
 #J_system_dir_root .file{

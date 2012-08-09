@@ -2,17 +2,11 @@
 ##title:首页
 <%include file="header.html" />
 
-<div class="wp">
-	p2 test project page
-	p2 test project page
-	p2 test project page
-	p2 test project page
-	p2 test project page
-	p2 test project page
+<div class="wp" style='background:red'>
 	p2 test project page
 </div>
 
-%for i in range(50):
-${img(w="120",h="90",c="thums")}
+%for i in range(3):
+${img(w="200",h="90",c="thums")}
 %endfor
 <%include file="footer.html" />

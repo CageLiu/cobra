@@ -163,10 +163,12 @@ def test(request):
 
 def getree(request):
     '''get the dir or files'''
+
     dirs = request.GET.get("dir",None)
-    #html = dirTree(dirs,pattern = ".*\.pyc$|\.swp$|^(__).*|^(m_).*|\.py$")
-    html = dirTree(dirs,"")
-    return HttpResponse(html)
+    tpl_path = sc.P_PROJECT_PATH + dirs
+    pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
+    dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+    return HttpResponse(dirHtml)
 
 def inotify(request):
     '''检测指定目录的修改时间,并返回一个状态值'''
@@ -218,7 +220,7 @@ def p(request,p = "", tpl = ""):
         static_path = sc.P_STATIC_PATH + "/" + p
         tpl_path = sc.P_PROJECT_PATH + "/" + p
 
-        pattern = ".*\.pyc$|\.swp$|\.py$|_import.html|.*footer.*"
+        pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
         dirHtml = dirTree(tpl_path, "/system/p/", pattern)
         dirHtml = re.sub("\n","",dirHtml)
 
@@ -298,7 +300,7 @@ def v(request,t = "", tid = ""):
         if t == "project":
             related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
-            pattern = ".*\.pyc$|\.swp$|\.py$|_import.html"
+            pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/system/p/", pattern)
         elif t == "task":
