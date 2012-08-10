@@ -192,29 +192,33 @@ def inotify(request):
     curpage = request.GET.get("file",None)
     
     flist = eval(curpage)
-    #print flist
-    #print type(flist)
     
     #获取所有相关文件
     files = [sc.P_PROJECT_PATH + path + '/' + f for f in flist]
+    
+    if request.session.get("currentpage",None):
+        pass
+    else:
+        request.session["currentpage"] = files[0]
+
     files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f)])
     files.extend(walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"])
-    #files.extend(walkDir([sc.P_PROJECT_PATH + path],formats = "absolute")["files"])
+
 
     for f in files:
         filestat = os.stat(f)
         newModifyTime[f] = filestat[stat.ST_MTIME]
 
     if request.session["modifyTime"] != newModifyTime:
-        if request.session["modifyTime"]:
-            stat = "1"
-        else:
+        if request.session["currentpage"] != files[0]:
             stat = "0"
+            request.session["currentpage"] = files[0]
+        else:
+            stat = "1"
         request.session["modifyTime"] = newModifyTime
     else:
         stat = "0"
 
-    #stat = "0"
     return HttpResponse(stat)
 
 
