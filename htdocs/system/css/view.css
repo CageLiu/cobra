@@ -87,10 +87,10 @@ em{
 	line-height:24px;
 	cursor:pointer;
 }
-#J_system_control_panel .on{
+#J_system_control_panel .cobra_system_on{
 	background-position:right 0;
 }
-#J_system_control_panel .off{
+#J_system_control_panel .cobra_system_off{
 	background-position:right -24px;
 }
 #J_system_control_panel dt{
@@ -155,10 +155,10 @@ em{
 	background-image:url(../img/icon.png);
 	background-repeat:no-repeat;
 }
-#J_system_control_panel .lock{
+#J_system_control_panel .cobra_system_lock{
 	background-position:right -503px;
 }
-#J_system_control_panel .unlock{
+#J_system_control_panel .cobra_system_unlock{
 	background-position:right -540px;
 }
 #J_system_control_arrow{
@@ -170,4 +170,41 @@ em{
 	top:50%;
 	margin-top:-13px;
 	cursor:pointer;
+}
+#system_cobra_search_page{
+	height:21px;
+	line-height:21px;
+	border:1px solid #aaa;
+	background-color:#fff;
+	position:absolute;
+	right:92px;
+	top:3px;
+	width:100px;
+}
+.system_cobra_search_count{
+	position:absolute;
+	right:0;
+	width:86px;
+	top:0;
+}
+#J_system_cobra_count_number{
+	color:#f30;
+}
+#J_system_cobra_add_refile_btn{
+	position:absolute;
+	width:30px;
+	height:24px;
+	background-image:url(../img/icon.png);
+	background-repeat:no-repeat;
+	background-color:#fff;
+	text-indent:-999em;
+	overflow:hidden;
+	top:17px;
+	left:-22px;
+	z-index:999;
+	cursor:pointer;
+	display:none;
+}
+.system_cobra_refile_link{
+	background-position:14px -575px;
 }

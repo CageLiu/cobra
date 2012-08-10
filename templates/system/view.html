@@ -15,29 +15,9 @@
 <!-- 生成控制面板 -->
 <script type="text/javascript" src="/s/system/js/view.js"></script>
 <script type="text/javascript">
-	__$__.autoReloadTimer = null;
-	__$__.autoReloadLock = true;
-	__$__.autoReloadPath = "/system/inotify/?path=/${p}";
-	__$__.autoReloadInterval = "${request.INTERVAL}";
-	__$__.__INOTIFY__ = function(){
-		var url = __$__.autoReloadPath;
-		var interval = __$__.autoReloadInterval;
-		clearTimeout(__$__.autoReloadTimer);
-		if(!__$__.autoReloadLock){
-			return false;
-		}else{
-			__$__.ajax({
-				url : url,
-				success : function(data){
-					if(data * 1){
-						document.location.reload();
-					}
-				}		
-			});
-		}
-		__$__.autoReloadTimer = setTimeout(arguments.callee,interval);
-	};
-	(function(){
+	__$__.ready(function(){
+		var tpl = "${tpl}";
+		var pro = "${p}";
 		var oControlPanel = document.createElement("div");
 		var oControlPanelStyle = document.createElement("link");
 		var clientHeight = document.documentElement.clientHeight;
@@ -46,7 +26,6 @@
 		var oReloadBtn = null;
 		var oLockBtn = null;
 		var oArrow = null;
-		//var aLinkList = null;
 		var host = "http://" + document.location.host.toString();
 		var currentLocation = document.location.toString();
 		var html = '';
@@ -59,55 +38,133 @@
 		__$__.css(document.body,"minWidth") === undefined ? (cssText += "position:absolute;") : (cssText += "position:fixed;");
 		oControlPanel.style.cssText = cssText;
 		html += '<dl class="system_control_panel">';
-		html += '<dt class="system_control_btn"><div id ="J_system_reload_btn" class="on">自动刷新:'
-		html += '</div><span id="J_system_control_lock" class="unlock">锁定面板:</span></dt>';
+		html += '<dt class="system_control_btn"><div id ="J_system_reload_btn" class="cobra_system_on">自动刷新:'
+		html += '</div><span id="J_system_control_lock" class="cobra_system_unlock">锁定面板:</span></dt>';
+		html += '<dt>搜索页面：<input type="text" id="system_cobra_search_page" class="system_cobra_panel_text" />';
+		html += '<span class="system_cobra_search_count">结果: <strong id="J_system_cobra_count_number"></strong> 条</span></dt>';
 		html += '<dt><strong>文件列表</strong> <a href="/system/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
 		html += '<a href="/system/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
 		html += '<dd id="J_control_panel_files_list" class="loading">';
 		html += '</dd>';
 		html += '</dl><span id="J_system_control_arrow" class="arrow"></span>';
+		html += '<span id="J_system_cobra_add_refile_btn" class="system_cobra_refile_link" title="添加自动刷新关联文件">添加自动刷新关联文件</span>';
 		oControlPanel.innerHTML = html;
 		document.body.appendChild(oControlPanel);
+
+		if((/^_.*/).test(tpl)){
+			__$__.autoReloadPath = '/system/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
+		}else{
+			__$__.autoReloadPath = '/system/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
+		}
+		//alert(__$__.autoReloadPath);
+		__$__.autoReloadTimer = null;
+		__$__.autoReloadLock = true;
+		__$__.autoReloadInterval = "${request.INTERVAL}";
+		__$__.linkText = [];
+		__$__.links = [];
+		__$__.__INOTIFY__ = function(){
+			var url = __$__.autoReloadPath;
+			var interval = __$__.autoReloadInterval;
+			clearTimeout(__$__.autoReloadTimer);
+			if(!__$__.autoReloadLock){
+				return false;
+			}else{
+				__$__.ajax({
+					url : url,
+					success : function(data){
+						if(data * 1){
+							document.location.reload();
+						}
+					}		
+				});
+			}
+			__$__.autoReloadTimer = setTimeout(arguments.callee,interval);
+		};
 
 		oReloadBtn = document.getElementById("J_system_reload_btn");
 		oLockBtn   = document.getElementById("J_system_control_lock");
 		oArrow     = document.getElementById("J_system_control_arrow");
 		oFileList  = document.getElementById("J_control_panel_files_list");
+		oRfileLink = document.getElementById("J_system_cobra_add_refile_btn");
+		oRfileLink.timer = null;
+
+		__$__.addEvent(oRfileLink,"mouseover",function(){
+			clearTimeout(this.timer);
+		});
+		__$__.addEvent(oRfileLink,"mouseout",function(){
+			this.style.display = "none";
+			this.parentNode.style.cssText = "zoom:-1;z-index:9";
+		});
+
+		__$__.addEvent(oRfileLink,"click",function(){
+			var re = new RegExp(host + "\/system\/p\/" + "${p}\/")
+			var f = this.parentNode.getElementsByTagName("a")[0].href.replace(re,"");
+			var url = "/system/addrfile/?pid=${pobj.id}&f=";
+			f = f.substr(0,f.length -1);
+			url += f
+			__$__.ajax({
+				url : url,
+				success : function(data){
+					alert(data);
+				}
+			});
+		});
 		
 		__$__.ajax({
 			url : "/system/getree/?dir=/${p}",
 			success : function(data){
 				oFileList.innerHTML = data;
-				var aLinkList  = oFileList.getElementsByTagName("a");
-				for(var i = aLinkList.length - 1; i >= 0; i--){
-					var oLink = aLinkList[i];
-					if(oLink.parentNode.className === "cobra_system_dir_name"){
-						continue;
+				setTimeout(function(){
+					var aLinkList  = oFileList.getElementsByTagName("a");
+					for(var i = aLinkList.length - 1; i >= 0; i--){
+						var oLink = aLinkList[i];
+						if(oLink.parentNode.className === "cobra_system_dir_name"){
+							continue;
+						}
+						__$__.links.unshift(oLink);
+						__$__.linkText.unshift(oLink.innerHTML);
+						__$__.linkLength = __$__.links.length;
+						var sLinkHref = oLink.href.toString();
+						var argsLocation = sLinkHref.indexOf("?");
+						if(argsLocation > -1){
+							sLinkHref = sLinkHref.substr(0,argsLocation);
+						}
+						var hrefReg = new RegExp(sLinkHref);
+						if(hrefReg.test(currentLocation)){
+							oFileList.scrollTop = (__$__.position(oLink).top - clientHeight / 2 + 13);
+							oLink.className = "system_cobra_current";
+							document.title = oLink.innerHTML;
+						}
+						__$__.addEvent(oLink,"mouseover",function(){
+							clearTimeout(oRfileLink.timer);
+							this.parentNode.appendChild(oRfileLink);
+							oRfileLink.style.display = "block";
+							this.parentNode.style.cssText = "zoom:1;z-index:999";
+						});
+						__$__.addEvent(oLink,"mouseout",function(e){
+							var e = __$__.getEvent(e);
+							this.parentNode.style.zoom = -1;
+							if((e.to && e.to.nodeName.toLowerCase() === "li") || (e.to &&  e.to.nodeName.toLowerCase() === "span" && e.to !== this.parentNode )){
+								this.parentNode.style.zIndex = 9;
+							}
+							oRfileLink.timer = setTimeout(function(){
+								oRfileLink.style.display = "none";
+							},500);
+						});
 					}
-					var sLinkHref = oLink.href.toString();
-					var argsLocation = sLinkHref.indexOf("?");
-					if(argsLocation > -1){
-						sLinkHref = sLinkHref.substr(0,argsLocation);
-					}
-					var hrefReg = new RegExp(sLinkHref);
-					if(hrefReg.test(currentLocation)){
-						oFileList.scrollTop = (__$__.position(oLink).top - clientHeight / 2 + 13);
-						oLink.style.color = "#f30";
-						document.title = oLink.innerHTML;
-					}
-				}
-				oFileList.className = "";
+					oFileList.className = "";
+				},100);
 			}
 		});
 
 		oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
 
-		if(__$__.cookie().get("cpanel_lock") * 1){
+		if(__$__.cookie().get("cobra_cpanel_lock") * 1){
 			oControlPanel.style.right = 0;
-			oLockBtn.className = "lock";
+			oLockBtn.className = "cobra_system_lock";
 		}
 
-		oFileList.style.height = clientHeight - 60 + "px";
+		oFileList.style.height = clientHeight - 90 + "px";
 
 		function resize(){
 			var clientHeight = document.documentElement.clientHeight;
@@ -116,7 +173,7 @@
 				oControlPanel.style.top = document.documentElement.scrollTop + "px";
 				oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
 			}
-			oFileList.style.height = clientHeight - 60 + "px";
+			oFileList.style.height = clientHeight - 90 + "px";
 		}
 		__$__.addEvent(window,"resize",function(){
 			__$__.throttle(resize);
@@ -127,26 +184,26 @@
 			});
 		}
 		__$__.addEvent(oReloadBtn,"click",function(){
-			if(this.className === "on"){
-				this.className = "off";
+			if(this.className === "cobra_system_on"){
+				this.className = "cobra_system_off";
 				__$__.autoReloadLock = false;
 			}else{
-				this.className = "on";
+				this.className = "cobra_system_on";
 				__$__.autoReloadLock = true;
 				__$__.__INOTIFY__();
 			}
 		});
 		__$__.addEvent(oLockBtn,"click",function(){
-			if(this.className === "lock"){
-				this.className = "unlock";
+			if(this.className === "cobra_system_lock"){
+				this.className = "cobra_system_unlock";
 				__$__.cookie().del({
-					"name" : "cpanel_lock",
+					"name" : "cobra_cpanel_lock",
 					"path" : "/system/p"
 				});
 			}else{
-				this.className = "lock";
+				this.className = "cobra_system_lock";
 				__$__.cookie().set({
-					"name" : "cpanel_lock",
+					"name" : "cobra_cpanel_lock",
 					"value" : 1,
 					"path" : "/system/p"
 				});
@@ -157,7 +214,7 @@
 		});
 		__$__.addEvent(oControlPanel,"mouseover",function(e){
 			var e = __$__.getEvent(e);
-			if(e.target === oControlPanel && e.from === oControlPanel){
+			if(e.target === this && e.from === this){
 				oControlPanel.style.right = "-262px";
 			}else{
 				oControlPanel.style.right = "0";
@@ -165,14 +222,35 @@
 		});
 		__$__.addEvent(oControlPanel,"mouseout",function(e){
 			var e = __$__.getEvent(e);
-			if(oLockBtn.className === "lock"){
+			if(oLockBtn.className === "cobra_system_lock"){
 				return false;
 			}
 			oControlPanel.style.right = "-262px";
 		});
-	}());
 
-	__$__.ready(function(){
+		//搜索页面
+		var oSearch = document.getElementById("system_cobra_search_page");
+		var oCount = document.getElementById("J_system_cobra_count_number");
+		function search(e){
+			var first = null;
+			var count = 0;
+			for(var i = 0; i < __$__.linkLength; i++){
+				if(__$__.linkText[i].indexOf(this.value) !== -1 && this.value.length > 1){
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"") + " system_cobra_search_result";
+					count++;
+					!first && (first = __$__.links[i]);
+				}else{
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"");
+				}
+			}
+			first && (oFileList.scrollTop = __$__.position(first).top - oFileList.clientHeight / 2 + 13);
+			oCount.innerHTML = count;
+		}
+		__$__.addEvent(oSearch,"keyup",function(){
+			__$__.throttle(search,this,500);	
+		});
+
+		//自动刷新开始
 		__$__.__INOTIFY__();
 	});
 </script>

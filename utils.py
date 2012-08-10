@@ -100,7 +100,8 @@ def dirTree(path, url = "/", pattern = ""):
         else:
             title = getChineseName(path)
             if pattern:
-               not r.search(os.path.basename(path)) and container.append(r'''<li class="cobra_system_file clearfix"><span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
+               not r.search(os.path.basename(path)) and container.append(r'''<li class="cobra_system_file clearfix">''' + \
+               r'''<span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
                title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
                r'''</a><i class="cobra_system_type"></i></span></li>''')
             else:

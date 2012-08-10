@@ -171,9 +171,16 @@ def getree(request):
     return HttpResponse(dirHtml)
 
 def inotify(request):
-    '''检测指定目录的修改时间,并返回一个状态值'''
+    '''检测指定目录的修改时间,并返回一个状态值
+       请求形式:/system/inotify/?path=/projectname&file=/projectname/filepath
+       path 和 file 参数的值均可在具体页面的view中得到
+       如test项目abc目录下的index.html页面:
+       /system/inotify/?path=/test&file=/test/abc/index.html
+       多个文件用|分割
+    '''
 
     import stat
+
     if request.session.get("modifyTime",None):
         pass
     else:
@@ -182,29 +189,32 @@ def inotify(request):
     newModifyTime = {}
 
     path = request.GET.get("path",None)
+    curpage = request.GET.get("file",None)
+    
+    flist = eval(curpage)
+    #print flist
+    #print type(flist)
+    
+    #获取所有相关文件
+    files = [sc.P_PROJECT_PATH + path + '/' + f for f in flist]
+    files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f)])
+    files.extend(walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"])
+    #files.extend(walkDir([sc.P_PROJECT_PATH + path],formats = "absolute")["files"])
 
-    #获取所有相关目录
-    dirs = []
-    dirs.extend([
-        sc.P_PROJECT_PATH, \
-        sc.P_STATIC_PATH, \
-        sc.P_PROJECT_PATH + path, \
-        sc.P_STATIC_PATH + path \
-    ])
-    dirs.extend(walkDir([
-        sc.P_PROJECT_PATH + path, \
-        sc.P_STATIC_PATH + path \
-    ],formats = "absolute")["dirs"])
+    for f in files:
+        filestat = os.stat(f)
+        newModifyTime[f] = filestat[stat.ST_MTIME]
 
-    for d in dirs:
-        filestat = os.stat(d)
-        newModifyTime[d] = filestat[stat.ST_MTIME]
-
-    if newModifyTime != request.session["modifyTime"]:
-        stat = "1"
+    if request.session["modifyTime"] != newModifyTime:
+        if request.session["modifyTime"]:
+            stat = "1"
+        else:
+            stat = "0"
         request.session["modifyTime"] = newModifyTime
     else:
         stat = "0"
+
+    #stat = "0"
     return HttpResponse(stat)
 
 
@@ -309,4 +319,24 @@ def v(request,t = "", tid = ""):
             related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
             related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")
         return render_to_response(templates,locals())
+
+def addrfile(request):
+    
+    if request.session.get("uid",None):
+        pid = request.GET['pid']
+        f = request.GET['f']
+        obj = sm.Project.objects.get(id = pid)
+        files = obj.refile
+        refile = re.compile(r'"' + f + r'"')
+        if refile.search(files):
+            return HttpResponse(u"已经存在")
+        else:
+            files += r',"' + f + r'"'
+            obj.refile = files
+            obj.save()
+            return HttpResponse(u"添加成功!")
+        return HttpResponse(files)
+    else:
+        return HttpResponse(u"请先登录")
+
 

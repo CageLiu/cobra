@@ -47,6 +47,7 @@ class Project(models.Model):
     ctime     = models.DateTimeField(auto_now_add = True)
     degree    = models.IntegerField(default = 0)
     weight    = models.CharField(max_length = 20, default = "a_commonly")
+    refile    = models.TextField(default = r'"header.html","footer.html"')
 
     def __unicode__(self):
         return self.name_zh

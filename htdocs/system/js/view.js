@@ -292,16 +292,3 @@
 
 	window.__$__ = cobra;
 }(window));
-
-/*
- *var a = __$__.ajax({
- *    url : "/system/inotify/?path=/p2",
- *    success : function(data){
- *        document.title = +(new Date());
- *    },
- *    error : function(data){
- *    },
- *    loop : true,
- *    interval : 1000
- *});
- */

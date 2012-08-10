@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^p/((?P<p>\w+)/((?P<tpl>.+(/.)*)/)?)?$',sv.p),                                                #项目相关|列表,详情,页面预览
     (r'^add/((?P<t>\w+)/)?$',sv.assign,{'view':sv.add}),                                             #添加项目|用户|任务|组
     (r'^edit/((?P<t>\w+)/((?P<item>\w+)/)?)?$',sv.assign,{"view":sv.edit}),                          #编辑项目|用户|任务|组
+    (r'^addrfile/$',sv.addrfile),                                                                    #添加自动刷新关联文件
                                                                         
     (r'^test/$',sv.test),                                                                           #测试页面
 )

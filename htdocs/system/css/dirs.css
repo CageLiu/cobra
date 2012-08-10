@@ -1,4 +1,8 @@
 /* dir tree */
+#J_system_dir_root .cobra_system_dir,
+#J_system_dir_root .cobra_system_file{
+	*zoom:1;
+}
 #J_system_dir_root{
 	margin-bottom:20px;
     margin-left:10px;
@@ -37,6 +41,9 @@
     top:14px;
     white-space:nowrap;
 	z-index:9;
+}
+#J_system_dir_root .system_cobra_current{
+	color:#f30;
 }
 #J_system_dir_root a:hover{
 	color:#333;
@@ -84,4 +91,12 @@
 }
 #J_system_dir_root .close .cobra_system_flag{
 	background-position:-3px -75px;
+}
+
+#J_system_dir_root .system_cobra_search_result{
+	background-color:#3b5998;
+	color:#fff;
+}
+#J_system_dir_root .system_cobra_search_result:hover{
+	color:#fff;
 }
