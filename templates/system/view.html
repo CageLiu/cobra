@@ -164,7 +164,7 @@
 			oLockBtn.className = "cobra_system_lock";
 		}
 
-		oFileList.style.height = clientHeight - 90 + "px";
+		oFileList.style.height = (clientHeight - 90 > 0 ? clientHeight - 90 : 0) + "px";
 
 		function resize(){
 			var clientHeight = document.documentElement.clientHeight;
@@ -173,7 +173,7 @@
 				oControlPanel.style.top = document.documentElement.scrollTop + "px";
 				oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
 			}
-			oFileList.style.height = clientHeight - 90 + "px";
+			oFileList.style.height = (clientHeight - 90 > 0 ? clientHeight - 90 : 0) + "px";
 		}
 		__$__.addEvent(window,"resize",function(){
 			__$__.throttle(resize);

@@ -3,22 +3,25 @@ html{
 	overflow-x:hidden;
 	overflow-y:scroll;
 }
-body,ul,ol,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
+body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
 }
 
-ul,ol,input,button,td,th,fieldset{
+input,button,td,th,fieldset{
     padding:0;
 }
-ul,ol{
+#J_system_control_panel ul,
+#J_system_control_panel ol{
     list-style-type:none;
     list-style-position:outside;
+	padding:0;
+	margin:0;
 }
-a{
+#J_system_control_panel a{
     text-decoration:none;
     color:#3B5998;
 }
-a:hover{
+#J_system_control_panel a:hover{
 	text-decoration:underline;
 	/*background-color:#3B5998;*/
 }
@@ -31,14 +34,7 @@ fieldset legend{
 a,input,button,textarea{
 	outline:none;
 }
-textarea{
-	resize:none
-}
-table{
-    border-collapse:collapse;
-    border-spacing:0;
-}
-em{
+#J_system_control_panel em{
     font-style:normal
 }
 .arrow{

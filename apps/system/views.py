@@ -181,10 +181,12 @@ def inotify(request):
 
     import stat
 
-    if request.session.get("modifyTime",None):
+    user_agent = request.META["HTTP_USER_AGENT"]
+
+    if request.session.get(user_agent,None):
         pass
     else:
-        request.session["modifyTime"] = {}
+        request.session[user_agent] = {}
 
     newModifyTime = {}
 
@@ -206,16 +208,19 @@ def inotify(request):
 
 
     for f in files:
-        filestat = os.stat(f)
-        newModifyTime[f] = filestat[stat.ST_MTIME]
+        try:
+            filestat = os.stat(f)
+            newModifyTime[f] = filestat[stat.ST_MTIME]
+        except OSError:
+            pass
 
-    if request.session["modifyTime"] != newModifyTime:
+    if request.session[user_agent] != newModifyTime:
         if request.session["currentpage"] != files[0]:
             stat = "0"
             request.session["currentpage"] = files[0]
         else:
             stat = "1"
-        request.session["modifyTime"] = newModifyTime
+        request.session[user_agent] = newModifyTime
     else:
         stat = "0"
 
