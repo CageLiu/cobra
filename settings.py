@@ -13,6 +13,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
+        #'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'cobra',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.

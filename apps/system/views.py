@@ -215,7 +215,7 @@ def inotify(request):
             pass
 
     if request.session[user_agent] != newModifyTime:
-        if request.session["currentpage"] != files[0]:
+        if not request.session[user_agent] or request.session["currentpage"] != files[0]:
             stat = "0"
             request.session["currentpage"] = files[0]
         else:
