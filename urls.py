@@ -7,3 +7,7 @@ urlpatterns = patterns('',
     (r'^tools/',include('cobra.apps.tools.urls')),
     (config.STATIC_URL,'django.views.static.serve',{'document_root':config.STATIC_PATH}),               #e.g:/s/system/css/style.css
 )
+
+
+
+
