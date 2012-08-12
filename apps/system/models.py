@@ -62,6 +62,7 @@ class Task(models.Model):
     pid     = models.IntegerField(default = 0)
     degree  = models.IntegerField(default = 0)
     weight  = models.CharField(max_length = 20, default = "a_commonly")
+    ctime     = models.DateTimeField(auto_now_add = True)
 
     def __unicode__(self):
         return self.name

@@ -10,12 +10,47 @@
 
 <!-- main -->
 <%def name="main()">
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		author = sm.User.objects.get(id = obj.author)
+		if obj.manager:
+			manager = sm.User.objects.get(id = obj.manager)
+	%>
+
 	<div class="box">
 		<div class="bt">
 			<span class="tit">任务信息</span>
 		</div>
 		<div class="bc">
-			task info
+			<dl class="details_item">
+				<dt class="item_name">名称:</dt>
+				<dt class="item_cont">${obj.name}</dt>
+				<dt class="item_name">状态:</dt>
+				<dd class="item_cont">
+					<i class="icon_state ${obj.state}">${TASK_STATE[obj.state]}</i>
+					<span class="stat_text">${TASK_STATE[obj.state]}</span>
+				</dd>
+				<dt class="item_name">创建人:</dt>
+				<dd class="item_cont"><a href="/system/v/user/${author.id}/">${author}</a></dd>
+				<dt class="item_name">创建时间:</dt>
+				<dd class="item_cont">${obj.ctime}</dd>
+				%if obj.manager:
+					<dt class="item_name">负责人:</dt>
+					<dd class="item_cont"><a href="/system/v/user/${manager.id}/">${manager}</a></dd>
+				%endif
+				<dt class="item_name">优先级:</dt>
+				<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
+				<dt class="item_name">进度:</dt>
+				<dd class="item_cont">
+				<div class="degreebar">
+					<div class="degree" style="width:${obj.degree}%">0%</div>
+					<span class="degree_number">${obj.degree}%</span>
+				</div>
+				</dd>
+				<dt class="item_name">描述:</dt>
+				<dd class="item_cont">${obj.desc}</dd>
+			</dl>
 		</div>
 	</div>
 </%def>

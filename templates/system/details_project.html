@@ -12,7 +12,10 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		autofile = eval(obj.refile)
+		author = sm.User.objects.get(id = obj.author)
+		manager = sm.User.objects.get(id = obj.manager)
 	%>
 
 	<div class="box">
@@ -22,7 +25,47 @@
 		<div class="bc">
 			<div class="hor_box details">
 				<div class="hor_item dleft">
-					
+					<dl class="details_item">
+						<dt class="item_name">名称:</dt>
+						<dt class="item_cont">${obj.name_zh}</dt>
+						<dt class="item_name">文件夹:</dt>
+						<dd class="item_cont">${obj.name_en}</dd>
+						<dt class="item_name">状态:</dt>
+						<dd class="item_cont">
+							<i class="icon_state ${obj.state}">${PROJECT_STATE[obj.state]}</i>
+							<span class="stat_text">${PROJECT_STATE[obj.state]}</span>
+						</dd>
+						<dt class="item_name">开始时间:</dt>
+						<dd class="item_cont">${obj.starttime}</dd>
+						<dt class="item_name">周期:</dt>
+						<dd class="item_cont">${obj.period} 天</dd>
+						<dt class="item_name">创建人:</dt>
+						<dd class="item_cont"><a href="/system/v/user/${author.id}/">${author}</a></dd>
+						<dt class="item_name">创建时间:</dt>
+						<dd class="item_cont">${obj.ctime}</dd>
+						<dt class="item_name">负责人:</dt>
+						<dd class="item_cont"><a href="/system/v/user/${manager.id}/">${manager}</a></dd>
+						<dt class="item_name">优先级:</dt>
+						<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
+						<dt class="item_name">进度:</dt>
+						<dd class="item_cont">
+							<div class="degreebar">
+								<div class="degree" style="width:${obj.degree}%">0%</div>
+								<span class="degree_number">${obj.degree}%</span>
+							</div>
+						</dd>
+						<dt class="item_name">自动刷新关联文件:</dt>
+						<dd class="item_cont" id="J_auto_file">
+							%for item in autofile:
+							<a href="javascript:;" class="fileitem">
+								${item}
+								<i class="J_break_auto_file">删除关联</i>
+							</a>
+							%endfor
+						</dd>
+						<dt class="item_name">描述:</dt>
+						<dd class="item_cont">${obj.summary}</dd>
+					</dl>
 				</div>
 				<div class="hor_item dright">
 					<div class="fileslist">

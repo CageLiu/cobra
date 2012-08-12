@@ -253,7 +253,8 @@ def p(request,p = "", tpl = ""):
     elif p and not tpl:
         #应该返回具体项目的目录树
         if pobj:
-            return HttpResponse(u"这里将显示项目的目录树")
+            dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+            return render_to_response("system/dir.html",locals())
         else:
             return HttpResponse(u"404 page")
     else:
@@ -269,7 +270,7 @@ def p(request,p = "", tpl = ""):
         
         if os.path.isdir(tpl_path + "/" + tpl):
             dirHtml = dirTree(tpl_path + "/" + tpl, "/system/p/", pattern)
-            return HttpResponse(dirHtml)
+            return render_to_response("system/dir.html",locals())
         else:
             try:
                 return render_to_response("system/view.html",locals())
