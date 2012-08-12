@@ -39,4 +39,4 @@ WEIGHT = {
 }
 
 #页面自动刷新频率设置,单位：ms
-INTERVAL = 1500
+INTERVAL = 2000

@@ -243,6 +243,7 @@ body{
 	color:#3B5998;
 	border-radius:2px;
 	text-decoration:none;
+	zoom:1;
 }
 .hd .search{
 	position:absolute;
@@ -705,10 +706,9 @@ tr:hover .a_new{
 	width:35%;
 	overflow-x:auto;
 }
-.fileslist .fileslist{
-	
-}
-.dirsname{
+.fileslist .dirname{
 	font-size:12px;
 	background:#fff;
+	position:relative;
+	z-index:9;
 }
