@@ -2,7 +2,7 @@
 
 import os
 
-os.chdir("package")
+os.chdir("./package")
 print os.getcwd()
 
 try:
