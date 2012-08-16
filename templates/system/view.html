@@ -29,7 +29,7 @@
 		var host = "http://" + document.location.host.toString();
 		var currentLocation = document.location.toString();
 		var html = '';
-		oControlPanelStyle.href = "/s/system/css/view.css";
+		oControlPanelStyle.href = "/s/system/css/view.css?v=" + (+new Date());
 		oControlPanelStyle.type = "text/css";
 		oControlPanelStyle.rel = "stylesheet";
 		document.getElementsByTagName("head")[0].appendChild(oControlPanelStyle);
@@ -231,23 +231,53 @@
 		//搜索页面
 		var oSearch = document.getElementById("system_cobra_search_page");
 		var oCount = document.getElementById("J_system_cobra_count_number");
+		__$__.RESULT = [];
+		__$__.SEARCH_CURRENT = 0;
 		function search(e){
 			var first = null;
 			var count = 0;
+			__$__.RESULT = [];
+			__$__.SEARCH_CURRENT = 0;
 			for(var i = 0; i < __$__.linkLength; i++){
 				if(__$__.linkText[i].indexOf(this.value) !== -1 && this.value.length > 1){
-					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"") + " system_cobra_search_result";
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"").replace(/system_cobra_search_current/g,"") + " system_cobra_search_result";
 					count++;
+					__$__.RESULT.push(__$__.links[i]);
 					!first && (first = __$__.links[i]);
 				}else{
-					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"");
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"").replace(/system_cobra_search_current/g,"");
 				}
 			}
-			first && (oFileList.scrollTop = __$__.position(first).top - oFileList.clientHeight / 2 + 13);
+			first && (oFileList.scrollTop = __$__.position(first).top - oFileList.clientHeight / 2 + 13,first.className += " system_cobra_search_current");
 			oCount.innerHTML = count;
 		}
-		__$__.addEvent(oSearch,"keyup",function(){
-			__$__.throttle(search,this,500);	
+		__$__.addEvent(oSearch,"keyup",function(e){
+			var e = __$__.getEvent(e);
+			if(e.keyCode !== 13){
+				__$__.throttle(search,this,500);	
+			}else{
+				return false;
+			}
+		});
+
+		__$__.addEvent(oSearch,"keydown",function(e){
+			var e = __$__.getEvent(e);
+			var len = __$__.RESULT.length;
+			if(e.keyCode === 13){
+				if(len){
+					for(var i = 0; i < len; i++){
+						__$__.RESULT[i].className = __$__.RESULT[i].className.replace(/system_cobra_search_current/g, "");
+					}
+					if(__$__.SEARCH_CURRENT >= len - 1){
+						__$__.SEARCH_CURRENT = 0;
+					}else{
+						__$__.SEARCH_CURRENT++;
+					}
+					oFileList.scrollTop = __$__.position(__$__.RESULT[__$__.SEARCH_CURRENT]).top - oFileList.clientHeight / 2 + 13
+					//alert(__$__.RESULT[__$__.SEARCH_CURRENT].href);
+					__$__.RESULT[__$__.SEARCH_CURRENT].className += " system_cobra_search_current";
+				}
+			}
 		});
 
 		//自动刷新开始

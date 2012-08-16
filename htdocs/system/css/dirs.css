@@ -92,11 +92,14 @@
 #J_system_dir_root .close .cobra_system_flag{
 	background-position:-3px -75px;
 }
-
 #J_system_dir_root .system_cobra_search_result{
 	background-color:#3b5998;
 	color:#fff;
 }
 #J_system_dir_root .system_cobra_search_result:hover{
+	color:#fff;
+}
+#J_system_dir_root .system_cobra_search_current{
+	background-color:#f30;
 	color:#fff;
 }
