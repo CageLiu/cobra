@@ -9,7 +9,6 @@ urlpatterns = patterns('',
     (r'^login/$',sv.login),                                                                         #登录
     (r'^logout/$',sv.logout),                                                                       #登出
     (r'^getree/$',sv.getree),                                                                       #返回目录树
-    (r'^inotify/$',sv.inotify),                                                                     #状态检测
     (r'^v/((?P<t>\w+)/((?P<tid>\d+)/)?)?$',sv.v),
     (r'^p/((?P<p>\w+)/((?P<tpl>.+(/.)*)/)?)?$',sv.p),                                                #项目相关|列表,详情,页面预览
     (r'^add/((?P<t>\w+)/)?$',sv.assign,{'view':sv.add}),                                             #添加项目|用户|任务|组

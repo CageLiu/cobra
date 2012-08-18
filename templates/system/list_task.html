@@ -48,10 +48,10 @@
 					%for item in allTasks.order_by("-id"):
 					<tr>
 						<td><i class="icon_state ${item.state}" title="${TASK_STATE[item.state]}">&nbsp;</i></td>
-						<td class="aleft ${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
-						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						<td class="aleft ${item.weight}"><a href="/v/task/${item.id}/">${item.name}</a></td>
+						<td><a href="/v/task/${item.id}/">#${item.id}</a></td>
 						%if item.pid:
-							<td class="aleft"><a href="/system/v/project/${item.pid}/">${sm.Project.objects.get(id = item.pid)}</a></td>
+							<td class="aleft"><a href="/v/project/${item.pid}/">${sm.Project.objects.get(id = item.pid)}</a></td>
 						%else:
 							<td class="aleft">---</td>
 						%endif
@@ -103,7 +103,7 @@
 		</div>
 		<div class="bc">
 			<div class="btnbox newitem" style="text-align:center">
-				<a class="btn gray_btn" href="/system/add/task/">
+				<a class="btn gray_btn" href="/add/task/">
 					<span>新任务</span>
 				</a>
 			</div>

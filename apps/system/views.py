@@ -27,9 +27,9 @@ def assign(request,**args):
 def login(request):
     '''login view'''
     if request.session.get("uid"):
-        return HttpResponseRedirect("/system/")
+        return HttpResponseRedirect("/")
 
-    ref_page = request.GET.get('ref_page','/system/')
+    ref_page = request.GET.get('ref_page','/')
 
     if "usm" in request.POST and "pwd" in request.POST:
         usm = request.POST["usm"]
@@ -55,7 +55,7 @@ def login(request):
     return render_to_response("system/login.html",locals())
 
 def logout(request):
-    ref_page = request.GET.get('ref_page',"/system/")
+    ref_page = request.GET.get('ref_page',"/")
     try:
         del request.session['uid']
     except KeyError:
@@ -133,7 +133,7 @@ def add(request,**args):
                         create(model)
                     elif t == "rights":
                         create(model)
-                    return HttpResponseRedirect("/system/v/" + t + "/")
+                    return HttpResponseRedirect("/v/" + t + "/")
             except :
                 err_msg = u"请按正确的格式填写"
                 return render_to_response("system/add_" + t + ".html",locals())
@@ -167,65 +167,8 @@ def getree(request):
     dirs = request.GET.get("dir",None)
     tpl_path = sc.P_PROJECT_PATH + dirs
     pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
-    dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+    dirHtml = dirTree(tpl_path, "/p/", pattern)
     return HttpResponse(dirHtml)
-
-def inotify(request):
-    '''检测指定目录的修改时间,并返回一个状态值
-       请求形式:/system/inotify/?path=/projectname&file=/projectname/filepath
-       path 和 file 参数的值均可在具体页面的view中得到
-       如test项目abc目录下的index.html页面:
-       /system/inotify/?path=/test&file=/test/abc/index.html
-       多个文件用|分割
-    '''
-
-    import stat
-
-    user_agent = request.META["HTTP_USER_AGENT"]
-
-    if request.session.get(user_agent,None):
-        pass
-    else:
-        request.session[user_agent] = {}
-
-    newModifyTime = {}
-
-    path = request.GET.get("path",None)
-    curpage = request.GET.get("file",None)
-    
-    flist = eval(curpage)
-    
-    #获取所有相关文件
-    files = [sc.P_PROJECT_PATH + path + '/' + f for f in flist]
-    
-    if request.session.get("currentpage",None):
-        pass
-    else:
-        request.session["currentpage"] = files[0]
-
-    files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f)])
-    files.extend(walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"])
-
-
-    for f in files:
-        try:
-            filestat = os.stat(f)
-            newModifyTime[f] = filestat[stat.ST_MTIME]
-        except OSError:
-            pass
-
-    if request.session[user_agent] != newModifyTime:
-        if not request.session[user_agent] or request.session["currentpage"] != files[0]:
-            stat = "0"
-            request.session["currentpage"] = files[0]
-        else:
-            stat = "1"
-        request.session[user_agent] = newModifyTime
-    else:
-        stat = "0"
-
-    return HttpResponse(stat)
-
 
 def p(request,p = "", tpl = ""):
     '''view page'''
@@ -240,7 +183,7 @@ def p(request,p = "", tpl = ""):
         tpl_path = sc.P_PROJECT_PATH + "/" + p
 
         pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
-        dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+        dirHtml = dirTree(tpl_path, "/p/", pattern)
         dirHtml = re.sub("\n","",dirHtml)
 
         try:
@@ -249,11 +192,11 @@ def p(request,p = "", tpl = ""):
             pobj = None
 
     if not p and not tpl:
-        return HttpResponseRedirect("/system/v/project/")
+        return HttpResponseRedirect("/v/project/")
     elif p and not tpl:
         #应该返回具体项目的目录树
         if pobj:
-            dirHtml = dirTree(tpl_path, "/system/p/", pattern)
+            dirHtml = dirTree(tpl_path, "/p/", pattern)
             return render_to_response("system/dir.html",locals())
         else:
             return HttpResponse(u"404 page")
@@ -269,7 +212,7 @@ def p(request,p = "", tpl = ""):
             tpls.sort()
         
         if os.path.isdir(tpl_path + "/" + tpl):
-            dirHtml = dirTree(tpl_path + "/" + tpl, "/system/p/", pattern)
+            dirHtml = dirTree(tpl_path + "/" + tpl, "/p/", pattern)
             return render_to_response("system/dir.html",locals())
         else:
             try:
@@ -310,7 +253,7 @@ def v(request,t = "", tid = ""):
         allGroups   = sm.Group.objects.all()
         allRights   = sm.Rights.objects.all()
     if not t and not tid:
-        return HttpResponseRedirect("/system/")
+        return HttpResponseRedirect("/")
     elif t and not tid:
         templates = "system/list_" + t + ".html"
         return render_to_response(templates,locals())
@@ -322,7 +265,7 @@ def v(request,t = "", tid = ""):
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
             pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
-            dirHtml = dirTree(path, "/system/p/", pattern)
+            dirHtml = dirTree(path, "/p/", pattern)
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":

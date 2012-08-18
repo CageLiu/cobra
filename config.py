@@ -1,5 +1,8 @@
 #-*-coding:utf-8-*-
 
+#团队名称
+TEAMNAME = u"团队名称"
+
 #系统根目录
 SITE_ROOT = "/var/www/cobra/"
 

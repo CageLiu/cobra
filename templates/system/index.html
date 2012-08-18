@@ -54,7 +54,7 @@
 					%for item in allProjects:
 					<tr>
 						<td><i class="icon_state ${item.state}" title="${PROJECT_STATE[item.state]}">&nbsp;</i></td>
-						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
+						<td class="aleft ${item.weight}"><a href="/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
 						<td>${WEIGHT[item.weight]}</td>
 						<td>${item.ctime}</td>
 						<td>${item.starttime}</td>
@@ -65,7 +65,7 @@
 								<span class="degree_number">${item.degree}%</span>
 							</div>
 						</td>
-						<td><a href="/system/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
+						<td><a href="/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
 						<td><a href="#">编辑</a></td>
 					</tr>
 					%endfor
@@ -110,10 +110,10 @@
 					%for item in allTasks:
 					<tr>
 						<td><i class="icon_state ${item.state}" title="${TASK_STATE[item.state]}">&nbsp;</i></td>
-						<td class="aleft ${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
-						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						<td class="aleft ${item.weight}"><a href="/v/task/${item.id}/">${item.name}</a></td>
+						<td><a href="/v/task/${item.id}/">#${item.id}</a></td>
 						%if item.pid:
-							<td class="aleft"><a href="/system/v/project/${item.pid}/">${sm.Project.objects.get(id = item.pid)}</a></td>
+							<td class="aleft"><a href="/v/project/${item.pid}/">${sm.Project.objects.get(id = item.pid)}</a></td>
 						%else:
 							<td class="aleft">---</td>
 						%endif
@@ -194,16 +194,16 @@
 		</div>
 		<div class="bc">
 			<div class="btnbox justify_box newitem">
-				<a class="btn gray_btn justify_item" href="/system/add/project/">
+				<a class="btn gray_btn justify_item" href="/add/project/">
 					<span>新项目</span>
 				</a>
-				<a  class="btn gray_btn justify_item"href="/system/add/task/">
+				<a  class="btn gray_btn justify_item"href="/add/task/">
 					<span>新任务</span>
 				</a>
-				<a class="btn gray_btn justify_item" href="/system/add/user/">
+				<a class="btn gray_btn justify_item" href="/add/user/">
 					<span>新成员</span>
 				</a>
-				<a class="btn gray_btn justify_item" href="/system/add/group/">
+				<a class="btn gray_btn justify_item" href="/add/group/">
 					<span>新用户组</span>
 				</a>
 			</div>

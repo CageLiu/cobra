@@ -40,11 +40,11 @@
 						<dt class="item_name">周期:</dt>
 						<dd class="item_cont">${obj.period} 天</dd>
 						<dt class="item_name">创建人:</dt>
-						<dd class="item_cont"><a href="/system/v/user/${author.id}/">${author}</a></dd>
+						<dd class="item_cont"><a href="/v/user/${author.id}/">${author}</a></dd>
 						<dt class="item_name">创建时间:</dt>
 						<dd class="item_cont">${obj.ctime}</dd>
 						<dt class="item_name">负责人:</dt>
-						<dd class="item_cont"><a href="/system/v/user/${manager.id}/">${manager}</a></dd>
+						<dd class="item_cont"><a href="/v/user/${manager.id}/">${manager}</a></dd>
 						<dt class="item_name">优先级:</dt>
 						<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
 						<dt class="item_name">进度:</dt>
@@ -108,8 +108,8 @@
 					%for item in related_tasks:
 					<tr>
 						<td><i class="icon_state ${item.state}" title="${TASK_STATE[item.state]}">&nbsp;</i></td>
-						<td class="aleft ${item.weight}"><a href="/system/v/task/${item.id}/">${item.name}</a></td>
-						<td><a href="/system/v/task/${item.id}/">#${item.id}</a></td>
+						<td class="aleft ${item.weight}"><a href="/v/task/${item.id}/">${item.name}</a></td>
+						<td><a href="/v/task/${item.id}/">#${item.id}</a></td>
 						<td>
 							<div class="degreebar">
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
@@ -149,13 +149,13 @@
 				<li class="user_item">
 					<div class="hor_box media">
 						<div class="hor_item pic">
-							<a href="/system/v/user/${useritem.id}/">
+							<a href="/v/user/${useritem.id}/">
 								<img src="/s/media/user_pic/${useritem.upic}" alt="${useritem.name_zh}" width="32" height="32">
 							</a>
 						</div>
 						<div class="hor_item txt">
 							<p class="item">
-								姓名:<a href="/system/v/user/${useritem.id}/">${useritem.name_zh}</a>
+								姓名:<a href="/v/user/${useritem.id}/">${useritem.name_zh}</a>
 							</p>
 							<p class="item">部门:${useritem.department}</p>
 						</div>
@@ -186,7 +186,7 @@
 		</div>
 		<div class="bc">
 			<div class="btnbox newitem" style="text-align:center">
-				<a class="btn gray_btn" href="/system/add/project/">
+				<a class="btn gray_btn" href="/add/project/">
 					<span>新项目</span>
 				</a>
 			</div>
@@ -196,7 +196,7 @@
 
 <%def name="crumbs()">
 	<em>&gt;</em>
-	<a href="/system/v/project">项目</a>
+	<a href="/v/project">项目</a>
 	<em>&gt;</em>
 	<span>${obj.name_zh}</span>
 </%def>

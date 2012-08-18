@@ -52,7 +52,7 @@
 					%for item in allProjects.order_by("-id"):
 					<tr>
 						<td><i class="icon_state ${item.state}" title="${PROJECT_STATE[item.state]}">&nbsp;</i></td>
-						<td class="aleft ${item.weight}"><a href="/system/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
+						<td class="aleft ${item.weight}"><a href="/v/project/${item.id}/">${item.name_zh} (${item.name_en})</a></td>
 						<td>${WEIGHT[item.weight]}</td>
 						<td>${item.ctime}</td>
 						<td>${item.starttime}</td>
@@ -63,7 +63,7 @@
 								<span class="degree_number">${item.degree}%</span>
 							</div>
 						</td>
-						<td><a href="/system/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
+						<td><a href="/v/user/${item.manager}/">${sm.User.objects.get(id = item.manager).name_zh}</a></td>
 						<td><a href="#">编辑</a></td>
 					</tr>
 					%endfor
@@ -104,7 +104,7 @@
 		</div>
 		<div class="bc">
 			<div class="btnbox newitem" style="text-align:center">
-				<a class="btn gray_btn" href="/system/add/project/">
+				<a class="btn gray_btn" href="/add/project/">
 					<span>新项目</span>
 				</a>
 			</div>

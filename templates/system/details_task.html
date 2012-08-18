@@ -32,12 +32,12 @@
 					<span class="stat_text">${TASK_STATE[obj.state]}</span>
 				</dd>
 				<dt class="item_name">创建人:</dt>
-				<dd class="item_cont"><a href="/system/v/user/${author.id}/">${author}</a></dd>
+				<dd class="item_cont"><a href="/v/user/${author.id}/">${author}</a></dd>
 				<dt class="item_name">创建时间:</dt>
 				<dd class="item_cont">${obj.ctime}</dd>
 				%if obj.manager:
 					<dt class="item_name">负责人:</dt>
-					<dd class="item_cont"><a href="/system/v/user/${manager.id}/">${manager}</a></dd>
+					<dd class="item_cont"><a href="/v/user/${manager.id}/">${manager}</a></dd>
 				%endif
 				<dt class="item_name">优先级:</dt>
 				<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
@@ -75,13 +75,13 @@
 				<li class="user_item">
 					<div class="hor_box media">
 						<div class="hor_item pic">
-							<a href="/system/v/user/${useritem}/">
+							<a href="/v/user/${useritem}/">
 								<img src="/s/media/user_pic/${useritem.upic}" alt="${useritem.name_zh}" width="32" height="32">
 							</a>
 						</div>
 						<div class="hor_item txt">
 							<p class="item">
-								姓名:<a href="/system/v/user/${useritem.id}/">${useritem.name_zh}</a>
+								姓名:<a href="/v/user/${useritem.id}/">${useritem.name_zh}</a>
 							</p>
 							<p class="item">部门:${useritem.department}</p>
 						</div>
@@ -117,8 +117,8 @@
 		</div>
 		<div class="bc">
 			<div class="btnbox newitem" style="text-align:center">
-				<a class="btn gray_btn" href="/system/add/project/">
-					<span>新项目</span>
+				<a class="btn gray_btn" href="/add/task/">
+					<span>新任务</span>
 				</a>
 			</div>
 		</div>
@@ -127,7 +127,7 @@
 
 <%def name="crumbs()">
 	<em>&gt;</em>
-	<a href="/system/v/task">任务</a>
+	<a href="/v/task">任务</a>
 	<em>&gt;</em>
 	<span>#500</span>
 </%def>

@@ -42,8 +42,8 @@
 		html += '</div><span id="J_system_control_lock" class="cobra_system_unlock">锁定面板:</span></dt>';
 		html += '<dt>搜索页面：<input type="text" id="system_cobra_search_page" class="system_cobra_panel_text" />';
 		html += '<span class="system_cobra_search_count">结果: <strong id="J_system_cobra_count_number"></strong> 条</span></dt>';
-		html += '<dt><strong>文件列表</strong> <a href="/system/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
-		html += '<a href="/system/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
+		html += '<dt><strong>文件列表</strong> <a href="/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
+		html += '<a href="/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
 		html += '<dd id="J_control_panel_files_list" class="loading">';
 		html += '</dd>';
 		html += '</dl><span id="J_system_control_arrow" class="arrow"></span>';
@@ -52,9 +52,9 @@
 		document.body.appendChild(oControlPanel);
 
 		if((/^_.*/).test(tpl)){
-			__$__.autoReloadPath = '/system/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
 		}else{
-			__$__.autoReloadPath = '/system/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
 		}
 		//alert(__$__.autoReloadPath);
 		__$__.autoReloadTimer = null;
@@ -97,9 +97,9 @@
 		});
 
 		__$__.addEvent(oRfileLink,"click",function(){
-			var re = new RegExp(host + "\/system\/p\/" + "${p}\/")
+			var re = new RegExp(host + "\/p\/" + "${p}\/")
 			var f = this.parentNode.getElementsByTagName("a")[0].href.replace(re,"");
-			var url = "/system/addrfile/?pid=${pobj.id}&f=";
+			var url = "/addrfile/?pid=${pobj.id}&f=";
 			f = f.substr(0,f.length -1);
 			url += f
 			__$__.ajax({
@@ -111,7 +111,7 @@
 		});
 		
 		__$__.ajax({
-			url : "/system/getree/?dir=/${p}",
+			url : "/getree/?dir=/${p}",
 			success : function(data){
 				oFileList.innerHTML = data;
 				setTimeout(function(){
@@ -198,14 +198,14 @@
 				this.className = "cobra_system_unlock";
 				__$__.cookie().del({
 					"name" : "cobra_cpanel_lock",
-					"path" : "/system/p"
+					"path" : "/p"
 				});
 			}else{
 				this.className = "cobra_system_lock";
 				__$__.cookie().set({
 					"name" : "cobra_cpanel_lock",
 					"value" : 1,
-					"path" : "/system/p"
+					"path" : "/p"
 				});
 			}
 		});

@@ -119,14 +119,14 @@
 			<div class="crumbs">
 				目录:
 				%for i in dirlist:
-				<a class="dir_item" href="/system/p/${i}">${os.path.split(i[:-1])[1]}</a>
+				<a class="dir_item" href="/p/${i}">${os.path.split(i[:-1])[1]}</a>
 				%if i != dirlist[len(dirlist) - 1]:
 					&gt;
 				%endif
 				%endfor
 				<span class="back_btn">
-					<a href="/system/v/project/${pobj.id}/">${pobj.name_zh}</a>
-					<a href="/system/v/project/">项目列表</a>
+					<a href="/v/project/${pobj.id}/">${pobj.name_zh}</a>
+					<a href="/v/project/">项目列表</a>
 				</span>
 			</div>
 			${dirHtml}
