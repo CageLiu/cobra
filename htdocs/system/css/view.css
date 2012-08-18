@@ -61,6 +61,8 @@ a,input,button,textarea{
 }
 .system_control_panel{
 	position:relative;
+	_width:260px;
+	overflow:hidden;
 }
 #J_system_control_panel{
 	font-size:12px;
