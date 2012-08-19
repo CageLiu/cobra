@@ -196,6 +196,7 @@ body{
 	display:block;
 	cursor:pointer;
 	position:fixed;
+	overflow:hidden;
 	text-indent:-99em;
 	border-radius:3px 3px 0 0;
 	background:url(../img/icon.png) 0 0 no-repeat;
