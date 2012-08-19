@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'cobra.apps.system',
     'cobra.apps.tools',
+    'cobra.apps.wiki',
     #'django.contrib.auth',
     #'django.contrib.contenttypes',
     #'django.contrib.sites',
