@@ -342,6 +342,7 @@ body{
 	border-bottom:2px solid #E2E2E9;
 	margin:0 3px 12px;
 	border-radius:3px;
+	position:relative;
 	filter: progid:DXImageTransform.Microsoft.Shadow(color='#CCCCCC', Direction=135, Strength=3);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 	zoom:1;
@@ -362,6 +363,13 @@ body{
 }
 .box .bc{
 	margin:8px;
+}
+.box .extra{
+	position:absolute;
+	right:12px;
+	top:0;
+	height:30px;
+	line-height:30px;
 }
 /* form */
 .form .txt,
@@ -798,4 +806,26 @@ tr:hover .a_new{
 .details_item .fileitem:hover .J_break_auto_file{
 	top:0;
 	right:0;
+}
+
+/* editlink */
+.editlink{
+	background:url(../img/icon.png) no-repeat 0 -615px;
+	padding-left:14px;
+	vertical-align:middle;
+}
+.editlink:hover{
+	background-position:0 -649px;
+}
+
+#J_otheritem{
+	vertical-align:middle;
+	height: 21px;
+	border: 1px solid #CCC;
+	background: white;
+	line-height: 30px;
+	margin-top: 6px;
+	vertical-align: middle;
+	position:relative;
+	top:-3px;
 }

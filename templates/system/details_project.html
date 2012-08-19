@@ -75,6 +75,26 @@
 				</div>
 			</div>
 		</div>
+		<div class="extra product">
+			<a href="/edit/project/${obj.id}/" class="editlink">编辑</a>
+			<select id="J_otheritem">
+				<option value="${obj.id}">${obj.name_zh}</option>
+			%for item in allProjects:
+				%if item.id != obj.id:
+				<option value="${item.id}">${item.name_zh}</option>
+				%endif
+			%endfor
+			</select>
+
+			<script type="text/javascript">
+				(function(){
+					var oSelect = document.getElementById("J_otheritem");
+					$.addEvent(oSelect,"change",function(){
+						window.location.href = "/v/project/" + this.value + "/";
+					});
+				}());
+			</script>
+		</div>
 	</div>
 	<div class="box">
 		<div class="bt">
