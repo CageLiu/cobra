@@ -14,9 +14,7 @@
 	<body>
 		<%
 			from cobra.apps.system import models as sm
-			from cobra.apps.tools import models as tm
-
-			allTools = tm.Tools.objects.all()
+			from cobra.apps.wiki import models as tm
 
 			uid = request.session.get("uid",None)
 			try:
@@ -31,30 +29,11 @@
 				<li><a href="/v/task/">任务</a></li>
 				<li><a href="/v/user/">成员</a></li>
 				%if cuser:
-				<li><a href="/v/user/${uid}/">工作台</a> </li> 
+				<li><a href="/v/user/${uid}/">工作台</a></li>
 				%endif
-				<li><a href="/tools/" class="current">工具</a></li>
-				<li><a href="/wiki/">Wiki</a></li>
+				<li><a href="/tools/">工具</a></li>
+				<li><a href="/wiki/" class="current">Wiki</a></li>
 			</ul>
 		</div>
-		<div class="hor_box wp">
-			<div class="hor_item main">
-				<div class="main_inner">
-					${self.main()}
-				</div>
-			</div>
-			<div class="hor_item side">
-				<ul class="tlist">
-					%for item in allTools:
-					<li><a 
-						%if t and item.id == t.id:
-							class="current"
-						%endif
-						href="/tools/${item.id}/">${item.name_zh}</a></li>
-					%endfor
-				</ul>
-			</div>
-		</div>	
-		<span id="J_gotop">返回顶部</span>
 	</body>
 </html>

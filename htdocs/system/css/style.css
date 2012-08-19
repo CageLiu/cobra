@@ -239,10 +239,9 @@ body{
 	padding:0 2px;
 }
 .hd .nav a{
-	font-size:14px;
 	color:#fff;
 	display:inline-block;
-	margin-top:8px;
+	margin-top:10px;
 	padding-left:8px;
 	padding-right:8px;
 }

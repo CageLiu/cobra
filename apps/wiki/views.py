@@ -13,4 +13,4 @@ from cobra.apps.wiki import models as wm
 
 #视图开始
 def index(request):
-    return HttpResponse("wiki index")
+    return render_to_response("wiki/index.html",locals())

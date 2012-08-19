@@ -1,0 +1,44 @@
+##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	tools
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+sda
+</%def>
+
+
+
+<!--
+var aInput = document.getElementsByTagName("input");
+var compress = document.getElementById("compress");
+var val = "?";
+
+document.onclick = function(e){
+	var target;
+	e = e || window.event;
+	target = e.target || e.srcElement;
+
+	if(target.nodeName.toLowerCase() === "input"){
+
+		if(target.checked){
+			val += target.getAttribute("name") + "=" + target.value + "&";
+		}
+	}
+
+	if(target.nodeName.toLowerCase() === "button" && target.getAttribute("id") === "compress"){
+		var a = cobra.ajax({
+			url : "/tools/compress/" + val,
+			success : function(data){
+				alert(data);
+			}	
+		});
+	}
+}
+-->
