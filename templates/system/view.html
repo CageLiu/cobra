@@ -271,7 +271,7 @@
 		__$__.addEvent(oSearch,"keydown",function(e){
 			var e = __$__.getEvent(e);
 			var len = __$__.RESULT.length;
-			if(e.keyCode === 13){
+			if(!e.altKey && e.keyCode === 13){
 				if(len){
 					for(var i = 0; i < len; i++){
 						__$__.RESULT[i].className = __$__.RESULT[i].className.replace(/system_cobra_search_current/g, "");
@@ -286,6 +286,9 @@
 					oFileList.scrollLeft = position.left - clientWidth + 236;
 					__$__.RESULT[__$__.SEARCH_CURRENT].className += " system_cobra_search_current";
 				}
+			}
+			if(e.altKey && e.keyCode === 13){
+				window.location.href = __$__.RESULT[__$__.SEARCH_CURRENT].href;
 			}
 		});
 
