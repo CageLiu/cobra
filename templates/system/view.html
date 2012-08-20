@@ -21,6 +21,7 @@
 		var oControlPanel = document.createElement("div");
 		var oControlPanelStyle = document.createElement("link");
 		var clientHeight = document.documentElement.clientHeight;
+		var clientWidth = document.documentElement.clientWidth;
 		var cssText = "";
 		var oFileList = null;
 		var oReloadBtn = null;
@@ -131,7 +132,9 @@
 						}
 						var hrefReg = new RegExp(sLinkHref);
 						if(hrefReg.test(currentLocation)){
-							oFileList.scrollTop = (__$__.position(oLink).top - clientHeight / 2 + 13);
+							var position = __$__.position(oLink);
+							oFileList.scrollTop = (position.top - clientHeight / 2 + 13);
+							oFileList.scrollLeft = position.left - clientWidth + 236;
 							oLink.className = "system_cobra_current";
 							document.title = oLink.innerHTML;
 						}
@@ -248,7 +251,12 @@
 					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"").replace(/system_cobra_search_current/g,"");
 				}
 			}
-			first && (oFileList.scrollTop = __$__.position(first).top - oFileList.clientHeight / 2 + 13,first.className += " system_cobra_search_current");
+			if(first){
+				var position = __$__.position(first);
+				oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13;
+				oFileList.scrollLeft = position.left - clientWidth + 236;
+				first.className += " system_cobra_search_current";
+			}
 			oCount.innerHTML = count;
 		}
 		__$__.addEvent(oSearch,"keyup",function(e){
@@ -273,8 +281,9 @@
 					}else{
 						__$__.SEARCH_CURRENT++;
 					}
-					oFileList.scrollTop = __$__.position(__$__.RESULT[__$__.SEARCH_CURRENT]).top - oFileList.clientHeight / 2 + 13
-					//alert(__$__.RESULT[__$__.SEARCH_CURRENT].href);
+					var position = __$__.position(__$__.RESULT[__$__.SEARCH_CURRENT]);
+					oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13
+					oFileList.scrollLeft = position.left - clientWidth + 236;
 					__$__.RESULT[__$__.SEARCH_CURRENT].className += " system_cobra_search_current";
 				}
 			}

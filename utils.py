@@ -76,6 +76,7 @@ def getChineseName(filename):
             if line.startswith('''##title:'''):
                 name = unicode(line,"utf-8")[8:] + u" : "
                 break
+        f.close()
     return name
     
 
@@ -90,24 +91,25 @@ def dirTree(path, url = "/", pattern = ""):
     r = re.compile(pattern)
     def tree(path):
         rpath = re.sub(SITE_ROOT + "www/","",path)
-        if(os.path.isdir(path)):
-            container.append(r'''<li class="cobra_system_dir  clearfix"><span class="cobra_system_dir_name"><a href="''' + url + rpath + r'''/">''' + \
-            unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
-            r'''</a><i class="cobra_system_flag">&nbsp;</i><i class="cobra_system_type">&nbsp;</i></span></strong><ul class="cobra_system_sub_dir">''')
-            for item in os.listdir(path):
-                tree(path+'/'+item)
-            container.append(r"</ul></li>")
-        else:
-            title = getChineseName(path)
-            if pattern:
-               not r.search(os.path.basename(path)) and container.append(r'''<li class="cobra_system_file clearfix">''' + \
-               r'''<span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
-               title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
-               r'''</a><i class="cobra_system_type"></i></span></li>''')
+        if not r.search(os.path.basename(path)):
+            if os.path.isdir(path):
+                container.append(r'''<li class="cobra_system_dir  clearfix"><span class="cobra_system_dir_name"><a href="''' + url + rpath + r'''/">''' + \
+                unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+                r'''</a><i class="cobra_system_flag">&nbsp;</i><i class="cobra_system_type">&nbsp;</i></span></strong><ul class="cobra_system_sub_dir">''')
+                for item in os.listdir(path):
+                    tree(path+'/'+item)
+                container.append(r"</ul></li>")
             else:
-               container.append(r'''<li class="cobra_system_file clearfix"><span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
-               title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
-               r'''</a><i class="cobra_system_type"></i></span></li>''')
+                title = getChineseName(path)
+                if pattern:
+                   not r.search(os.path.basename(path)) and container.append(r'''<li class="cobra_system_file clearfix">''' + \
+                   r'''<span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
+                   title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+                   r'''</a><i class="cobra_system_type"></i></span></li>''')
+                else:
+                   container.append(r'''<li class="cobra_system_file clearfix"><span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
+                   title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
+                   r'''</a><i class="cobra_system_type"></i></span></li>''')
     tree(path)
     container = r'''<ul id="J_system_dir_root">''' + "".join(container) + r'''</ul>'''
     return container

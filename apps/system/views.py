@@ -166,7 +166,7 @@ def getree(request):
 
     dirs = request.GET.get("dir",None)
     tpl_path = sc.P_PROJECT_PATH + dirs
-    pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
+    pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
     dirHtml = dirTree(tpl_path, "/p/", pattern)
     return HttpResponse(dirHtml)
 
@@ -182,7 +182,7 @@ def p(request,p = "", tpl = ""):
         static_path = sc.P_STATIC_PATH + "/" + p
         tpl_path = sc.P_PROJECT_PATH + "/" + p
 
-        pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
+        pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
         dirHtml = dirTree(tpl_path, "/p/", pattern)
         dirHtml = re.sub("\n","",dirHtml)
 
@@ -263,7 +263,7 @@ def v(request,t = "", tid = ""):
         if t == "project":
             related_tasks = sm.Task.objects.filter(pid = tid).order_by("-id")
             related_users = sm.User_Project.objects.filter(pid = tid).order_by("-id")
-            pattern = ".*\.pyc$|^\..|\.py$|_import.html|.*footer.*"
+            pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/p/", pattern)
         elif t == "task":
