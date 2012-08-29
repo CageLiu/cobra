@@ -83,9 +83,6 @@ def index(request):
     except sm.User.DoesNotExist:
         cuser = None
 
-    img = request.IMG
-    dirs = request.GET.get("dir",None)
-
     return render_to_response("system/index.html",locals())
 
 
@@ -173,7 +170,7 @@ def getree(request):
 def p(request,p = "", tpl = ""):
     '''view page'''
 
-    img = request.IMG
+    src = request.SRC
     static = request.STATIC
 
     pfix = p

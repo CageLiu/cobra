@@ -40,30 +40,31 @@ class RandomImg(object):
     """为 request 对象添加一个 IMG 方法,用来返回一张随机的图片"""
 
     #属性映射列表
-    attr_hash = {
-        "a" : "alt",
-        "c" : "class",
-        "h" : "height",
-        "i" : "id",
-        "s" : "style",
-        "t" : "title",
-        "w" : "width"
-    }
+    #attr_hash = {
+        #"a" : "alt",
+        #"c" : "class",
+        #"h" : "height",
+        #"i" : "id",
+        #"s" : "style",
+        #"t" : "title",
+        #"w" : "width"
+    #}
     
     def process_view(self,request,view,args,kwargs):
         ''''''
         imglist = walkDir([STATIC_PATH + TEMP_IMG_PATH])["files"]
         #print filelist
-        def img(**kwargs):
+        def _img_(**kwargs):
             """创建 img 元素,kwargs 是 img 的属性列表,可以是字母、下划线或数字,不可含-"""
 
             ra = Random()
             index = ra.randint(0,len(imglist) - 1)
-            attr = " ".join(["%s=%s" % (self.__class__.attr_hash.get(k,None) or k,v) for k,v in kwargs.items()])
+            #attr = " ".join(["%s=%s" % (self.__class__.attr_hash.get(k,None) or k,v) for k,v in kwargs.items()])
             src = "/" + STATIC_URL_STRING + TEMP_IMG_PATH + imglist[index]
-            tag = r"<img src=" + src + " " + attr + r" />"
-            return tag
-        request.IMG = img
+            #tag = r"<img src=" + src + " " + attr + r" />"
+            #return tag
+            return src
+        request.SRC = _img_
         request.INTERVAL = INTERVAL
         request.STATIC = "/" + STATIC_URL_STRING + "/static"
 
