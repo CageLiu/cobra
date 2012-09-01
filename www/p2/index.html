@@ -2,18 +2,10 @@
 ##title:首页
 <%include file="header.html" />
 
-<div class="wp" style='background:red'>
-	p2 test project page
-</div>
-
-%for i in range(10):
+%for i in range(22):
 <%
 	a = src()
 %>
-<p>
-	<img src="${a}" alt="" class="thums" width="100" height="30" />
-	<br/>
-	<a href="http://ldev:8000${a}" style="color:#f30">${a}</a>
-</p>
+<img src="${a}" alt="" class="thums" width="24%"/>
 %endfor
 <%include file="footer.html" />

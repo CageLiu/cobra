@@ -101,8 +101,8 @@
 			var roll = function(){
 				var delta = 0;
 				e = arguments[0] || window.event;
-				delta = (e.wheelDelta) ? e.wheelDelta / 120 : -(e.detail || 0) / 3;
-				fn(delta);
+				e.delta = (e.wheelDelta) ? e.wheelDelta / 120 : -(e.detail || 0) / 3;
+				fn(e);
 			};			 
 			this.addEvent(ele,"mousewheel",roll);
 			this.addEvent(ele,"DOMMouseScroll",roll);
