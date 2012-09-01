@@ -1,8 +1,4 @@
 @import "dirs.css";
-html{
-	overflow-x:hidden;
-	overflow-y:scroll;
-}
 body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
 }
