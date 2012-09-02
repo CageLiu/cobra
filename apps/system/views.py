@@ -191,7 +191,6 @@ def p(request,p = "", tpl = ""):
     if not p and not tpl:
         return HttpResponseRedirect("/v/project/")
     elif p and not tpl:
-        #应该返回具体项目的目录树
         if pobj:
             dirHtml = dirTree(tpl_path, "/p/", pattern)
             return render_to_response("system/dir.html",locals())
