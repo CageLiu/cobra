@@ -1,7 +1,9 @@
 <%include file="/www/${p}/_import.html" />
+<%
+	import time
+%>
 %for f in files:
 	<%
-		import time
 		v = "?v=" + str(time.time())
 	%>
 	%if less_reg.search(f):
