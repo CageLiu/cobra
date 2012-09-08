@@ -214,8 +214,6 @@ a,input,button,textarea{
 	top:0;
 	left:0;
 	z-index:99990;
-	filter:alpha(opacity=70);
-	opacity:0.7;
 	_position:absolute;
 }
 .system_cobra_rulers_h{
@@ -243,9 +241,19 @@ a,input,button,textarea{
 	background-position:0 0;
 	background-color:#2AD4FF;
 }
+.system_cobra_guides_line span{
+	background-color:#3b5998;
+	color:#fff;
+	position:absolute;
+	font-size:10px;
+	font-family:arial;
+	height:15px;
+	line-height:16px;
+	padding:0 1px;
+}
 .system_cobra_guides_line_h{
 	width:100%;
-	left:16px;
+	left:0;
 	height:1px;
 	padding:1px 0;
 	cursor:row-resize;
@@ -254,14 +262,24 @@ a,input,button,textarea{
 	height:1px;
 	background-repeat:repeat-x;
 }
+.system_cobra_guides_line_h span{
+	left:18px;
+	border-radius:0 0 3px 3px;
+}
 .system_cobra_guides_line_v{
 	width:1px;
-	top:16px;
+	top:0;
 	padding:0 1px;
+	cursor:col-resize;
 }
 .system_cobra_guides_line_v div{
 	background-repeat:repeat-y;
 	height:100%;
+	width:1px;
+}
+.system_cobra_guides_line_v span{
+	top:18px;
+	border-radius:0 3px 3px 0;
 }
 
 /* ruler end */

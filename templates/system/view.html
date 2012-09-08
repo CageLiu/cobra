@@ -337,8 +337,10 @@
 				}
 				if(__$__.RULERSTATE === "none"){
 					__$__.RULERSTATE = "block";
+					document.body.style.padding = "16px 0 0 16px";
 				}else if(__$__.RULERSTATE === "block"){
 					__$__.RULERSTATE = "none";
+					document.body.style.padding = "0 0 0 0";
 				}
 				__$__.RULERBOX.style.display = __$__.RULERSTATE;
 				__$__.GUIDESBOX.style.display = __$__.RULERSTATE;
@@ -351,6 +353,7 @@
 			var disX = disY = 0;
 			var target = null;
 			var oLine = null;
+			var oCoordinate = null;
 
 			function handler(e){
 				var e = __$__.getEvent(e);
@@ -366,6 +369,8 @@
 							target = e.target;
 							oLine = document.createElement("div");
 							oLine.className = "system_cobra_guides_line";
+							oCoordinate = document.createElement("span");
+							oLine.appendChild(oCoordinate);
 							oLine.appendChild(document.createElement("div"));
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
 								oLine.className += " system_cobra_guides_line_h";
@@ -373,7 +378,7 @@
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
 								oLine.className += " system_cobra_guides_line_v";
 								oLine.style.left = 0;
-								oLine.style.height = document.body.clientHeight + "px";
+								oLine.style.height = (document.body.clientHeight > document.documentElement.clientHeight ? document.body.clientHeight : document.documentElement.clientHeight) + "px";
 							}
 							__$__.GUIDESBOX.appendChild(oLine);
 							guides.fire({
@@ -384,21 +389,26 @@
 						}
 						break;
 					case "mousemove":
+						__$__.preventDefault(e);
 						if(target !== null){
 							var sct = document.documentElement.scrollTop || document.body.scrollTop;
 							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
 								oLine.style.top = e.clientY + sct - 1 + "px";
+								oCoordinate.innerHTML = (e.clientY + sct -15) > 0 ? e.clientY + sct - 15 : "";
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
 								oLine.style.left = e.clientX + scl - 1 + "px";
+								oCoordinate.innerHTML = (e.clientX + scl -15) > 0 ? e.clientX + scl - 15 : "";
 							}
 						}
 						break;
 					case "mouseup":
-						if(e.clientX <= 16 || e.clientY <= 16){
+						if(e.clientX < 15 || e.clientY < 15){
 							__$__.GUIDESBOX.removeChild(oLine);
 						}
+						oLine = null;
 						target = null;
+						oCoordinate = null;
 						break;
 				}
 			}
