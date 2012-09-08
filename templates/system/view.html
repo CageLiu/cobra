@@ -303,6 +303,8 @@
 		__$__.RULEREXIST = false;
 		__$__.RULERBOX = null;
 		__$__.GUIDESBOX = null;
+		__$__.GUIDESH = null;
+		__$__.GUIDESV = null;
 
 		__$__.addEvent(document,"keyup",function(e){
 			var e = __$__.getEvent(e);
@@ -327,9 +329,14 @@
 					oRulerBox.id = "J_system_cobra_ruler_box";
 					oGuidesBox.id = "J_system_cobra_guides_box";
 
+					__$__.GUIDESH = document.createElement("span");
+					__$__.GUIDESV = document.createElement("span");
+
 					oRulerV.appendChild(oPoint);
 					oRulerBox.appendChild(oRulerH);
 					oRulerBox.appendChild(oRulerV);
+					oRulerH.appendChild(__$__.GUIDESH);
+					oRulerV.appendChild(__$__.GUIDESV);
 					document.body.appendChild(oRulerBox);
 					document.body.appendChild(oGuidesBox);
 					__$__.RULEREXIST = true;
@@ -360,13 +367,13 @@
 
 				switch(e.type){
 					case "mousedown":
-						if(e.target.className.indexOf("system_cobra_rulers") !== -1){
+						if(e.target.parentNode.className !== undefined && e.target.className !== undefined && e.target.parentNode.className.indexOf("system_cobra_rulers") !== -1 || e.target.className.indexOf("system_cobra_rulers") !== -1){
 							__$__.preventDefault(e);
 							var sct = document.documentElement.scrollTop || document.body.scrollTop;
 							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
 							disX = e.clientX + scl;
 							disY = e.clientY + sct;
-							target = e.target;
+							target = e.target.className ? e.target : e.target.parentNode;
 							oLine = document.createElement("div");
 							oLine.className = "system_cobra_guides_line";
 							oCoordinate = document.createElement("span");
@@ -389,16 +396,24 @@
 						}
 						break;
 					case "mousemove":
+						var sct = document.documentElement.scrollTop || document.body.scrollTop;
+						var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+						var aNumH = e.clientX + scl - 15 > 0 ? e.clientX + scl - 15 : 0;
+						var aNumV = e.clientY + sct - 15 > 0 ? e.clientY + sct - 15 : 0;
+						if(__$__.GUIDESH !== null){
+							__$__.GUIDESH.innerHTML = aNumH;
+							__$__.GUIDESV.innerHTML = aNumV;
+							__$__.GUIDESV.style.top = e.clientY + "px";
+							__$__.GUIDESH.style.left = e.clientX + "px";
+						}
 						__$__.preventDefault(e);
 						if(target !== null){
-							var sct = document.documentElement.scrollTop || document.body.scrollTop;
-							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
 								oLine.style.top = e.clientY + sct - 1 + "px";
-								oCoordinate.innerHTML = (e.clientY + sct -15) > 0 ? e.clientY + sct - 15 : "";
+								oCoordinate.innerHTML = aNumV ? aNumV : "";
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
 								oLine.style.left = e.clientX + scl - 1 + "px";
-								oCoordinate.innerHTML = (e.clientX + scl -15) > 0 ? e.clientX + scl - 15 : "";
+								oCoordinate.innerHTML = aNumH ? aNumH : "";
 							}
 						}
 						break;

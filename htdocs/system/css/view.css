@@ -214,6 +214,7 @@ a,input,button,textarea{
 	top:0;
 	left:0;
 	z-index:99990;
+	cursor:default;
 	_position:absolute;
 }
 .system_cobra_rulers_h{
@@ -282,4 +283,25 @@ a,input,button,textarea{
 	border-radius:0 3px 3px 0;
 }
 
+.system_cobra_rulers span{
+	font-size:10px;
+	font-family:arial;
+	color:#f30;
+	position:absolute;
+	cursor:default;
+}
+.system_cobra_rulers_v span{
+	width:8px;
+	padding:0 7px 0 1px;
+	word-break: break-all;
+	line-height: 12px;
+	border-top:1px dotted #000;
+	padding-top:2px;
+}
+.system_cobra_rulers_h span{
+	border-left:1px dotted #000;
+	padding-left:2px;
+	height:16px;
+	line-height:12px;
+}
 /* ruler end */
