@@ -67,8 +67,8 @@ def inotify(request):
     else:
         request.session["currentpage"] = files[0]
 
-    files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f)])
-    files.extend(walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"])
+    files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f) and not os.path.basename(f).startswith(".")])
+    files.extend([f for f in walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"] if not os.path.basename(f).startswith(".")])
 
 
     for f in files:

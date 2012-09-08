@@ -295,5 +295,141 @@
 		//自动刷新开始
 		__$__.__INOTIFY__();
 
+
+		//*******************************************************************
+
+		//标尺状态
+		__$__.RULERSTATE = "none";
+		__$__.RULEREXIST = false;
+		__$__.RULERBOX = null;
+		__$__.GUIDESBOX = null;
+
+		__$__.addEvent(document,"keyup",function(e){
+			var e = __$__.getEvent(e);
+			__$__.preventDefault(e);
+			if(e.ctrlKey && e.keyCode === 67){
+				if(!__$__.RULEREXIST){
+					//创建标尺
+					__$__.RULEREXIST = true;
+					var oRulerBox = __$__.RULERBOX = document.createElement("div");
+					var oGuidesBox = __$__.GUIDESBOX = document.createElement("div");
+					var oRulerH = document.createElement("div");
+					var oRulerV = document.createElement("div");
+					var oPoint = document.createElement("div");
+
+					oRulerH.className = oRulerV.className = "system_cobra_rulers";
+					oRulerH.className += " system_cobra_rulers_h";
+					oRulerV.className += " system_cobra_rulers_v";
+					oPoint.className = "system_cobra_rulers_point";
+
+					oRulerV.style.height = document.documentElement.clientHeight + "px";
+
+					oRulerBox.id = "J_system_cobra_ruler_box";
+					oGuidesBox.id = "J_system_cobra_guides_box";
+
+					oRulerV.appendChild(oPoint);
+					oRulerBox.appendChild(oRulerH);
+					oRulerBox.appendChild(oRulerV);
+					document.body.appendChild(oRulerBox);
+					document.body.appendChild(oGuidesBox);
+					__$__.RULEREXIST = true;
+					__$__.RULERSTATE = "none";
+				}
+				if(__$__.RULERSTATE === "none"){
+					__$__.RULERSTATE = "block";
+				}else if(__$__.RULERSTATE === "block"){
+					__$__.RULERSTATE = "none";
+				}
+				__$__.RULERBOX.style.display = __$__.RULERSTATE;
+				__$__.GUIDESBOX.style.display = __$__.RULERSTATE;
+			}
+		});
+
+
+		var oGuides = function(){
+			var guides = __$__.event();
+			var disX = disY = 0;
+			var target = null;
+			var oLine = null;
+
+			function handler(e){
+				var e = __$__.getEvent(e);
+
+				switch(e.type){
+					case "mousedown":
+						if(e.target.className.indexOf("system_cobra_rulers") !== -1){
+							__$__.preventDefault(e);
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							disX = e.clientX + scl;
+							disY = e.clientY + sct;
+							target = e.target;
+							oLine = document.createElement("div");
+							oLine.className = "system_cobra_guides_line";
+							oLine.appendChild(document.createElement("div"));
+							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
+								oLine.className += " system_cobra_guides_line_h";
+								oLine.style.top = e.clientY + sct - 1 + "px";
+							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
+								oLine.className += " system_cobra_guides_line_v";
+								oLine.style.top = e.clientY + scl - 1 + "px";
+							}
+							__$__.GUIDESBOX.appendChild(oLine);
+							guides.fire({
+								type : "start",
+								x:disX,
+								y:disY
+							});
+						}
+						break;
+					case "mousemove":
+						if(target !== null){
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
+								oLine.style.top = e.clientY + sct - 1 + "px";
+							}else{
+								
+							}
+						}
+						break;
+					case "mouseup":
+						if(e.clientX <= 16 || e.clientY <= 16){
+							__$__.GUIDESBOX.removeChild(oLine);
+						}
+						target = null;
+						break;
+				}
+			}
+
+			__$__.addEvent(document,"mousedown",handler);
+			__$__.addEvent(document,"mousemove",handler);
+			__$__.addEvent(document,"mouseup",handler);
+			
+			return guides;
+		};
+
+		var guides1 = oGuides();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	});
 </script>

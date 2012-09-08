@@ -170,10 +170,14 @@ def getree(request):
 def p(request,p = "", tpl = ""):
     '''view page'''
 
+    import time
+
     src = request.SRC
     static = request.STATIC
 
     pfix = p
+
+    stamp = time.time()
 
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p

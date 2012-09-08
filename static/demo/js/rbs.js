@@ -60,7 +60,7 @@
 			};
 
 			this.event.init.prototype = {
-				constructor : __$__.event.init,
+				constructor : $$.event.init,
 
 				addHandler : function(type,fn){
 					var handlers = this.handlers;
@@ -155,7 +155,7 @@
 			var offsetParent = ele.offsetParent;
 			var left = ele.offsetLeft;
 			var top = ele.offsetTop;
-			while(offsetParent && __$__.css(offsetParent,"position") === "static"){
+			while(offsetParent && $$.css(offsetParent,"position") === "static"){
 				offsetParent = offsetParent.offsetParent;
 				left += offsetParent.offsetLeft;
 				top += offsetParent.offsetTop;
@@ -291,5 +291,184 @@
 		}
 	};
 
-	window.__$__ = cobra;
+	window.$$ = cobra;
 }(window));
+
+
+$$.ready(function(){
+	//图片加载完成
+	var oBigImg = document.getElementById("J_big_img");
+	var oJcrop = document.getElementById("J_jcrop");
+	var oDialog = document.getElementById("J_dialog");
+	var oWp = document.getElementById("J_wp");
+	var oImg = new Image();
+	var aSct = 0;
+	$$.addEvent(oImg,"load",function(){
+		this.style.cssText = "width:" + this.width + "px;" + "height:" + this.height + "px;" + "border:1px solid #ccc;";
+		$$.WIDTH = this.width;
+		$$.HEIGHT = this.height;
+	});
+	oImg.src = oBigImg.src;
+
+	var Jcrop = function(ele){
+		var jcrop = $$.event();
+		var disX = disY = 0;
+		var target = null;
+		var ele = ele;
+
+		function hanlder(e){
+			var e = $$.getEvent(e);
+			var sct = 0;
+			switch(e.type){
+				case "mousedown":
+					if(e.target === ele){
+						target = e.target;
+						sct = document.documentElement.scrollTop || document.body.scrollTop;
+						disX = e.clientX;
+						disY = e.clientY + sct;
+						$$.stopPropagation(e);
+						$$.preventDefault(e);
+						jcrop.fire({
+							type : "start",
+							x : e.clientX,
+							y : e.clientY + sct
+						});
+					}
+					break;
+				case "mousemove":
+					if(target !== null){
+						sct = document.documentElement.scrollTop || document.body.scrollTop;
+						var x = e.clientX;
+						var y = e.clientY + sct;
+						if(x > disX){
+							oJcrop.style.left = disX + "px";
+							oJcrop.style.right = "auto";
+						}else{
+							oJcrop.style.right = document.documentElement.clientWidth - disX + "px";
+							oJcrop.style.left = "auto";
+						}
+						if(y > disY){
+							oJcrop.style.top = disY + "px";
+							oJcrop.style.bottom = "auto";
+						}else{
+							oJcrop.style.bottom = $$.HEIGHT - disY + "px";
+							oJcrop.style.top = "auto";
+						}
+						oJcrop.style.width = Math.abs(x - disX) + "px";
+						oJcrop.style.height = Math.abs(y - disY) + "px";
+						$$.stopPropagation(e);
+						$$.preventDefault(e);
+					}
+					break;
+				case "mouseup":
+					if(target !== null){
+						aSct = document.documentElement.scrollTop || document.body.scrollTop;
+						jcrop.fire({
+							type : "end",
+							x : e.clientX,
+							y : e.clientY + sct,
+							s : aSct
+						});
+					}
+					target = null;
+					break;
+			}
+		}
+
+		$$.addEvent(document,"mousedown",hanlder);
+		$$.addEvent(document,"mousemove",hanlder);
+		$$.addEvent(document,"mouseup",hanlder);
+
+		return jcrop;
+	};
+
+
+	var Drag = function(ele){
+		var drag = $$.event();
+		var disX = disY = 0;
+		var target = null;
+		var ele = ele;
+
+		function hanlder(e){
+			var e = $$.getEvent(e);
+			var sct = 0;
+			switch(e.type){
+				case "mousedown":
+					if(e.target === ele){
+						target = e.target;
+						disX = e.clientX - target.offsetLeft;
+						disY = e.clientY - target.offsetTop;
+						drag.fire({
+							type : "start",
+							x : e.clientX,
+							y : e.clientY
+						});
+					}
+					$$.stopPropagation(e);
+					$$.preventDefault(e);
+					break;
+
+				case "mousemove":
+					if(target !== null){
+						var x = e.clientX;
+						var y = e.clientY;
+						target.style.left = x - disX + "px";
+						target.style.top = y - disY + "px";
+						target.style.right = "auto";
+						target.style.bottom = "auto";
+						drag.fire({
+							type : "doing",
+							x : e.clientX,
+							y : e.clientY + sct
+						});
+					}
+					$$.stopPropagation(e);
+					$$.preventDefault(e);
+					break;
+
+				case "mouseup":
+					if(target !== null){
+						drag.fire({
+							type : "end",
+							x : e.clientX,
+							y : e.clientY
+						});
+					}
+					target = null;
+					break;
+			}
+		}
+
+		$$.addEvent(document,"mousedown",hanlder);
+		$$.addEvent(document,"mousemove",hanlder);
+		$$.addEvent(document,"mouseup",hanlder);
+
+		return drag;
+	};
+
+	var jc1 = Jcrop(oBigImg);
+	jc1.addHandler("start",function(e){
+		var cssText = "display:block;left" + e.x + "px;top" + e.y + "px";
+		oJcrop.style.cssText = cssText;
+	});
+	jc1.addHandler("end",function(e){
+		if(oJcrop.clientWidth > 10 && oJcrop.clientHeight > 10){
+			oWp.style.top = -e.s + "px";
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+			document.documentElement.className = "hide_scroll";
+			oDialog.style.display = "block";
+		}
+	});
+
+	var dr1 = Drag(oJcrop);
+
+	var oReset = document.getElementById("J_reset");
+	$$.addEvent(oReset,"click",function(){
+		oDialog.style.display = "none";
+		oWp.style.top = 0;
+		document.documentElement.className = "";
+		document.documentElement.scrollTop = aSct;
+		!document.documentElement.scrollTop && (document.body.scrollTop = aSct);
+	});
+});

@@ -1,17 +1,11 @@
 <%include file="/www/${p}/_import.html" />
-<%
-	import time
-%>
 %for f in files:
-	<%
-		v = "?v=" + str(time.time())
-	%>
 	%if less_reg.search(f):
-		<link type="text/css" rel="stylesheet/less" href="${static}/${p}/${f}${v}" />
+		<link type="text/css" rel="stylesheet/less" href="${static}/${p}/${f}${stamp}" />
 	%elif css_reg.search(f):
-		<link type="text/css" rel="stylesheet" href="${static}/${p}/${f}${v}" />
+		<link type="text/css" rel="stylesheet" href="${static}/${p}/${f}${stamp}" />
 	%elif js_reg.search(f):
-		<script type="text/javascript" src="${static}/${p}/${f}${v}"></script>
+		<script type="text/javascript" src="${static}/${p}/${f}${stamp}"></script>
 	%endif
 %endfor
 

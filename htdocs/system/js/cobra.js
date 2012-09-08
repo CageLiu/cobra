@@ -7,9 +7,10 @@
 				};
 			}else if(document.attachEvent){
 				this.addEvent = function(ele,type,fn){
-					var self = arguments.callee;
-					!self.count && (self.count = 0);
-					typeof(fn._id) === "undefined" && (fn._id = self.count++);
+					//var self = arguments.callee;
+					//!self.count && (self.count = 0);
+					//typeof(fn._id) === "undefined" && (fn._id = self.count++);
+					typeof(fn._id) === "undefined" && (fn._id = (+new Date()));
 					!ele.events && (ele.events = {})
 					!ele.events[type] && (ele.events[type] = {});
 					ele.events[type][fn._id] = fn;
