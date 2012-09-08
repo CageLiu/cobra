@@ -369,10 +369,11 @@
 							oLine.appendChild(document.createElement("div"));
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
 								oLine.className += " system_cobra_guides_line_h";
-								oLine.style.top = e.clientY + sct - 1 + "px";
+								oLine.style.top = 0;
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
 								oLine.className += " system_cobra_guides_line_v";
-								oLine.style.top = e.clientY + scl - 1 + "px";
+								oLine.style.left = 0;
+								oLine.style.height = document.body.clientHeight + "px";
 							}
 							__$__.GUIDESBOX.appendChild(oLine);
 							guides.fire({
@@ -388,8 +389,8 @@
 							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
 								oLine.style.top = e.clientY + sct - 1 + "px";
-							}else{
-								
+							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
+								oLine.style.left = e.clientX + scl - 1 + "px";
 							}
 						}
 						break;

@@ -235,7 +235,7 @@ a,input,button,textarea{
 .system_cobra_guides_line{
 	position:absolute;
 	font-size:0;
-	z-index:99991;
+	z-index:99989;
 }
 .system_cobra_guides_line div{
 	overflow:hidden;
@@ -257,6 +257,11 @@ a,input,button,textarea{
 .system_cobra_guides_line_v{
 	width:1px;
 	top:16px;
-	background-repeat:repeat-y;
+	padding:0 1px;
 }
+.system_cobra_guides_line_v div{
+	background-repeat:repeat-y;
+	height:100%;
+}
+
 /* ruler end */
