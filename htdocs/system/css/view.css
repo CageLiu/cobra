@@ -239,6 +239,8 @@ a,input,button,textarea{
 	width:16px;
 	height:16px;
 	background:url(../img/rulers_point.png) no-repeat 0 0;
+	z-index:9;
+	position:relative;
 }
 .system_cobra_guides_line{
 	position:absolute;

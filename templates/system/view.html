@@ -459,6 +459,11 @@
 					document.getElementById("J_system_cobra_gvalue").focus();
 				}
 			}
+			if(target.className === "system_cobra_rulers_point"){
+				if(confirm("确定清除所有参考线?")){
+					__$__.GUIDESBOX.innerHTML = "";
+				}
+			}
 		}
 
 
