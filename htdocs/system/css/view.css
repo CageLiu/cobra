@@ -394,3 +394,13 @@ a,input,button,textarea{
 	margin-bottom:-32px;
 }
 /* ruler end */
+
+/* gird start */
+#J_system_cobra_gird{
+	width:100%;
+	background:url(../img/grid.png) repeat 0 0;
+	position:absolute;
+	top:0;
+	left:0;
+}
+/* gird end */
