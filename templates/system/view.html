@@ -303,22 +303,26 @@
 		__$__.GUIDESBOX = null;
 		__$__.GUIDESH = null;
 		__$__.GUIDESV = null;
+		__$__.RULERH = null;
+		__$__.RULERV = null;
 
 		__$__.addEvent(document,"keyup",function(e){
 			var e = __$__.getEvent(e);
 			__$__.preventDefault(e);
-			if(e.ctrlKey && e.keyCode === 67){
+			if(e.ctrlKey && e.keyCode === 188){
 				if(!__$__.RULEREXIST){
 					//创建标尺
 					__$__.RULEREXIST = true;
 					var oRulerBox = __$__.RULERBOX = document.createElement("div");
 					var oGuidesBox = __$__.GUIDESBOX = document.createElement("div");
-					var oRulerH = document.createElement("div");
-					var oRulerV = document.createElement("div");
+					var oRulerH = __$__.RULERH = document.createElement("div");
+					var oRulerV = __$__.RULERV = document.createElement("div");
 					var oPoint = document.createElement("div");
 					var oCreateGuides = __$__.CREATEWINDOW = document.createElement("div");
 
 					oCreateGuides.id="J_system_cobra_create_guides_window";
+
+					__$__.GUIDESBOX.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight + 16) + "px"; 
 
 					var html = '<div class="system_cobra_dialog_cover"></div><div id="system_cobra_create_guides_form">';
 					html += '<strong>创建参考线</strong>';
@@ -326,7 +330,7 @@
 					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gh" /><span>水平</span></label></p>';
 					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gv" /><span>垂直</span></label></p>';
 					html += '<p><label><span>位置:</span><input type="text" id="J_system_cobra_gvalue" /><span>px</span></label></p>';
-					html += '<p><input type="button" id="J_system_cobra_sure_cg" value="确定" />';
+					html += '<p><input type="submit" id="J_system_cobra_sure_cg" value="确定" />';
 					html += '<input type="button" id="J_system_cobra_cancle_cg" value="取消" /></p></fieldset></div>';
 
 					oCreateGuides.innerHTML = html;
@@ -334,6 +338,7 @@
 					oRulerH.className = oRulerV.className = "system_cobra_rulers";
 					oRulerH.className += " system_cobra_rulers_h";
 					oRulerV.className += " system_cobra_rulers_v";
+					oRulerV.id = "J_system_cobra_rulers_v";
 					oPoint.className = "system_cobra_rulers_point";
 
 					oRulerV.style.height = document.documentElement.clientHeight + "px";
@@ -357,15 +362,33 @@
 				}
 				if(__$__.RULERSTATE === "none"){
 					__$__.RULERSTATE = "block";
-					document.body.style.padding = "16px 0 0 16px";
-					document.body.style.marginRight = "-16px";
+					//document.body.style.padding = "16px 0 0 16px";
+					document.body.style.paddingTop = "16px";
+					document.body.style.left = "16px";
+					//if(document.body.style.minWidth === undefined){
+						//document.body.style.marginRight = "-16px";
+					//}
 				}else if(__$__.RULERSTATE === "block"){
 					__$__.RULERSTATE = "none";
-					document.body.style.padding = "0 0 0 0";
-					document.body.style.marginRight = 0;
+					//document.body.style.padding = "0 0 0 0";
+					//document.body.style.marginRight = 0;
+					document.body.style.paddingTop = "0";
+					document.body.style.left = "0";
 				}
 				__$__.RULERBOX.style.display = __$__.RULERSTATE;
 				__$__.GUIDESBOX.style.display = __$__.RULERSTATE;
+				if(document.body.style.minWidth === undefined){
+					var sct = document.documentElement.scrollTop;
+					var scl = document.documentElement.scrollLeft;
+					try{
+						oRulerH.style.top = sct + "px";
+						oRulerV.style.top = sct + "px";
+						oRulerH.style.left = scl + "px";
+						oRulerV.style.left = scl + "px";
+					}catch(e){
+						
+					}
+				}
 			}
 
 		});
@@ -373,7 +396,6 @@
 		//双击新建
 		__$__.addEvent(document,"dblclick",showCreateWindow);
 		__$__.addEvent(document,"click",createGuidesOrCancle);
-
 
 		function showCreateWindow(e){
 			var e = __$__.getEvent(e);
@@ -384,6 +406,10 @@
 			if(className !== undefined && className.indexOf("system_cobra_rulers") !== -1 || className.indexOf("system_cobra_rulers") !== -1){
 				__$__.CREATEWINDOW.style.display = "block";
 				__$__.CREATEWINDOW.style.height = (bh > wh ? bh : wh) + "px";
+				if(document.body.style.minWidth === undefined){
+					document.getElementById("system_cobra_create_guides_form").style.top = document.documentElement.clientHeight / 2 + document.documentElement.scrollTop - 70 + "px";
+				}
+				document.getElementById("J_system_cobra_gvalue").focus();
 				if(className.indexOf("system_cobra_rulers_h") !== -1){
 					document.getElementById("J_system_cobra_gh").checked = true;
 				}else if(className.indexOf("system_cobra_rulers_v") !== -1){
@@ -403,34 +429,70 @@
 			var h = document.getElementById("J_system_cobra_gh");
 			var v = document.getElementById("J_system_cobra_gv");
 			var bh = document.body.clientHeight;
+			var bw = document.body.clientWidth;
 			var wh = document.documentElement.clientHeight;
 			if(target.id === "J_system_cobra_cancle_cg"){
 				hideCreateWindow();
 			}else if(target.id === "J_system_cobra_sure_cg"){
 				var guidesValue = parseInt(document.getElementById("J_system_cobra_gvalue").value);
 				if(guidesValue){
+					guidesValue < 0 && (guidesValue = 0);
 					var oLine = document.createElement("div");
 					var oSpan = document.createElement("span");
-					oSpan.innerHTML = guidesValue;
-					oLine.appendChild(oSpan);
 					oLine.appendChild(document.createElement("div"));
 					oLine.className = "system_cobra_guides_line";
 					if(h.checked){
+						guidesValue > bh && (guidesValue = bh);
 						oLine.className += " system_cobra_guides_line_h";
-						oLine.style.top = guidesValue + 14 + "px";
+						oLine.style.top = guidesValue + 30 + "px";
 					}else{
+						guidesValue > bw && (guidesValue = bw);
 						oLine.className += " system_cobra_guides_line_v";
-						oLine.style.left = guidesValue + 14 + "px";
-						oLine.style.height = (bh > wh ? bh : wh) + "px";
+						oLine.style.left = document.body.clientWidth + guidesValue + 14 + "px";
 					}
+					oSpan.innerHTML = guidesValue;
+					oLine.appendChild(oSpan);
 					__$__.GUIDESBOX.appendChild(oLine);
 					hideCreateWindow();
 				}else{
 					alert("请输入正确的参考线位置!");
+					document.getElementById("J_system_cobra_gvalue").focus();
 				}
 			}
 		}
 
+
+		function windowScroll(e){
+			var sct = document.documentElement.scrollTop;
+			var scl = document.documentElement.scrollLeft;
+			if(__$__.RULERH !== null){
+				__$__.RULERH.style.top = sct + "px";
+				__$__.RULERV.style.top = sct + "px";
+				__$__.RULERH.style.left = scl + "px";
+				__$__.RULERV.style.left = scl + "px";
+				document.getElementById("system_cobra_create_guides_form").style.top = document.documentElement.clientHeight / 2 + sct - 70 + "px";
+			}
+		}
+
+		if(document.body.style.minWidth === undefined){
+			__$__.addEvent(window,"scroll",function(e){
+				__$__.throttle(windowScroll);
+			});
+		}
+
+		function guidesResize(){
+			var wh = document.documentElement.clientHeight;
+			var ww = document.documentElement.clientWidth;
+			var bh = document.body.clientHeight;
+			var bw = document.body.clientWidth;
+			var oRv = document.getElementById("J_system_cobra_rulers_v");
+			__$__.GUIDESBOX && (__$__.GUIDESBOX.style.height = (wh > bh ? wh : bh) + "px");
+			oRv && (oRv.style.height = wh + "px");
+		}
+
+		__$__.addEvent(window,"resize",function(){
+			__$__.throttle(guidesResize);
+		});
 
 		var oGuides = function(){
 			var guides = __$__.event();
@@ -461,15 +523,9 @@
 								oLine.style.top = 0;
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
 								oLine.className += " system_cobra_guides_line_v";
-								oLine.style.left = 0;
-								oLine.style.height = (document.body.clientHeight > document.documentElement.clientHeight ? document.body.clientHeight : document.documentElement.clientHeight) + "px";
+								oLine.style.left = document.body.clientWidth - 16 + "px";
 							}
 							__$__.GUIDESBOX.appendChild(oLine);
-							guides.fire({
-								type : "start",
-								x:disX,
-								y:disY
-							});
 						}
 						break;
 					case "mousemove":
@@ -486,10 +542,10 @@
 						__$__.preventDefault(e);
 						if(target !== null){
 							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
-								oLine.style.top = e.clientY + sct - 1 + "px";
+								oLine.style.top = e.clientY + sct + 15 + "px";
 								oCoordinate.innerHTML = aNumV ? aNumV : "";
 							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
-								oLine.style.left = e.clientX + scl - 1 + "px";
+								oLine.style.left = document.body.clientWidth + e.clientX + scl - 1 + "px";
 								oCoordinate.innerHTML = aNumH ? aNumH : "";
 							}
 						}
@@ -512,7 +568,64 @@
 			return guides;
 		};
 
+		var DragGuides = function(){
+			var dguides = __$__.event();
+			var target = null;
+			var disX = disY = 0;
+			var t = l = 0;
+			var oSpan = null;
+
+			function handler(e){
+				var e = __$__.getEvent(e);
+
+				switch(e.type){
+					case "mousedown":
+						var className = e.target.parentNode.className || e.target.className;
+						if(className && className.indexOf("system_cobra_guides_line") !== -1){
+							target = e.target.className ? e.target : e.target.parentNode;
+							t = parseInt(__$__.css(target,"top"));
+							l = parseInt(__$__.css(target,"left"));
+							oSpan = target.getElementsByTagName("span")[0];
+						}
+						__$__.preventDefault(e);
+						break;
+					case "mousemove":
+						if(target !== null){
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							if(target.className.indexOf("system_cobra_guides_line_h") !== -1){
+								disY = e.clientY + sct + 15;
+								target.style.top = disY + "px";
+								oSpan.innerHTML = disY - 30 > 0 ? disY - 30 : 0;
+							}else if(target.className.indexOf("system_cobra_guides_line_v") !== -1){
+								disX = e.clientX + scl + 15;
+								target.style.left = disX + document.body.clientWidth - 16 + "px";
+								oSpan.innerHTML = disX - 30 > 0 ? disX - 30 : 0;
+							}
+						}
+						__$__.preventDefault(e);
+						break;
+					case "mouseup":
+						if(target !== null){
+							if(e.clientX < 16 || e.clientY < 16){
+								target.parentNode.removeChild(target);
+							}
+							target = null;
+						}
+						break;
+				}
+			}
+
+			__$__.addEvent(document,"mousedown",handler);
+			__$__.addEvent(document,"mousemove",handler);
+			__$__.addEvent(document,"mouseup",handler);
+
+			return dguides;
+		};
+
 		var guides = oGuides();
+
+		var dguides = DragGuides();
 
 
 
