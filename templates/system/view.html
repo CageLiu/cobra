@@ -57,7 +57,6 @@
 		}else{
 			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
 		}
-		//alert(__$__.autoReloadPath);
 		__$__.autoReloadTimer = null;
 		__$__.autoReloadLock = true;
 		__$__.autoReloadInterval = "${request.INTERVAL}";
@@ -298,7 +297,6 @@
 
 		//*******************************************************************
 
-		//标尺状态
 		__$__.RULERSTATE = "none";
 		__$__.RULEREXIST = false;
 		__$__.RULERBOX = null;
@@ -318,6 +316,20 @@
 					var oRulerH = document.createElement("div");
 					var oRulerV = document.createElement("div");
 					var oPoint = document.createElement("div");
+					var oCreateGuides = __$__.CREATEWINDOW = document.createElement("div");
+
+					oCreateGuides.id="J_system_cobra_create_guides_window";
+
+					var html = '<div class="system_cobra_dialog_cover"></div><div id="system_cobra_create_guides_form">';
+					html += '<strong>创建参考线</strong>';
+					html += '<fieldset><legend>取向:</legend>';
+					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gh" /><span>水平</span></label></p>';
+					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gv" /><span>垂直</span></label></p>';
+					html += '<p><label><span>位置:</span><input type="text" id="J_system_cobra_gvalue" /><span>px</span></label></p>';
+					html += '<p><input type="button" id="J_system_cobra_sure_cg" value="确定" />';
+					html += '<input type="button" id="J_system_cobra_cancle_cg" value="取消" /></p></fieldset></div>';
+
+					oCreateGuides.innerHTML = html;
 
 					oRulerH.className = oRulerV.className = "system_cobra_rulers";
 					oRulerH.className += " system_cobra_rulers_h";
@@ -335,6 +347,7 @@
 					oRulerV.appendChild(oPoint);
 					oRulerBox.appendChild(oRulerH);
 					oRulerBox.appendChild(oRulerV);
+					oRulerBox.appendChild(oCreateGuides);
 					oRulerH.appendChild(__$__.GUIDESH);
 					oRulerV.appendChild(__$__.GUIDESV);
 					document.body.appendChild(oRulerBox);
@@ -345,14 +358,78 @@
 				if(__$__.RULERSTATE === "none"){
 					__$__.RULERSTATE = "block";
 					document.body.style.padding = "16px 0 0 16px";
+					document.body.style.marginRight = "-16px";
 				}else if(__$__.RULERSTATE === "block"){
 					__$__.RULERSTATE = "none";
 					document.body.style.padding = "0 0 0 0";
+					document.body.style.marginRight = 0;
 				}
 				__$__.RULERBOX.style.display = __$__.RULERSTATE;
 				__$__.GUIDESBOX.style.display = __$__.RULERSTATE;
 			}
+
 		});
+
+		//双击新建
+		__$__.addEvent(document,"dblclick",showCreateWindow);
+		__$__.addEvent(document,"click",createGuidesOrCancle);
+
+
+		function showCreateWindow(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var className = target.parentNode.className || target.className;
+			var bh = document.body.clientHeight;
+			var wh = document.documentElement.clientHeight;
+			if(className !== undefined && className.indexOf("system_cobra_rulers") !== -1 || className.indexOf("system_cobra_rulers") !== -1){
+				__$__.CREATEWINDOW.style.display = "block";
+				__$__.CREATEWINDOW.style.height = (bh > wh ? bh : wh) + "px";
+				if(className.indexOf("system_cobra_rulers_h") !== -1){
+					document.getElementById("J_system_cobra_gh").checked = true;
+				}else if(className.indexOf("system_cobra_rulers_v") !== -1){
+					document.getElementById("J_system_cobra_gv").checked = true;
+				}
+			}
+		}
+
+		function hideCreateWindow(){
+			__$__.CREATEWINDOW.style.display = "none";
+			document.documentElement.className = document.documentElement.className.replace(/system_cobra_hide_window/g,"");
+		}
+
+		function createGuidesOrCancle(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var h = document.getElementById("J_system_cobra_gh");
+			var v = document.getElementById("J_system_cobra_gv");
+			var bh = document.body.clientHeight;
+			var wh = document.documentElement.clientHeight;
+			if(target.id === "J_system_cobra_cancle_cg"){
+				hideCreateWindow();
+			}else if(target.id === "J_system_cobra_sure_cg"){
+				var guidesValue = parseInt(document.getElementById("J_system_cobra_gvalue").value);
+				if(guidesValue){
+					var oLine = document.createElement("div");
+					var oSpan = document.createElement("span");
+					oSpan.innerHTML = guidesValue;
+					oLine.appendChild(oSpan);
+					oLine.appendChild(document.createElement("div"));
+					oLine.className = "system_cobra_guides_line";
+					if(h.checked){
+						oLine.className += " system_cobra_guides_line_h";
+						oLine.style.top = guidesValue + 14 + "px";
+					}else{
+						oLine.className += " system_cobra_guides_line_v";
+						oLine.style.left = guidesValue + 14 + "px";
+						oLine.style.height = (bh > wh ? bh : wh) + "px";
+					}
+					__$__.GUIDESBOX.appendChild(oLine);
+					hideCreateWindow();
+				}else{
+					alert("请输入正确的参考线位置!");
+				}
+			}
+		}
 
 
 		var oGuides = function(){
@@ -419,7 +496,7 @@
 						break;
 					case "mouseup":
 						if(e.clientX < 15 || e.clientY < 15){
-							__$__.GUIDESBOX.removeChild(oLine);
+							oLine && (__$__.GUIDESBOX.removeChild(oLine));
 						}
 						oLine = null;
 						target = null;
@@ -435,7 +512,7 @@
 			return guides;
 		};
 
-		var guides1 = oGuides();
+		var guides = oGuides();
 
 
 
