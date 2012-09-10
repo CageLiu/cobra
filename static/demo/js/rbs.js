@@ -403,9 +403,8 @@ $$.ready(function(){
 							x : e.clientX,
 							y : e.clientY
 						});
+						$$.preventDefault(e);
 					}
-					$$.stopPropagation(e);
-					$$.preventDefault(e);
 					break;
 
 				case "mousemove":
@@ -421,9 +420,8 @@ $$.ready(function(){
 							x : e.clientX,
 							y : e.clientY + sct
 						});
+						$$.preventDefault(e);
 					}
-					$$.stopPropagation(e);
-					$$.preventDefault(e);
 					break;
 
 				case "mouseup":
@@ -433,8 +431,8 @@ $$.ready(function(){
 							x : e.clientX,
 							y : e.clientY
 						});
+						target = null;
 					}
-					target = null;
 					break;
 			}
 		}
@@ -462,6 +460,14 @@ $$.ready(function(){
 	});
 
 	var dr1 = Drag(oJcrop);
+
+	dr1.addHandler("end",function(e){
+		oWp.style.top = -e.s + "px";
+		document.documentElement.scrollTop = 0;
+		document.body.scrollTop = 0;
+		document.documentElement.className = "hide_scroll";
+		oDialog.style.display = "block";
+	});
 
 	var oReset = document.getElementById("J_reset");
 	$$.addEvent(oReset,"click",function(){

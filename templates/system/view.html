@@ -233,6 +233,7 @@
 		//搜索页面
 		var oSearch = document.getElementById("system_cobra_search_page");
 		var oCount = document.getElementById("J_system_cobra_count_number");
+
 		__$__.RESULT = [];
 		__$__.SEARCH_CURRENT = 0;
 		function search(e){
@@ -323,7 +324,7 @@
 
 					oCreateGuides.id="J_system_cobra_create_guides_window";
 
-					__$__.GUIDESBOX.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight + 16) + "px"; 
+					__$__.GUIDESBOX.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight) + "px"; 
 
 					var html = '<div class="system_cobra_dialog_cover"></div><div id="system_cobra_create_guides_form">';
 					html += '<strong>创建参考线</strong>';
@@ -363,13 +364,11 @@
 				}
 				if(__$__.RULERSTATE === "none"){
 					__$__.RULERSTATE = "block";
-					document.body.style.paddingTop = "16px";
-					document.body.style.left = "16px";
+					document.body.className += " system_cobra_move_body";
 					__$__.GIRD && (__$__.GIRD.style.left = "16px",__$__.GIRD.style.top = "16px");
 				}else if(__$__.RULERSTATE === "block"){
 					__$__.RULERSTATE = "none";
-					document.body.style.paddingTop = "0";
-					document.body.style.left = "0";
+					document.body.className = document.body.className.replace(/\ssystem_cobra_move_body/g,"");
 					__$__.GIRD && (__$__.GIRD.style.left = 0,__$__.GIRD.style.top = 0);
 				}
 				__$__.RULERBOX.style.display = __$__.RULERSTATE;
@@ -394,7 +393,7 @@
 				if( oGird === null){
 					oGird = __$__.GIRD = document.createElement("div");
 					oGird.id = "J_system_cobra_gird";
-					parseInt(__$__.css(document.body,"paddingTop")) && (oGird.style.left = "16px",oGird.style.top = "16px");
+					(__$__.RULERBOX && __$__.css(__$__.RULERBOX,"display") !== "none") && (oGird.style.left = "16px",oGird.style.top = "16px");
 					oGird.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight) + "px";
 					document.body.appendChild(oGird);
 				}else{
@@ -402,7 +401,7 @@
 					if(__$__.css(oGird,"display") !== "none"){
 						oGird.style.display = "none";
 					}else{
-						parseInt(__$__.css(document.body,"paddingTop")) && (oGird.style.left = "16px",oGird.style.top = "16px");
+						(__$__.RULERBOX && __$__.css(__$__.RULERBOX,"display") !== "none") && (oGird.style.left = "16px",oGird.style.top = "16px");
 						oGird.style.display = "block";
 					}
 				}
@@ -551,25 +550,28 @@
 						}
 						break;
 					case "mousemove":
-						var sct = document.documentElement.scrollTop || document.body.scrollTop;
-						var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
-						var aNumH = e.clientX + scl - 15 > 0 ? e.clientX + scl - 15 : 0;
-						var aNumV = e.clientY + sct - 15 > 0 ? e.clientY + sct - 15 : 0;
-						if(__$__.GUIDESH !== null){
-							__$__.GUIDESH.innerHTML = aNumH;
-							__$__.GUIDESV.innerHTML = aNumV;
-							__$__.GUIDESV.style.top = e.clientY + "px";
-							__$__.GUIDESH.style.left = e.clientX + "px";
-						}
-						__$__.preventDefault(e);
-						if(target !== null){
-							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
-								oLine.style.top = e.clientY + sct + 15 + "px";
-								oCoordinate.innerHTML = aNumV ? aNumV : "";
-							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
-								oLine.style.left = document.body.clientWidth + e.clientX + scl - 1 + "px";
-								oCoordinate.innerHTML = aNumH ? aNumH : "";
+						if(__$__.RULERBOX !== null && __$__.css(__$__.RULERBOX,"display") !== "none"){
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							var aNumH = e.clientX + scl - 15 > 0 ? e.clientX + scl - 15 : 0;
+							var aNumV = e.clientY + sct - 15 > 0 ? e.clientY + sct - 15 : 0;
+							if(__$__.GUIDESH !== null){
+								__$__.GUIDESH.innerHTML = aNumH;
+								__$__.GUIDESV.innerHTML = aNumV;
+								__$__.GUIDESV.style.top = e.clientY + "px";
+								__$__.GUIDESH.style.left = e.clientX + "px";
 							}
+						}
+						if(target !== null){
+							var bw = document.body.clientWidth;
+							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
+								oLine.style.top = e.clientY + sct -1 + "px";
+								oCoordinate.innerHTML = aNumV;
+							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
+								oLine.style.left = (document.body.style.minWidth === undefined ? bw - 32 : bw) + e.clientX + scl + 15 + "px";
+								oCoordinate.innerHTML = aNumH;
+							}
+							__$__.preventDefault(e);
 						}
 						break;
 					case "mouseup":
@@ -608,32 +610,33 @@
 							t = parseInt(__$__.css(target,"top"));
 							l = parseInt(__$__.css(target,"left"));
 							oSpan = target.getElementsByTagName("span")[0];
+							__$__.preventDefault(e);
 						}
-						__$__.preventDefault(e);
 						break;
 					case "mousemove":
 						if(target !== null){
 							var sct = document.documentElement.scrollTop || document.body.scrollTop;
 							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							var bw = document.body.clientWidth;
 							if(target.className.indexOf("system_cobra_guides_line_h") !== -1){
-								disY = e.clientY + sct + 15;
+								disY = e.clientY + sct - 1;
 								target.style.top = disY + "px";
-								oSpan.innerHTML = disY - 30 > 0 ? disY - 30 : 0;
+								oSpan.innerHTML = disY - 14 > 0 ? disY - 14 : 0;
 							}else if(target.className.indexOf("system_cobra_guides_line_v") !== -1){
 								disX = e.clientX + scl + 15;
-								target.style.left = disX + document.body.clientWidth - 16 + "px";
+								target.style.left = disX + (document.body.style.minWidth === undefined ? bw - 32 : bw) + "px";
 								oSpan.innerHTML = disX - 30 > 0 ? disX - 30 : 0;
 							}
+							__$__.preventDefault(e);
 						}
-						__$__.preventDefault(e);
 						break;
 					case "mouseup":
 						if(target !== null){
 							if(e.clientX < 16 || e.clientY < 16){
 								target.parentNode.removeChild(target);
 							}
-							target = null;
 						}
+						target = null;
 						break;
 				}
 			}
@@ -646,28 +649,6 @@
 		};
 
 		var guides = oGuides();
-
 		var dguides = DragGuides();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	});
 </script>

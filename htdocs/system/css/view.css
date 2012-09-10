@@ -1,10 +1,11 @@
 @import "dirs.css";
 html{
 	/*overflow-x:hidden;*/
-	zoom:1;
+	_overflow-x:hidden;
 }
 body{
-	zoom:1;
+	_overflow-x:auto;
+	_width:100%;
 }
 body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
@@ -13,6 +14,14 @@ body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
 input,button,td,th,fieldset{
     padding:0;
 }
+
+.system_cobra_move_body{
+	padding-top:16px;
+	padding-left:16px;
+	margin-right:16px;
+	_margin-right:0;
+}
+
 .system_cobra_hide_window,
 .system_cobra_hide_window body{
 	height:100%;
@@ -280,7 +289,7 @@ a,input,button,textarea{
 }
 .system_cobra_guides_line_v{
 	width:1px;
-	top:16px;
+	top:0;
 	padding:0 1px;
 	cursor:col-resize;
 	height:100%;
@@ -385,13 +394,10 @@ a,input,button,textarea{
 	background:#fff;
 }
 #J_system_cobra_guides_box{
-	width:0;
 	position:absolute;
-	top:-16px;
-	left:-16px;
+	top:0;
 	width:100%;
 	left:-100%;
-	margin-bottom:-32px;
 }
 /* ruler end */
 
