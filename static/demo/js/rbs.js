@@ -296,6 +296,8 @@
 
 
 $$.ready(function(){
+	//alert(document.body.scrollWidth);
+	alert(document.documentElement.scrollWidth);
 	//图片加载完成
 	var oBigImg = document.getElementById("J_big_img");
 	var oJcrop = document.getElementById("J_jcrop");
@@ -303,6 +305,7 @@ $$.ready(function(){
 	var oWp = document.getElementById("J_wp");
 	var oImg = new Image();
 	var aSct = 0;
+	var aScl = 0;
 	$$.addEvent(oImg,"load",function(){
 		this.style.cssText = "width:" + this.width + "px;" + "height:" + this.height + "px;" + "border:1px solid #ccc;";
 		$$.WIDTH = this.width;
@@ -318,28 +321,27 @@ $$.ready(function(){
 
 		function hanlder(e){
 			var e = $$.getEvent(e);
-			var sct = 0;
 			switch(e.type){
 				case "mousedown":
 					if(e.target === ele){
 						target = e.target;
-						sct = document.documentElement.scrollTop || document.body.scrollTop;
-						disX = e.clientX;
-						disY = e.clientY + sct;
+						aSct = document.documentElement.scrollTop || document.body.scrollTop;
+						aScl = document.documentElement.scrollLeft || document.body.scrollLeft;
+						disX = e.clientX + aScl;
+						disY = e.clientY + aSct;
 						$$.stopPropagation(e);
 						$$.preventDefault(e);
 						jcrop.fire({
 							type : "start",
-							x : e.clientX,
-							y : e.clientY + sct
+							x : e.clientX + aScl,
+							y : e.clientY + aSct
 						});
 					}
 					break;
 				case "mousemove":
 					if(target !== null){
-						sct = document.documentElement.scrollTop || document.body.scrollTop;
-						var x = e.clientX;
-						var y = e.clientY + sct;
+						var x = e.clientX + aScl;
+						var y = e.clientY + aSct;
 						if(x > disX){
 							oJcrop.style.left = disX + "px";
 							oJcrop.style.right = "auto";
@@ -362,12 +364,14 @@ $$.ready(function(){
 					break;
 				case "mouseup":
 					if(target !== null){
-						aSct = document.documentElement.scrollTop || document.body.scrollTop;
 						jcrop.fire({
 							type : "end",
-							x : e.clientX,
-							y : e.clientY + sct,
-							s : aSct
+							x : e.clientX + aScl,
+							y : e.clientY + aSct,
+							s :	{
+								l : aScl,
+								t : aSct
+							}
 						});
 					}
 					target = null;
@@ -383,18 +387,19 @@ $$.ready(function(){
 	};
 
 
-	var Drag = function(ele){
+	var Drag = function(){
 		var drag = $$.event();
 		var disX = disY = 0;
 		var target = null;
-		var ele = ele;
 
 		function hanlder(e){
 			var e = $$.getEvent(e);
 			var sct = 0;
 			switch(e.type){
 				case "mousedown":
-					if(e.target === ele){
+					if(e.target.id === "J_jcrop"){
+						aSct = document.documentElement.scrollTop || document.body.scrollTop;
+						aScl = document.documentElement.scrollLeft || document.body.scrollLeft;
 						target = e.target;
 						disX = e.clientX - target.offsetLeft;
 						disY = e.clientY - target.offsetTop;
@@ -404,6 +409,9 @@ $$.ready(function(){
 							y : e.clientY
 						});
 						$$.preventDefault(e);
+					}else if(e.target.className.indexOf("rect") !== -1){
+						disX = e.clientX;
+						disY = e.clientY;
 					}
 					break;
 
@@ -429,12 +437,16 @@ $$.ready(function(){
 						drag.fire({
 							type : "end",
 							x : e.clientX,
-							y : e.clientY
+							y : e.clientY,
+							s :	{
+								l : aScl,
+								t : aSct
+							}
 						});
-						target = null;
 					}
+					target = null;
 					break;
-			}
+				}
 		}
 
 		$$.addEvent(document,"mousedown",hanlder);
@@ -444,37 +456,45 @@ $$.ready(function(){
 		return drag;
 	};
 
+
+	function showDialog(e){
+		if(oJcrop.clientWidth > 10 && oJcrop.clientHeight > 10){
+			document.documentElement.className = "hide_scroll";
+			oDialog.style.display = "block";
+			oWp.style.top = -aSct + "px";
+			oWp.style.left = -aScl + "px";
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+			document.documentElement.scrollLeft = 0;
+			document.body.scrollLeft = 0;
+		}
+	}
+
 	var jc1 = Jcrop(oBigImg);
 	jc1.addHandler("start",function(e){
 		var cssText = "display:block;left" + e.x + "px;top" + e.y + "px";
 		oJcrop.style.cssText = cssText;
 	});
 	jc1.addHandler("end",function(e){
-		if(oJcrop.clientWidth > 10 && oJcrop.clientHeight > 10){
-			oWp.style.top = -e.s + "px";
-			document.documentElement.scrollTop = 0;
-			document.body.scrollTop = 0;
-			document.documentElement.className = "hide_scroll";
-			oDialog.style.display = "block";
-		}
+		showDialog(e)
 	});
 
-	var dr1 = Drag(oJcrop);
+	var dr1 = Drag();
+
 
 	dr1.addHandler("end",function(e){
-		oWp.style.top = -e.s + "px";
-		document.documentElement.scrollTop = 0;
-		document.body.scrollTop = 0;
-		document.documentElement.className = "hide_scroll";
-		oDialog.style.display = "block";
+		showDialog(e)
 	});
 
 	var oReset = document.getElementById("J_reset");
 	$$.addEvent(oReset,"click",function(){
 		oDialog.style.display = "none";
 		oWp.style.top = 0;
+		oWp.style.left = 0;
 		document.documentElement.className = "";
 		document.documentElement.scrollTop = aSct;
 		!document.documentElement.scrollTop && (document.body.scrollTop = aSct);
+		document.documentElement.scrollLeft = aScl;
+		!document.documentElement.scrollLeft && (document.body.scrollLeft = aScl);
 	});
 });

@@ -296,7 +296,9 @@
 		__$__.__INOTIFY__();
 
 
+
 		//*******************************************************************
+		/* 参考线和网格系统开始 */
 
 		__$__.RULERSTATE = "none";
 		__$__.RULEREXIST = false;
@@ -364,11 +366,11 @@
 				}
 				if(__$__.RULERSTATE === "none"){
 					__$__.RULERSTATE = "block";
-					document.body.className += " system_cobra_move_body";
+					document.documentElement.className += " system_cobra_move_body";
 					__$__.GIRD && (__$__.GIRD.style.left = "16px",__$__.GIRD.style.top = "16px");
 				}else if(__$__.RULERSTATE === "block"){
 					__$__.RULERSTATE = "none";
-					document.body.className = document.body.className.replace(/\ssystem_cobra_move_body/g,"");
+					document.documentElement.className = document.documentElement.className.replace(/\ssystem_cobra_move_body/g,"");
 					__$__.GIRD && (__$__.GIRD.style.left = 0,__$__.GIRD.style.top = 0);
 				}
 				__$__.RULERBOX.style.display = __$__.RULERSTATE;
@@ -527,6 +529,7 @@
 
 				switch(e.type){
 					case "mousedown":
+						if(e.button * 1 === 2){return false;}
 						if(e.target.parentNode.className !== undefined && e.target.className !== undefined && e.target.parentNode.className.indexOf("system_cobra_rulers") !== -1 || e.target.className.indexOf("system_cobra_rulers") !== -1){
 							__$__.preventDefault(e);
 							var sct = document.documentElement.scrollTop || document.body.scrollTop;
@@ -604,6 +607,7 @@
 
 				switch(e.type){
 					case "mousedown":
+						if(e.button * 1 === 2){return false;}
 						var className = e.target.parentNode.className || e.target.className;
 						if(className && className.indexOf("system_cobra_guides_line") !== -1){
 							target = e.target.className ? e.target : e.target.parentNode;
@@ -650,5 +654,6 @@
 
 		var guides = oGuides();
 		var dguides = DragGuides();
+		/* 参考线和网格系统结束 */
 	});
 </script>

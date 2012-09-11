@@ -1,12 +1,4 @@
 @import "dirs.css";
-html{
-	/*overflow-x:hidden;*/
-	_overflow-x:hidden;
-}
-body{
-	_overflow-x:auto;
-	_width:100%;
-}
 body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
 }
@@ -15,12 +7,20 @@ input,button,td,th,fieldset{
     padding:0;
 }
 
+/* guides and gird */
 .system_cobra_move_body{
+	_overflow-x:hidden;
+}
+
+.system_cobra_move_body body{
 	padding-top:16px;
 	padding-left:16px;
 	margin-right:16px;
 	_margin-right:0;
+	_overflow-x:auto;
+	_width:100%;
 }
+/* guides and gird */
 
 .system_cobra_hide_window,
 .system_cobra_hide_window body{
@@ -224,6 +224,9 @@ a,input,button,textarea{
 .system_cobra_refile_link{
 	background-position:14px -575px;
 }
+
+
+/*******************************************rulers|guides|gird*****************/
 
 /* ruler start */
 .system_cobra_rulers{
