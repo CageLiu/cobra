@@ -1,6 +1,6 @@
 ##-*-coding:utf-8-*-
 %for t in tpls:
-%if t.startswith("_") and t != "_merge.html" and t != "_import.html":
+%if tpl_filter.search(t) and t != "_import.html":
 <%include file="/www/${p}/${t}" />
 %endif
 %endfor

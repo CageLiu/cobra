@@ -27,6 +27,12 @@ P_PROJECT_PATH = SITE_ROOT + "www"
 #静态文件URL
 STATIC_URL = r'^' + STATIC_URL_STRING + r'(?P<path>.*)'
 
+#静态文件类型
+STATIC_TYPE = (
+    "css",
+    "img",
+    "js",
+)
 
 
 

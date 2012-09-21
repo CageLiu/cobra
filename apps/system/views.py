@@ -12,6 +12,7 @@ from cobra.apps.system.config import PROJECT_STATE,TASK_STATE,WEIGHT
 from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
 
+import sys
 
 #视图开始
 def assign(request,**args):
@@ -177,7 +178,7 @@ def p(request,p = "", tpl = ""):
 
     pfix = p
 
-    stamp = time.time()
+    stamp = "?v=" + str(time.time())
 
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p
@@ -204,21 +205,40 @@ def p(request,p = "", tpl = ""):
         css_reg = re.compile("\w+\.css$")
         js_reg = re.compile("\w+\.js$")
         less_reg = re.compile("\w+\.less$")
+        tpl_filter = re.compile("_.*\.html$")
+        merge_reg = re.compile("_merge.html$")
+        if tpl.find("/") != -1:
+            subDir = tpl[0:tpl.find("/")]
+        else:
+            subDir = None
         if os.path.exists(static_path):
-            files = walkDir([static_path],formats = "relative")["files"]
+            files = []
+            for item in sc.STATIC_TYPE:
+                files.extend([item + "/" +f for f in os.listdir(static_path + "/" + item) if not os.path.isdir(static_path + "/" + item + "/" + f)])
+                if subDir:
+                    subFiles = walkDir([static_path + "/" + item + "/" + subDir],formats = "relative")["files"]
+                    files.extend(item + "/" + subDir + "/" + f for f in subFiles)
             files.sort()
         if os.path.exists(tpl_path):
-            tpls = [f for f in os.listdir(tpl_path) if not os.path.isdir(f)]
+            tplfiles = [f for f in os.listdir(tpl_path) if not os.path.isdir(tpl_path + "/" + f)]
+            if subDir:
+                subFiles = walkDir([tpl_path + "/" + subDir],formats = "relative")["files"]
+                tplfiles.extend(subDir + "/" + f for f in subFiles)
+
+            tpls = [f for f in tplfiles if tpl_filter.search(f)]
             tpls.sort()
-        
+       
+        #如果是目录，则显示目录树
         if os.path.isdir(tpl_path + "/" + tpl):
             dirHtml = dirTree(tpl_path + "/" + tpl, "/p/", pattern)
             return render_to_response("system/dir.html",locals())
+        #否则显示相应页面
         else:
             try:
                 return render_to_response("system/view.html",locals())
             except :
-                return HttpResponse(u"404 page")
+                return HttpResponse(u"404")
+                #return HttpResponse(sys.exc_info()[0])
 
 def v(request,t = "", tid = ""):
     '''user view'''

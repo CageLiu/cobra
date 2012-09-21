@@ -1,7 +1,7 @@
 ##-*-coding:utf-8-*-
-%if tpl.startswith("_"):
+%if tpl_filter.search(tpl):
 <%include file="_header.html" />
-%if tpl == "_merge.html":
+%if merge_reg.search(tpl):
 <%include file="_merge.html" />
 %else:
 <%include file="/www/${p}/${tpl}" />
