@@ -219,6 +219,7 @@ def p(request,p = "", tpl = ""):
                     subFiles = walkDir([static_path + "/" + item + "/" + subDir],formats = "relative")["files"]
                     files.extend(item + "/" + subDir + "/" + f for f in subFiles)
             files.sort()
+            files.reverse()
         if os.path.exists(tpl_path):
             tplfiles = [f for f in os.listdir(tpl_path) if not os.path.isdir(tpl_path + "/" + f)]
             if subDir:
