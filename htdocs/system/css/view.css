@@ -413,3 +413,28 @@ a,input,button,textarea{
 	left:0;
 }
 /* gird end */
+
+/* moudle box style start */
+.cobra_system_moudle_list{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.cobra_system_moudle_item{
+	margin-bottom:12px;
+	border-bottom:1px solid #ccc;
+	padding－bottom:12px;
+}
+.cobra_system_moudle_title{
+	background-color:#ddd;
+	height:23px;
+	line-height:23px;
+	padding-left:12px;
+	font-weight:700;
+	border-bottom:1px solid #bbb;
+}
+.cobra_system_moudle_html{
+	padding:10px 0;
+	border-top:1px solid #eee;
+}
+/* moudle box style end */
