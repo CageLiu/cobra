@@ -59,7 +59,7 @@ a,input,button,textarea{
 	width:0;
 	height:0;
 	overflow:hidden;
-	border-style:solid;
+	border-style:dashed;
 	border-color:transparent;
 	vertical-align:middle;
 }
@@ -422,7 +422,6 @@ a,input,button,textarea{
 }
 .cobra_system_moudle_item{
 	margin-bottom:12px;
-	border-bottom:1px solid #ccc;
 	padding－bottom:12px;
 }
 .cobra_system_moudle_title{
@@ -430,13 +429,49 @@ a,input,button,textarea{
 	height:23px;
 	line-height:23px;
 	padding-left:12px;
-	/*font-weight:700;*/
-	border-bottom:1px solid #bbb;
+	border-bottom:1px solid #AAA;
 	font-size:13px;
 	font-family:"宋体";
 }
 .cobra_system_moudle_html{
-	padding:10px 0;
-	border-top:1px solid #eee;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-top:1px solid #EEE;
+	border-bottom:1px solid #AAA;
+}
+.cobra_system_moudle_ph10{
+	padding-left:10px;
+	padding-right:10px;
+}
+.cobra_system_moudle_docs .arrow{
+	border-top-style:solid;
+	border-top-color:#57A000;
+	border-width:7px;
+	margin-right:8px;
+	vertical-align:top;
+	margin-top:-1px;
+	cursor:pointer;
+}
+.cobra_system_moudle_docs{
+	text-align:center;
+	border-top:1px solid #EEE;
+}
+.cobra_system_moudle_docs_list{
+	margin:0;
+	padding:0 0 0 30px;
+	text-align:left;
+	background-color:#fff;
+	border-bottom:1px solid #ccc;
+}
+.cobra_system_moudle_docs_item{
+	line-height:23px;
+	font-size:12px;
+	font-family:"宋体";
+}
+.cobra_system_hide_docs .cobra_system_moudle_docs_list{
+	display:none;
+}
+.cobra_system_hide_docs .arrow{
+	border-top-color:#999;
 }
 /* moudle box style end */

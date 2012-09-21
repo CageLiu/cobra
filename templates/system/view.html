@@ -296,6 +296,27 @@
 		__$__.__INOTIFY__();
 
 
+		//显示模块帮助
+
+		__$__.addEvent(document,"click",function(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var oP = target.parentNode;
+			//alert(target.className);
+			if(target.className === "arrow" && oP && oP.className && oP.className.indexOf("cobra_system_moudle_docs") !== -1){
+				__$__.CURRENT_DOCS && (__$__.CURRENT_DOCS.className += " cobra_system_hide_docs");
+				oP.className = oP.className.replace(/\scobra_system_hide_docs/g,"");
+				__$__.CURRENT_DOCS = oP;
+				__$__.stopPropagation(e);
+			}else if(target.className.indexOf("cobra_system_moudle_docs_item") !== -1 || target.className.indexOf("cobra_system_moudle_docs") !== -1){
+				__$__.stopPropagation(e);
+				return false;
+			}else{
+				__$__.CURRENT_DOCS && __$__.CURRENT_DOCS.className.indexOf("cobra_system_hide_docs") === -1 && (__$__.CURRENT_DOCS.className += " cobra_system_hide_docs");
+			}
+		});
+
+
 
 		//*******************************************************************
 		/* 参考线和网格系统开始 */
