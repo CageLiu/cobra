@@ -419,6 +419,7 @@ a,input,button,textarea{
 	margin:0;
 	padding:0;
 	list-style:none;
+	background-color:#fff;
 }
 .cobra_system_moudle_item{
 	margin-bottom:12px;
@@ -427,8 +428,8 @@ a,input,button,textarea{
 .cobra_system_moudle_title{
 	background-color:#ddd;
 	height:23px;
-	line-height:23px;
 	padding-left:12px;
+	line-height:24px;
 	border-bottom:1px solid #AAA;
 	font-size:13px;
 	font-family:"宋体";
@@ -462,6 +463,9 @@ a,input,button,textarea{
 	text-align:left;
 	background-color:#fff;
 	border-bottom:1px solid #ccc;
+	margin-top:-7px;
+	padding-bottom:9px;
+	zoom:1;
 }
 .cobra_system_moudle_docs_item{
 	line-height:23px;
@@ -473,5 +477,14 @@ a,input,button,textarea{
 }
 .cobra_system_hide_docs .arrow{
 	border-top-color:#999;
+}
+.cobra_system_moudle_author{
+	border-left:1px solid #AAA;
+	padding-right:0.5em;
+	padding-left:0.5em;
+	display:inline-block;
+	height:23px;
+	background-color:#888;
+	color:#FFF;
 }
 /* moudle box style end */
