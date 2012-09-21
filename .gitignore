@@ -8,3 +8,4 @@
 *.svn
 logs/*
 news_temp.html
+*.DS_
