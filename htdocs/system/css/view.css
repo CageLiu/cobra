@@ -430,8 +430,10 @@ a,input,button,textarea{
 	height:23px;
 	line-height:23px;
 	padding-left:12px;
-	font-weight:700;
+	/*font-weight:700;*/
 	border-bottom:1px solid #bbb;
+	font-size:13px;
+	font-family:"宋体";
 }
 .cobra_system_moudle_html{
 	padding:10px 0;
