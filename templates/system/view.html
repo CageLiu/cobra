@@ -119,6 +119,11 @@
 					for(var i = aLinkList.length - 1; i >= 0; i--){
 						var oLink = aLinkList[i];
 						if(oLink.parentNode.className === "cobra_system_dir_name"){
+							var oMergeLink = document.createElement("a");
+							oMergeLink.className = "cobra_system_merge_link";
+							oMergeLink.innerHTML = "Merge";
+							oMergeLink.href = oLink.href + "_merge.html";
+							oLink.parentNode.appendChild(oMergeLink);
 							continue;
 						}
 						__$__.links.unshift(oLink);
@@ -133,7 +138,7 @@
 						if(hrefReg.test(currentLocation)){
 							var position = __$__.position(oLink);
 							oFileList.scrollTop = (position.top - clientHeight / 2 + 13);
-							oFileList.scrollLeft = position.left - clientWidth + 236;
+							oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
 							oLink.className = "system_cobra_current";
 							document.title = oLink.innerHTML;
 						}
@@ -254,7 +259,7 @@
 			if(first){
 				var position = __$__.position(first);
 				oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13;
-				oFileList.scrollLeft = position.left - clientWidth + 236;
+				oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
 				first.className += " system_cobra_search_current";
 			}
 			oCount.innerHTML = count;
@@ -283,7 +288,7 @@
 					}
 					var position = __$__.position(__$__.RESULT[__$__.SEARCH_CURRENT]);
 					oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13
-					oFileList.scrollLeft = position.left - clientWidth + 236;
+					oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
 					__$__.RESULT[__$__.SEARCH_CURRENT].className += " system_cobra_search_current";
 				}
 			}
