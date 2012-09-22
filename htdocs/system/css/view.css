@@ -420,10 +420,12 @@ a,input,button,textarea{
 	padding:0;
 	list-style:none;
 	background-color:#fff;
+	position:relative;
+	zoom:1;
 }
 .cobra_system_moudle_item{
-	margin-bottom:12px;
-	padding－bottom:12px;
+	/*margin-bottom:12px;*/
+	position:relative;
 }
 .cobra_system_moudle_title{
 	background-color:#ddd;
@@ -433,6 +435,8 @@ a,input,button,textarea{
 	border-bottom:1px solid #AAA;
 	font-size:13px;
 	font-family:"宋体";
+	position:relative;
+	zoom:1;
 }
 .cobra_system_moudle_html{
 	padding-top:10px;
@@ -448,21 +452,23 @@ a,input,button,textarea{
 	border-top-style:solid;
 	border-top-color:#57A000;
 	border-width:7px;
-	margin-right:8px;
 	vertical-align:top;
 	margin-top:-1px;
 	cursor:pointer;
+	position:relative;
 }
 .cobra_system_moudle_docs{
 	text-align:center;
 	border-top:1px solid #EEE;
+	position:relative;
+	z-index:1;
 }
 .cobra_system_moudle_docs_list{
 	margin:0;
 	padding:0 0 0 30px;
 	text-align:left;
 	background-color:#fff;
-	border-bottom:1px solid #ccc;
+	border-bottom:1px solid #57A000;
 	margin-top:-7px;
 	padding-bottom:9px;
 	zoom:1;
@@ -477,14 +483,25 @@ a,input,button,textarea{
 }
 .cobra_system_hide_docs .arrow{
 	border-top-color:#999;
+	margin-top:-16px;
+	filter:FlipV;
+	-webkit-transform:rotateX(180deg);
+	-moz-transform:rotateX(180deg);
+	-ms-transform:rotateX(180deg);
+	-o-transform:rotateX(180deg);
+	-khtml-transform:rotateX(180deg);
+	transform:rotateX(180deg);
 }
 .cobra_system_moudle_author{
-	border-left:1px solid #AAA;
+	border-left:1px solid #888;
 	padding-right:0.5em;
 	padding-left:0.5em;
 	display:inline-block;
 	height:23px;
-	background-color:#888;
-	color:#FFF;
+	background-color:#BBB;
+	color:#444;
+	position:absolute;
+	right:0;
+	top:0;
 }
 /* moudle box style end */
