@@ -79,6 +79,7 @@
 }
 #J_system_dir_root .cobra_system_dir_name a{
 	color:#333;
+	position:relative;
 }
 #J_system_dir_root .cobra_system_file .cobra_system_type{
 	background-position:0 -40px;

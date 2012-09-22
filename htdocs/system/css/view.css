@@ -1,4 +1,4 @@
-@import "dirs.css";
+@import "dirs.css?v=1";
 body,p,dl,dd,form,textarea,h1,h2,h3,h4,fieldset,input{
     margin:0;
 }
@@ -224,7 +224,12 @@ a,input,button,textarea{
 .system_cobra_refile_link{
 	background-position:14px -575px;
 }
-
+#J_control_panel_files_list .cobra_system_dir_name .cobra_system_merge_link{
+	position:absolute;
+	top:14px;
+	color:#57A000;
+	font-weight:400;
+}
 
 /*******************************************rulers|guides|gird*****************/
 
@@ -472,6 +477,7 @@ a,input,button,textarea{
 	margin-top:-7px;
 	padding-bottom:9px;
 	zoom:1;
+	list-style-type:decimal;
 }
 .cobra_system_moudle_docs_item{
 	line-height:23px;
