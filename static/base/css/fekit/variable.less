@@ -38,7 +38,34 @@
 //链接文字颜色
 @link_color:#222;
 
-//0 尺寸元素
+/*************************************************
+ * name : 清除浮动
+ * class : clear | clearfix
+ * time : 2012-09-23 20:48:30
+ */
+
+//方式一
+.clear{
+	clear:both;
+}
+
+//方式二
+.clearfix:after{
+	content:"";
+	display:block;
+	clear:both;
+	height:0;
+	overflow:hidden;
+}
+.clearfix{
+	*zoom:1;
+}
+
+/*************************************************
+ * name : 0尺寸
+ * class : zero_size
+ * time : 2012-09-23 20:48:30
+ */
 .zero_size{
 	display:inline-block;
 	width:0;
@@ -48,9 +75,13 @@
 	line-height:999%;
 }
 
-//翻转类
+/*************************************************
+ * name : 翻转|水平翻转|垂直翻转
+ * class : rotate | rotate_x | rotate_y
+ * time : 2012-09-23 20:48:30
+ */
+//全翻
 .rotate{
-	/* 全翻 */
 	-webkit-transform:scale(-1);
 	-moz-transform:scale(-1);
 	-khtml-transform:scale(-1);
@@ -60,8 +91,8 @@
 	filter:FlipH FlipV;
 }
 
+//水平方向
 .rotate_x{
-	/* 水平方向 */
 	-webkit-transform:scaleX(-1);
 	-moz-transform:scaleX(-1);
 	-khtml-transform:scaleX(-1);
@@ -71,8 +102,8 @@
 	filter:FlipH;
 }
 
+//垂直方向
 .rotate_y{
-	/* 垂直方向 */
 	-webkit-transform:scaleY(-1);
 	-moz-transform:scaleY(-1);
 	-khtml-transform:scaleY(-1);
@@ -82,14 +113,63 @@
 	filter:FlipV;
 }
 
-//消除空白符
+/*************************************************
+ * name : 消除空格
+ * class : trim
+ * time : 2012-09-23 20:48:30
+ */
 .trim{
 	font-size:0;
 	letter-spacing:-0.5em;
+	*zoom:1;
 }
 
-//水平布局
-.hor_box{
-	font-size:0;
-	letter-spacing:-0.5em;
+//子元素还原字号和间距
+.revert{
+	font-size:12px;
+	letter-spacing:normal;
+}
+
+//当子元素为行内时使用该类
+.trim .trim_item{
+	.revert;
+	*float:left;
+}
+
+/*************************************************
+ * name : 水平布局|两端对齐
+ * class : inline | justify
+ * time : 2012-09-23 20:48:30
+ */
+.inline,.justify{
+	.trim;
+}
+
+//两端对齐
+.justify{
+	text-align:justify;
+	text-justify:distribute-all-lines;
+}
+
+.justify:after{
+	content:"";
+	display:inline-block;
+	width:100%;
+	height:0;
+	overflow:hidden;
+}
+
+//子类类名
+.inline_item,.justify_item{
+	.revert;
+	display:inline-block;
+	vertical-align:top;
+	*display:inline;
+	*zoom:1;
+}
+
+//重置子元素对齐方式
+.justify_item{
+	text-align:left;
+	text-justify:auto;
 }

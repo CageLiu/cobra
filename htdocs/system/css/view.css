@@ -429,8 +429,8 @@ a,input,button,textarea{
 	zoom:1;
 }
 .cobra_system_moudle_item{
-	/*margin-bottom:12px;*/
 	position:relative;
+	display:block;
 }
 .cobra_system_moudle_title{
 	background-color:#ddd;
