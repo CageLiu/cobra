@@ -15,7 +15,7 @@
  */
 
 //默认字号、行高、字体
-@font:"12px/1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif";
+@font:"24px/1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif";
 
 //默认 body 文字颜色
 @body_color:#000;
@@ -24,16 +24,19 @@
 @body_bg:#FFF;
 
 //未点击的
-@link_color:blue;
+//@link_color:blue;
 
 //点击过的
-@visited_color:red;
+//@visited_color:red;
 
 //鼠标悬停
-@hover_color:black;
+//@hover_color:black;
 
 //鼠标按下
-@active_color:#F30;
+//@active_color:#F30;
+
+//链接文字颜色
+@link_color:#222;
 
 //0 尺寸元素
 .zero_size{
@@ -69,7 +72,7 @@
 }
 
 .rotate_y{
-	/* 水平方向 */
+	/* 垂直方向 */
 	-webkit-transform:scaleY(-1);
 	-moz-transform:scaleY(-1);
 	-khtml-transform:scaleY(-1);
@@ -79,8 +82,14 @@
 	filter:FlipV;
 }
 
+//消除空白符
+.trim{
+	font-size:0;
+	letter-spacing:-0.5em;
+}
 
-
-
-
-
+//水平布局
+.hor_box{
+	font-size:0;
+	letter-spacing:-0.5em;
+}
