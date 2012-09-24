@@ -5,25 +5,21 @@
 	<li class="cobra_system_moudle_item">
 		<div class="cobra_system_moudle_box">
 			<div class="cobra_system_moudle_title">
-				<span>框架1</span>
+				<span>0尺寸元素</span>
 				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-23 10:05</span>
 			</div>
-			<div class="cobra_system_moudle_html cobra_system_moudle_ph10">
-				<div class="wp">
-					<div class="main">
-						main
-					</div>
-					<div class="side">
-						side
-					</div>
-				</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				<span class="zero_size">zero_size</span>
 			</div>
 		</div>
 		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
 			<i class="arrow" title="显示这个模块的帮助信息"></i>
 			<ol class="cobra_system_moudle_docs_list">
 				<li class="cobra_system_moudle_docs_item">
-					暂无使用帮助
+					使用此类名可快速隐藏元素中的文字；一般用于以图片替换文字的场景中；
+				</li>
+				<li class="cobra_system_moudle_docs_item">
+					根据图片的尺寸，添加 padding-left 和 padding-top 来设置大小;
 				</li>
 			</ol>
 		</div>
@@ -32,18 +28,24 @@
 	<li class="cobra_system_moudle_item">
 		<div class="cobra_system_moudle_box">
 			<div class="cobra_system_moudle_title">
-				<span>测试模块</span>
-				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-23 10:05</span>
+				<span>箭头</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 20:55</span>
 			</div>
-			<div class="cobra_system_moudle_html cobra_system_moudle_ph10">
-				<i id="arrow">&nbsp;</i>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				<i class="arrow">arrow</i>
 			</div>
 		</div>
 		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
 			<i class="arrow" title="显示这个模块的帮助信息"></i>
 			<ol class="cobra_system_moudle_docs_list">
 				<li class="cobra_system_moudle_docs_item">
-					暂无使用帮助
+					使用border画的三角箭头，箭头的大小、方向、颜色通过父级或附加类名进行控制;具体方法如下：
+				</li>
+				<li class="cobra_system_moudle_docs_item">
+					设置 border-top-style 位 solid 且 border-top-color 有值，border-width 为非0正值，则显示相应颜色的向下箭头,设置了bottom的则为向上，left为向右，right为向左
+				</li>
+				<li class="cobra_system_moudle_docs_item">
+					四边的border-width不等时，可绘制不规则箭头.
 				</li>
 			</ol>
 		</div>
@@ -52,17 +54,42 @@
 	<li class="cobra_system_moudle_item">
 		<div class="cobra_system_moudle_box">
 			<div class="cobra_system_moudle_title">
-				<span>测试模块</span>
-				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-23 10:05</span>
+				<span>翻转</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 20:55</span>
 			</div>
-			<div class="cobra_system_moudle_html cobra_system_moudle_ph10">
-				<div class="justify">
-					<div class="justify_item">
-						left
-					</div>
-					<div class="justify_item">
-						right
-					</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				正常的：<i class="arrow">arrow</i>
+				全翻：<i class="arrow rotate">arrow</i>
+				水平翻：<i class="arrow rotate_x">arrow</i>
+				垂直翻：<i class="arrow rotate_y">arrow</i>
+			</div>
+		</div>
+		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
+			<i class="arrow" title="显示这个模块的帮助信息"></i>
+			<ol class="cobra_system_moudle_docs_list">
+				<li class="cobra_system_moudle_docs_item">
+					翻转可广泛用于轴对称或中心对称的样式，如：对称的按钮，中心对称的阴影等。
+				</li>
+				<li class="cobra_system_moudle_docs_item">
+					rotate用于中心对称翻转；rotate_x用于对称轴为垂直的水平翻转;rotate_y用于对称轴为水平的垂直翻转。
+				</li>
+			</ol>
+		</div>
+	</li>
+
+	<li class="cobra_system_moudle_item">
+		<div class="cobra_system_moudle_box">
+			<div class="cobra_system_moudle_title">
+				<span>消除空格</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 21:51</span>
+			</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				<div class="trim">
+					<a class="trim_item" href="#">Link1</a>
+					<a class="trim_item" href="#">Link2</a>
+					<a class="trim_item" href="#">Link3</a>
+					<a class="trim_item" href="#">Link4</a>
+					<a class="trim_item" href="#">Link5</a>
 				</div>
 			</div>
 		</div>
@@ -70,7 +97,86 @@
 			<i class="arrow" title="显示这个模块的帮助信息"></i>
 			<ol class="cobra_system_moudle_docs_list">
 				<li class="cobra_system_moudle_docs_item">
-					暂无使用帮助
+					trim主要用于消除行内或 inline－block 化后的元素之间换行后出现的空白符；
+				</li>
+			</ol>
+		</div>
+	</li>
+
+	<li class="cobra_system_moudle_item">
+		<div class="cobra_system_moudle_box">
+			<div class="cobra_system_moudle_title">
+				<span>水平布局</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 21:51</span>
+			</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				<ul class="inline">
+					<li class="inline_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="inline_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="inline_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="inline_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="inline_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
+			<i class="arrow" title="显示这个模块的帮助信息"></i>
+			<ol class="cobra_system_moudle_docs_list">
+				<li class="cobra_system_moudle_docs_item">
+					inline的主要作用是用来进行水平布局，可代替float使用，避免float带来的各种bug，inline_item 的元素相当于需要float的元素
+				</li>
+			</ol>
+		</div>
+	</li>
+
+	<li class="cobra_system_moudle_item">
+		<div class="cobra_system_moudle_box">
+			<div class="cobra_system_moudle_title">
+				<span>两端对齐</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 21:51</span>
+			</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				<ul class="justify">
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+				</ul>
+				<ul class="justify justify2">
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+					<li class="justify_item"><a href="#"><img src="${src()}" width="120" height="72" /></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
+			<i class="arrow" title="显示这个模块的帮助信息"></i>
+			<ol class="cobra_system_moudle_docs_list">
+				<li class="cobra_system_moudle_docs_item">
+					justify经常用于两端对齐的图片、图文列表，使用方式和 inline 类似,justify_item 元素间的间距会根据自身的宽度及父级的宽度自动计算，进行平均分配
+				</li>
+			</ol>
+		</div>
+	</li>
+
+	<li class="cobra_system_moudle_item">
+		<div class="cobra_system_moudle_box">
+			<div class="cobra_system_moudle_title">
+				<span>模块标题</span>
+				<span class="cobra_system_moudle_author">刘锋 更新于：2012-09-24 21:51</span>
+			</div>
+			<div class="cobra_system_moudle_html cobra_system_moudle_ph10 cobra_system_moudle_demo">
+				模块代码
+			</div>
+		</div>
+		<div class="cobra_system_moudle_docs cobra_system_hide_docs">
+			<i class="arrow" title="显示这个模块的帮助信息"></i>
+			<ol class="cobra_system_moudle_docs_list">
+				<li class="cobra_system_moudle_docs_item">
+
 				</li>
 			</ol>
 		</div>

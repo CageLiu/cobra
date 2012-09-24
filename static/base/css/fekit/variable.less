@@ -15,7 +15,7 @@
  */
 
 //默认字号、行高、字体
-@font:"24px/1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif";
+@font:"12px/1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif";
 
 //默认 body 文字颜色
 @body_color:#000;
@@ -39,11 +39,22 @@
 @link_color:#222;
 
 /*************************************************
+ * name : inline-block化
+ * class : inline_block;
+ * time : 2012-09-24 20:48:30
+ */
+
+.inline_block{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+
+/*************************************************
  * name : 清除浮动
  * class : clear | clearfix
  * time : 2012-09-23 20:48:30
  */
-
 //方式一
 .clear{
 	clear:both;
@@ -67,12 +78,25 @@
  * time : 2012-09-23 20:48:30
  */
 .zero_size{
-	display:inline-block;
 	width:0;
 	height:0;
 	overflow:hidden;
 	font-size:0;
 	line-height:999%;
+	.inline_block;
+}
+
+/*************************************************
+ * name : 箭头
+ * class : arrow
+ * time : 2012-09-24 20:48:30
+ */
+
+.arrow{
+	.zero_size;
+	border-style:dashed;
+	border-color:transparent;
+	vertical-align:middle;
 }
 
 /*************************************************
@@ -162,10 +186,8 @@
 //子类类名
 .inline_item,.justify_item{
 	.revert;
-	display:inline-block;
+	.inline_block;
 	vertical-align:top;
-	*display:inline;
-	*zoom:1;
 }
 
 //重置子元素对齐方式
