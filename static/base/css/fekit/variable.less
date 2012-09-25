@@ -15,7 +15,7 @@
  */
 
 //默认字号、行高、字体
-@font:"12px/1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif";
+@font:12pxe('/')1.5 '微软雅黑',Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif;
 
 //默认 body 文字颜色
 @body_color:#000;
@@ -37,6 +37,23 @@
 
 //链接文字颜色
 @link_color:#222;
+
+/*************************************************
+ * name : 网格参数
+ * class : inline_block;
+ * time : 2012-09-24 20:48:30
+ */
+//固定网格总宽
+@fixed_width:960px;
+
+//网格列数
+@grid_columns:12;
+
+//网格间距
+@grid_gutter_width:12px;
+
+//单列宽度
+@grid_width:(@fixed_width - (@grid_columns - 1) * @grid_gutter_width) / @grid_columns;
 
 /*************************************************
  * name : inline-block化
@@ -155,21 +172,22 @@
 }
 
 /*************************************************
- * name : 水平布局|两端对齐
+ * name : 水平布局|两端对齐|网格系统
  * class : inline | justify
  * time : 2012-09-23 20:48:30
  */
-.inline,.justify{
+.inline,.justify,.grid{
 	.trim;
 }
 
 //两端对齐
-.justify{
+.justify,.grid{
 	text-align:justify;
 	text-justify:distribute-all-lines;
 }
 
-.justify:after{
+.justify:after,
+.grid:after{
 	content:"";
 	display:inline-block;
 	width:100%;
@@ -178,14 +196,82 @@
 }
 
 //子类类名
-.inline_item,.justify_item{
+.inline_item,.justify_item,.grid_item{
 	.revert;
 	.inline_block;
 	vertical-align:top;
 }
 
 //重置子元素对齐方式
-.justify_item{
+.justify_item,.grid_item{
 	text-align:left;
 	text-justify:auto;
+}
+
+/*************************************************
+ * name : 固定布局
+ * class : fixed
+ * time : 2012-09-25 21:48:30
+ */
+.fixed{
+	width:@fixed_width;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.fixed .grid_item1{
+	width:@grid_width;
+}
+
+.fixed .grid_item2{
+	width:@grid_width * 2 + @grid_gutter_width;
+}
+
+.fixed .grid_item3{
+	width:@grid_width * 3 + @grid_gutter_width * 2;
+}
+
+.fixed .grid_item4{
+	width:@grid_width * 4 + @grid_gutter_width * 3;
+}
+
+.fixed .grid_item5{
+	width:@grid_width * 5 + @grid_gutter_width * 4;
+}
+
+.fixed .grid_item6{
+	width:@grid_width * 6 + @grid_gutter_width * 5;
+}
+
+.fixed .grid_item7{
+	width:@grid_width * 7 + @grid_gutter_width * 6;
+}
+
+.fixed .grid_item8{
+	width:@grid_width * 8 + @grid_gutter_width * 7;
+}
+
+.fixed .grid_item9{
+	width:@grid_width * 9 + @grid_gutter_width * 8;
+}
+
+.fixed .grid_item10{
+	width:@grid_width * 10 + @grid_gutter_width * 9;
+}
+
+.fixed .grid_item11{
+	width:@grid_width * 11 + @grid_gutter_width * 10;
+}
+
+.fixed .grid_item12{
+	width:100%;
+}
+
+/*************************************************
+ * name : 流体布局
+ * class : fluid
+ * time : 2012-09-25 21:48:30
+ */
+.fluid{
+	width:100%;
 }
