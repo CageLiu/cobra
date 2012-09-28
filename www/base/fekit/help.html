@@ -19,7 +19,7 @@
 			a{
 				color:#57A000;
 			}
-			p{text-indent:2em;}
+			p{text-indent:2em;padding-bottom:1em}
 			hr{
 				margin:8px 0;
 			}
@@ -33,8 +33,35 @@
 		<hr/>
 		<h3>2.关于个人模块页使用说明</h3>
 		<p>
-			
+		所有的模块代码都应该包含在一个 类名为 <span style="color:red">cobra_system_moudle_list</span> 的 ul 中，每个模块使用 类名为 <span style="color:red">cobra_system_moudle_item</span> 的 li 包裹；同时，这个 li 还可以有另外两个类名：<span style="color:red">cobra_system_moudle_ph10</span> 和 <span style="red">cobra_system_moudle_demo</span>.
 		</p>
+		<p>
+			<span style="color:red">cobra_system_moudle_ph10</span> : 为模块容器在水平方向左右两边各添加 10px 的空隙，翻遍对模块进行查看，若所编写的模块的边界需要和浏览器边界紧挨，只需去掉该类名即可。
+		</p>
+		<p>
+		<span style="color:red">cobra_system_moudle_demo</span> : 为模块添加<span style="color:red">视觉样式</span>的类名。即：为了能方便的看到我们所编写的模块的效果，很多时候需要为模块添加一些诸如 背景、边框等样式，但这些样式可能并不是模块本身所需要的，只是为了更好的观察效果而临时添加的。例如，我们编写了一个框架模块，有 main 和 side 两列，这时，我们就可以通过该类名分别为 main 和 side 添加不同的背景色,即可非常直观的看到 main 和 side 的位置：
+		</p>
+		<p style="text-indent:0;padding-left:2em">
+			<span style="color:#3B5998;border:1px solid #CCC;display:inline-block;padding:3px 2em 3px 0">
+				.cobra_system_moudle_demo .main{background:#333;} <br/>
+				.cobra_system_moudle_demo .side{background:#CCC;}
+			</span>
+		</p>
+		<p>
+			所有和模块本身无关的代码都应该使用 <span style="color:red">cobra_system_moudle_demo</span> 进行控制，以免造成不必要的代码冗余。
+		</p>
+		<p>
+			所有此类代码都位于个人 css 或 less 文件中:
+		</p>
+		<p style="color:#AAA;">
+			/************************************* demo start ******************************/
+		</p>
+		<p style="color:#AAA;">
+			/************************************* demo end ********************************/
+		</p>
+		<p>
+			注释块内，方便统一管理。
+			</p>
 		<hr/>
 	</body>
 </html>
