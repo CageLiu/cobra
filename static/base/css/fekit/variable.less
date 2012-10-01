@@ -39,23 +39,6 @@
 @link_color:#222;
 
 /*************************************************
- * name : 网格参数
- * class : inline_block;
- * time : 2012-09-24 20:48:30
- */
-//固定网格总宽
-@fixed_width:960px;
-
-//网格列数
-@grid_columns:12;
-
-//网格间距
-@grid_gutter_width:12px;
-
-//单列宽度
-@grid_width:(@fixed_width - (@grid_columns - 1) * @grid_gutter_width) / @grid_columns;
-
-/*************************************************
  * name : inline-block化
  * class : inline_block;
  * time : 2012-09-24 20:48:30
@@ -225,67 +208,4 @@
 .justify_item,.grid_item{
 	text-align:left;
 	text-justify:auto;
-}
-
-/*************************************************
- * name : 固定布局
- * class : fixed
- * time : 2012-09-25 21:48:30
- */
-.fixed_item1{ 
-	width:@grid_width; 
-}
-
-.fixed_item2{ 
-	width:@grid_width * 2 + @grid_gutter_width; 
-}
-
-.fixed_item3{ 
-	width:@grid_width * 3 + @grid_gutter_width * 2; 
-}
-
-.fixed_item4{
-	width:@grid_width * 4 + @grid_gutter_width * 3; 
-}
-
-.fixed_item5{
-	width:@grid_width * 5 + @grid_gutter_width * 4; 
-}
-
-.fixed_item6{ 
-	width:@grid_width * 6 + @grid_gutter_width * 5; 
-}
-
-.fixed_item7{ 
-	width:@grid_width * 7 + @grid_gutter_width * 6;
-}
-
-.fixed_item8{
-	width:@grid_width * 8 + @grid_gutter_width * 7;
-}
-
-.fixed_item9{
-	width:@grid_width * 9 + @grid_gutter_width * 8;
-}
-
-.fixed_item10{
-	width:@grid_width * 10 + @grid_gutter_width * 9;
-}
-
-.fixed_item11{
-	width:@grid_width * 11 + @grid_gutter_width * 10;
-}
-
-.fixed_item12{
-	width:100%;
-}
-
-/*************************************************
- * name : 流体布局
- * class : fluid
- * time : 2012-09-25 21:48:30
- */
-
-.fluid{
-	
 }
