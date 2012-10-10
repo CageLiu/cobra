@@ -9,3 +9,4 @@
 logs/*
 *.DS_Store
 *settings.py
+*config.py
