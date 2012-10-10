@@ -1,23 +1,25 @@
 # Django settings for cobra project.
 from config import STATIC_URL_STRING
 
+##########################################################################################
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+##########################################################################################
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
-    ("Cage","517020375@qq.com"),
 )
 
 MANAGERS = ADMINS
 
+###########################################################################################
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'cobra',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': '256269',                  # Not used with sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -30,6 +32,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
+##########################################################################################
 TIME_ZONE = 'Asia/Shanghai'
 
 # Language code for this installation. All choices can be found here:
@@ -63,6 +66,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
+##########################################################################################
 STATIC_URL = '/s/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
@@ -157,7 +161,8 @@ LOGGING = {
     }
 }
 
+##########################################################################################
 #mail config
-EMAIL_HOST = 'smtp.exmail.qq.com'
-EMAIL_HOST_USER = 'system@i-shu.com'
-EMAIL_HOST_PASSWORD = 'cage*256*269'
+EMAIL_HOST = 'your email host'   #邮件发送服务器
+EMAIL_HOST_USER = 'your email address'    #发送邮箱
+EMAIL_HOST_PASSWORD = 'your email password'    #邮箱密码

@@ -850,7 +850,7 @@ tr:hover .a_new{
 /* form */
 .form .text{
 	background-color:#fff;
-    border:1px solid #888;
+    border:1px solid #ccc;
     height:25px;
     line-height:25px;
     padding-left:2px;
@@ -869,7 +869,10 @@ tr:hover .a_new{
 }
 .form .checkbox_item{
 	display:inline-block;
-	margin-bottom:5px;
+	margin-top:5px;
+	*margin-top:9px;
+	_margin-top:8px;
+	width:136px;
 }
 .form .checkbox{
 	vertical-align:middle;
@@ -880,7 +883,7 @@ tr:hover .a_new{
 		top:-3px;
 	];
 	top:-1px \9\0;
-	_top:-1px;
+	*top:-2px;
 	margin-right:5px;
 	*margin-right:2px;
 }
@@ -921,8 +924,20 @@ tr:hover .a_new{
 	overflow-y:auto;
 	border:1px solid #ccc;
 	background-color:#fff;
+	margin-top:7px;
 }
 .add_project_form .tarea{
-	width:480px;
+	width:348px;
 	height:120px;
+}
+.add_project_form .text{
+	width:348px;
+}
+
+/* add_box  */
+.add_box .left{
+	width:64%;
+}
+.add_box .right{
+	width:35.99%;
 }
