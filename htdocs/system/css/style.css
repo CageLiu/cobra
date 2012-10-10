@@ -133,13 +133,17 @@ body{
 	vertical-align:middle;
 	zoom:1;
 } 
+.btn span{
+	filter:alpha(opacity=100);
+}
 .btn input{
-	width:2000px;
-	height:2000px;
+	width:999px;
+	height:999px;
 	position:absolute;
 	left:0;
 	top:0;
-	z-index:9;
+	z-index:99;
+	cursor:pointer;
 	opacity:0;
 	filter:alpha(opacity=0);
 }
@@ -721,7 +725,7 @@ tr:hover .a_new{
 	position:relative;
 }
 .details .dright{
-	width:35%;
+	width:34.9%;
 	overflow-x:auto;
 }
 .fileslist .dirname{
@@ -827,4 +831,16 @@ tr:hover .a_new{
 	vertical-align: middle;
 	position:relative;
 	top:-3px;
+}
+
+/* quick_login*/
+.quick_login .item{
+	margin-bottom:8px;
+}
+.quick_login .txt{
+	border:1px solid #ccc;
+	background-color:#fff;
+	height:23px;
+	line-height:23px;
+	width:160px;
 }
