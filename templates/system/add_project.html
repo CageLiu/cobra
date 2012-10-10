@@ -28,6 +28,82 @@
 			</div>
 			%endif
 			<form action="" method="post">
+				<div class="form add_project_form">
+					<div class="item">
+						<label class="field">项目名【英文】:</label>
+						<div class="f">
+							<input type="text" name="name_en" class="text" />
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">项目名【中文】:</label>
+						<div class="f">
+							<input type="text" name="name_zh" class="text" />
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">项目状态:</label>
+						<div class="f">
+							<select name="state">
+								%for k,v in PROJECT_STATE.items():
+								<option value="${k}">${v}</option>
+								%endfor
+							</select>
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">开始时间:</label>
+						<div class="f">
+							<input type="text" class="text" name="starttime" />
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">项目周期:</label>
+						<div class="f">
+							<input type="text" class="text" name="starttime" />
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">选择成员:</label>
+						<div class="f">
+							%for item in allUsers:
+							<label class="checkbox_item nowrap">
+								<input name="member" class="checkbox" type="checkbox" value="${item.id}" />${item.name_zh}【${item.department}】
+							</label>
+							%endfor
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">负责人:</label>
+						<div class="f">
+							<select name="manager">
+								<option value="0">请选择</option>
+								%for item in allUsers:
+								<option value="${item.id}">${item.name_zh}【${item.department}】</option>
+								%endfor
+							</select>
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">优先级:</label>
+						<div class="f">
+							<select name="weight">
+								%for k,v in WEIGHT.items():
+								<option value="${k}">${v}</option>
+								%endfor
+							</select>
+						</div>
+					</div>
+					<div class="item">
+						<label class="field">项目描述:</label>
+						<div class="f">
+							<textarea name="summary" class="tarea"></textarea>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--
+			<form action="" method="post">
 				<p>项目名-英文:<input type="text" name="name_en" /></p>
 				<p>项目名-中文:<input type="text" name="name_zh" /></p>
 				<p>项目状态:
@@ -62,6 +138,7 @@
 				<p>项目介绍:<textarea name="summary"></textarea></p>
 				<p><input type="submit" value="submit" /></p>
 			</form>
+			-->
 		</div>
 	</div>
 </%def>
