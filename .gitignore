@@ -9,3 +9,4 @@
 logs/*
 news_temp.html
 *.DS_Store
+setting.py
