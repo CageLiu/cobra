@@ -65,11 +65,12 @@ body{
 
 /* scroll box start*/
 .shtml{
-	overflow:hidden;
 	position:relative;
+	overflow-x:hidden;
+	overflow-y:auto;
 }
 .sbody{
-	margin-right:12px;
+	/*margin-right:12px;*/
 }
 .scroll,
 .scroll .slider{
@@ -134,7 +135,7 @@ body{
 	zoom:1;
 } 
 .btn span{
-	filter:alpha(opacity=100);
+	*filter:alpha(opacity=100);
 }
 .btn input{
 	width:999px;
@@ -697,14 +698,15 @@ tr:hover .a_new{
 
 /* userlist */
 .user_list{
-	margin-left:-24px;
 	margin-bottom:-10px;
 }
 .user_list .media{
 	*zoom:-1;
 }
 .user_list .user_item{
-	margin:12px 0 20px 32px;
+	margin-bottom:20px;
+	width:24.99%;
+	overflow:hidden;
 }
 
 /* related_users */

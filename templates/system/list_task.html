@@ -12,7 +12,7 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		from cobra.apps.system.config import TASK_STATE,WEIGHT
 	%>
 	<div class="box">
 		<div class="bt">
@@ -78,7 +78,7 @@
 <%def name="side()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		from cobra.apps.system.config import TASK_STATE
 	%>
 
 	<div class="box">
@@ -88,12 +88,11 @@
 		<div class="bc">
 			<div class="count_box">
 				<p class="item">任务总数：${len(allTasks)}</p>
-				<p class="item"><i class="icon_state a_new"></i>新创建：${len(sm.Task.objects.filter(state = "a_new"))}</p>
-				<p class="item"><i class="icon_state b_apportion"></i>已分派：${len(sm.Task.objects.filter(state = "b_apportion"))}</p>
-				<p class="item"><i class="icon_state c_doing"></i>进行中：${len(sm.Task.objects.filter(state = "c_doing"))}</p>
-				<p class="item"><i class="icon_state d_confirming"></i>确认中：${len(sm.Task.objects.filter(state = "d_confirming"))}</p>
-				<p class="item"><i class="icon_state e_reviseing"></i>调整中：${len(sm.Task.objects.filter(state = "e_reviseing"))}</p>
-				<p class="item"><i class="icon_state f_over"></i>已结束：${len(sm.Task.objects.filter(state = "f_over"))}</p>
+				%for k,v in TASK_STATE.items():
+				<p class="item">
+					<i class="icon_state ${k}">${TASK_STATE[k]}</i>${TASK_STATE[k]}：${len(sm.Task.objects.filter(state = k))}
+				</p>
+				%endfor
 			</div>
 		</div>
 	</div>

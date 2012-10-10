@@ -203,7 +203,7 @@
 
 		ajax : function(){
 			   
-		},
+		}
 
 
 
@@ -215,6 +215,7 @@
 
 		/* instance */
 
+		/*
 		DragDrop : function(options){
 			this.DragDrop.init = function(options){
 				this.interface = $.event();
@@ -451,6 +452,7 @@
 			};
 			return new this.scroll.init(options);
 		}
+	*/
 
 	};
 
@@ -468,6 +470,7 @@ $.ready(function(){
 		oFt.style.width = "1000px";
 		oDhtml.style.overflowX = "scroll";
 	}
+	/*
 	var oLayoutHtml = $.scroll({
 		body : document.getElementById("J_layout_body"),
 		drag : {
@@ -475,6 +478,7 @@ $.ready(function(){
 			limit : document.getElementById("J_layout_scroll")
 		}
 	});
+	*/
 
 	function resize(){
 		var oLayout = document.getElementById("J_layout_html");

@@ -12,7 +12,7 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		from cobra.apps.system.config import WEIGHT,PROJECT_STATE
 	%>
 	<div class="box">
 		<div class="bt">
@@ -80,7 +80,7 @@
 <%def name="side()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
+		from cobra.apps.system.config import PROJECT_STATE
 	%>
 
 	<div class="box">
@@ -90,11 +90,11 @@
 		<div class="bc">
 			<div class="count_box">
 				<p class="item">项目总数：${len(allProjects)}</p>
-				<p class="item"><i class="icon_state a_nostart"></i>未开始：${len(sm.Project.objects.filter(state = "a_nostart"))}</p>
-				<p class="item"><i class="icon_state b_doing"></i>进行中：${len(sm.Project.objects.filter(state = "b_doing"))}</p>
-				<p class="item"><i class="icon_state c_confirming"></i>确认中：${len(sm.Project.objects.filter(state = "c_confirming"))}</p>
-				<p class="item"><i class="icon_state d_reviseing"></i>调整中：${len(sm.Project.objects.filter(state = "d_reviseing"))}</p>
-				<p class="item"><i class="icon_state e_over"></i>已结束：${len(sm.Project.objects.filter(state = "e_over"))}</p>
+				%for k,v in PROJECT_STATE.items():
+				<p class="item">
+					<i class="icon_state ${k}">${PROJECT_STATE[k]}</i>${PROJECT_STATE[k]}：${len(sm.Project.objects.filter(state = k))}
+				</p>
+				%endfor
 			</div>
 		</div>
 	</div>
