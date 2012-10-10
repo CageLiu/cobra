@@ -20,7 +20,7 @@
 
 	<div class="box">
 		<div class="bt">
-			<span class="tit">任务信息</span>
+			<span class="tit">【任务】${obj.name}</span>
 		</div>
 		<div class="bc">
 			<dl class="details_item">
@@ -33,6 +33,8 @@
 				</dd>
 				<dt class="item_name">创建人:</dt>
 				<dd class="item_cont"><a href="/v/user/${author.id}/">${author}</a></dd>
+				<dt class="item_name">相关项目:</dt>
+				<dd class="item_cont"><a href="/v/project/${obj.pid}">${sm.Project.objects.get(id=obj.pid)}</a></dd>
 				<dt class="item_name">创建时间:</dt>
 				<dd class="item_cont">${obj.ctime}</dd>
 				%if obj.manager:

@@ -540,7 +540,7 @@ body{
 }
 .icon_guide .item{
 	display:inline-block;
-	height:5px;
+	height:9px;
 	width:0;
 	font-size:0;
 	overflow:hidden;
@@ -940,4 +940,9 @@ tr:hover .a_new{
 }
 .add_box .right{
 	width:35.99%;
+}
+
+/* operate */
+.operate a{
+	padding:0 3px;
 }

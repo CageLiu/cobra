@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 # Django settings for cobra project.
 from config import STATIC_URL_STRING
 

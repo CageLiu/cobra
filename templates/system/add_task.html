@@ -20,35 +20,64 @@
 		</div>
 
 		<div class="bc">
-		
+			%if err_msg:
+			<div class="message err_msg">
+				${err_msg}
+			</div>
+			%endif
+			<div class="hor_box add_box">
+				<div class="hor_item left">
+					<form action="" method="post">
+						<div class="form add_project_form">
+							<div class="item">
+								<label class="field">名称:</label>
+								<div class="f">
+									<input type="text" name="name" class="text" />
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">优先级:</label>
+								<div class="f">
+									<select name="weight">
+										%for k,v in WEIGHT.items():
+										<option value="${k}">${v}</option>
+										%endfor
+									</select>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">相关项目:</label>
+								<div class="f">
+									<select name="pid">
+										<option value="0">请选择</option>
+										%for item in allProjects:
+										<option value="${item.id}">${item.name_zh}</option>
+										%endfor
+									</select>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">任务描述:</label>
+								<div class="f">
+									<textarea name="desc" class="tarea"></textarea>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f nowrap">
+									<a href="javascript:;" class="btn gray_btn">
+										<span>提交</span>
+										<input type="submit" value="提交" />
+									</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="hor_item right">
+					right
+				</div>
+			</div>
 		</div>
-
-
-
-		<!--
-		<div class="bc">
-			<form action="" method="post">
-				<p>名称:<input type="text" name="name" /></p>
-				<p>优先级:
-					<select name="weight">
-						%for k,v in WEIGHT.items():
-						<option value="${k}">${v}</option>
-						%endfor
-					</select>
-				</p>
-				<p>项目：
-					<select name="pid">
-						<option value="0">请选择</option>
-						%for item in allProjects:
-						<option value="${item.id}">${item.name_zh}</option>
-						%endfor
-					</select>
-				</p>
-				<p>描述:<textarea name="desc"></textarea></p>
-				<p><input type="submit" value="submit" /></p>
-			</form>
-		</div>
-		-->
 	</div>
 </%def>
 
