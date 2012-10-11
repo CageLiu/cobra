@@ -11,3 +11,17 @@
 	4.重新启动服务
 
 
+2012-10-11重要更新：
+
+	从 github 拉取最新版本之后，系统报错，无法启动，请按以下步骤修改配置：
+
+	1.把 cobra 根目录下的 settings.sample.py 复制一份，并重命名为 settings.py;修改其中的数据库设置部分（第17行开始）
+	填入数据库用户名（USER 后面的引号中）：cage
+	数据库密码（PASSWORD 后面的引号）:256269
+
+
+	2.把 cobra 根目录下的 config.sample.py 复制一份，重名为 config.py
+
+	3.把 cobra 下 apps/system 目录中的 config.sample.py 复制一份，重命名为 config.py
+
+	4.重新启动 cobra 即可
