@@ -76,6 +76,7 @@
 #J_system_dir_root .cobra_system_dir_name{
 	font-size:14px;
 	font-weight:700;
+	margin-bottom:5px;
 }
 #J_system_dir_root .cobra_system_dir_name a{
 	color:#333;

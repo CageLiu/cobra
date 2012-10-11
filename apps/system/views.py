@@ -93,6 +93,8 @@ def add(request,**args):
 
     pfix = t
 
+    print pfix
+
     cuser = args["User"]
 
     allProjects = sm.Project.objects.all()
@@ -101,10 +103,66 @@ def add(request,**args):
     allGroups = sm.Group.objects.all()
     allRights = sm.Rights.objects.all()
 
+    print allProjects
+    print allUsers
+    print allTasks
+    print allGroups
+    print allRights
+
     def create(model, flist = ["csrfmiddlewaretoken"] ,extra= {}):
         data = {k:v for k,v in request.POST.items() if k not in flist}
         data.update(extra)
         return model.objects.create(**data)
+
+    def createDir(pn,*target_dir):
+        static_dir = sc.P_STATIC_PATH + "/" + pn
+        print "*"*200
+
+        for item in target_dir:
+            if not os.path.exists(item):
+                os.makedirs(item)
+
+        for item in sc.STATIC_TYPE:
+            if not os.path.exists(static_dir + "/" + item):
+                os.makedirs(static_dir + "/" + item)
+                if item == "img":
+                    if not os.path.exists(static_dir + "/" + item + "/slice"):
+                        os.makedirs(static_dir + "/" + item + "/slice")
+
+
+
+    def touchFile(pn,**target_file):
+
+        templates_path = sc.P_PROJECT_PATH + "/" + pn
+        static_path = sc.P_STATIC_PATH + "/" + pn
+
+        name_str = "##title:"
+        author_str = '''<span class="cobra_system_moudle_author">'''
+
+        h = open(sc.SITE_ROOT + "apps/system/module_fragment.html")
+        mod_html = unicode(h.read(),"utf-8")
+        h.close()
+
+        if not os.path.isfile(templates_path + "/_import.html"):
+            f = open(templates_path + "/_import.html","w")
+            f.write("##-*-coding:utf-8-*-")
+            f.close()
+
+        for k,v in target_file.items():
+            if not os.path.isfile(templates_path + "/_" + v + ".html"):
+                f = open(templates_path + "/_" + v + ".html","w")
+                s = mod_html[:mod_html.find(name_str) + len(name_str)] + k + mod_html[mod_html.find(name_str) + len(name_str):]
+                s = s[:s.find(author_str) + len(author_str)] + k + s[s.find(author_str) + len(author_str):]
+                s = s.encode("utf-8")
+                f.write(s)
+                f.close()
+
+        print target_file
+        print static_path
+        print name_str
+        print author_str
+        print mod_html
+
 
     if t:
         try:
@@ -115,11 +173,22 @@ def add(request,**args):
                         extra = {"author" : cuser.id}
                         member = request.POST.getlist("member")
                         newObj = create(model ,flist = ["csrfmiddlewaretoken","member"], extra = extra)
+                        templates_path = sc.P_PROJECT_PATH + "/" + newObj.name_en
+                        static_path = sc.P_STATIC_PATH + "/" + newObj.name_en
+                        ms = {}
+                        createDir(newObj.name_en,templates_path,static_path)
+                        print templates_path
+                        print static_path
+                        print ms
                         for item in member:
+                            cm = sm.User.objects.get(id = item)
+                            ms.update({cm.name_zh:cm.usm})
                             u_p = {"uid":item,"pid":newObj.id}
                             sm.User_Project.objects.create(**u_p)
+                        touchFile(newObj.name_en,**ms)
+                        
                     elif t == "user":
-                        create(model,flist = ['csrfmiddlewaretoken','upic'])
+                        newObj = create(model,flist = ['csrfmiddlewaretoken','upic'])
                     elif t == "task":
                         extra = {"author" : cuser.id}
                         member = request.POST.getlist("member")
@@ -131,9 +200,11 @@ def add(request,**args):
                         create(model)
                     elif t == "rights":
                         create(model)
-                    return HttpResponseRedirect("/v/" + t + "/")
+                    return HttpResponseRedirect("/v/" + t + "/" + str(newObj.id))
             except :
                 err_msg = u"请按正确的格式填写"
+                return HttpResponse(sys.exc_info()[0])
+                print err_msg
                 return render_to_response("system/add_" + t + ".html",locals())
         except KeyError:
             return HttpResponse(u"404 page")
@@ -147,6 +218,8 @@ def edit(request,**args):
     item = args["item"]
 
     pfix = t
+
+    print pfix
 
     if not t and not item:
         return HttpResponse("edit index page")
@@ -179,6 +252,11 @@ def p(request,p = "", tpl = ""):
     pfix = p
 
     stamp = "?v=" + str(time.time())
+
+    print src
+    print static
+    print pfix
+    print stamp
 
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p
@@ -238,8 +316,8 @@ def p(request,p = "", tpl = ""):
             try:
                 return render_to_response("system/view.html",locals())
             except :
-                return HttpResponse(u"404")
                 #return HttpResponse(sys.exc_info()[0])
+                return HttpResponse(u"404")
 
 def v(request,t = "", tid = ""):
     '''user view'''
@@ -287,6 +365,7 @@ def v(request,t = "", tid = ""):
             pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/p/", pattern)
+            staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$")
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":

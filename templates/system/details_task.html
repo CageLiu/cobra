@@ -33,8 +33,10 @@
 				</dd>
 				<dt class="item_name">创建人:</dt>
 				<dd class="item_cont"><a href="/v/user/${author.id}/">${author}</a></dd>
-				<dt class="item_name">相关项目:</dt>
-				<dd class="item_cont"><a href="/v/project/${obj.pid}">${sm.Project.objects.get(id=obj.pid)}</a></dd>
+				%if obj.pid:
+					<dt class="item_name">相关项目:</dt>
+					<dd class="item_cont"><a href="/v/project/${obj.pid}">${sm.Project.objects.get(id=obj.pid)}</a></dd>
+				%endif
 				<dt class="item_name">创建时间:</dt>
 				<dd class="item_cont">${obj.ctime}</dd>
 				%if obj.manager:
@@ -61,7 +63,7 @@
 <%def name="side()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,DEPARTMENT
 	%>
 	<div class="box">
 		<div class="bt">
@@ -85,7 +87,7 @@
 							<p class="item">
 								姓名:<a href="/v/user/${useritem.id}/">${useritem.name_zh}</a>
 							</p>
-							<p class="item">部门:${useritem.department}</p>
+							<p class="item">部门:${DEPARTMENT[useritem.department]}</p>
 						</div>
 					</div>
 				</li>

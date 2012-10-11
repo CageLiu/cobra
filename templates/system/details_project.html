@@ -12,6 +12,7 @@
 <%def name="main()">
 	<%
 		from cobra.apps.system import models as sm
+		from cobra.config import SERVER_INFO,P_PROJECT_PATH,P_STATIC_PATH
 		from cobra.apps.system.config import TASK_STATE,WEIGHT,PROJECT_STATE
 		autofile = eval(obj.refile)
 		author = sm.User.objects.get(id = obj.author)
@@ -24,7 +25,27 @@
 		</div>
 		<div class="bc">
 			<div class="hor_box details">
-				<div class="hor_item dleft">
+				<div class="hor_item hor_box dleft">
+					<div class="hor_item fileslist">
+						<h4 class="dirname">
+							模板文件
+							<span class="absolute_path">${SERVER_INFO["ip"]}${P_PROJECT_PATH}/${obj.name_en} </span>
+						</h4>
+						<div class="list">
+							${dirHtml}
+						</div>
+					</div>
+					<div class="hor_item fileslist">
+						<h4 class="dirname">
+							静态文件
+							<span class="absolute_path">${SERVER_INFO["ip"]}${P_STATIC_PATH}/${obj.name_en} </span>
+						</h4>
+						<div class="list">
+							${staticHtml}
+						</div>
+					</div>
+				</div>
+				<div class="hor_item dright">
 					<dl class="details_item">
 						<dt class="item_name">名称:</dt>
 						<dt class="item_cont">${obj.name_zh}</dt>
@@ -67,23 +88,17 @@
 						<dd class="item_cont">${obj.summary}</dd>
 					</dl>
 				</div>
-				<div class="hor_item dright">
-					<div class="fileslist">
-						<h4 class="dirname">${obj.name_zh} 下的文件</h4>
-						${dirHtml}
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="extra product">
 			<a href="/edit/project/${obj.id}/" class="editlink">编辑</a>
 			<select id="J_otheritem">
 				<option value="${obj.id}">${obj.name_zh}</option>
-			%for item in allProjects:
-				%if item.id != obj.id:
-				<option value="${item.id}">${item.name_zh}</option>
-				%endif
-			%endfor
+				%for item in allProjects:
+					%if item.id != obj.id:
+					<option value="${item.id}">${item.name_zh}</option>
+					%endif
+				%endfor
 			</select>
 
 			<script type="text/javascript">
@@ -153,7 +168,7 @@
 <%def name="side()">
 	<%
 		from cobra.apps.system import models as sm
-		from cobra.apps.system.config import TASK_STATE,WEIGHT
+		from cobra.apps.system.config import TASK_STATE,WEIGHT,DEPARTMENT
 	%>
 
 	<div class="box">
@@ -177,7 +192,7 @@
 							<p class="item">
 								姓名:<a href="/v/user/${useritem.id}/">${useritem.name_zh}</a>
 							</p>
-							<p class="item">部门:${useritem.department}</p>
+							<p class="item">部门:${DEPARTMENT[useritem.department]}</p>
 						</div>
 					</div>
 				</li>
@@ -189,15 +204,16 @@
 		<div class="bt">
 			<span class="tit">添加成员</span>
 		</div>
-		<div class="bc">
-			<select>
-				<option>成员1</option>
-				<option>成员2</option>
-				<option>成员3</option>
-				<option>成员4</option>
-				<option>成员5</option>
+		<div class="bc ">
+			<select id="J_add_new_member">
+				%for item in allUsers:
+				<option value="${item.id}">${item}【${DEPARTMENT[item.department]}】</option>
+				%endfor
 			</select>
-			<input type="submit" value="添加" />
+			<a href="javascript:;" class="btn gray_btn" id="J_add_new_member_btn">
+				<span>添加</span>
+				<input type="submit" value="添加" />
+			</a>
 		</div>
 	</div>
 	<div class="box">

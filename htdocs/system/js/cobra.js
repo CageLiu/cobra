@@ -110,12 +110,11 @@
 		},
 
 		getEvent : function(e){
-			return e || window.event;
-		},
-
-		getTarget : function(e){
-			e = this.getEvent(e);
-			return e.target || e.srcElement;
+			var e  = e || window.event;
+			e.target = e.target || e.srcElement;
+			e.from = e.relatedTarget || e.fromElement;
+			e.to = e.relatedTarget || e.toElement;
+			return e;
 		},
 
 		stopPropagation : function(e){
@@ -498,4 +497,23 @@ $.ready(function(){
 	$.addEvent(window,"resize",function(){
 		$.throttle(resize);
 	});
+
+
+	$.addEvent(document,"click",function(e){
+		var e = $.getEvent(e);
+		var target = e.target;
+		var oPs = null;
+		var oPsClassName = "";
+		if(target.className === "cobra_system_flag"){
+			oPs = target.parentNode.parentNode;
+			oPsClassName = oPs.className;
+			if(oPsClassName.indexOf(" close") !== -1){
+				oPs.className = oPsClassName.replace(/close/g,"");
+			}else{
+				oPs.className += " close";
+			}
+		}
+	});
+
+
 });

@@ -13,7 +13,7 @@
 <%def name="main()">
 
 	<%
-		from cobra.apps.system.config import PROJECT_STATE,WEIGHT
+		from cobra.apps.system.config import PROJECT_STATE,WEIGHT,DEPARTMENT
 		from cobra.apps.system import models as sm
 	%>
 
@@ -35,20 +35,30 @@
 								<label class="field">项目名【英文】:</label>
 								<div class="f">
 									<input type="text" name="name_en" class="text" />
+									<div class="t">
+										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+									</div>
 								</div>
 							</div>
 							<div class="item">
 								<label class="field">项目名【中文】:</label>
 								<div class="f">
 									<input type="text" name="name_zh" class="text" />
+									<div class="t">
+										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+									</div>
 								</div>
 							</div>
 							<div class="item">
 								<label class="field">项目状态:</label>
 								<div class="f">
+									<%
+										keys = PROJECT_STATE.keys()
+										keys.sort()
+									%>
 									<select name="state">
-										%for k,v in PROJECT_STATE.items():
-										<option value="${k}">${v}</option>
+										%for k in keys:
+										<option value="${k}">${PROJECT_STATE[k]}</option>
 										%endfor
 									</select>
 								</div>
@@ -72,7 +82,7 @@
 									%for item in allUsers:
 									<% nCount += 1 %>
 									<label class="checkbox_item nowrap">
-										<input name="member" class="checkbox" type="checkbox" value="${item.id}" />${item.name_zh}【${item.department}】
+										<input name="member" class="checkbox" type="checkbox" value="${item.id}" />${item.name_zh}【${DEPARTMENT[item.department]}】
 									</label>
 										%if nCount % 3 == 0:
 											<br/>
@@ -86,7 +96,7 @@
 									<select name="manager">
 										<option value="0">请选择</option>
 										%for item in allUsers:
-										<option value="${item.id}">${item.name_zh}【${item.department}】</option>
+										<option value="${item.id}">${item.name_zh}【${DEPARTMENT[item.department]}】</option>
 										%endfor
 									</select>
 								</div>
@@ -94,9 +104,13 @@
 							<div class="item">
 								<label class="field">优先级:</label>
 								<div class="f">
+									<%
+										keys = WEIGHT.keys()
+										keys.sort()
+									%>
 									<select name="weight">
-										%for k,v in WEIGHT.items():
-										<option value="${k}">${v}</option>
+										%for k in keys:
+										<option value="${k}">${WEIGHT[k]}</option>
 										%endfor
 									</select>
 								</div>

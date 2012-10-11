@@ -26,7 +26,7 @@ class User(models.Model):
     name_zh    = models.CharField(max_length = 100)
     email      = models.EmailField(unique = True)
     group      = models.IntegerField()
-    department = models.CharField(max_length = 30)
+    department = models.IntegerField()
     state      = models.IntegerField(default = 0)
     upic       = models.CharField(max_length = 30, default = "normal.png")
     regtime    = models.DateTimeField(auto_now_add = True)

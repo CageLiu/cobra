@@ -38,9 +38,13 @@
 							<div class="item">
 								<label class="field">优先级:</label>
 								<div class="f">
+									<%
+										keys = WEIGHT.keys()
+										keys.sort()
+									%>
 									<select name="weight">
-										%for k,v in WEIGHT.items():
-										<option value="${k}">${v}</option>
+										%for k in keys:
+										<option value="${k}">${WEIGHT[k]}</option>
 										%endfor
 									</select>
 								</div>
@@ -49,7 +53,7 @@
 								<label class="field">相关项目:</label>
 								<div class="f">
 									<select name="pid">
-										<option value="0">请选择</option>
+										<option value="0">无</option>
 										%for item in allProjects:
 										<option value="${item.id}">${item.name_zh}</option>
 										%endfor

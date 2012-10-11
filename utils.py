@@ -83,7 +83,7 @@ def getChineseName(filename):
 
 
 #目录树生成方法
-def dirTree(path, url = "/", pattern = ""):
+def dirTree(path, url = "/", pattern = "", fold = ""):
     '''生成目录树的html'''
 
     if not path or not os.path.exists(path):
@@ -91,10 +91,12 @@ def dirTree(path, url = "/", pattern = ""):
     container = []
     r = re.compile(pattern)
     def tree(path):
-        rpath = re.sub(SITE_ROOT + "www/","",path)
+        reps = SITE_ROOT + "www/|" + SITE_ROOT + "static/"
+        rep = re.compile(reps)
+        rpath = rep.sub("",path)
         if not r.search(os.path.basename(path)):
             if os.path.isdir(path):
-                container.append(r'''<li class="cobra_system_dir  clearfix"><span class="cobra_system_dir_name"><a href="''' + url + rpath + r'''/">''' + \
+                container.append(r'''<li class="cobra_system_dir  clearfix ''' + fold + '''"><span class="cobra_system_dir_name"><a href="''' + url + rpath + r'''/">''' + \
                 unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
                 r'''</a><i class="cobra_system_flag">&nbsp;</i><i class="cobra_system_type">&nbsp;</i></span></strong><ul class="cobra_system_sub_dir">''')
                 for item in os.listdir(path):

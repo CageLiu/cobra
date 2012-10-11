@@ -724,11 +724,16 @@ tr:hover .a_new{
 
 /* details */
 .details .dleft{
-	width:65%;
+	width:68%;
 	position:relative;
 }
 .details .dright{
-	width:34.9%;
+	width:31.9%;
+}
+.details .dleft .fileslist{
+	width:49.5%;
+}
+.details .fileslist .list{
 	overflow-x:auto;
 }
 .fileslist .dirname{
@@ -736,6 +741,17 @@ tr:hover .a_new{
 	background:#fff;
 	position:relative;
 	z-index:9;
+}
+.fileslist .absolute_path{
+	display:block;
+	font-weight:400;
+	background:#333;
+	color:#FFF;
+	margin-right:2px;
+	border:1px solid #ccc;
+	height:13px;
+	line-height:15px;
+	font-family:"宋体";
 }
 .details_item{
 	zoom:1;
@@ -915,6 +931,7 @@ tr:hover .a_new{
 }
 .form .t{
 	white-space:nowrap;
+	color:#888;
 }
 .form .nowrap{
 	white-space:nowrap;
@@ -945,4 +962,18 @@ tr:hover .a_new{
 /* operate */
 .operate a{
 	padding:0 3px;
+}
+
+/* J_add_new_member */
+#J_add_new_member{
+	width:100%;
+	display:block;
+	height: 21px;
+	border: 1px solid #CCC;
+	background: white;
+	line-height: 30px;
+	margin-bottom:8px;
+}
+#J_add_new_member_btn,#J_add_new_member_btn span{
+	display:block;
 }

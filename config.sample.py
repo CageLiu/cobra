@@ -3,6 +3,12 @@
 #团队名称
 TEAMNAME = u"团队名称"
 
+#服务器信息
+SERVER_INFO = {
+        "ip" : "192.168.1.1",    #局域网ip,可让其他同事访问
+        "name" : "name",         #服务器主机名
+}
+
 #系统根目录
 SITE_ROOT = "/var/www/cobra/"
 
@@ -33,7 +39,3 @@ STATIC_TYPE = (
     "img",
     "js",
 )
-
-
-
-

@@ -34,8 +34,8 @@
 				</p>
 				<p>部门:
 				<select name="department">
-					%for item in DEPARTMENT:
-						<option value="${item}">${item}</option>
+					%for k,v in DEPARTMENT.items():
+						<option value="${k}">${v}</option>
 					%endfor
 				</select>
 				<p><input type="submit" value="submit" /></p>

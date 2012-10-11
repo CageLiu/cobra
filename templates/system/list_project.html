@@ -90,7 +90,11 @@
 		<div class="bc">
 			<div class="count_box">
 				<p class="item">项目总数：${len(allProjects)}</p>
-				%for k,v in PROJECT_STATE.items():
+				<%
+					keys = PROJECT_STATE.keys()
+					keys.sort()
+				%>
+				%for k in keys:
 				<p class="item">
 					<i class="icon_state ${k}">${PROJECT_STATE[k]}</i>${PROJECT_STATE[k]}：${len(sm.Project.objects.filter(state = k))}
 				</p>
