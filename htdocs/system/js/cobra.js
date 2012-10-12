@@ -463,6 +463,7 @@ $.ready(function(){
 	var oHd = document.getElementById("J_hd");
 	var oFt = document.getElementById("J_ft");
 	var oDhtml = document.documentElement;
+	var J_static_dir = document.getElementById("J_static_dir");
 	if(oDhtml.clientWidth <= 1000){
 		oLayout.style.width = "1000px";
 		oHd.style.width = "1000px";
@@ -502,18 +503,30 @@ $.ready(function(){
 	$.addEvent(document,"click",function(e){
 		var e = $.getEvent(e);
 		var target = e.target;
-		var oPs = null;
-		var oPsClassName = "";
 		if(target.className === "cobra_system_flag"){
-			oPs = target.parentNode.parentNode;
-			oPsClassName = oPs.className;
-			if(oPsClassName.indexOf(" close") !== -1){
-				oPs.className = oPsClassName.replace(/close/g,"");
-			}else{
-				oPs.className += " close";
-			}
+			fold(target)
 		}
 	});
 
+
+	$.addEvent(J_static_dir,"click",function(e){
+		var e = $.getEvent(e);
+		var target = e.target;
+		if(target.parentNode.className === "cobra_system_dir_name"){
+			fold(target);
+			$.preventDefault(e);
+			$.stopPropagation(e);
+		}
+	});
+
+	function fold(target){
+		var oPs = target.parentNode.parentNode;
+		var oPsClassName = oPs.className;
+		if(oPsClassName.indexOf(" close") !== -1){
+			oPs.className = oPsClassName.replace(/close/g,"");
+		}else{
+			oPs.className += " close";
+		}
+	}
 
 });

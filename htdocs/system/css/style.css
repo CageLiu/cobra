@@ -977,3 +977,10 @@ tr:hover .a_new{
 #J_add_new_member_btn,#J_add_new_member_btn span{
 	display:block;
 }
+
+#J_static_dir .cobra_system_dir_name a{
+	cursor:default;
+}
+#J_static_dir .cobra_system_dir_name a:hover{
+	text-decoration:none;
+}
