@@ -12,6 +12,11 @@
 %endif
 
 
+<%
+	tplstr = '''"''' + '''","'''.join(tpls) + '''"'''
+%>
+
+
 <!-- 生成控制面板 -->
 <script type="text/javascript" src="/s/system/js/view.js"></script>
 <script type="text/javascript">
@@ -51,8 +56,10 @@
 		html += '<span id="J_system_cobra_add_refile_btn" class="system_cobra_refile_link" title="添加自动刷新关联文件">添加自动刷新关联文件</span>';
 		oControlPanel.innerHTML = html;
 		document.body.appendChild(oControlPanel);
-
-		if((/^_.*/).test(tpl)){
+			
+		if((/^(.*\/)?_merge\.html$/).test(tpl)){
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=[${tplstr}]';
+		}else if((/^(.*\/)?_.*\.html$/).test(tpl)){
 			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
 		}else{
 			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
