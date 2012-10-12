@@ -283,8 +283,9 @@ def p(request,p = "", tpl = ""):
         css_reg = re.compile("\w+\.css$")
         js_reg = re.compile("\w+\.js$")
         less_reg = re.compile("\w+\.less$")
-        tpl_filter = re.compile("_.*\.html$")
+        tpl_filter = re.compile("^(.*\/)?_.*\.html$")
         merge_reg = re.compile("_merge.html$")
+        import_reg = re.compile("_import.html$")
         if tpl.find("/") != -1:
             subDir = tpl[0:tpl.find("/")]
         else:
@@ -306,6 +307,9 @@ def p(request,p = "", tpl = ""):
 
             tpls = [f for f in tplfiles if tpl_filter.search(f)]
             tpls.sort()
+
+            print "____*____"*100
+            print tpls
        
         #如果是目录，则显示目录树
         if os.path.isdir(tpl_path + "/" + tpl):

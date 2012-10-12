@@ -293,3 +293,21 @@
 
 	window.__$__ = cobra;
 }(window));
+
+__$__.ready(function(){
+	__$__.addEvent(document,"click",function(e){
+		var e = __$__.getEvent(e);
+		var target = e.target;
+		var oPs = null;
+		var oPsClassName = "";
+		if(target.className === "cobra_system_flag"){
+			oPs = target.parentNode.parentNode;
+			oPsClassName = oPs.className;
+			if(oPsClassName.indexOf(" close") !== -1){
+				oPs.className = oPsClassName.replace(/close/g,"");
+			}else{
+				oPs.className += " close";
+			}
+		}
+	});
+});
