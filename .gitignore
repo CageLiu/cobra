@@ -11,6 +11,8 @@ logs/*
 *settings.py
 *config.py
 
+cobra.bak.sql
+
 /www/*
 /static/*
 /templates/www/*
