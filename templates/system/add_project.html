@@ -1,0 +1,153 @@
+##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	新建项目
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+
+<!-- main -->
+<%def name="main()">
+
+	<%
+		from cobra.apps.system.config import PROJECT_STATE,WEIGHT,DEPARTMENT
+		from cobra.apps.system import models as sm
+	%>
+
+	<div class="box">
+		<div class="bt">
+			<span class="tit">开始新项目</span>
+		</div>
+		<div class="bc">
+			%if err_msg:
+			<div class="message err_msg">
+				${err_msg}
+			</div>
+			%endif
+			<div class="hor_box add_box">
+				<div class="hor_item left">
+					<form action="" method="post">
+						<div class="form add_project_form">
+							<div class="item">
+								<label class="field">项目名【英文】:</label>
+								<div class="f">
+									<input type="text" name="name_en" class="text" />
+									<div class="t">
+										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">项目名【中文】:</label>
+								<div class="f">
+									<input type="text" name="name_zh" class="text" />
+									<div class="t">
+										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">项目状态:</label>
+								<div class="f">
+									<%
+										keys = PROJECT_STATE.keys()
+										keys.sort()
+									%>
+									<select name="state">
+										%for k in keys:
+										<option value="${k}">${PROJECT_STATE[k]}</option>
+										%endfor
+									</select>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">开始时间:</label>
+								<div class="f">
+									<input type="text" class="text" name="starttime" />
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">项目周期:</label>
+								<div class="f nowrap">
+									<input type="text" class="text" name="period" />
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">选择成员:</label>
+								<div class="f nowrap">
+									<% nCount = 0 %>
+									%for item in allUsers:
+									<% nCount += 1 %>
+									<label class="checkbox_item nowrap">
+										<input name="member" class="checkbox" type="checkbox" value="${item.id}" />${item.name_zh}【${DEPARTMENT[item.department]}】
+									</label>
+										%if nCount % 3 == 0:
+											<br/>
+										%endif
+									%endfor
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">负责人:</label>
+								<div class="f">
+									<select name="manager">
+										<option value="0">请选择</option>
+										%for item in allUsers:
+										<option value="${item.id}">${item.name_zh}【${DEPARTMENT[item.department]}】</option>
+										%endfor
+									</select>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">优先级:</label>
+								<div class="f">
+									<%
+										keys = WEIGHT.keys()
+										keys.sort()
+									%>
+									<select name="weight">
+										%for k in keys:
+										<option value="${k}">${WEIGHT[k]}</option>
+										%endfor
+									</select>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">项目描述:</label>
+								<div class="f">
+									<textarea name="summary" class="tarea"></textarea>
+								</div>
+							</div>
+							<div class="item">
+								<div class="f nowrap">
+									<a href="javascript:;" class="btn gray_btn">
+										<span>提交</span>
+										<input type="submit" value="提交" />
+									</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="hor_item right">
+					right
+				</div>
+			</div>
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<a href="/v/project">项目</a>
+	<em>&gt;</em>
+	<span>新建项目</span>
+</%def>

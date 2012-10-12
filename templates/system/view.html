@@ -1,0 +1,691 @@
+##-*-coding:utf-8-*-
+%if tpl_filter.search(tpl):
+<%include file="_header.html" />
+%if merge_reg.search(tpl):
+<%include file="_merge.html" />
+%else:
+<%include file="/www/${p}/${tpl}" />
+%endif
+<%include file="_footer.html" />
+%else:
+<%include file="/www/${p}/${tpl}" />
+%endif
+
+
+<%
+	tplstr = '''"''' + '''","'''.join(tpls) + '''"'''
+%>
+
+
+<!-- 生成控制面板 -->
+<script type="text/javascript" src="/s/system/js/view.js"></script>
+<script type="text/javascript">
+	__$__.ready(function(){
+		var tpl = "${tpl}";
+		var pro = "${p}";
+		var oControlPanel = document.createElement("div");
+		var oControlPanelStyle = document.createElement("link");
+		var clientHeight = document.documentElement.clientHeight;
+		var clientWidth = document.documentElement.clientWidth;
+		var cssText = "";
+		var oFileList = null;
+		var oReloadBtn = null;
+		var oLockBtn = null;
+		var oArrow = null;
+		var host = "http://" + document.location.host.toString();
+		var currentLocation = document.location.toString();
+		var html = '';
+		oControlPanelStyle.href = "/s/system/css/view.css?v=" + (+new Date());
+		oControlPanelStyle.type = "text/css";
+		oControlPanelStyle.rel = "stylesheet";
+		document.getElementsByTagName("head")[0].appendChild(oControlPanelStyle);
+		oControlPanel.id = "J_system_control_panel";
+		cssText = "height:" + clientHeight + "px;";
+		__$__.css(document.body,"minWidth") === undefined ? (cssText += "position:absolute;") : (cssText += "position:fixed;");
+		oControlPanel.style.cssText = cssText;
+		html += '<dl class="system_control_panel">';
+		html += '<dt class="system_control_btn"><div id ="J_system_reload_btn" class="cobra_system_on">自动刷新:'
+		html += '</div><span id="J_system_control_lock" class="cobra_system_unlock">锁定面板:</span></dt>';
+		html += '<dt>搜索页面：<input type="text" id="system_cobra_search_page" class="system_cobra_panel_text" />';
+		html += '<span class="system_cobra_search_count">结果: <strong id="J_system_cobra_count_number"></strong> 条</span></dt>';
+		html += '<dt><strong>文件列表</strong> <a href="/v/project/${pobj.id}/" class="system_back_link system_project_list">项目详情</a>'
+		html += '<a href="/v/project/" class="system_back_link system_project_details">所有项目</a></dt>';
+		html += '<dd id="J_control_panel_files_list" class="loading">';
+		html += '</dd>';
+		html += '</dl><span id="J_system_control_arrow" class="arrow"></span>';
+		html += '<span id="J_system_cobra_add_refile_btn" class="system_cobra_refile_link" title="添加自动刷新关联文件">添加自动刷新关联文件</span>';
+		oControlPanel.innerHTML = html;
+		document.body.appendChild(oControlPanel);
+			
+		if((/^(.*\/)?_merge\.html$/).test(tpl)){
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=[${tplstr}]';
+		}else if((/^(.*\/)?_.*\.html$/).test(tpl)){
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
+		}else{
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
+		}
+		__$__.autoReloadTimer = null;
+		__$__.autoReloadLock = true;
+		__$__.autoReloadInterval = "${request.INTERVAL}";
+		__$__.linkText = [];
+		__$__.links = [];
+		__$__.__INOTIFY__ = function(){
+			var url = __$__.autoReloadPath;
+			var interval = __$__.autoReloadInterval;
+			clearTimeout(__$__.autoReloadTimer);
+			if(!__$__.autoReloadLock){
+				return false;
+			}else{
+				__$__.ajax({
+					url : url,
+					success : function(data){
+						if(data * 1){
+							document.location.reload();
+						}
+					}		
+				});
+			}
+			__$__.autoReloadTimer = setTimeout(arguments.callee,interval);
+		};
+
+		oReloadBtn = document.getElementById("J_system_reload_btn");
+		oLockBtn   = document.getElementById("J_system_control_lock");
+		oArrow     = document.getElementById("J_system_control_arrow");
+		oFileList  = document.getElementById("J_control_panel_files_list");
+		oRfileLink = document.getElementById("J_system_cobra_add_refile_btn");
+		oRfileLink.timer = null;
+
+		__$__.addEvent(oRfileLink,"mouseover",function(){
+			clearTimeout(this.timer);
+		});
+		__$__.addEvent(oRfileLink,"mouseout",function(){
+			this.style.display = "none";
+			this.parentNode.style.cssText = "zoom:-1;z-index:9";
+		});
+
+		__$__.addEvent(oRfileLink,"click",function(){
+			var re = new RegExp(host + "\/p\/" + "${p}\/")
+			var f = this.parentNode.getElementsByTagName("a")[0].href.replace(re,"");
+			var url = "/addrfile/?pid=${pobj.id}&f=";
+			f = f.substr(0,f.length -1);
+			url += f
+			__$__.ajax({
+				url : url,
+				success : function(data){
+					alert(data);
+				}
+			});
+		});
+		
+		__$__.ajax({
+			url : "/getree/?dir=/${p}",
+			success : function(data){
+				oFileList.innerHTML = data;
+				setTimeout(function(){
+					var aLinkList  = oFileList.getElementsByTagName("a");
+					for(var i = aLinkList.length - 1; i >= 0; i--){
+						var oLink = aLinkList[i];
+						if(oLink.parentNode.className === "cobra_system_dir_name"){
+							var oMergeLink = document.createElement("a");
+							oMergeLink.className = "cobra_system_merge_link";
+							oMergeLink.innerHTML = "Merge";
+							oMergeLink.href = oLink.href + "_merge.html";
+							oLink.parentNode.appendChild(oMergeLink);
+							continue;
+						}
+						__$__.links.unshift(oLink);
+						__$__.linkText.unshift(oLink.innerHTML);
+						__$__.linkLength = __$__.links.length;
+						var sLinkHref = oLink.href.toString();
+						var argsLocation = sLinkHref.indexOf("?");
+						if(argsLocation > -1){
+							sLinkHref = sLinkHref.substr(0,argsLocation);
+						}
+						var hrefReg = new RegExp(sLinkHref);
+						if(hrefReg.test(currentLocation)){
+							var position = __$__.position(oLink);
+							oFileList.scrollTop = (position.top - clientHeight / 2 + 13);
+							oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
+							oLink.className = "system_cobra_current";
+							document.title = oLink.innerHTML;
+						}
+						__$__.addEvent(oLink,"mouseover",function(){
+							clearTimeout(oRfileLink.timer);
+							this.parentNode.appendChild(oRfileLink);
+							oRfileLink.style.display = "block";
+							this.parentNode.style.cssText = "zoom:1;z-index:999";
+						});
+						__$__.addEvent(oLink,"mouseout",function(e){
+							var e = __$__.getEvent(e);
+							this.parentNode.style.zoom = -1;
+							if((e.to && e.to.nodeName.toLowerCase() === "li") || (e.to &&  e.to.nodeName.toLowerCase() === "span" && e.to !== this.parentNode )){
+								this.parentNode.style.zIndex = 9;
+							}
+							oRfileLink.timer = setTimeout(function(){
+								oRfileLink.style.display = "none";
+							},500);
+						});
+					}
+					oFileList.className = "";
+				},100);
+			}
+		});
+
+		oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
+
+		if(__$__.cookie().get("cobra_cpanel_lock") * 1){
+			oControlPanel.style.right = 0;
+			oLockBtn.className = "cobra_system_lock";
+		}
+
+		oFileList.style.height = (clientHeight - 90 > 0 ? clientHeight - 90 : 0) + "px";
+
+		function resize(){
+			var clientHeight = document.documentElement.clientHeight;
+			oControlPanel.style.height = clientHeight + "px";
+			if(__$__.css(oControlPanel,"position") === "absolute"){
+				oControlPanel.style.top = document.documentElement.scrollTop + "px";
+				oArrow.style.cssText = "top:50%;left:-26px;margin-top:-13px;";
+			}
+			oFileList.style.height = (clientHeight - 90 > 0 ? clientHeight - 90 : 0) + "px";
+		}
+		__$__.addEvent(window,"resize",function(){
+			__$__.throttle(resize);
+		});
+		if(__$__.css(oControlPanel,"position") === "absolute"){
+			__$__.addEvent(window,"scroll",function(){
+				oControlPanel.style.top = document.documentElement.scrollTop + "px";
+			});
+		}
+		__$__.addEvent(oReloadBtn,"click",function(){
+			if(this.className === "cobra_system_on"){
+				this.className = "cobra_system_off";
+				__$__.autoReloadLock = false;
+			}else{
+				this.className = "cobra_system_on";
+				__$__.autoReloadLock = true;
+				__$__.__INOTIFY__();
+			}
+		});
+		__$__.addEvent(oLockBtn,"click",function(){
+			if(this.className === "cobra_system_lock"){
+				this.className = "cobra_system_unlock";
+				__$__.cookie().del({
+					"name" : "cobra_cpanel_lock",
+					"path" : "/p"
+				});
+			}else{
+				this.className = "cobra_system_lock";
+				__$__.cookie().set({
+					"name" : "cobra_cpanel_lock",
+					"value" : 1,
+					"path" : "/p"
+				});
+			}
+		});
+		__$__.addEvent(oArrow,"click",function(){
+			oControlPanel.style.right = "-262px";
+		});
+		__$__.addEvent(oControlPanel,"mouseover",function(e){
+			var e = __$__.getEvent(e);
+			if(e.target === this && e.from === this){
+				oControlPanel.style.right = "-262px";
+			}else{
+				oControlPanel.style.right = "0";
+			}
+		});
+		__$__.addEvent(oControlPanel,"mouseout",function(e){
+			var e = __$__.getEvent(e);
+			if(oLockBtn.className === "cobra_system_lock"){
+				return false;
+			}
+			oControlPanel.style.right = "-262px";
+		});
+
+		//搜索页面
+		var oSearch = document.getElementById("system_cobra_search_page");
+		var oCount = document.getElementById("J_system_cobra_count_number");
+
+		__$__.RESULT = [];
+		__$__.SEARCH_CURRENT = 0;
+		function search(e){
+			var first = null;
+			var count = 0;
+			__$__.RESULT = [];
+			__$__.SEARCH_CURRENT = 0;
+			for(var i = 0; i < __$__.linkLength; i++){
+				if(__$__.linkText[i].indexOf(this.value) !== -1 && this.value.length > 1){
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"").replace(/system_cobra_search_current/g,"") + " system_cobra_search_result";
+					count++;
+					__$__.RESULT.push(__$__.links[i]);
+					!first && (first = __$__.links[i]);
+				}else{
+					__$__.links[i].className = __$__.links[i].className.replace(/system_cobra_search_result/g,"").replace(/system_cobra_search_current/g,"");
+				}
+			}
+			if(first){
+				var position = __$__.position(first);
+				oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13;
+				oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
+				first.className += " system_cobra_search_current";
+			}
+			oCount.innerHTML = count;
+		}
+		__$__.addEvent(oSearch,"keyup",function(e){
+			var e = __$__.getEvent(e);
+			if(e.keyCode !== 13){
+				__$__.throttle(search,this,500);	
+			}else{
+				return false;
+			}
+		});
+
+		__$__.addEvent(oSearch,"keydown",function(e){
+			var e = __$__.getEvent(e);
+			var len = __$__.RESULT.length;
+			if(!e.altKey && e.keyCode === 13){
+				if(len){
+					for(var i = 0; i < len; i++){
+						__$__.RESULT[i].className = __$__.RESULT[i].className.replace(/system_cobra_search_current/g, "");
+					}
+					if(__$__.SEARCH_CURRENT >= len - 1){
+						__$__.SEARCH_CURRENT = 0;
+					}else{
+						__$__.SEARCH_CURRENT++;
+					}
+					var position = __$__.position(__$__.RESULT[__$__.SEARCH_CURRENT]);
+					oFileList.scrollTop = position.top - oFileList.clientHeight / 2 + 13
+					oFileList.scrollLeft = position.left - clientWidth + parseInt(__$__.css(oControlPanel,"right")) + 222;
+					__$__.RESULT[__$__.SEARCH_CURRENT].className += " system_cobra_search_current";
+				}
+			}
+			if(e.altKey && e.keyCode === 13){
+				window.location.href = __$__.RESULT[__$__.SEARCH_CURRENT].href;
+			}
+		});
+
+		//自动刷新开始
+		__$__.__INOTIFY__();
+
+
+		//显示模块帮助
+
+		__$__.addEvent(document,"click",function(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var oP = target.parentNode;
+			if(target.className === "arrow" && oP && oP.className && oP.className.indexOf("cobra_system_moudle_docs") !== -1){
+				__$__.CURRENT_DOCS && (__$__.CURRENT_DOCS.className += " cobra_system_hide_docs");
+				oP.className = oP.className.replace(/\scobra_system_hide_docs/g,"");
+				__$__.CURRENT_DOCS = oP;
+				__$__.stopPropagation(e);
+			}else if(target.className.indexOf("cobra_system_moudle_docs_item") !== -1 || target.className.indexOf("cobra_system_moudle_docs") !== -1){
+				__$__.stopPropagation(e);
+				return false;
+			}else{
+				__$__.CURRENT_DOCS && __$__.CURRENT_DOCS.className.indexOf("cobra_system_hide_docs") === -1 && (__$__.CURRENT_DOCS.className += " cobra_system_hide_docs");
+			}
+		});
+
+
+
+		//*******************************************************************
+		/* 参考线和网格系统开始 */
+
+		__$__.RULERSTATE = "none";
+		__$__.RULEREXIST = false;
+		__$__.RULERBOX = null;
+		__$__.GUIDESBOX = null;
+		__$__.GUIDESH = null;
+		__$__.GUIDESV = null;
+		__$__.RULERH = null;
+		__$__.RULERV = null;
+		__$__.GIRD = null;
+
+		__$__.addEvent(document,"keyup",function(e){
+			var e = __$__.getEvent(e);
+			__$__.preventDefault(e);
+			if(e.ctrlKey && e.keyCode === 188){
+				if(!__$__.RULEREXIST){
+					//创建标尺
+					__$__.RULEREXIST = true;
+					var oRulerBox = __$__.RULERBOX = document.createElement("div");
+					var oGuidesBox = __$__.GUIDESBOX = document.createElement("div");
+					var oRulerH = __$__.RULERH = document.createElement("div");
+					var oRulerV = __$__.RULERV = document.createElement("div");
+					var oPoint = document.createElement("div");
+					var oCreateGuides = __$__.CREATEWINDOW = document.createElement("div");
+
+					oCreateGuides.id="J_system_cobra_create_guides_window";
+
+					__$__.GUIDESBOX.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight) + "px"; 
+
+					var html = '<div class="system_cobra_dialog_cover"></div><div id="system_cobra_create_guides_form">';
+					html += '<strong>创建参考线</strong>';
+					html += '<fieldset><legend>取向:</legend>';
+					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gh" /><span>水平</span></label></p>';
+					html += '<p><label><input type="radio" name="system_cobra_guides_radio" id="J_system_cobra_gv" /><span>垂直</span></label></p>';
+					html += '<p><label><span>位置:</span><input type="text" id="J_system_cobra_gvalue" /><span>px</span></label></p>';
+					html += '<p><input type="submit" id="J_system_cobra_sure_cg" value="确定" />';
+					html += '<input type="button" id="J_system_cobra_cancle_cg" value="取消" /></p></fieldset></div>';
+
+					oCreateGuides.innerHTML = html;
+
+					oRulerH.className = oRulerV.className = "system_cobra_rulers";
+					oRulerH.className += " system_cobra_rulers_h";
+					oRulerV.className += " system_cobra_rulers_v";
+					oRulerV.id = "J_system_cobra_rulers_v";
+					oPoint.className = "system_cobra_rulers_point";
+
+					oRulerV.style.height = document.documentElement.clientHeight + "px";
+
+					oRulerBox.id = "J_system_cobra_ruler_box";
+					oGuidesBox.id = "J_system_cobra_guides_box";
+
+					__$__.GUIDESH = document.createElement("span");
+					__$__.GUIDESV = document.createElement("span");
+
+					oRulerV.appendChild(oPoint);
+					oRulerBox.appendChild(oRulerH);
+					oRulerBox.appendChild(oRulerV);
+					oRulerBox.appendChild(oCreateGuides);
+					oRulerH.appendChild(__$__.GUIDESH);
+					oRulerV.appendChild(__$__.GUIDESV);
+					document.body.appendChild(oRulerBox);
+					document.body.appendChild(oGuidesBox);
+					__$__.RULEREXIST = true;
+					__$__.RULERSTATE = "none";
+				}
+				if(__$__.RULERSTATE === "none"){
+					__$__.RULERSTATE = "block";
+					document.documentElement.className += " system_cobra_move_body";
+					__$__.GIRD && (__$__.GIRD.style.left = "16px",__$__.GIRD.style.top = "16px");
+				}else if(__$__.RULERSTATE === "block"){
+					__$__.RULERSTATE = "none";
+					document.documentElement.className = document.documentElement.className.replace(/\ssystem_cobra_move_body/g,"");
+					__$__.GIRD && (__$__.GIRD.style.left = 0,__$__.GIRD.style.top = 0);
+				}
+				__$__.RULERBOX.style.display = __$__.RULERSTATE;
+				__$__.GUIDESBOX.style.display = __$__.RULERSTATE;
+				if(document.body.style.minWidth === undefined){
+					var sct = document.documentElement.scrollTop;
+					var scl = document.documentElement.scrollLeft;
+					try{
+						oRulerH.style.top = sct + "px";
+						oRulerV.style.top = sct + "px";
+						oRulerH.style.left = scl + "px";
+						oRulerV.style.left = scl + "px";
+					}catch(e){
+						
+					}
+				}
+			}
+
+			//创建网格
+			if(e.ctrlKey && e.keyCode === 222){
+				var oGird = document.getElementById("J_system_cobra_gird");
+				if( oGird === null){
+					oGird = __$__.GIRD = document.createElement("div");
+					oGird.id = "J_system_cobra_gird";
+					(__$__.RULERBOX && __$__.css(__$__.RULERBOX,"display") !== "none") && (oGird.style.left = "16px",oGird.style.top = "16px");
+					oGird.style.height = (document.documentElement.clientHeight > document.body.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight) + "px";
+					document.body.appendChild(oGird);
+				}else{
+					__$__.GIRD = oGird;
+					if(__$__.css(oGird,"display") !== "none"){
+						oGird.style.display = "none";
+					}else{
+						(__$__.RULERBOX && __$__.css(__$__.RULERBOX,"display") !== "none") && (oGird.style.left = "16px",oGird.style.top = "16px");
+						oGird.style.display = "block";
+					}
+				}
+			}
+
+		});
+
+		//双击新建
+		__$__.addEvent(document,"dblclick",showCreateWindow);
+		__$__.addEvent(document,"click",createGuidesOrCancle);
+
+		function showCreateWindow(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var className = target.parentNode.className || target.className;
+			var bh = document.body.clientHeight;
+			var wh = document.documentElement.clientHeight;
+			if(className !== undefined && className.indexOf("system_cobra_rulers") !== -1 || className.indexOf("system_cobra_rulers") !== -1){
+				__$__.CREATEWINDOW.style.display = "block";
+				__$__.CREATEWINDOW.style.height = (bh > wh ? bh : wh) + "px";
+				if(document.body.style.minWidth === undefined){
+					document.getElementById("system_cobra_create_guides_form").style.top = document.documentElement.clientHeight / 2 + document.documentElement.scrollTop - 70 + "px";
+				}
+				document.getElementById("J_system_cobra_gvalue").focus();
+				if(className.indexOf("system_cobra_rulers_h") !== -1){
+					document.getElementById("J_system_cobra_gh").checked = true;
+				}else if(className.indexOf("system_cobra_rulers_v") !== -1){
+					document.getElementById("J_system_cobra_gv").checked = true;
+				}
+			}
+		}
+
+		function hideCreateWindow(){
+			__$__.CREATEWINDOW.style.display = "none";
+			document.documentElement.className = document.documentElement.className.replace(/system_cobra_hide_window/g,"");
+		}
+
+		function createGuidesOrCancle(e){
+			var e = __$__.getEvent(e);
+			var target = e.target;
+			var h = document.getElementById("J_system_cobra_gh");
+			var v = document.getElementById("J_system_cobra_gv");
+			var bh = document.body.clientHeight;
+			var bw = document.body.clientWidth;
+			var wh = document.documentElement.clientHeight;
+			if(target.id === "J_system_cobra_cancle_cg"){
+				hideCreateWindow();
+			}else if(target.id === "J_system_cobra_sure_cg"){
+				var guidesValue = parseInt(document.getElementById("J_system_cobra_gvalue").value);
+				if(guidesValue){
+					guidesValue < 0 && (guidesValue = 0);
+					var oLine = document.createElement("div");
+					var oSpan = document.createElement("span");
+					oLine.appendChild(document.createElement("div"));
+					oLine.className = "system_cobra_guides_line";
+					if(h.checked){
+						guidesValue > bh && (guidesValue = bh);
+						oLine.className += " system_cobra_guides_line_h";
+						oLine.style.top = guidesValue + 30 + "px";
+					}else{
+						guidesValue > bw && (guidesValue = bw);
+						oLine.className += " system_cobra_guides_line_v";
+						oLine.style.left = document.body.clientWidth + guidesValue + 14 + "px";
+					}
+					oSpan.innerHTML = guidesValue;
+					oLine.appendChild(oSpan);
+					__$__.GUIDESBOX.appendChild(oLine);
+					hideCreateWindow();
+				}else{
+					alert("请输入正确的参考线位置!");
+					document.getElementById("J_system_cobra_gvalue").focus();
+				}
+			}
+			if(target.className === "system_cobra_rulers_point"){
+				if(confirm("确定清除所有参考线?")){
+					__$__.GUIDESBOX.innerHTML = "";
+				}
+			}
+		}
+
+
+		function windowScroll(e){
+			var sct = document.documentElement.scrollTop;
+			var scl = document.documentElement.scrollLeft;
+			if(__$__.RULERH !== null){
+				__$__.RULERH.style.top = sct + "px";
+				__$__.RULERV.style.top = sct + "px";
+				__$__.RULERH.style.left = scl + "px";
+				__$__.RULERV.style.left = scl + "px";
+				document.getElementById("system_cobra_create_guides_form").style.top = document.documentElement.clientHeight / 2 + sct - 70 + "px";
+			}
+		}
+
+		if(document.body.style.minWidth === undefined){
+			__$__.addEvent(window,"scroll",function(e){
+				__$__.throttle(windowScroll);
+			});
+		}
+
+		function guidesResize(){
+			var wh = document.documentElement.clientHeight;
+			var ww = document.documentElement.clientWidth;
+			var bh = document.body.clientHeight;
+			var bw = document.body.clientWidth;
+			var oRv = document.getElementById("J_system_cobra_rulers_v");
+			__$__.GUIDESBOX && (__$__.GUIDESBOX.style.height = (wh > bh ? wh : bh) + "px");
+			oRv && (oRv.style.height = wh + "px");
+		}
+
+		__$__.addEvent(window,"resize",function(){
+			__$__.throttle(guidesResize);
+		});
+
+		var oGuides = function(){
+			var guides = __$__.event();
+			var disX = disY = 0;
+			var target = null;
+			var oLine = null;
+			var oCoordinate = null;
+
+			function handler(e){
+				var e = __$__.getEvent(e);
+
+				switch(e.type){
+					case "mousedown":
+						if(e.button * 1 === 2){return false;}
+						if(e.target.parentNode.className !== undefined && e.target.className !== undefined && e.target.parentNode.className.indexOf("system_cobra_rulers") !== -1 || e.target.className.indexOf("system_cobra_rulers") !== -1){
+							__$__.preventDefault(e);
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							disX = e.clientX + scl;
+							disY = e.clientY + sct;
+							target = e.target.className ? e.target : e.target.parentNode;
+							oLine = document.createElement("div");
+							oLine.className = "system_cobra_guides_line";
+							oCoordinate = document.createElement("span");
+							oLine.appendChild(oCoordinate);
+							oLine.appendChild(document.createElement("div"));
+							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
+								oLine.className += " system_cobra_guides_line_h";
+								oLine.style.top = 0;
+							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
+								oLine.className += " system_cobra_guides_line_v";
+								oLine.style.left = document.body.clientWidth - 16 + "px";
+							}
+							__$__.GUIDESBOX.appendChild(oLine);
+						}
+						break;
+					case "mousemove":
+						if(__$__.RULERBOX !== null && __$__.css(__$__.RULERBOX,"display") !== "none"){
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							var aNumH = e.clientX + scl - 15 > 0 ? e.clientX + scl - 15 : 0;
+							var aNumV = e.clientY + sct - 15 > 0 ? e.clientY + sct - 15 : 0;
+							if(__$__.GUIDESH !== null){
+								__$__.GUIDESH.innerHTML = aNumH;
+								__$__.GUIDESV.innerHTML = aNumV;
+								__$__.GUIDESV.style.top = e.clientY + "px";
+								__$__.GUIDESH.style.left = e.clientX + "px";
+							}
+						}
+						if(target !== null){
+							var bw = document.body.clientWidth;
+							if(target.className.indexOf("system_cobra_rulers_h") !== -1){
+								oLine.style.top = e.clientY + sct -1 + "px";
+								oCoordinate.innerHTML = aNumV;
+							}else if(target.className.indexOf("system_cobra_rulers_v") !== -1){
+								oLine.style.left = (document.body.style.minWidth === undefined ? bw - 32 : bw) + e.clientX + scl + 15 + "px";
+								oCoordinate.innerHTML = aNumH;
+							}
+							__$__.preventDefault(e);
+						}
+						break;
+					case "mouseup":
+						if(e.clientX < 15 || e.clientY < 15){
+							oLine && (__$__.GUIDESBOX.removeChild(oLine));
+						}
+						oLine = null;
+						target = null;
+						oCoordinate = null;
+						break;
+				}
+			}
+
+			__$__.addEvent(document,"mousedown",handler);
+			__$__.addEvent(document,"mousemove",handler);
+			__$__.addEvent(document,"mouseup",handler);
+			
+			return guides;
+		};
+
+		var DragGuides = function(){
+			var dguides = __$__.event();
+			var target = null;
+			var disX = disY = 0;
+			var t = l = 0;
+			var oSpan = null;
+
+			function handler(e){
+				var e = __$__.getEvent(e);
+
+				switch(e.type){
+					case "mousedown":
+						if(e.button * 1 === 2){return false;}
+						var className = e.target.parentNode.className || e.target.className;
+						if(className && className.indexOf("system_cobra_guides_line") !== -1){
+							target = e.target.className ? e.target : e.target.parentNode;
+							t = parseInt(__$__.css(target,"top"));
+							l = parseInt(__$__.css(target,"left"));
+							oSpan = target.getElementsByTagName("span")[0];
+							__$__.preventDefault(e);
+						}
+						break;
+					case "mousemove":
+						if(target !== null){
+							var sct = document.documentElement.scrollTop || document.body.scrollTop;
+							var scl = document.documentElement.scrollLeft || document.body.scrollLeft;
+							var bw = document.body.clientWidth;
+							if(target.className.indexOf("system_cobra_guides_line_h") !== -1){
+								disY = e.clientY + sct - 1;
+								target.style.top = disY + "px";
+								oSpan.innerHTML = disY - 14 > 0 ? disY - 14 : 0;
+							}else if(target.className.indexOf("system_cobra_guides_line_v") !== -1){
+								disX = e.clientX + scl + 15;
+								target.style.left = disX + (document.body.style.minWidth === undefined ? bw - 32 : bw) + "px";
+								oSpan.innerHTML = disX - 30 > 0 ? disX - 30 : 0;
+							}
+							__$__.preventDefault(e);
+						}
+						break;
+					case "mouseup":
+						if(target !== null){
+							if(e.clientX < 16 || e.clientY < 16){
+								target.parentNode.removeChild(target);
+							}
+						}
+						target = null;
+						break;
+				}
+			}
+
+			__$__.addEvent(document,"mousedown",handler);
+			__$__.addEvent(document,"mousemove",handler);
+			__$__.addEvent(document,"mouseup",handler);
+
+			return dguides;
+		};
+
+		var guides = oGuides();
+		var dguides = DragGuides();
+		/* 参考线和网格系统结束 */
+	});
+</script>

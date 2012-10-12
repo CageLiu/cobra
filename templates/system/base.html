@@ -1,0 +1,168 @@
+##-*-coding:utf-8-*-
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			${self.title()} | 前端项目管理系统
+		</title>
+		<link rel="stylesheet" href="/s/system/css/style.css" type="text/css" />
+		<script src="/s/system/js/cobra.js" type="text/javascript"></script>
+		<script src="/s/system/js/base.js" type="text/javascript"></script>
+	</head>
+
+	<%
+		from cobra.apps.system import models as sm
+		from cobra.config import TEAMNAME
+		from cobra.apps.system.config import DEPARTMENT
+
+		uid = request.session.get("uid",None)
+		try:
+			cuser = sm.User.objects.get(id = uid)		
+		except sm.User.DoesNotExist:
+			cuser = None
+	%>
+
+	<body>
+		<div class="hd" id="J_hd">
+			<h1 class="logo">
+				<a href="/">${TEAMNAME}</a>
+			</h1>
+			<ul class="hor_list nav">
+				<li>
+					<a href="/" 
+					%if pfix == "index": 
+						class="current" 
+					%endif
+					>主页</a>
+				</li>
+				<li>
+					<a href="/v/project/" 
+					%if pfix == "project": 
+					class="current" 
+					%endif 
+					>项目</a>
+				</li>
+				<li>
+					<a href="/v/task/"
+					%if pfix == "task": 
+					class="current" 
+					%endif 
+					>任务</a>
+				</li>
+				<li>
+					<a href="/v/user/"
+					%if pfix == "user": 
+					class="current" 
+					%endif 
+					>成员</a>
+				</li>
+				%if cuser:
+				<li>
+					<a href="/v/user/${uid}/"
+					%if pfix == "gallery": 
+					class="current" 
+					%endif 
+					>工作台</a>
+				</li>
+				%endif
+				<li><a href="/tools/">工具</a></li>
+				<li>
+					<a href="/wiki/">WiKi</a>
+				</li>
+			</ul>
+			<form action="/search/">
+				<div class="search">
+					<input type="text" id="search" name="s" class="txt" />
+					<span class="btn">&nbsp;</span>
+					<input type="submit" id="searchbtn" value="搜索" class="btn" hidefocus="true" />
+				</div>
+			</form>
+		</div>
+		<div class="layout shtml" id="J_layout_html">
+			<div class="sbody" id="J_layout_body">
+				<div class="hor_box wp">
+					<div class="hor_item main">
+						<div class="main_inner">
+							${self.main()}
+						</div>
+					</div>
+					<div class="hor_item side">
+						%if cuser:
+						<div class="box">
+							<div class="bt">
+								<span class="tit">登录为</span>
+							</div>
+							<div class="bc">
+								<div class="hor_box media">
+									<div class="hor_item pic">
+										<a href="/v/user/${cuser.id}/">
+											<img src="/s/media/user_pic/${cuser.upic}" alt="${cuser.name_zh}" width="32" height="32" />
+										</a>
+									</div>
+									<div class="hor_item txt">
+										<p class="item">
+											姓名:<a href="/v/user/${cuser.id}/">${cuser.name_zh}</a>
+											<a href="/edit/user/${cuser.id}/">管理</a>
+											<a href="/logout/">退出</a>
+										</p>
+										<p class="item">部门:${DEPARTMENT[cuser.department]}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						%else:
+						<div class="box">
+							<div class="bt">
+								<span class="tit">快速登录</span>
+							</div>
+							<div class="bc quick_login">
+								<form action="/login/?ref_page=${request.get_full_path()}" method="post">
+									<p class="item">
+										用户名:<input type="text" name="usm" class="txt" />
+									</p>
+									<p class="item">
+										密码:<input type="password" name="pwd" class="txt" />
+									</p>
+									<p class="item">
+									<a href="javascript:;" class="btn gray_btn">
+										<span>登录</span>
+										<input type="submit" value="登录" />
+									</a>
+									</p>
+								</form>
+							</div>
+						</div>
+						%endif
+
+						${self.side()}
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="scroll" id="J_layout_scroll">
+				<div class="slider" id="J_layout_slider">slider</div>
+			</div>
+			-->
+        </div>
+		<div class="ft clearfix" id="J_ft">
+			<div class="crumbs">
+				<a href="/">首页</a>
+				${self.crumbs()}
+			</div>
+			<p class="nav fright">
+			<a href="#">关于Cobra</a> |
+			<a href="#">FAQ</a> |
+			<a href="#">博客</a> |
+			<a href="#">交流</a>
+			</p>
+			<p>
+			Copyright &copy; 
+			<script type="text/javascript">
+				document.write((new Date()).getFullYear());
+				</script>
+				Version 1.0.1
+				</p>
+			</div>
+    </body>
+</html>

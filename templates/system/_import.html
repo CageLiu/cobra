@@ -1,0 +1,11 @@
+<%include file="/www/${p}/_import.html" />
+%for f in files:
+	%if less_reg.search(f):
+		<link type="text/css" rel="stylesheet/less" href="${static}/${p}/${f}${stamp}" />
+	%elif css_reg.search(f):
+		<link type="text/css" rel="stylesheet" href="${static}/${p}/${f}${stamp}" />
+	%elif js_reg.search(f):
+		<script type="text/javascript" src="${static}/${p}/${f}${stamp}"></script>
+	%endif
+%endfor
+		<script type="text/javascript" src="/s/core/js/less_1.3.0.min.js${stamp}"></script>

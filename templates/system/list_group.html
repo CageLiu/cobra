@@ -1,0 +1,66 @@
+##-*-coding:utf-8-*-
+<%inherit file="base.html" />
+
+<%def name="title()">
+	用户组
+</%def>
+
+<!-- outfile -->
+<%def name="outfile()"></%def>
+
+<!-- main -->
+<%def name="main()">
+	<%
+		from cobra.apps.system import models as sm
+	%>
+	<div class="box">
+		<div class="bt">
+			<span class="tit">用户组</span>
+		</div>
+		<div class="bc">
+			%if len(allGroups):
+			<table class="table">
+				<thead>
+					<tr>
+						<th>中文名</th>
+						<th>英文名</th>
+						<th>权限</th>
+						<th>说明</th>
+						<th>编辑</th>
+					</tr>
+				</thead>
+				<tbody>
+					%for item in allGroups:
+					<tr>
+						<td>${item.name_zh}</td>
+						<td>${item.name_en}</td>
+						<td>${item.rights}</td>
+						<td>${item.desc}</td>
+						<td><a href="#">编辑</a></td>
+					</tr>
+					%endfor
+				</tbody>
+			</table>
+			%else:
+			<div class="emptybox">暂无数据</div>
+			%endif
+		</div>
+	</div>
+</%def>
+
+<!-- side -->
+<%def name="side()">
+	<div class="box">
+		<div class="bt">
+			<span class="tit">添加组</span>
+		</div>
+		<div class="bc">
+			<a href="/add/group/">添加新组</a>
+		</div>
+	</div>
+</%def>
+
+<%def name="crumbs()">
+	<em>&gt;</em>
+	<span>用户组</span>
+</%def>
