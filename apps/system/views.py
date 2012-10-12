@@ -125,9 +125,9 @@ def add(request,**args):
         for item in sc.STATIC_TYPE:
             if not os.path.exists(static_dir + "/" + item):
                 os.makedirs(static_dir + "/" + item)
-                if item == "img":
-                    if not os.path.exists(static_dir + "/" + item + "/slice"):
-                        os.makedirs(static_dir + "/" + item + "/slice")
+            if item == "img":
+                if not os.path.exists(static_dir + "/" + item + "/slice"):
+                    os.makedirs(static_dir + "/" + item + "/slice")
 
 
 
@@ -369,7 +369,7 @@ def v(request,t = "", tid = ""):
             pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/p/", pattern)
-            staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$")
+            staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":
