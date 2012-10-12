@@ -11,12 +11,12 @@ logs/*
 *settings.py
 *config.py
 
-/www/
-/static/
-/templates/www
-/htdocs/static
+/www/*
+/static/*
+/templates/www/*
+/htdocs/static/*
 
 !/www/base/
 !/static/base/
-!/templates/www/base
-!/htdocs/static/base
+!/templates/www/base/
+!/htdocs/static/base/
