@@ -6,6 +6,10 @@ from django.http import HttpResponseRedirect,HttpResponse,Http404
 
 import os,re
 
+import Image
+
+import cPickle as cp
+
 from cobra import config as sc
 from cobra.apps.tools.config import YUI_JAR_PATH
 from cobra.apps.tools import models as tm
@@ -99,5 +103,83 @@ def desc(request,tid = 0):
         return HttpResponse("404 page")
     return render_to_response("tools/desc.html",locals())
 
+
+def batchpsd(request):
+    if request.GET.get("path") and request.GET.get("name") and request.GET.get("prefix"):
+        path = request.GET["path"]
+        name = request.GET["name"]
+        prefix = request.GET["prefix"]
+
+        pf = path + name
+        dirs = os.path.dirname(pf)
+
+        if os.path.splitext(name)[1].lower() != ".psd":
+            return HttpResponse(u'''<span class="bat_psd b_tips1">''' + pf + u''' 不是 psd 文件，跳过!</span>''')
+
+        if not os.path.exists(dirs + "/jpg"):
+            os.makedirs(dirs + "/jpg")
+
+        r = re.compile(r'^' + prefix + r"\d+_")
+
+        sr = re.compile(sc.P_STATIC_PATH)
+
+        rpath = sr.sub("",pf)
+
+        try:
+            f = open(path + "/.filelist")
+            l = cp.load(f)
+        except IOError:
+            l = {"old":[],"new":[],"prefix":prefix}
+            f = open(path + "/.filelist","w")
+            cp.dump(l,f)
+        finally:
+            n = len(l["new"]) + 1
+            f.close()
+
+        if pf not in l["new"] and os.path.isfile(pf):
+            oldname = os.path.dirname(pf) + "/" + r.sub("",os.path.basename(pf))
+            if oldname in l["old"]:
+                o_p_name = l["new"][l["old"].index(oldname)]
+                try:
+                    os.rename(pf,o_p_name)
+                except:
+                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + rpath + u''' 已不存在！</span>''')
+                try:
+                    psd = Image.open(o_p_name)
+                    psd.save(dirs + "/jpg/" + os.path.splitext(os.path.basename(o_p_name))[0] + ".jpg",quality = 100)
+                except: 
+                    return HttpResponse(u'''<span class="bat_psd b_tips2">''' + rpath + u'''已使用新版本替换旧版本，编号保持不变！但导出 jpg 失败！请手动导出</span>''')
+                return HttpResponse(u'''<span class="bat_psd b_tips3">''' + rpath + u'''已使用新版本替换旧版本，编号保持不变！</span>''')
+            else:
+                newName = dirs + "/" + prefix + str(n) + "_" + r.sub("",os.path.basename(pf))
+                l["old"].append(pf)
+                l["new"].append(newName)
+                try:
+                    os.rename(pf,newName)
+                except:
+                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + rpath + u''' 已不存在！</span>''')
+
+                f = open(path + "/.filelist","w")
+                cp.dump(l,f)
+                f.close()
+                try:
+                    psd = Image.open(newName)
+                    psd.save(dirs + "/jpg/" + os.path.splitext(os.path.basename(newName))[0] + ".jpg",quality = 100)
+                except:
+                    return HttpResponse(u'''<span class="bat_psd b_tips4">重命名：''' + rpath + u''' --&gt; ''' + sr.sub("",newName) + u'''！但导出 jpg 失败！请手动导出</span>''')
+                return HttpResponse(u'''<span class="bat_psd b_tips5">重命名：''' + rpath + u''' --&gt; ''' + sr.sub("",newName) + u'''！并成功导出 jpg 到：''' + dirs + '''/jpg!</span>''')
+        else:
+            return HttpResponse(u"")
+    else:
+        return HttpResponse(u'''<span class="bat_psd b_tips7">参数错误!</span>''')
+
+
+def getfile(request):
+    if request.GET.get("path"):
+        path = request.GET["path"]
+        l = walkDir([path],formats = "relative")["files"]
+
+    return HttpResponse(",".join(l))
+
 def test(request):
-    return HttpResponse("test page")
+    return render_to_response("tools/test.html",locals())

@@ -39,9 +39,21 @@
 						<h4 class="dirname">
 							静态文件
 							<span class="absolute_path">${SERVER_INFO["ip"]}${P_STATIC_PATH}/${obj.name_en} </span>
+							<span class="extra">
+								<span id="J_get_static_list" data="${static_dir}">获取静态文件列表</span>
+							</span>
 						</h4>
-						<div class="list">
-							${staticHtml}
+						<div class="list" id="J_static_box">
+
+						</div>
+						<div id="J_batch_psd_box">
+							<div class="option">
+								<input type="text" id="prefix" value="p" normal="" />
+								<a href="javascript:;" class="btn gray_btn">
+									<span id="J_batch_psd_btn">开始处理</span>
+								</a>
+							</div>
+							<div id="J_batch_msg"></div>
 						</div>
 					</div>
 				</div>
@@ -235,4 +247,8 @@
 	<a href="/v/project">项目</a>
 	<em>&gt;</em>
 	<span>${obj.name_zh}</span>
+</%def>
+
+<%def name="outer()">
+outer
 </%def>

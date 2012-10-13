@@ -726,12 +726,14 @@ tr:hover .a_new{
 .details .dleft{
 	width:68%;
 	position:relative;
+	z-index:99;
 }
 .details .dright{
 	width:31.9%;
 }
 .details .dleft .fileslist{
 	width:49.5%;
+	position:relative;
 }
 .details .fileslist .list{
 	overflow-x:auto;
@@ -752,6 +754,29 @@ tr:hover .a_new{
 	height:17px;
 	line-height:19px;
 	font-family:"宋体";
+}
+.fileslist .extra{
+	font-weight:400;
+	top:-5px;
+	right:5px;
+	color:#3b5998;
+}
+.fileslist .extra span{
+	display:inline-block;
+	background-image:url(../img/icon.png);
+	background-repeat:no-repeat;
+	cursor:pointer;
+	padding-left:18px;
+	margin-left:8px;
+}
+#J_get_static_list{
+	background-position:0 -677px;
+}
+#J_handle_css{
+	background-position:0 -710px;
+}
+#J_batch_psd{
+	background-position:0 -744px;
 }
 .details_item{
 	zoom:1;
@@ -983,4 +1008,25 @@ tr:hover .a_new{
 }
 #J_static_dir .cobra_system_dir_name a:hover{
 	text-decoration:none;
+}
+
+.loading{
+	background:url(../img/loading.gif) no-repeat center center;
+}
+.fileslist .loading{
+	height:300px;
+	width:100%;
+}
+
+
+/* batch_psd */
+#J_batch_psd_box{
+	position:absolute;
+	border:1px solid #888;
+	width:1300px;
+	left:-100%;
+	top:36px;
+	z-index:9999;
+	background:#fff;
+	display:none;
 }

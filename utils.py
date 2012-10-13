@@ -113,6 +113,9 @@ def dirTree(path, url = "/", pattern = "", fold = "",tid = "J_system_dir_root"):
                    container.append(r'''<li class="cobra_system_file clearfix"><span class="cobra_system_file_name"><a href="''' + url + rpath + r'''/">''' + \
                    title + unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
                    r'''</a><i class="cobra_system_type"></i></span></li>''')
-    tree(path)
+    try:
+        tree(path)
+    except:
+        return u"获取失败"
     container = r'''<ul class="cobra_system_dir_root" id="''' + tid + r'''">''' + "".join(container) + r'''</ul>'''
     return container

@@ -9,4 +9,7 @@ urlpatterns = patterns('',
     (r'^(?P<tid>(\d+))/$',tv.desc), #首页
     (r'^compress/$',tv.compress),   #压缩
     (r'^inotify/$',tv.inotify),     #状态检测,自动刷新
+    (r'^batchpsd/$',tv.batchpsd),       #批量重命名
+    (r'^getfile/$',tv.getfile),     #返回文件列表
+    (r'^test/$',tv.test),     #返回文件列表
 )

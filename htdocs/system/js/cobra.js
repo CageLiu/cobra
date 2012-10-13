@@ -200,8 +200,47 @@
 				   
 		},
 
-		ajax : function(){
-			   
+		ajax : function(options){
+		   function createXHR(){
+			   if (window.XMLHttpRequest) {
+				   return new XMLHttpRequest();
+			   }
+			   if (window.ActiveXObject) {
+				   var msxmls = ['MSXML3', 'MSXML2', 'Microsoft']
+					   for (var i=0; i < msxmls.length; i++) {
+						   try {
+							   return new ActiveXObject(msxmls[i]+'.XMLHTTP')
+						   } catch (e) { }
+					   }
+				   throw new Error("No XML component installed!")
+			   }
+		   };		   
+			this.ajax.init = function(options){
+				this.request = createXHR();
+				(function(options){
+					var request = this.request;
+					var url = this.url = options["url"] + "&r=" + (+new Date());
+					var success = this.success = options["success"];
+					var error = this.error = options["error"];
+					var loop = this.loop = options["loop"];
+					var interval = this.interval = options["interval"];
+
+					request.onreadystatechange = function(){
+						(function(){
+							if(this.readyState === 4){
+								if(this.status === 200){
+									success && (success(this.responseText));
+								}else if(this.status !== 200){
+									error && (error(this.responseText));
+								}
+							}
+						}).call(request);
+					};
+					request.open("GET",url,true);
+					request.send(null);
+				}.call(this,options));
+			};
+			return new this.ajax.init(options);
 		}
 
 
@@ -463,7 +502,7 @@ $.ready(function(){
 	var oHd = document.getElementById("J_hd");
 	var oFt = document.getElementById("J_ft");
 	var oDhtml = document.documentElement;
-	var J_static_dir = document.getElementById("J_static_dir");
+	var J_static_box = document.getElementById("J_static_box");
 	if(oDhtml.clientWidth <= 1000){
 		oLayout.style.width = "1000px";
 		oHd.style.width = "1000px";
@@ -503,13 +542,44 @@ $.ready(function(){
 	$.addEvent(document,"click",function(e){
 		var e = $.getEvent(e);
 		var target = e.target;
+		var url = "";
+		var oBox = document.getElementById("J_static_box");
 		if(target.className === "cobra_system_flag"){
 			fold(target)
+		}else if(target.id === "J_get_static_list"){
+			url ="/getree/?dir=" +  target.getAttribute("data") + "&url=/s/static/&tid=J_static_dir";
+			oBox.innerHTML = "";
+			oBox.className += " loading";
+			$.ajax({
+				url : url,
+				success : function(data){
+					if(document.getElementById("J_handle_css") === null){
+						var oFragment = document.createDocumentFragment();
+						var oHandleCss = document.createElement("span");
+						var oBatchPsd = document.createElement("span");
+						oHandleCss.innerHTML = "less处理";
+						oHandleCss.id = "J_handle_css";
+						oBatchPsd.innerHTML = "PSD处理";
+						oBatchPsd.id = "J_batch_psd";
+						oFragment.appendChild(oHandleCss);
+						oFragment.appendChild(oBatchPsd);
+						target.parentNode.appendChild(oFragment);
+					}
+					target.innerHTML = "刷新";
+					oBox.className = oBox.className.replace(/\sloading/g,"");
+					oBox.innerHTML = data;
+				},
+				error : function(data){
+					oBox.className = oBox.className.replace(/\sloading/g,"");
+					oBox.innerHTML = data;
+				}
+			});
+		}else if(target.id === "J_batch_psd"){
+			
 		}
 	});
 
-
-	$.addEvent(J_static_dir,"click",function(e){
+	$.addEvent(J_static_box,"click",function(e){
 		var e = $.getEvent(e);
 		var target = e.target;
 		if(target.parentNode.className === "cobra_system_dir_name"){
@@ -519,11 +589,12 @@ $.ready(function(){
 		}
 	});
 
+
 	function fold(target){
 		var oPs = target.parentNode.parentNode;
 		var oPsClassName = oPs.className;
 		if(oPsClassName.indexOf(" close") !== -1){
-			oPs.className = oPsClassName.replace(/close/g,"");
+			oPs.className = oPsClassName.replace(/\sclose/g,"");
 		}else{
 			oPs.className += " close";
 		}

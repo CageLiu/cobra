@@ -118,7 +118,7 @@
 		});
 		
 		__$__.ajax({
-			url : "/getree/?dir=/${p}",
+			url : "/getree/?dir=${pdir}/${p}&url=/p/",
 			success : function(data){
 				oFileList.innerHTML = data;
 				setTimeout(function(){

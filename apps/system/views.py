@@ -126,10 +126,8 @@ def add(request,**args):
             if not os.path.exists(static_dir + "/" + item):
                 os.makedirs(static_dir + "/" + item)
             if item == "img":
-                if not os.path.exists(static_dir + "/" + item + "/slice"):
-                    os.makedirs(static_dir + "/" + item + "/slice")
-
-
+                if not os.path.exists(static_dir + "/" + item + "/_slice"):
+                    os.makedirs(static_dir + "/" + item + "/_slice")
 
     def touchFile(pn,**target_file):
 
@@ -149,13 +147,26 @@ def add(request,**args):
             f.close()
 
         for k,v in target_file.items():
-            if not os.path.isfile(templates_path + "/_" + v + ".html"):
-                f = open(templates_path + "/_" + v + ".html","w")
-                s = mod_html[:mod_html.find(name_str) + len(name_str)] + k + mod_html[mod_html.find(name_str) + len(name_str):]
-                s = s[:s.find(author_str) + len(author_str)] + k + s[s.find(author_str) + len(author_str):]
+            if not os.path.isfile(templates_path + "/_" + k + ".html"):
+                f = open(templates_path + "/_" + k + ".html","w")
+                s = mod_html[:mod_html.find(name_str) + len(name_str)] + v + mod_html[mod_html.find(name_str) + len(name_str):]
+                s = s[:s.find(author_str) + len(author_str)] + v + s[s.find(author_str) + len(author_str):]
                 s = s.encode("utf-8")
                 f.write(s)
                 f.close()
+
+                for d in sc.STATIC_TYPE:
+                    if d == "css" or d == "js":
+                        static_cont = '''/* ''' + k + ''''s ''' + d + " file */" 
+                        if not os.path.isfile(static_path + "/" + d + "/_" + k + "." + d):
+                            f = open(static_path + "/" + d + "/_" + k + "." + d,"w")
+                            f.write(static_cont)
+                            f.close()
+                        if d == "css":
+                            if not os.path.isfile(static_path + "/css" + "/_" + k + ".less"):
+                                f = open(static_path + "/css" + "/_" + k + ".less","w")
+                                f.write('''/* ''' + k + ''''s less file */''')
+                                f.close()
 
         print target_file
         print static_path
@@ -182,7 +193,8 @@ def add(request,**args):
                         print ms
                         for item in member:
                             cm = sm.User.objects.get(id = item)
-                            ms.update({cm.name_zh:cm.usm})
+                            if cm.department == 0:
+                                ms.update({cm.usm:cm.name_zh})
                             u_p = {"uid":item,"pid":newObj.id}
                             sm.User_Project.objects.create(**u_p)
                         touchFile(newObj.name_en,**ms)
@@ -236,9 +248,12 @@ def getree(request):
     '''get the dir or files'''
 
     dirs = request.GET.get("dir",None)
-    tpl_path = sc.P_PROJECT_PATH + dirs
-    pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
-    dirHtml = dirTree(tpl_path, "/p/", pattern)
+    url = request.GET.get("url","")
+    tid = request.GET.get("tid","J_system_dir_root")
+    pattern = "\.pyc$|^\.|\.py$|_import\.html|^font$|.*footer\.html$|Thumbs\.db$"
+    print "-*-"*100
+    print tid
+    dirHtml = dirTree(dirs, url, pattern,tid = tid)
     return HttpResponse(dirHtml)
 
 def p(request,p = "", tpl = ""):
@@ -251,12 +266,15 @@ def p(request,p = "", tpl = ""):
 
     pfix = p
 
+    pdir = sc.P_PROJECT_PATH
+
     stamp = "?v=" + str(time.time())
 
     print src
     print static
     print pfix
     print stamp
+    print pdir
 
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p
@@ -369,12 +387,24 @@ def v(request,t = "", tid = ""):
             pattern = "\.pyc$|^\.|\.py$|_import.html|.*footer.*"
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/p/", pattern)
-            staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
+            static_dir = sc.P_STATIC_PATH + "/" + obj.name_en
+            #staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
         elif t == "user":
             related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
             related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")
+
+            print allProjects
+            print allUsers
+            print allTasks
+            print allGroups
+            print allRights
+            print dirHtml
+            print static_dir
+            print related_tasks
+            print related_projects
+            print related_users
         return render_to_response(templates,locals())
 
 def addrfile(request):

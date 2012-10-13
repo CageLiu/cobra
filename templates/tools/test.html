@@ -1,0 +1,68 @@
+##-*-coding:utf-8-*-
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>工具测试</title>
+		<script type="text/javascript" src="/s/system/js/view.js"></script>
+		<style type="text/css">
+			.b_tips1{
+				color:#aaa;
+			}
+			.b_tips2{
+				color:red;
+			}
+			.b_tips3{
+				color:#f50;
+			}
+			.b_tips4{
+				color:red;
+			}
+			.b_tips5{
+				color:green;
+			}
+			.b_tips6{
+				color:#000;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" value="p" id="prefix" />
+		<input type="submit" id="btn" value="button" data="/var/www/cobra/static/tes1/_psd" />
+		<div id="bat_msg">
+		
+		</div>
+		<script type="text/javascript">
+			(function(){
+			 	var oBtn = document.getElementById("btn");
+				var oPrefix = document.getElementById("prefix");
+				var oMsg = document.getElementById("bat_msg");
+				var data = "";
+				__$__.addEvent(oBtn,"click",function(){
+					var url = "/tools/getfile/?path=" + this.getAttribute("data");
+					var prefix = oPrefix.value;
+					__$__.ajax({
+						url : url,
+						success : function(d){
+							data = d;
+						}
+					});
+					setTimeout(function(){
+						data = data.split(",");
+						for(var i = 0; i < data.length; i++){
+							url = "/tools/batchpsd/?path=/var/www/cobra/static/tes1/_psd/&prefix=" + prefix + "&name=" + data[i];
+							__$__.ajax({
+								url : url,
+								success : function(data){
+									var oP = document.createElement("p");
+									oP.innerHTML = data;
+									oMsg.appendChild(oP);
+								}
+							});
+						}
+					},3000);
+				});
+			}());
+		</script>
+	</body>
+</html>
