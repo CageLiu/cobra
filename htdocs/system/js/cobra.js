@@ -557,7 +557,7 @@ $.ready(function(){
 						var oFragment = document.createDocumentFragment();
 						var oHandleCss = document.createElement("span");
 						var oBatchPsd = document.createElement("span");
-						oHandleCss.innerHTML = "less处理";
+						oHandleCss.innerHTML = "Less处理";
 						oHandleCss.id = "J_handle_css";
 						oBatchPsd.innerHTML = "PSD处理";
 						oBatchPsd.id = "J_batch_psd";
