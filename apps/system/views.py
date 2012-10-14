@@ -394,8 +394,8 @@ def v(request,t = "", tid = ""):
             dirHtml = dirTree(path, "/p/", pattern)
             static_dir = sc.P_STATIC_PATH + "/" + obj.name_en
             #staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
-            print dirHtml
-            print static_dir
+            #print dirHtml
+            #print static_dir
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
             print related_users
