@@ -373,6 +373,11 @@ def v(request,t = "", tid = ""):
         allTasks    = sm.Task.objects.all()
         allGroups   = sm.Group.objects.all()
         allRights   = sm.Rights.objects.all()
+        print allProjects
+        print allUsers
+        print allTasks
+        print allGroups
+        print allRights
     if not t and not tid:
         return HttpResponseRedirect("/")
     elif t and not tid:
@@ -389,22 +394,17 @@ def v(request,t = "", tid = ""):
             dirHtml = dirTree(path, "/p/", pattern)
             static_dir = sc.P_STATIC_PATH + "/" + obj.name_en
             #staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
+            print dirHtml
+            print static_dir
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
+            print related_users
         elif t == "user":
             related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
             related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")
 
-            print allProjects
-            print allUsers
-            print allTasks
-            print allGroups
-            print allRights
-            print dirHtml
-            print static_dir
+            print related_projects[0].pid
             print related_tasks
-            print related_projects
-            print related_users
         return render_to_response(templates,locals())
 
 def addrfile(request):

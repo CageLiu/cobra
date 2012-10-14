@@ -67,7 +67,7 @@ body{
 .shtml{
 	position:relative;
 	overflow-x:hidden;
-	overflow-y:auto;
+	overflow-y:scroll;
 }
 .sbody{
 	/*margin-right:12px;*/
@@ -1016,6 +1016,9 @@ tr:hover .a_new{
 .fileslist .loading{
 	height:300px;
 	width:100%;
+}
+.fileslist .loading .cobra_system_dir_root{
+	display:none;
 }
 
 

@@ -99,7 +99,23 @@ def dirTree(path, url = "/", pattern = "", fold = "",tid = "J_system_dir_root"):
                 container.append(r'''<li class="cobra_system_dir  clearfix ''' + fold + '''"><span class="cobra_system_dir_name"><a href="''' + url + rpath + r'''/">''' + \
                 unicode(os.path.basename(path).encode("utf-8"),"utf-8") + \
                 r'''</a><i class="cobra_system_flag">&nbsp;</i><i class="cobra_system_type">&nbsp;</i></span></strong><ul class="cobra_system_sub_dir">''')
-                for item in os.listdir(path):
+                l = []
+                f = []
+                x = []
+                for i in os.listdir(path):
+                    if os.path.isdir(path + "/" + i):
+                        if i.startswith("_"):
+                            x.append(i)
+                        else:
+                            l.append(i)
+                    else:
+                        f.append(i)
+                l.sort()
+                f.sort()
+                x.sort()
+                l.extend(x)
+                l.extend(f)
+                for item in l:
                     tree(path+'/'+item)
                 container.append(r"</ul></li>")
             else:
