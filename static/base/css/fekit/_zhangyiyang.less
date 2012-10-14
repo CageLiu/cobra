@@ -40,12 +40,14 @@
  */
 .movie_icon li{
 	float:left;
-	_display:inline;
+	_display:inline; /*for ie 6*/
 	width:60px;
 	height:60px;
-	margin:10px 0 0 10px;
-	.movie_icon li a{
-		font:50px/58px movie_regular;
+	margin:10px 0 10px 10px;
+	a{
+		font-size:50px;
+		line-height:58px;
+		font-family:movie_regular;
 		display:inline-block;
 		width:58px;
 		height:58px;
@@ -55,6 +57,7 @@
 		color:black;
 	}
 }
+
 .movie_icon li a:hover{
 	color:#900;
 	border-color:#900;
