@@ -40,20 +40,13 @@
 							静态文件
 							<span class="absolute_path">${SERVER_INFO["ip"]}${P_STATIC_PATH}/${obj.name_en} </span>
 							<span class="extra">
-								<span id="J_get_static_list" data="${static_dir}">获取静态文件列表</span>
+								<span id="J_get_static_list" data="${static_dir}">显示Psd</span>
+								<span id="J_handle_css" title="Less、Css、Js处理">3S处理</span>
+								<span id="J_batch_psd" title="psd文件重命名、导出jpg">Psd处理</span>
 							</span>
 						</h4>
 						<div class="list" id="J_static_box">
-
-						</div>
-						<div id="J_batch_psd_box">
-							<div class="option">
-								<input type="text" id="prefix" value="p" normal="" />
-								<a href="javascript:;" class="btn gray_btn">
-									<span id="J_batch_psd_btn">开始处理</span>
-								</a>
-							</div>
-							<div id="J_batch_msg"></div>
+							${staticHtml}
 						</div>
 					</div>
 				</div>
@@ -174,6 +167,26 @@
 			%endif
 		</div>
 	</div>
+	<div id="J_batch_psd_box">
+		<div class="option">
+			%if psd_prefix:
+				<span class="field">已使用 <strong class="already">p</strong> 做为命名前缀，为避免混乱，请继续使用该前缀</span>
+				<input type="hidden" id="J_batch_psd_prefix" value="${psd_prefix}" />
+			%else:
+				<span class="field">请输入要添加的前缀:</span>
+				<input type="text" id="J_batch_psd_prefix" value="p" />
+			%endif
+			<a href="javascript:;" class="btn gray_btn">
+				<span id="J_batch_psd_btn" data="${psd_dir}">开始处理</span>
+			</a>
+			<span id="J_batch_tips" class="field">正在获取文件列表…</span>
+			<p>给 psd 文件加上统一的前缀和编号并导出 jpg 文件到该 psd 所在目录下的 jpg 目录中.请注意下方面板中输出的处理信息，根据提示进行相关操作！ </p>
+			<p style="color:red">注意：HTML 页面将采用此前缀加对应的编号进行命名！如 p1.html, 请严格遵守命名规范，以免造成混乱. </p>
+			<p class="psd_dir">psd根目录：${SERVER_INFO['ip']}${psd_dir}</p>
+		</div>
+		<div id="J_batch_msg"></div>
+		<iframe class="coverframe" src="" scrolling="no" frameborder="no"></iframe>
+	</div>
 </%def>
 
 <!-- side -->
@@ -250,5 +263,4 @@
 </%def>
 
 <%def name="outer()">
-outer
 </%def>

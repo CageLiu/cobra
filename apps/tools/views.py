@@ -74,6 +74,10 @@ def inotify(request):
     files.extend([sc.P_STATIC_PATH + "/" + f for f in os.listdir(sc.P_STATIC_PATH) if os.path.isfile(sc.P_STATIC_PATH + "/" + f) and not os.path.basename(f).startswith(".")])
     files.extend([f for f in walkDir([sc.P_STATIC_PATH + path],formats = "absolute")["files"] if not os.path.basename(f).startswith(".")])
 
+    print "::"*100
+    print files
+    print "::"*100
+
 
     for f in files:
         try:
@@ -113,17 +117,18 @@ def batchpsd(request):
         pf = path + name
         dirs = os.path.dirname(pf)
 
+        if os.path.dirname(name):
+            rd = os.path.dirname(name) + "/"
+        else:
+            rd = ""
+
         if os.path.splitext(name)[1].lower() != ".psd":
-            return HttpResponse(u'''<span class="bat_psd b_tips1">''' + pf + u''' 不是 psd 文件，跳过!</span>''')
+            return HttpResponse(u'''<span class="bat_psd b_tips1">''' + name + u''' 不是 psd 文件，跳过!</span>''')
 
         if not os.path.exists(dirs + "/jpg"):
             os.makedirs(dirs + "/jpg")
 
         r = re.compile(r'^' + prefix + r"\d+_")
-
-        sr = re.compile(sc.P_STATIC_PATH)
-
-        rpath = sr.sub("",pf)
 
         try:
             f = open(path + "/.filelist")
@@ -143,13 +148,13 @@ def batchpsd(request):
                 try:
                     os.rename(pf,o_p_name)
                 except:
-                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + rpath + u''' 已不存在！</span>''')
+                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + name + u''' 已不存在！</span>''')
                 try:
                     psd = Image.open(o_p_name)
                     psd.save(dirs + "/jpg/" + os.path.splitext(os.path.basename(o_p_name))[0] + ".jpg",quality = 100)
                 except: 
-                    return HttpResponse(u'''<span class="bat_psd b_tips2">''' + rpath + u'''已使用新版本替换旧版本，编号保持不变！但导出 jpg 失败！请手动导出</span>''')
-                return HttpResponse(u'''<span class="bat_psd b_tips3">''' + rpath + u'''已使用新版本替换旧版本，编号保持不变！</span>''')
+                    return HttpResponse(u'''<span class="bat_psd b_tips2">''' + name + u'''已使用新版本替换旧版本，编号保持不变！但导出 jpg 失败！请手动导出</span>''')
+                return HttpResponse(u'''<span class="bat_psd b_tips3">''' + name + u'''已使用新版本替换旧版本，编号保持不变！</span>''')
             else:
                 newName = dirs + "/" + prefix + str(n) + "_" + r.sub("",os.path.basename(pf))
                 l["old"].append(pf)
@@ -157,7 +162,7 @@ def batchpsd(request):
                 try:
                     os.rename(pf,newName)
                 except:
-                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + rpath + u''' 已不存在！</span>''')
+                    return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + name + u''' 已不存在！</span>''')
 
                 f = open(path + "/.filelist","w")
                 cp.dump(l,f)
@@ -166,18 +171,19 @@ def batchpsd(request):
                     psd = Image.open(newName)
                     psd.save(dirs + "/jpg/" + os.path.splitext(os.path.basename(newName))[0] + ".jpg",quality = 100)
                 except:
-                    return HttpResponse(u'''<span class="bat_psd b_tips4">重命名：''' + rpath + u''' --&gt; ''' + sr.sub("",newName) + u'''！但导出 jpg 失败！请手动导出</span>''')
-                return HttpResponse(u'''<span class="bat_psd b_tips5">重命名：''' + rpath + u''' --&gt; ''' + sr.sub("",newName) + u'''！并成功导出 jpg 到：''' + dirs + '''/jpg!</span>''')
+                    return HttpResponse(u'''<span class="bat_psd b_tips4">重命名：''' + name + u''' --&gt; ''' + rd + os.path.basename(newName) + u'''！但导出 jpg 失败！请手动导出</span>''')
+                return HttpResponse(u'''<span class="bat_psd b_tips5">重命名：''' + name + u''' --&gt; ''' + rd + os.path.basename(newName) + u'''！并成功导出 jpg 到：''' + rd + '''jpg/''' +os.path.splitext(os.path.basename(newName))[0] + ".jpg" + u'''</span>''')
         else:
-            return HttpResponse(u"")
+            return HttpResponse(u'''<span class="bat_psd b_tips1">''' + name + u''' 已符合命名规则，跳过!</span>''')
     else:
         return HttpResponse(u'''<span class="bat_psd b_tips7">参数错误!</span>''')
 
 
 def getfile(request):
+    r = re.compile('\.psd$',re.I)
     if request.GET.get("path"):
         path = request.GET["path"]
-        l = walkDir([path],formats = "relative")["files"]
+        l = [i for i in walkDir([path],formats = "relative")["files"] if r.search(i)]
 
     return HttpResponse(",".join(l))
 

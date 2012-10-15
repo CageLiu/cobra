@@ -60,7 +60,7 @@ em{
 body{
     font:12px/1.5 "微软雅黑",Tahoma,simsun,'宋体',Helvetica,simsun,sans-serif;
     color:#222;
-	background-color:#E0E0E0;
+	background:url(../img/loading.gif) no-repeat -999px -999px #E0E0E0;
 }
 
 /* scroll box start*/
@@ -304,6 +304,8 @@ body{
 }
 .main_inner{
 	margin-right:192px;
+	position:relative;
+	zoom:1;
 }
 .side{
 	width:192px;
@@ -1026,10 +1028,75 @@ tr:hover .a_new{
 #J_batch_psd_box{
 	position:absolute;
 	border:1px solid #888;
-	width:1300px;
-	left:-100%;
-	top:36px;
+	width:96.6%;
+	left:0.8%;
+	top:57px;
+	border-radius:2px;
 	z-index:9999;
 	background:#fff;
+	overflow:hidden;
+	padding:8px 8px 0;
 	display:none;
+}
+#J_batch_msg{
+	border-top:2px solid #3b5998;
+	margin-left:-8px;
+	margin-top:8px;
+	margin-right:-8px;
+	overflow:auto;
+	height:236px;
+}
+#J_batch_psd_prefix{
+	border:1px solid #ccc;
+	padding-left:2px;
+	height:21px;
+	line-height:21px;
+	width:180px;
+}
+#J_batch_psd_box .already{
+	color:#f30;
+	padding:0 3px;
+}
+#J_batch_psd_box .psd_dir{
+	font-family:"宋体";
+	font-weight:700;
+	color:#3b5998;
+}
+#J_batch_psd_box .field,
+#J_batch_psd_prefix,
+#J_batch_psd_box .btn{
+	vertical-align:middle;
+}
+#J_batch_psd_box .option p{
+	padding-top:5px;
+}
+#J_batch_tips{
+	padding-left:32px;
+	background:url(../img/handling.gif) no-repeat 0 center;
+	color:#57a000;
+	margin-left:5px;
+	display:none;
+}
+#J_batch_msg p{
+	padding-left:8px;
+	margin-bottom:8px;
+	font-family"宋体";
+}
+#J_batch_msg .b_tips1{ color:#aaa; }
+#J_batch_msg .b_tips2{ color:red; }
+#J_batch_msg .b_tips3{ color:#f50; }
+#J_batch_msg .b_tips4{ color:red; }
+#J_batch_msg .b_tips5{ color:green; }
+#J_batch_msg .b_tips6{ color:#000; }
+
+.coverframe{
+	background:#fff;
+	border:none 0;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:30px;
+	z-index:-1;
+	overflow: hidden;
 }

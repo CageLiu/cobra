@@ -219,11 +219,13 @@
 				this.request = createXHR();
 				(function(options){
 					var request = this.request;
-					var url = this.url = options["url"] + "&r=" + (+new Date());
+					var url = this.url = options["url"];
 					var success = this.success = options["success"];
 					var error = this.error = options["error"];
 					var loop = this.loop = options["loop"];
 					var interval = this.interval = options["interval"];
+
+					!options["cache"] && (url = this.url = options["url"] + "&r=" + (+new Date()));
 
 					request.onreadystatechange = function(){
 						(function(){
@@ -503,6 +505,9 @@ $.ready(function(){
 	var oFt = document.getElementById("J_ft");
 	var oDhtml = document.documentElement;
 	var J_static_box = document.getElementById("J_static_box");
+	var s = "中国";
+	//alert(encodeURIComponent(s));
+	//alert(decodeURIComponent(s));
 	if(oDhtml.clientWidth <= 1000){
 		oLayout.style.width = "1000px";
 		oHd.style.width = "1000px";
@@ -544,27 +549,17 @@ $.ready(function(){
 		var target = e.target;
 		var url = "";
 		var oBox = document.getElementById("J_static_box");
+		var oPsdBox = document.getElementById("J_batch_psd_box")
 		if(target.className === "cobra_system_flag"){
 			fold(target)
 		}else if(target.id === "J_get_static_list"){
+			oPsdBox.style.display = "none";
 			url ="/getree/?dir=" +  target.getAttribute("data") + "&url=/s/static/&tid=J_static_dir";
 			oBox.innerHTML = "";
 			oBox.className += " loading";
 			$.ajax({
 				url : url,
 				success : function(data){
-					if(document.getElementById("J_handle_css") === null){
-						var oFragment = document.createDocumentFragment();
-						var oHandleCss = document.createElement("span");
-						var oBatchPsd = document.createElement("span");
-						oHandleCss.innerHTML = "Less处理";
-						oHandleCss.id = "J_handle_css";
-						oBatchPsd.innerHTML = "PSD处理";
-						oBatchPsd.id = "J_batch_psd";
-						oFragment.appendChild(oHandleCss);
-						oFragment.appendChild(oBatchPsd);
-						target.parentNode.appendChild(oFragment);
-					}
 					target.innerHTML = "刷新";
 					oBox.className = oBox.className.replace(/\sloading/g,"");
 					oBox.innerHTML = data;
@@ -575,19 +570,87 @@ $.ready(function(){
 				}
 			});
 		}else if(target.id === "J_batch_psd"){
-			
+			oPsdBox.style.display = "block";
+			if(!oPsdBox.ready){
+				$.addEvent(oPsdBox,"click",function(e){
+					var e = $.getEvent(e);
+					var target = e.target;
+					var oMsgBox = document.getElementById("J_batch_msg");
+					var oPrefix = document.getElementById("J_batch_psd_prefix");
+					var oPsdTips = document.getElementById("J_batch_tips");
+					var list = [];
+					var dir = target.getAttribute("data");
+					var prefix = oPrefix.value;
+					if(target.id === "J_batch_psd_btn" && !target.handling){
+						target.handling = true;
+						oPrefix.style.cssText = "background-color:#ddd;width:48px;text-align:center;";
+						oPrefix.setAttribute("readonly","readonly");
+						target.innerHTML = "正在处理";
+						oPsdTips.innerHTML = "正在获取文件列表…";
+						oPsdTips.style.display = "inline";
+						oMsgBox.innerHTML = "";
+						function revert(){
+							target.innerHTML = "开始处理";
+							oPsdTips.innerHTML = "";
+							oPsdTips.style.display = "none";
+							target.handling = false;
+						}
+						$.ajax({
+							url : "/tools/getfile/?path=" + dir,
+							success: function(result){
+								if(result.length === 0){
+									oMsgBox.innerHTML = "<p>没有发现 psd 文件！</p>";
+									revert();
+								}else{
+									list = result.split(",");
+									function batch(l,fn){
+										var count = l.length;
+										var len = count;
+										if(!count){
+											return fn();
+										}
+										for(var i = 0; i < len; i++){
+											$.ajax({
+												url : "/tools/batchpsd/?path=" + dir + "/&prefix=" + prefix + "&name=" + encodeURIComponent(list[i]),
+												success : function(data){
+													var oP = document.createElement("p");
+													oP.innerHTML = decodeURIComponent(data);
+													oMsgBox.appendChild(oP);
+													oMsgBox.scrollTop = oMsgBox.scrollHeight;
+													oPsdTips.innerHTML = "正在重命名和导出jpg…";
+													count--;
+													!count && fn();
+												}
+											});
+										}
+									}
+									batch(list,function(){
+										revert();
+									});
+								}
+							}
+						});
+					}
+					$.stopPropagation(e);
+				});
+				oPsdBox.ready = true;
+			}
+		}else{
+			oPsdBox && (oPsdBox.style.display = "none");
 		}
 	});
 
-	$.addEvent(J_static_box,"click",function(e){
-		var e = $.getEvent(e);
-		var target = e.target;
-		if(target.parentNode.className === "cobra_system_dir_name"){
-			fold(target);
-			$.preventDefault(e);
-			$.stopPropagation(e);
-		}
-	});
+	if(J_static_box !== null){
+		$.addEvent(J_static_box,"click",function(e){
+			var e = $.getEvent(e);
+			var target = e.target;
+			if(target.parentNode.className === "cobra_system_dir_name"){
+				fold(target);
+				$.preventDefault(e);
+				$.stopPropagation(e);
+			}
+		});
+	}
 
 
 	function fold(target){

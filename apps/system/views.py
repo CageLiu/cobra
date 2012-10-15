@@ -12,6 +12,8 @@ from cobra.apps.system.config import PROJECT_STATE,TASK_STATE,WEIGHT
 from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
 
+import cPickle as cp
+
 import sys
 
 #视图开始
@@ -116,18 +118,19 @@ def add(request,**args):
 
     def createDir(pn,*target_dir):
         static_dir = sc.P_STATIC_PATH + "/" + pn
-        print "*"*200
-
         for item in target_dir:
             if not os.path.exists(item):
                 os.makedirs(item)
 
+        if not os.path.exists(static_dir + "/_psd"):
+            os.makedirs(static_dir + "/_psd")
+        
         for item in sc.STATIC_TYPE:
             if not os.path.exists(static_dir + "/" + item):
                 os.makedirs(static_dir + "/" + item)
             if item == "img":
-                if not os.path.exists(static_dir + "/" + item + "/_slice"):
-                    os.makedirs(static_dir + "/" + item + "/_slice")
+                if not os.path.exists(static_dir + "/img/_slice"):
+                    os.makedirs(static_dir + "/img/_slice")
 
     def touchFile(pn,**target_file):
 
@@ -393,9 +396,24 @@ def v(request,t = "", tid = ""):
             path = sc.P_PROJECT_PATH + "/" + obj.name_en
             dirHtml = dirTree(path, "/p/", pattern)
             static_dir = sc.P_STATIC_PATH + "/" + obj.name_en
-            #staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$",tid = "J_static_dir")
-            #print dirHtml
-            #print static_dir
+
+            psd_dir = sc.P_STATIC_PATH + "/" + obj.name_en + "/_psd"
+
+            try:
+                psd_prefix_file = open(psd_dir + "/.filelist")
+                psd_prefix = cp.load(psd_prefix_file).get("prefix","")
+                psd_prefix_file.close()
+            except:
+                psd_prefix = ""
+
+                print psd_prefix
+
+            staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$|^_psd$",tid = "J_static_dir")
+            #----ry code
+            dirHtml = dirHtml
+            print static_dir
+            print staticHtml
+            #----ry code
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
             print related_users
