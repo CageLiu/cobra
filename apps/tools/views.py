@@ -147,6 +147,7 @@ def batchpsd(request):
                 o_p_name = l["new"][l["old"].index(oldname)]
                 try:
                     os.rename(pf,o_p_name)
+                    print "*******************::" + name
                 except:
                     return HttpResponse(u'''<span class="bat_psd b_tips6">文件 ''' + name + u''' 已不存在！</span>''')
                 try:
@@ -184,7 +185,7 @@ def getfile(request):
     if request.GET.get("path"):
         path = request.GET["path"]
         l = [i for i in walkDir([path],formats = "relative")["files"] if r.search(i)]
-
+    l.sort()
     return HttpResponse(",".join(l))
 
 def test(request):
