@@ -340,9 +340,9 @@ def p(request,p = "", tpl = ""):
         else:
             try:
                 return render_to_response("system/view.html",locals())
-            except :
-                #return HttpResponse(sys.exc_info()[0])
-                return HttpResponse(u"404")
+            except:
+                return HttpResponse(sys.exc_info()[0])
+                #return HttpResponse(u"404")
 
 def v(request,t = "", tid = ""):
     '''user view'''
