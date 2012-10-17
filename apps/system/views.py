@@ -443,5 +443,3 @@ def addrfile(request):
         return HttpResponse(files)
     else:
         return HttpResponse(u"请先登录")
-
-
