@@ -4,7 +4,7 @@
 from djangomako.shortcuts import render_to_response
 from django.http import HttpResponseRedirect,HttpResponse,Http404
 
-import os,re
+import os,re,sys
 from md5 import md5
 
 from cobra import config as sc
@@ -13,8 +13,6 @@ from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
 
 import cPickle as cp
-
-import sys
 
 #视图开始
 def assign(request,**args):
@@ -218,7 +216,7 @@ def add(request,**args):
                     return HttpResponseRedirect("/v/" + t + "/" + str(newObj.id))
             except :
                 err_msg = u"请按正确的格式填写"
-                return HttpResponse(sys.exc_info()[0])
+                #return HttpResponse(sys.exc_info()[0])
                 print err_msg
                 return render_to_response("system/add_" + t + ".html",locals())
         except KeyError:
