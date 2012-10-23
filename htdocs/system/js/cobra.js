@@ -189,15 +189,44 @@
 		},
 
 		first : function(ele){
-					
+			var target = ele.firstChild;
+			while(target !== null && target.nodeType !== 1){
+				target = this.next(target);
+			}
+			return target;
 		},
 
 		last : function(ele){
-			   
+			var target = ele.lastChild;
+			while(target !== null && target.nodeType !== 1){
+				target = this.prev(target);
+			}
+			return target;
+		},
+
+		next : function(ele){
+			var target = ele.nextSibling;
+			while(target !== null && target.nodeType !== 1){
+				target = target.nextSibling;
+			}
+			return target;
+		},
+
+		prev : function(ele){
+			var target = ele.previousSibling;
+			while(target !== null && target.nodeType !== 1){
+				target = target.previousSibling;
+			}
+			return target;
 		},
 
 		siblings : function(ele){
-				   
+			var childrens = this.children(ele.parentNode);
+			var tmp = [];
+			for(var i = 0; i < childrens.length; i++){
+				childrens[i] !== ele && (tmp.push(childrens[i]));
+			}
+			return tmp;
 		},
 
 		ajax : function(options){
@@ -224,6 +253,7 @@
 					var error = this.error = options["error"];
 					var loop = this.loop = options["loop"];
 					var interval = this.interval = options["interval"];
+					var context = this.context = options["context"] || window;
 
 					!options["cache"] && (url = this.url = options["url"] + "&r=" + (+new Date()));
 
@@ -231,9 +261,9 @@
 						(function(){
 							if(this.readyState === 4){
 								if(this.status === 200){
-									success && (success(this.responseText));
+									success && (success.call(context,this.responseText));
 								}else if(this.status !== 200){
-									error && (error(this.responseText));
+									error && (error.call(context,this.responseText));
 								}
 							}
 						}).call(request);
@@ -243,6 +273,89 @@
 				}.call(this,options));
 			};
 			return new this.ajax.init(options);
+		},
+
+		form : function(id, options, fn){
+			var _this = this;
+			var oForm = typeof(id) === "string" ? document.getElementById(id) : id;
+			
+			this.form.init = function(id, options, fn){
+				var instance = this;
+				var form = oForm;
+
+				instance.verified = false;
+
+			 	for(var i = 0; i < options.length; i++){
+					var name = options[i].name;
+					this[name] = {};
+					this[name][name] = name;
+					this[name].type = options[i].type;
+					this[name].reg = options[i].reg;
+					this[name].min_length = options[i].min_length;
+					this[name].max_length = options[i].max_length;
+					this[name].callback = options[i].callback || fn;
+					this[name].ajax = options[i].ajax;
+
+					var item =form[name];
+
+					_this.addEvent(item,this[name].type,function(){
+						var name = this.name;
+						var item = instance[name];
+						var min_length = item.min_length;
+						var max_length = item.max_length;
+						var reg = item.reg;
+						var ajax = item.ajax;
+						var callback = item.callback;
+						var value = this.value;
+
+						if(min_length && max_length && min_length < max_length){
+							if(value < min_length || value > max_length){
+								item.message = "长度必须位于" + min_length + " ~ " + max_length + "之间";
+								instance.verified = false;
+								callback.call(this,item.message);
+								return false;
+							}
+						}else if(min_length){
+							if(value < min_length){
+								item.message = "长度必须大于" + min_length;
+								instance.verified = false;
+								callback.call(this,item.message);
+								return false;
+							}
+						}else if(max_length){
+							if(value > max_length){
+								item.message = "长度必须小于" + max_length;
+								instance.verified = false;
+								callback.call(this,item.message);
+								return false;
+							}
+						}
+						if(reg && !reg.test(value)){
+							item.message = "格式不符合要求";
+							instance.verified = false;
+							callback.call(this,item.message);
+							return false;
+						}
+						if(ajax){
+							_this.ajax(item.ajax);
+						}
+						item.message = "^";
+						callback.call(this,item.message);
+						item.verified = true;
+					});
+				}
+			};
+
+			var f = new this.form.init(id, options,fn);
+			oForm.verified = f;
+			this.addEvent(oForm,"submit",function(e){
+				for(var i in this.verified){
+					console.log(this.verified[i]);
+				}
+				var e = $.getEvent(e);
+				$.preventDefault(e);
+			});
+			return f;
 		}
 
 
@@ -505,9 +618,6 @@ $.ready(function(){
 	var oFt = document.getElementById("J_ft");
 	var oDhtml = document.documentElement;
 	var J_static_box = document.getElementById("J_static_box");
-	var s = "中国";
-	//alert(encodeURIComponent(s));
-	//alert(decodeURIComponent(s));
 	if(oDhtml.clientWidth <= 1000){
 		oLayout.style.width = "1000px";
 		oHd.style.width = "1000px";
@@ -651,7 +761,6 @@ $.ready(function(){
 			}
 		});
 	}
-
 
 	function fold(target){
 		var oPs = target.parentNode.parentNode;

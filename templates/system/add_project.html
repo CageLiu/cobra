@@ -34,7 +34,7 @@
 							<div class="item">
 								<label class="field">项目名【英文】:</label>
 								<div class="f">
-									<input type="text" name="name_en" class="text" />
+									<input type="text" name="name_en" class="text" id="J_project_name_en" />
 									<div class="t">
 										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
 									</div>
@@ -43,9 +43,9 @@
 							<div class="item">
 								<label class="field">项目名【中文】:</label>
 								<div class="f">
-									<input type="text" name="name_zh" class="text" />
+									<input type="text" name="name_zh" class="text"  id="J_project_name_zh"/>
 									<div class="t">
-										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+										项目的中文名称
 									</div>
 								</div>
 							</div>
@@ -66,13 +66,13 @@
 							<div class="item">
 								<label class="field">开始时间:</label>
 								<div class="f">
-									<input type="text" class="text" name="starttime" />
+									<input type="text" class="text" name="starttime" id="J_project_starttime" />
 								</div>
 							</div>
 							<div class="item">
 								<label class="field">项目周期:</label>
 								<div class="f nowrap">
-									<input type="text" class="text" name="period" />
+									<input type="text" class="text" name="period" id="J_project_period" />
 								</div>
 							</div>
 							<div class="item">
@@ -118,7 +118,7 @@
 							<div class="item">
 								<label class="field">项目描述:</label>
 								<div class="f">
-									<textarea name="summary" class="tarea"></textarea>
+									<textarea name="summary" class="tarea" id="J_project_summary"></textarea>
 								</div>
 							</div>
 							<div class="item">
@@ -133,7 +133,8 @@
 					</form>
 				</div>
 				<div class="hor_item right">
-					right
+					<p class="explain">一些常用的代码（含 fekit、bootstrap等）作为项目 base 存在，可以在改项目中添加自己经常要用到的一些代码模块。</p>
+					<p class="explain">创建项目时，系统会根据项目的英文名在系统的 www 和 static 目录下创建相应的文件夹和文件。</p>
 				</div>
 			</div>
 		</div>

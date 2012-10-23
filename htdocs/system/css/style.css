@@ -985,6 +985,11 @@ tr:hover .a_new{
 .add_box .right{
 	width:35.99%;
 }
+.add_box .right .explain{
+	line-height:21px;
+	margin-bottom:8px;
+	color:#888;
+}
 
 /* operate */
 .operate a{

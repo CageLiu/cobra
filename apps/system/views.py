@@ -441,3 +441,8 @@ def addrfile(request):
         return HttpResponse(files)
     else:
         return HttpResponse(u"请先登录")
+
+
+#--------------------------------------------form verify-------------------------------------
+def check_project_name(request):
+    pass
