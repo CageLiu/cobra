@@ -276,14 +276,13 @@
 		},
 
 		form : function(id, options, fn){
-			var _this = this;
 			var oForm = typeof(id) === "string" ? document.getElementById(id) : id;
 			
 			this.form.init = function(id, options, fn){
 				var instance = this;
 				var form = oForm;
 
-				instance.verified = false;
+				//instance.verified = false;
 
 			 	for(var i = 0; i < options.length; i++){
 					var name = options[i].name;
@@ -298,7 +297,7 @@
 
 					var item =form[name];
 
-					_this.addEvent(item,this[name].type,function(){
+					$.addEvent(item,this[name].type,function(){
 						var name = this.name;
 						var item = instance[name];
 						var min_length = item.min_length;
@@ -309,35 +308,36 @@
 						var value = this.value;
 
 						if(min_length && max_length && min_length < max_length){
-							if(value < min_length || value > max_length){
+							if(value.length < min_length || value > max_length){
 								item.message = "长度必须位于" + min_length + " ~ " + max_length + "之间";
-								instance.verified = false;
+								item.verified = false;
 								callback.call(this,item.message);
 								return false;
 							}
 						}else if(min_length){
-							if(value < min_length){
+							if(value.length < min_length){
 								item.message = "长度必须大于" + min_length;
-								instance.verified = false;
+								item.verified = false;
 								callback.call(this,item.message);
 								return false;
 							}
 						}else if(max_length){
-							if(value > max_length){
+							if(value.length > max_length){
 								item.message = "长度必须小于" + max_length;
-								instance.verified = false;
+								item.verified = false;
 								callback.call(this,item.message);
 								return false;
 							}
 						}
 						if(reg && !reg.test(value)){
 							item.message = "格式不符合要求";
-							instance.verified = false;
+							item.verified = false;
 							callback.call(this,item.message);
 							return false;
 						}
 						if(ajax){
-							_this.ajax(item.ajax);
+							item.verified = false;
+							$.ajax(item.ajax);
 						}
 						item.message = "^";
 						callback.call(this,item.message);
@@ -349,21 +349,17 @@
 			var f = new this.form.init(id, options,fn);
 			oForm.verified = f;
 			this.addEvent(oForm,"submit",function(e){
-				for(var i in this.verified){
-					console.log(this.verified[i]);
-				}
 				var e = $.getEvent(e);
-				$.preventDefault(e);
+				for(var i in this.verified){
+					if(!this.verified[i].verified){
+						$.preventDefault(e);
+						return false;
+					}
+				}
+				return true;
 			});
 			return f;
 		}
-
-
-
-
-
-
-
 
 
 		/* instance */
@@ -637,6 +633,7 @@ $.ready(function(){
 	function resize(){
 		var oLayout = document.getElementById("J_layout_html");
 		var oDhtml = document.documentElement;
+		if(!oLayout){return false;}
 		if(oDhtml.clientWidth <= 1000){
 			oLayout.style.width = "1000px";
 			oHd.style.width = "1000px";
