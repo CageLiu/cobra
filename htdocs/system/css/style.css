@@ -23,7 +23,6 @@ a{
 }
 a:hover{
 	text-decoration:underline;
-	/*background-color:#3B5998;*/
 }
 a img,fieldset{
     border:none;
@@ -954,14 +953,15 @@ tr:hover .a_new{
 	top:-1em;
 	width:1px;
 	_width:0;
-	margin-right:-9520193%;
+	margin-right:-9999999%;
 }
 .form .t{
-	white-space:nowrap;
 	color:#888;
 }
-.form .nowrap{
+.form .nowrap,
+.form .t{
 	white-space:nowrap;
+	display:block;
 }
 .form .tarea{
 	overflow-x:hidden;
@@ -970,12 +970,24 @@ tr:hover .a_new{
 	background-color:#fff;
 	margin-top:7px;
 }
-.add_project_form .tarea{
+.form .text:focus,
+.form .focus{
+	border-color:#1C6E98;
+	box-shadow:0 0 2px #1C6E98;
+}
+.form .err{
+	border-color:#E50000;
+	box-shadow:0 0 2px #E50000;
+}
+.add_item_form .tarea{
 	width:348px;
 	height:120px;
 }
-.add_project_form .text{
+.add_item_form .text{
 	width:348px;
+}
+.add_item_form .gray_btn span{
+	width:48px;
 }
 
 /* add_box  */
@@ -989,6 +1001,7 @@ tr:hover .a_new{
 	line-height:21px;
 	margin-bottom:8px;
 	color:#888;
+	padding-left:8px;
 }
 
 /* operate */

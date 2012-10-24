@@ -418,9 +418,6 @@ def v(request,t = "", tid = ""):
         elif t == "user":
             related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
             related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")
-
-            print related_projects[0].pid
-            print related_tasks
         return render_to_response(templates,locals())
 
 def addrfile(request):
@@ -444,5 +441,20 @@ def addrfile(request):
 
 
 #--------------------------------------------form verify-------------------------------------
-def check_project_name(request):
-    pass
+def check(request,t = "", f = ""):
+    if t == "" or f == "":
+        return HttpResponse(u"非法路径")
+    if request.GET.get(f):
+        v = request.GET[f]
+        model = sm.__dict__.get(t.capitalize(),None)
+        if model == None:
+            return HttpResponse(u"非法路径")
+        try:
+            model.objects.get(**{f : v})
+            return HttpResponse("0")
+        except:
+            return HttpResponse("1")
+        return HttpResponse(request.GET["v"])
+    else:
+        return HttpResponse(u"参数错误")
+    return HttpResponse("check")

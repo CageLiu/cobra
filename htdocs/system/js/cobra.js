@@ -275,7 +275,7 @@
 			return new this.ajax.init(options);
 		},
 
-		form : function(id, options, fn){
+		form : function(id, options, callback){
 			var oForm = typeof(id) === "string" ? document.getElementById(id) : id;
 			
 			this.form.init = function(id, options, fn){
@@ -292,7 +292,9 @@
 					this[name].reg = options[i].reg;
 					this[name].min_length = options[i].min_length;
 					this[name].max_length = options[i].max_length;
-					this[name].callback = options[i].callback || fn;
+					this[name].message = options[i].message;
+					this[name].success = options[i].success || callback["success"];
+					this[name].error = options[i].error || callback["error"];
 					this[name].ajax = options[i].ajax;
 
 					var item =form[name];
@@ -304,59 +306,68 @@
 						var max_length = item.max_length;
 						var reg = item.reg;
 						var ajax = item.ajax;
-						var callback = item.callback;
+						var success = item.success;
+						var error = item.error;
 						var value = this.value;
+						var r = new RegExp("\\?" + name + "=.*","g");
 
 						if(min_length && max_length && min_length < max_length){
 							if(value.length < min_length || value > max_length){
 								item.message = "长度必须位于" + min_length + " ~ " + max_length + "之间";
 								item.verified = false;
-								callback.call(this,item.message);
+								error.call(this,item.message);
 								return false;
 							}
 						}else if(min_length){
 							if(value.length < min_length){
-								item.message = "长度必须大于" + min_length;
+								item.message = "长度至少为" + min_length;
 								item.verified = false;
-								callback.call(this,item.message);
+								error.call(this,item.message);
 								return false;
 							}
 						}else if(max_length){
 							if(value.length > max_length){
 								item.message = "长度必须小于" + max_length;
 								item.verified = false;
-								callback.call(this,item.message);
+								error.call(this,item.message);
 								return false;
 							}
 						}
 						if(reg && !reg.test(value)){
 							item.message = "格式不符合要求";
 							item.verified = false;
-							callback.call(this,item.message);
+							error.call(this,item.message);
 							return false;
 						}
 						if(ajax){
 							item.verified = false;
-							$.ajax(item.ajax);
+							ajax.url = ajax.url.replace(r,"") + "?" + name + "=" + encodeURIComponent(value);
+							$.ajax(ajax);
 						}
-						item.message = "^";
-						callback.call(this,item.message);
+						item.message = "正确的输入";
+						success.call(this,item.message);
 						item.verified = true;
 					});
 				}
 			};
 
-			var f = new this.form.init(id, options,fn);
+			var f = new this.form.init(id, options,callback);
 			oForm.verified = f;
 			this.addEvent(oForm,"submit",function(e){
 				var e = $.getEvent(e);
+				var verified = true;
 				for(var i in this.verified){
 					if(!this.verified[i].verified){
-						$.preventDefault(e);
-						return false;
+						verified = false;
+						this.verified[i].error.call(this[i],this.verified[i].message);
 					}
 				}
-				return true;
+				if(verified){
+					return true;
+				}else{
+					$.preventDefault(e);
+					return false;
+				}
 			});
 			return f;
 		}
@@ -605,6 +616,7 @@
 
 	};
 
+	window.__$__ = {};
 	window.$ = window.cobra = cobra;
 }(window));
 

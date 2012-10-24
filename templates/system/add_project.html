@@ -29,14 +29,14 @@
 			%endif
 			<div class="hor_box add_box">
 				<div class="hor_item left">
-					<form action="" method="post">
-						<div class="form add_project_form">
+					<form action="" method="post" id="J_add_project">
+						<div class="form add_item_form">
 							<div class="item">
 								<label class="field">项目名【英文】:</label>
 								<div class="f">
 									<input type="text" name="name_en" class="text" id="J_project_name_en" />
 									<div class="t">
-										项目英文名只能是除 base 外的由字母、数字和下划线三部分组成的字符串
+										必须以字母开头，只能包含字母、数字和下划线.
 									</div>
 								</div>
 							</div>
@@ -67,38 +67,49 @@
 								<label class="field">开始时间:</label>
 								<div class="f">
 									<input type="text" class="text" name="starttime" id="J_project_starttime" />
+									<div class="t">
+										项目的开始时间
+									</div>
 								</div>
 							</div>
 							<div class="item">
 								<label class="field">项目周期:</label>
 								<div class="f nowrap">
 									<input type="text" class="text" name="period" id="J_project_period" />
+									<div class="t">
+										预计开发周期,单位：天
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<label class="field">负责人:</label>
+								<div class="f">
+									<select name="manager" id="J_project_manager">
+										<option value="0">请选择</option>
+										%for item in allUsers:
+											%if item.department == 0:
+											<option value="${item.id}">${item.name_zh}【${DEPARTMENT[item.department]}】</option>
+											%endif
+										%endfor
+									</select>
+									<div class="t">
+										该项目的前端负责人
+									</div>
 								</div>
 							</div>
 							<div class="item">
 								<label class="field">选择成员:</label>
-								<div class="f nowrap">
+								<div class="f nowrap" id="J_member_list">
 									<% nCount = 0 %>
 									%for item in allUsers:
 									<% nCount += 1 %>
-									<label class="checkbox_item nowrap">
+									<label class="checkbox_item">
 										<input name="member" class="checkbox" type="checkbox" value="${item.id}" />${item.name_zh}【${DEPARTMENT[item.department]}】
 									</label>
 										%if nCount % 3 == 0:
 											<br/>
 										%endif
 									%endfor
-								</div>
-							</div>
-							<div class="item">
-								<label class="field">负责人:</label>
-								<div class="f">
-									<select name="manager">
-										<option value="0">请选择</option>
-										%for item in allUsers:
-										<option value="${item.id}">${item.name_zh}【${DEPARTMENT[item.department]}】</option>
-										%endfor
-									</select>
 								</div>
 							</div>
 							<div class="item">
@@ -131,6 +142,94 @@
 							</div>
 						</div>
 					</form>
+					<script type="text/javascript">
+						(function(){
+						 	var oNameEn = document.getElementById("J_project_name_en");
+							var oNameZh = document.getElementById("J_project_name_zh");
+							var oStartTime = document.getElementById("J_project_starttime");
+							var oPeriod = document.getElementById("J_project_period");
+							var oManager = document.getElementById("J_project_manager");
+						 	var aMemberList = document.getElementById("J_member_list").getElementsByTagName("input");
+							 __$__.form = $.form("J_add_project",[{
+									name : "name_en",
+									type : "blur",
+									reg : /^[a-zA-Z][a-zA-Z0-9_]{2,18}$/,
+									min_length : 3,
+									max_length : 18,
+									message : "项目英文名不能为空",
+									ajax : {
+										url : "/check/project/name_en/",
+										context : oNameEn,
+										success : function(data){
+											if(data * 1){
+												__$__.form[this.name].verified = true;
+												__$__.form[this.name].success.call(this,"可以使用");
+											}else{
+												__$__.form[this.name].verified = false;
+												__$__.form[this.name].error.call(this,"已经被使用");
+											}
+										}
+									}
+								 },{
+									name : "name_zh",
+									type : "blur",
+									min_length : 2,
+									message : "项目中文名不能为空",
+									ajax : {
+										url : "/check/project/name_zh/",
+										context : oNameZh,
+										success : function(data){
+											if(data * 1){
+												__$__.form[this.name].verified = true;
+												__$__.form[this.name].success.call(this,"可以使用");
+											}else{
+												__$__.form[this.name].verified = false;
+												__$__.form[this.name].error.call(this,"已经被使用");
+											}
+										}
+									}
+								 },{
+									name : "starttime",
+									type : "blur",
+									message : "请选择项目开始时间",
+									reg : /^[0-9]{4}(-[0-9]{2}){2}\s*([0-9]{2}:){2}[0-9]{2}$/
+								 },{
+									name : "period",
+									type : "blur",
+									message : "请填写项目周期",
+									reg : /^[1-9][0-9]*$/
+								 },{
+									name : "manager",
+									message : "请选择项目负责人",
+									type : "blur",
+									reg : /[^0]/
+								 }
+							 ],{
+								success : function(msg){
+									var oTips = $.next(this);
+									this.className = this.className.replace(/err/g,"");
+									oTips.innerHTML = msg;
+									oTips.style.color = "green";
+								},
+								error : function(msg){
+									var oTips = $.next(this);
+									oTips.innerHTML = msg;
+									this.className = this.className.replace(/error/g,"") + " err";
+									oTips.style.color = "red";
+								}
+							 });
+							 $.addEvent(oManager,"change",function(){
+								var value = this.value;
+								for(var i = 0; i < aMemberList.length; i++){
+									if(aMemberList[i].value == value){
+										aMemberList[i].checked = true;
+									}else{
+										!aMemberList[i].checked && (aMemberList[i].checked = false);
+									}
+								}
+							 });
+						}());
+					</script>
 				</div>
 				<div class="hor_item right">
 					<p class="explain">一些常用的代码（含 fekit、bootstrap等）作为项目 base 存在，可以在改项目中添加自己经常要用到的一些代码模块。</p>
