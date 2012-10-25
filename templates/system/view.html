@@ -60,7 +60,7 @@
 		if((/^(.*\/)?_merge\.html$/).test(tpl)){
 			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=[${tplstr}]';
 		}else if((/^(.*\/)?_.*\.html$/).test(tpl)){
-			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}","_import.html"]';
+			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile},"_import.html"]';
 		}else{
 			__$__.autoReloadPath = '/tools/inotify/?path=/${p}&file=["${tpl}",${pobj.refile}]';
 		}
@@ -107,7 +107,7 @@
 			var re = new RegExp(host + "\/p\/" + "${p}\/")
 			var f = this.parentNode.getElementsByTagName("a")[0].href.replace(re,"");
 			var url = "/addrfile/?pid=${pobj.id}&f=";
-			f = f.substr(0,f.length -1);
+			//f = f.substr(0,f.length -1);
 			url += f
 			__$__.ajax({
 				url : url,

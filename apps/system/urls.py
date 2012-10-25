@@ -14,6 +14,9 @@ urlpatterns = patterns('',
     (r'^add/((?P<t>\w+)/)?$',sv.assign,{'view':sv.add}), #添加项目|用户|任务|组
     (r'^edit/((?P<t>\w+)/((?P<item>\w+)/)?)?$',sv.assign,{"view":sv.edit}), #编辑项目|用户|任务|组
     (r'^addrfile/$',sv.addrfile), #添加自动刷新关联文件
+    (r'^removerfile/$',sv.removerfile), #添加自动刷新关联文件
+
+    (r'^updatedegree/(?P<t>\w+)/(?P<tid>\d+)/$',sv.updateDegree), #添加自动刷新关联文件
 
     #--------------form verify--------------------------
     (r'^check/(?P<t>\w+)/(?P<f>\w+)/$',sv.check),

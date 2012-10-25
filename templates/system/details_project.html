@@ -82,16 +82,46 @@
 						</dd>
 						<dt class="item_name">自动刷新关联文件:</dt>
 						<dd class="item_cont" id="J_auto_file">
-							%for item in autofile:
-							<a href="javascript:;" class="fileitem">
-								${item}
-								<i class="J_break_auto_file">删除关联</i>
-							</a>
-							%endfor
+							%if type(autofile) == tuple:
+								%for item in autofile:
+								<a href="javascript:;" class="fileitem">
+									${item}
+									<i class="J_break_auto_file" data="${item}" title="断开关联">断开关联</i>
+								</a>
+								%endfor
+							%else:
+								<a href="javascript:;" class="fileitem">
+									${autofile}
+									<i class="J_break_auto_file" data="${autofile}" title="断开关联">断开关联</i>
+								</a>
+							%endif
 						</dd>
 						<dt class="item_name">描述:</dt>
 						<dd class="item_cont">${obj.summary}</dd>
 					</dl>
+					<script type="text/javascript">
+						(function(){
+							 $.addEvent(document,"click",function(e){
+								 var e = $.getEvent(e);
+								 var target = e.target;
+								 var data = "";
+								 if(target.nodeName.toLowerCase() === "i" && target.className === "J_break_auto_file"){
+								 	data = target.getAttribute("data");
+									$.ajax({
+									   url : "/removerfile/?pid=${obj.id}&f=" + data,
+									   success : function(d){
+										   if(d * 1){
+										   		alert("不能断开" + data + "的关联");
+											}else{
+											   target.parentNode.parentNode.removeChild(target.parentNode);
+											   alert(d);
+											}
+									   }
+									});
+								 }
+							 });
+						}());
+					</script>
 				</div>
 			</div>
 		</div>

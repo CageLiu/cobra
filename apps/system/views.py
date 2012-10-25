@@ -439,6 +439,39 @@ def addrfile(request):
     else:
         return HttpResponse(u"请先登录")
 
+def removerfile(request):
+    if request.session.get("uid",None):
+        pid = request.GET["pid"]
+        f = request.GET["f"]
+        if f == "header.html" or f == "footer.html":
+            return HttpResponse("1")
+        obj = sm.Project.objects.get(id = pid)
+        files = obj.refile;
+        refile = re.compile(''',?"''' + f + r'''"''')
+        files = refile.sub("",files);
+        obj.refile = files;
+        obj.save()
+        return HttpResponse(u"删除成功");
+    else:
+        return HttpResponse(u"请先登陆")
+
+#更新进度
+def updateDegree(request,t = "", tid = 0):
+    if t == "" or tid == 0:
+        return HttpResponse(u"非法路径")
+
+    if request.GET.get("d"):
+        model = sm.__dict__.get(t.capitalize(), None)
+        d = request.GET["d"]
+        if model == None:
+            return HttpResponse(u"非法路径")
+        obj = model.objects.get(id = tid)
+        obj.degree = d
+        obj.save()
+        return  HttpResponse("1")
+    else:
+        return HttpResponse(u"参数错误")
+
 
 #--------------------------------------------form verify-------------------------------------
 def check(request,t = "", f = ""):

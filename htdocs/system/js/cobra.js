@@ -781,4 +781,11 @@ $.ready(function(){
 		}
 	}
 
+	var Degree = function(){
+		return new (function(){
+			this.instance = $.event();
+		})();
+	}
+
+	var oD = Degree();
 });
