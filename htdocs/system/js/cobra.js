@@ -370,6 +370,83 @@
 				}
 			});
 			return f;
+		},
+
+		dialog : function(options){
+			var _this = this;
+			this.dialog.init = function(options){
+				var instance = this;
+				this.box = typeof(options.box) === "string" ? document.getElementById(options.box) : options.box;
+				this.content = typeof(options.content) === "string" ? document.getElementById(options.content) : options.content;
+				this.msg = this.content ? this.content.outerHTML : options.msg;
+				this.type = options.type;
+				this.time = options.time;
+				this.auto = options.auto;
+				this.timer = null;
+	
+				this.inner = document.createElement("div");
+				this.inner.className = "message_inner";
+				this.cbox = document.createElement("div");
+				this.cbox.className = "message_content";
+				this.btn = document.createElement("span");
+				this.btn.innerHTML = "X";
+				this.btn.className = "close_message";
+
+				this.inner.appendChild(this.cbox);
+				this.inner.appendChild(this.btn);
+
+				this.box.appendChild(this.inner);
+				this.auto && this.show();
+
+				_this.addEvent(this.btn,"click",_this.bind(this.hide,this));
+				(this.time && this.auto) && (this.timer = setTimeout(_this.bind(this.hide,this),this.time));
+			};
+
+			function opacity(ele,start,end){
+				var timer = null;
+				var speed = 0;
+				var type;
+				type = start < end ? true : false;
+				(function(){
+					speed += (end - start) / 100;
+					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+					start += speed;
+					ele.style.opacity = start / 100;
+					ele.style.filter = "alpha(opacity=)" + start + ")";
+					if(type){
+						if(start >= end){
+							clearTimeout(timer);
+						}else{
+							timer = setTimeout(arguments.callee,30);
+						}
+					}else{
+						if(start <= end){
+							clearTimeout(timer);
+						}else{
+							timer = setTimeout(arguments.callee,30);
+						}
+					}
+				}());
+			}
+
+			this.dialog.init.prototype = {
+				constructor : _this.dialog,
+				show : function(){
+					clearTimeout(this.timer);
+					this.inner.className = this.inner.className.replace(/\s\w+_message$/g,"") + " " + this.type;
+					this.cbox.innerHTML = this.msg;
+					opacity(this.inner,0,100);
+					this.inner.style.display = "block";
+					this.time && (this.timer = setTimeout(_this.bind(this.hide,this),this.time));
+				},
+				hide : function(){
+					clearTimeout(this.timer);
+					opacity(this.inner,100,0);
+					this.inner.style.display = "none";
+				}
+			};
+
+			return new this.dialog.init(options);
 		}
 
 
@@ -868,7 +945,21 @@ $.ready(function(){
 											this.first.innerHTML = this.initial;
 											this.first.style.width = this.initial;
 											this.last.innerHTML = this.initial;
-											alert("更新失败!");
+											var tips = $.dialog({
+												box : "J_message",
+												msg : "进度更新失败",
+												type : "error_message",
+												time : 4000,
+												auto : true
+											});
+										}else{
+											var tips = $.dialog({
+												box : "J_message",
+												msg : "进度更新成功",
+												type : "right_message",
+												time : 4000,
+												auto : true
+											});
 										}
 									}
 								});

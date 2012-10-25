@@ -104,35 +104,49 @@
 						<dd class="item_cont">${obj.summary}</dd>
 					</dl>
 					<script type="text/javascript">
-						(function(){
+						$.ready(function(){
+						 	 var dialog = $.dialog({
+								box : "J_message",
+								msg : "",
+								type : "",
+								time : 5000
+							 });
 							 $.addEvent(document,"click",function(e){
 								 var e = $.getEvent(e);
 								 var target = e.target;
 								 var data = "";
 								 if(target.nodeName.toLowerCase() === "i" && target.className === "J_break_auto_file"){
 									 if(!("${uid}" * 1)){
-										alert("请先登陆");
+										dialog.msg = "请先登陆";
+										dialog.type = "error_message";
+										dialog.show()
 										return false;
 									 }
 								 	data = target.getAttribute("data");
 									if(data === "header.html" || data === "footer.html"){
-										alert("不能断开" + data + "的关联");
+										dialog.msg = "不能断开" + data + "的关联";
+										dialog.type = "error_message";
+										dialog.show()
 										return false;
 									}
 									$.ajax({
 									   url : "/removerfile/?pid=${obj.id}&f=" + data,
 									   success : function(d){
 										   if(d * 1){
-										   		alert("不能断开" + data + "的关联");
+												dialog.msg = "不能断开" + data + "的关联";
+												dialog.type = "error_message";
+												dialog.show()
 											}else{
 											   target.parentNode.parentNode.removeChild(target.parentNode);
-											   alert(d);
+												dialog.msg = data + "的关联" + d;
+												dialog.type = "right_message";
+												dialog.show()
 											}
 									   }
 									});
 								 }
 							 });
-						}());
+						});
 					</script>
 				</div>
 			</div>
