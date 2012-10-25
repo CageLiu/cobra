@@ -115,6 +115,10 @@
 										return false;
 									 }
 								 	data = target.getAttribute("data");
+									if(data === "header.html" || data === "footer.html"){
+										alert("不能断开" + data + "的关联");
+										return false;
+									}
 									$.ajax({
 									   url : "/removerfile/?pid=${obj.id}&f=" + data,
 									   success : function(d){
@@ -190,7 +194,7 @@
 						<td><a href="/v/task/${item.id}/">#${item.id}</a></td>
 						<td>
 							%if cuser and cuser.department == 0:
-							<div class="degreebar" rel="/updatedegree/task/${item.id}">
+							<div class="degreebar" rel="/updatedegree/task/${item.id}/">
 							%else:
 							<div class="degreebar">
 							%endif

@@ -46,14 +46,16 @@ em{
 .clear{
     clear:both;
 }
-.clearfix:after{
+.clearfix:after,
+.details_item .item_cont:after{
     content:'';
     height:0;
     clear:both;
     display:block;
     overflow:hidden;
 }
-.clearfix{
+.clearfix,
+.details_item .item_cont:after{
 	*zoom:1;
 }
 body{
@@ -673,7 +675,7 @@ tr:hover .a_new{
 
 /* degreebar */
 .degreebar{
-	height:11px;
+	height:4px;
 	border:1px solid #ADBEDA;
 	margin:0 5px;
 	position:relative;
@@ -694,10 +696,10 @@ tr:hover .a_new{
 	position:absolute;
 	width:80px;
 	height:18px;
-	line-height:18px;
+	line-height:17px;
 	left:50%;
 	margin-left:-40px;
-	top:-3px;
+	top:-7px;
 	text-align:center;
 	cursor:default;
 }
@@ -735,6 +737,8 @@ tr:hover .a_new{
 }
 .details .dright{
 	width:31.9%;
+	zoom:1;
+	position:relative;
 }
 .details .dleft .fileslist{
 	width:49.5%;
@@ -819,7 +823,8 @@ tr:hover .a_new{
 	margin-top:2px;
 }
 .details_item .degreebar{
-	top:2px;
+	margin-top:19px;
+	vertical-align:top;
 }
 .details_item .stat_text{
 	display:inline-block;

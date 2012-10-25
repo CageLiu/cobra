@@ -790,7 +790,7 @@ $.ready(function(){
 			this.rel = null;
 			this.initial = "";
 			this.persent = 0;
-			this.offsetleft = 0;
+			this.posleft = 0;
 
 			$.addEvent(document,"mousedown",$.bind(this.action,this));
 			$.addEvent(document,"mousemove",$.bind(this.action,this));
@@ -817,11 +817,12 @@ $.ready(function(){
 							this.doing = null;
 							return false;
 						}else{
-							this.offsetleft = $.offset(this.doing).left;
+							this.posleft = $.position(this.doing).left;
 							this.doing.width = this.doing.offsetWidth;
 							this.first = $.first(this.doing);
 							this.last = $.last(this.doing);
 							this.initial = this.last.innerHTML;
+							this.persent = parseInt(this.last.innerHTML);
 							this.instance.fire({
 								type : "start",
 								x : e.clientX,
@@ -833,7 +834,7 @@ $.ready(function(){
 
 					case "mousemove":
 						if(this.doing){
-							var persent = parseInt(((e.clientX - this.offsetleft) / this.doing.width) * 100) - 1;
+							var persent = parseInt(((e.clientX - this.posleft) / this.doing.width) * 100);
 							persent > 100 && (persent = 100);
 							persent < 0 && (persent = 0);
 							this.persent = persent;
@@ -855,6 +856,9 @@ $.ready(function(){
 							this.doing = null;
 							var url = this.rel + "?d=" + this.persent;
 							var _this = this;
+							if(this.persent === parseInt(this.initial)){
+								return false;
+							}
 							if(confirm("确定要更新进度？")){
 								$.ajax({
 									url : url,
