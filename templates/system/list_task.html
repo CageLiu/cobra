@@ -56,7 +56,11 @@
 							<td class="aleft">---</td>
 						%endif
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/task/${item.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>

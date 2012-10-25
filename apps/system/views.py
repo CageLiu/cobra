@@ -4,13 +4,20 @@
 from djangomako.shortcuts import render_to_response
 from django.http import HttpResponseRedirect,HttpResponse,Http404
 
+print Http404
+
 import os,re,sys
 from md5 import md5
+
+print md5
 
 from cobra import config as sc
 from cobra.apps.system.config import PROJECT_STATE,TASK_STATE,WEIGHT
 from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
+
+print TASK_STATE
+print PROJECT_STATE
 
 import cPickle as cp
 
@@ -345,7 +352,13 @@ def p(request,p = "", tpl = ""):
 def v(request,t = "", tid = ""):
     '''user view'''
 
-    uid = request.session.get("uid",None)
+    uid = request.session.get("uid",0)
+
+    if uid:
+        cuser = sm.User.objects.get(id = uid)
+        print cuser.name_zh
+    else:
+        cuser = None
 
 
     WEIGHT_KEYS = WEIGHT.keys()

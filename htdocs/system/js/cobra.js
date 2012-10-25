@@ -782,9 +782,103 @@ $.ready(function(){
 	}
 
 	var Degree = function(){
-		return new (function(){
+		function init(){
 			this.instance = $.event();
-		})();
+			this.doing = null;
+			this.first = null;
+			this.last = null;
+			this.rel = null;
+			this.initial = "";
+			this.persent = 0;
+			this.offsetleft = 0;
+
+			$.addEvent(document,"mousedown",$.bind(this.action,this));
+			$.addEvent(document,"mousemove",$.bind(this.action,this));
+			$.addEvent(document,"mouseup",$.bind(this.action,this));
+		}
+
+		init.prototype = {
+			constructor : Degree,
+			action : function(e){
+				var e = $.getEvent(e);
+				var target = e.target;
+				switch(e.type){
+					case "mousedown":
+						if(e.button == 2){return false;}
+						if(target && target.className === "degreebar"){
+							this.doing = target;
+						}else if(target.parentNode && target.parentNode.className === "degreebar"){
+							this.doing = target.parentNode;
+						}else{
+							return false;
+						}
+						this.rel = this.doing.getAttribute("rel");
+						if(this.rel === null){
+							this.doing = null;
+							return false;
+						}else{
+							this.offsetleft = $.offset(this.doing).left;
+							this.doing.width = this.doing.offsetWidth;
+							this.first = $.first(this.doing);
+							this.last = $.last(this.doing);
+							this.initial = this.last.innerHTML;
+							this.instance.fire({
+								type : "start",
+								x : e.clientX,
+								y : e.clientY
+							});
+						}
+						$.preventDefault(e);
+						break;
+
+					case "mousemove":
+						if(this.doing){
+							var persent = parseInt(((e.clientX - this.offsetleft) / this.doing.width) * 100) - 1;
+							persent > 100 && (persent = 100);
+							persent < 0 && (persent = 0);
+							this.persent = persent;
+							persent += "%";
+							this.first.style.width = persent;
+							this.first.innerHTML = persent;
+							this.last.innerHTML = persent;
+							$.preventDefault(e);
+							this.instance.fire({
+								type : "doing",
+								x : e.clientX,
+								y : e.clientY
+							});
+						}
+						break;
+
+					case "mouseup":
+						if(this.doing){
+							this.doing = null;
+							var url = this.rel + "?d=" + this.persent;
+							var _this = this;
+							if(confirm("确定要更新进度？")){
+								$.ajax({
+									url : url,
+									context : _this,
+									success : function(data){
+										if(!(data * 1)){
+											this.first.innerHTML = this.initial;
+											this.first.style.width = this.initial;
+											this.last.innerHTML = this.initial;
+											alert("更新失败!");
+										}
+									}
+								});
+							}else{
+								this.first.innerHTML = this.initial;
+								this.first.style.width = this.initial;
+								this.last.innerHTML = this.initial;
+							}
+						}
+						break;
+				}
+			}
+		}
+		return new init();
 	}
 
 	var oD = Degree();

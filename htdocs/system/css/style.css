@@ -679,13 +679,16 @@ tr:hover .a_new{
 	position:relative;
 	text-align:left;
 	border-radius:2px;
+	box-shadow:0 0 2px #999;
 	zoom:1;
+	cursor:default;
 }
 .degreebar .degree{
 	height:100%;
 	overflow:hidden;
 	text-indent:-999em;
 	background:#7F96C1;
+	cursor:default;
 }
 .degreebar .degree_number{
 	position:absolute;
@@ -696,6 +699,7 @@ tr:hover .a_new{
 	margin-left:-40px;
 	top:-3px;
 	text-align:center;
+	cursor:default;
 }
 
 /* userlist */

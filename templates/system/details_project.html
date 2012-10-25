@@ -75,7 +75,11 @@
 						<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
 						<dt class="item_name">进度:</dt>
 						<dd class="item_cont">
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/project/${obj.id}/">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${obj.degree}%">0%</div>
 								<span class="degree_number">${obj.degree}%</span>
 							</div>
@@ -106,6 +110,10 @@
 								 var target = e.target;
 								 var data = "";
 								 if(target.nodeName.toLowerCase() === "i" && target.className === "J_break_auto_file"){
+									 if(!("${uid}" * 1)){
+										alert("请先登陆");
+										return false;
+									 }
 								 	data = target.getAttribute("data");
 									$.ajax({
 									   url : "/removerfile/?pid=${obj.id}&f=" + data,
@@ -181,7 +189,11 @@
 						<td class="aleft ${item.weight}"><a href="/v/task/${item.id}/">${item.name}</a></td>
 						<td><a href="/v/task/${item.id}/">#${item.id}</a></td>
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/task/${item.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>

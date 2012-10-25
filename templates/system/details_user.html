@@ -62,7 +62,11 @@
 						<td>${item.starttime}</td>
 						<td>${item.period} 天</td>
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/project/${pitem.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>
@@ -123,7 +127,11 @@
 							<td>---</td>
 						%endif
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/task/${titem.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>

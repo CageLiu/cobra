@@ -60,7 +60,11 @@
 						<td>${item.starttime}</td>
 						<td>${item.period} 天</td>
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/project/${item.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>
@@ -118,7 +122,11 @@
 							<td class="aleft">---</td>
 						%endif
 						<td>
+							%if cuser and cuser.department == 0:
+							<div class="degreebar" rel="/updatedegree/task/${item.id}">
+							%else:
 							<div class="degreebar">
+							%endif
 								<div class="degree" style="width:${item.degree}%">${item.degree}%</div>
 								<span class="degree_number">${item.degree}%</span>
 							</div>
@@ -134,37 +142,6 @@
 			%endif
 		</div>
 	</div>
-
-	<!--
-	<div class="box">
-		<div class="bt">
-			<span class="tit">表单控件</span>
-		</div>
-		<div class="bc">
-			<form action="">
-				<div class="form">
-					<div class="item">
-						<span class="field">字段名：</span>
-						<input type="text" class="txt w250" />
-					</div>
-					<div class="item">
-						<span class="field">字段名：</span>
-						<input type="text" class="txt w250 focus" />
-					</div>
-					<div class="item">
-						<span class="field">字段名：</span>
-						<input type="text" class="txt w250 err" />
-					</div>
-					<div class="item">
-						<span class="field">单选按钮：</span>
-						<label class="radio"><input type="radio" name="test" class="hide_field"/>单选按钮</label>
-						<label class="radio"><input type="radio" name="test" class="hide_field"/>单选按钮</label>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	-->
 </%def>
 
 <!-- side -->
