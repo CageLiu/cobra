@@ -1144,6 +1144,7 @@ tr:hover .a_new{
 	line-height:21px;
 	position:relative;
 	border-radius:3px 3px 0 0;
+	display:none;
 	word-break:break-all;
 	word-wrap:break-word;
 	opacity:0;

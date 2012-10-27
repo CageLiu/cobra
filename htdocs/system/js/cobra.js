@@ -412,7 +412,7 @@
 					speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
 					start += speed;
 					ele.style.opacity = start / 100;
-					ele.style.filter = "alpha(opacity=)" + start + ")";
+					ele.style.filter = "alpha(opacity=" + start + ")";
 					if(type){
 						if(start >= end){
 							clearTimeout(timer);
@@ -831,6 +831,14 @@ $.ready(function(){
 				});
 				oPsdBox.ready = true;
 			}
+		}else if(target.className === "bt"){
+			var oBc = $.next(target);
+			if($.css(oBc,"display") !== "none"){
+				oBc.style.display = "none";
+			}else{
+				oBc.style.display = "block";
+			}
+			$.preventDefault(e);
 		}else{
 			oPsdBox && (oPsdBox.style.display = "none");
 		}
