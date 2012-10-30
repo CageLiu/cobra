@@ -356,7 +356,6 @@ def v(request,t = "", tid = ""):
 
     if uid:
         cuser = sm.User.objects.get(id = uid)
-        print cuser.name_zh
     else:
         cuser = None
 
