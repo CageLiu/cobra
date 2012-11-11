@@ -47,7 +47,11 @@
 				<dd class="item_cont">${WEIGHT[obj.weight]}</dd>
 				<dt class="item_name">进度:</dt>
 				<dd class="item_cont">
+				%if cuser and cuser.department == 0:
+				<div class="degreebar" rel="/updatedegree/project/${obj.id}/">
+				%else:
 				<div class="degreebar">
+				%endif
 					<div class="degree" style="width:${obj.degree}%">0%</div>
 					<span class="degree_number">${obj.degree}%</span>
 				</div>
