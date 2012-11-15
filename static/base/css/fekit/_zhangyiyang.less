@@ -1,17 +1,15 @@
 @import "variable.less";
-/* 
-*name:movie-icon
-*class:movie_icon
-*time:2012-10-14
- */
-.movie_icon li{
+/*
+*name:icon-list
+*class:icon_list
+*/
+.icon_list li{
 	width:60px;
 	margin:10px 0 10px 10px;
 	text-align:center;
 	a{
 		font-size:50px;
 		line-height:58px;
-		font-family:movie_regular;
 		display:inline-block;
 		width:58px;
 		height:58px;
@@ -23,7 +21,44 @@
 	}
 }
 
-.movie_icon li a:hover{
+.icon_list li a:hover{
 	color:#900;
 	border-color:#900;
+	text-decoration:none;
+}
+
+
+/* 
+*name:movie-icon
+*class:movie_icon
+*time:2012-10-14
+ */
+.movie_icon li{
+	a{
+		font-family:movie_regular;
+	}
+}
+
+
+/* 
+*name:arrange-icon
+*class:arrange_icon
+*time:2012-11-14
+ */
+.arrange_icon li {
+	a{
+		font-family:arrange_font;
+	}
+}
+
+
+/* 
+*name:weather-icon
+*class:weather_icon
+*time:2012-11-14
+ */
+.weather_icon li {
+	a{
+		font-family:weather_font;
+	}
 }

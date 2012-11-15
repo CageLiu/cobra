@@ -231,9 +231,87 @@
 						}());
 					</script>
 				</div>
-				<div class="hor_item right">
+				<div class="hor_item right" style="position:relative;zoom:1;">
 					<p class="explain">一些常用的代码（含 fekit、bootstrap等）作为项目 base 存在，可以在改项目中添加自己经常要用到的一些代码模块。</p>
 					<p class="explain">创建项目时，系统会根据项目的英文名在系统的 www 和 static 目录下创建相应的文件夹和文件。</p>
+
+					<div class="calendar">
+						<dl class="calendar_container">
+							<dt class="select">
+							<select class="select_year">
+								<option value="2012">2012年</option>
+								<option value="2011">2011年</option>
+								<option value="2010">2010年</option>
+								<option value="2009">2009年</option>
+							</select>
+							<select class="select_month">
+								<option value="0">1月</option>
+								<option value="1">2月</option>
+								<option value="2">3月</option>
+								<option value="3">4月</option>
+							</select>
+							</dt>
+							<dt class="week">
+								<span class="week_item">一</span>
+								<span class="week_item">二</span>
+								<span class="week_item">三</span>
+								<span class="week_item">四</span>
+								<span class="week_item">五</span>
+								<span class="week_item">六</span>
+								<span class="week_item">七</span>
+							</dt>
+							<dd class="day">
+								<a hidefocus="true" class="day_item" href="#">1</a>
+								<a hidefocus="true" class="day_item" href="#">2</a>
+								<a hidefocus="true" class="day_item" href="#">3</a>
+								<a hidefocus="true" class="day_item" href="#">4</a>
+								<a hidefocus="true" class="day_item" href="#">5</a>
+								<a hidefocus="true" class="day_item" href="#">6</a>
+								<a hidefocus="true" class="day_item" href="#">7</a>
+								<a hidefocus="true" class="day_item" href="#">8</a>
+								<a hidefocus="true" class="day_item" href="#">9</a>
+								<a hidefocus="true" class="day_item" href="#">10</a>
+								<a hidefocus="true" class="day_item" href="#">11</a>
+								<a hidefocus="true" class="day_item" href="#">12</a>
+								<a hidefocus="true" class="day_item" href="#">13</a>
+								<a hidefocus="true" class="day_item" href="#">14</a>
+								<a hidefocus="true" class="day_item" href="#">15</a>
+								<a hidefocus="true" class="day_item" href="#">16</a>
+								<a hidefocus="true" class="day_item" href="#">17</a>
+								<a hidefocus="true" class="day_item" href="#">18</a>
+								<a hidefocus="true" class="day_item" href="#">19</a>
+								<a hidefocus="true" class="day_item" href="#">20</a>
+								<a hidefocus="true" class="day_item" href="#">21</a>
+								<a hidefocus="true" class="day_item" href="#">22</a>
+								<a hidefocus="true" class="day_item" href="#">23</a>
+								<a hidefocus="true" class="day_item" href="#">24</a>
+								<a hidefocus="true" class="day_item" href="#">25</a>
+								<a hidefocus="true" class="day_item" href="#">26</a>
+								<a hidefocus="true" class="day_item" href="#">27</a>
+								<a hidefocus="true" class="day_item" href="#">28</a>
+								<a hidefocus="true" class="day_item" href="#">29</a>
+								<a hidefocus="true" class="day_item disabled" href="#">30</a>
+								<a hidefocus="true" class="day_item" href="#">31</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
+							</dd>
+							<dt class="time">
+								<span>时间:</span>
+								<input type="text" value="21" />
+								<span>:</span>
+								<input type="text" value="50" />
+								<span>:</span>
+								<input type="text" value="12" />
+							</dt>
+						</dl>
+						<iframe class="maskframe" scrolling="no" frameborder="0"></iframe>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -242,7 +320,7 @@
 
 <!-- side -->
 <%def name="side()">
-
+	
 </%def>
 
 <%def name="crumbs()">
@@ -253,5 +331,5 @@
 </%def>
 
 <%def name="outer()">
-
+<script type="text/javascript" src="/s/system/js/calendar.js"></script>
 </%def>

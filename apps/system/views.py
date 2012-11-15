@@ -4,20 +4,15 @@
 from djangomako.shortcuts import render_to_response
 from django.http import HttpResponseRedirect,HttpResponse,Http404
 
-print Http404
 
 import os,re,sys
 from md5 import md5
 
-print md5
 
 from cobra import config as sc
 from cobra.apps.system.config import PROJECT_STATE,TASK_STATE,WEIGHT
 from cobra.apps.system import models as sm
 from cobra.utils import dirTree,walkDir
-
-print TASK_STATE
-print PROJECT_STATE
 
 import cPickle as cp
 
@@ -100,7 +95,6 @@ def add(request,**args):
 
     pfix = t
 
-    print pfix
 
     cuser = args["User"]
 
@@ -109,12 +103,6 @@ def add(request,**args):
     allTasks = sm.Task.objects.all()
     allGroups = sm.Group.objects.all()
     allRights = sm.Rights.objects.all()
-
-    print allProjects
-    print allUsers
-    print allTasks
-    print allGroups
-    print allRights
 
     def create(model, flist = ["csrfmiddlewaretoken"] ,extra= {}):
         data = {k:v for k,v in request.POST.items() if k not in flist}
@@ -176,13 +164,6 @@ def add(request,**args):
                                 f.write('''/* ''' + k + ''''s less file */''')
                                 f.close()
 
-        print target_file
-        print static_path
-        print name_str
-        print author_str
-        print mod_html
-
-
     if t:
         try:
             model = sm.__dict__[t.capitalize()]
@@ -196,9 +177,6 @@ def add(request,**args):
                         static_path = sc.P_STATIC_PATH + "/" + newObj.name_en
                         ms = {}
                         createDir(newObj.name_en,templates_path,static_path)
-                        print templates_path
-                        print static_path
-                        print ms
                         for item in member:
                             cm = sm.User.objects.get(id = item)
                             if cm.department == 0:
@@ -224,7 +202,6 @@ def add(request,**args):
             except :
                 err_msg = u"请按正确的格式填写"
                 #return HttpResponse(sys.exc_info()[0])
-                print err_msg
                 return render_to_response("system/add_" + t + ".html",locals())
         except KeyError:
             return HttpResponse(u"404 page")
@@ -239,7 +216,6 @@ def edit(request,**args):
 
     pfix = t
 
-    print pfix
 
     if not t and not item:
         return HttpResponse("edit index page")
@@ -259,8 +235,6 @@ def getree(request):
     url = request.GET.get("url","")
     tid = request.GET.get("tid","J_system_dir_root")
     pattern = "\.pyc$|^\.|\.py$|_import\.html|^font$|.*footer\.html$|Thumbs\.db$"
-    print "-*-"*100
-    print tid
     dirHtml = dirTree(dirs, url, pattern,tid = tid)
     return HttpResponse(dirHtml)
 
@@ -277,13 +251,6 @@ def p(request,p = "", tpl = ""):
     pdir = sc.P_PROJECT_PATH
 
     stamp = "?v=" + str(time.time())
-
-    print src
-    print static
-    print pfix
-    print stamp
-    print pdir
-
     if p:
         static_path = sc.P_STATIC_PATH + "/" + p
         tpl_path = sc.P_PROJECT_PATH + "/" + p
@@ -334,8 +301,6 @@ def p(request,p = "", tpl = ""):
             tpls = [f for f in tplfiles if tpl_filter.search(f)]
             tpls.sort()
 
-            print "____*____"*100
-            print tpls
        
         #如果是目录，则显示目录树
         if os.path.isdir(tpl_path + "/" + tpl):
@@ -386,11 +351,6 @@ def v(request,t = "", tid = ""):
         allTasks    = sm.Task.objects.all()
         allGroups   = sm.Group.objects.all()
         allRights   = sm.Rights.objects.all()
-        print allProjects
-        print allUsers
-        print allTasks
-        print allGroups
-        print allRights
     if not t and not tid:
         return HttpResponseRedirect("/")
     elif t and not tid:
@@ -416,17 +376,13 @@ def v(request,t = "", tid = ""):
             except:
                 psd_prefix = ""
 
-                print psd_prefix
 
             staticHtml = dirTree(sc.P_STATIC_PATH + "/" + obj.name_en,'/s/static/',"\.pyc$|^\.|\.py$|^font$|^_psd$",tid = "J_static_dir")
             #----ry code
             dirHtml = dirHtml
-            print static_dir
-            print staticHtml
             #----ry code
         elif t == "task":
             related_users = sm.User_Task.objects.filter(tid = tid).order_by("-id")
-            print related_users
         elif t == "user":
             related_tasks = sm.User_Task.objects.filter(uid = tid).order_by("-id")
             related_projects = sm.User_Project.objects.filter(uid = tid).order_by("-id")

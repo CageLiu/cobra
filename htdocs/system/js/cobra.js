@@ -21,7 +21,7 @@
 					}
 				};
 			}
-			return this.addEvent(ele,type,fn);
+			this.addEvent(ele,type,fn);
 		},
 
 		delEvent : function(ele,type,fn){
