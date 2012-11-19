@@ -82,7 +82,7 @@
 								</div>
 							</div>
 							<div class="item">
-								<label class="field">负责人:</label>
+								<label class="field">前端负责人:</label>
 								<div class="f">
 									<select name="manager" id="J_project_manager">
 										<option value="0">请选择</option>
@@ -93,7 +93,7 @@
 										%endfor
 									</select>
 									<div class="t">
-										该项目的前端负责人
+										选择该项目的前端负责人
 									</div>
 								</div>
 							</div>
@@ -130,6 +130,9 @@
 								<label class="field">项目描述:</label>
 								<div class="f">
 									<textarea name="summary" class="tarea" id="J_project_summary"></textarea>
+									<div class="t">
+										该项目的简介
+									</div>
 								</div>
 							</div>
 							<div class="item">
@@ -200,9 +203,14 @@
 									reg : /^[1-9][0-9]*$/
 								 },{
 									name : "manager",
-									message : "请选择项目负责人",
+									message : "请选择该项目的前端负责人",
 									type : "blur",
 									reg : /[^0]/
+								 },{
+									name : "summary",
+									message : "请输入项目简介",
+									type : "blur",
+									min_length : 10
 								 }
 							 ],{
 								success : function(msg){
@@ -234,84 +242,6 @@
 				<div class="hor_item right" style="position:relative;zoom:1;">
 					<p class="explain">一些常用的代码（含 fekit、bootstrap等）作为项目 base 存在，可以在改项目中添加自己经常要用到的一些代码模块。</p>
 					<p class="explain">创建项目时，系统会根据项目的英文名在系统的 www 和 static 目录下创建相应的文件夹和文件。</p>
-
-					<div class="calendar">
-						<dl class="calendar_container">
-							<dt class="select">
-							<select class="select_year">
-								<option value="2012">2012年</option>
-								<option value="2011">2011年</option>
-								<option value="2010">2010年</option>
-								<option value="2009">2009年</option>
-							</select>
-							<select class="select_month">
-								<option value="0">1月</option>
-								<option value="1">2月</option>
-								<option value="2">3月</option>
-								<option value="3">4月</option>
-							</select>
-							</dt>
-							<dt class="week">
-								<span class="week_item">一</span>
-								<span class="week_item">二</span>
-								<span class="week_item">三</span>
-								<span class="week_item">四</span>
-								<span class="week_item">五</span>
-								<span class="week_item">六</span>
-								<span class="week_item">七</span>
-							</dt>
-							<dd class="day">
-								<a hidefocus="true" class="day_item" href="#">1</a>
-								<a hidefocus="true" class="day_item" href="#">2</a>
-								<a hidefocus="true" class="day_item" href="#">3</a>
-								<a hidefocus="true" class="day_item" href="#">4</a>
-								<a hidefocus="true" class="day_item" href="#">5</a>
-								<a hidefocus="true" class="day_item" href="#">6</a>
-								<a hidefocus="true" class="day_item" href="#">7</a>
-								<a hidefocus="true" class="day_item" href="#">8</a>
-								<a hidefocus="true" class="day_item" href="#">9</a>
-								<a hidefocus="true" class="day_item" href="#">10</a>
-								<a hidefocus="true" class="day_item" href="#">11</a>
-								<a hidefocus="true" class="day_item" href="#">12</a>
-								<a hidefocus="true" class="day_item" href="#">13</a>
-								<a hidefocus="true" class="day_item" href="#">14</a>
-								<a hidefocus="true" class="day_item" href="#">15</a>
-								<a hidefocus="true" class="day_item" href="#">16</a>
-								<a hidefocus="true" class="day_item" href="#">17</a>
-								<a hidefocus="true" class="day_item" href="#">18</a>
-								<a hidefocus="true" class="day_item" href="#">19</a>
-								<a hidefocus="true" class="day_item" href="#">20</a>
-								<a hidefocus="true" class="day_item" href="#">21</a>
-								<a hidefocus="true" class="day_item" href="#">22</a>
-								<a hidefocus="true" class="day_item" href="#">23</a>
-								<a hidefocus="true" class="day_item" href="#">24</a>
-								<a hidefocus="true" class="day_item" href="#">25</a>
-								<a hidefocus="true" class="day_item" href="#">26</a>
-								<a hidefocus="true" class="day_item" href="#">27</a>
-								<a hidefocus="true" class="day_item" href="#">28</a>
-								<a hidefocus="true" class="day_item" href="#">29</a>
-								<a hidefocus="true" class="day_item disabled" href="#">30</a>
-								<a hidefocus="true" class="day_item" href="#">31</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-								<a hidefocus="true" class="day_item" href="#">&nbsp;</a>
-							</dd>
-							<dt class="time">
-								<span>时间:</span>
-								<input type="text" value="21" />
-								<span>:</span>
-								<input type="text" value="50" />
-								<span>:</span>
-								<input type="text" value="12" />
-							</dt>
-						</dl>
-						<iframe class="maskframe" scrolling="no" frameborder="0"></iframe>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -330,6 +260,4 @@
 	<span>新建项目</span>
 </%def>
 
-<%def name="outer()">
-<script type="text/javascript" src="/s/system/js/calendar.js"></script>
-</%def>
+<%def name="outer()"></%def>

@@ -1,5 +1,17 @@
 (function(){
 	cobra = {
+		extend : function(obj){
+			for(var i = arguments.length; i-- - 1;){
+				var o = arguments[i];
+				for(var name in o){
+					if(o.hasOwnProperty(name)){
+						obj[name] = o[name];
+					}
+				}
+			}
+			return obj;
+		},
+
 		addEvent : function(ele,type,fn){
 			if(document.addEventListener){
 				this.addEvent = function(ele,type,fn){
@@ -10,7 +22,7 @@
 					//var self = arguments.callee;
 					//!self.count && (self.count = 0);
 					//typeof(fn._id) === "undefined" && (fn._id = self.count++);
-					typeof(fn._id) === "undefined" && (fn._id = (+new Date()));
+					typeof(fn._id) === "undefined" && (fn._id = (+new Date()) + Math.random());
 					!ele.events && (ele.events = {})
 					!ele.events[type] && (ele.events[type] = {});
 					ele.events[type][fn._id] = fn;
@@ -52,6 +64,19 @@
 			fn.tId = setTimeout(function(){
 				fn.call(context);
 			},time);
+		},
+
+		contains : function(refNode, otherNode){
+			if(typeof refNode.contains === "function"){
+				this.contains = function(refNode, otherNode){
+					return refNode.contains(otherNode);
+				}
+			}else if(typeof refNode.compareDocumentPosition === "function"){
+				this.contains = function(){
+					return !!(refNode.compareDocumentPosition(otherNode) & 16);
+				}
+			}
+			return this.contains(refNode, otherNode);
 		},
 
 		event : function(){
@@ -447,7 +472,432 @@
 			};
 
 			return new this.dialog.init(options);
+		},
+
+		calendar : (function(){
+
+			function getMonthDays(date){
+				return new Date(new Date(date.getFullYear(), date.getMonth() + 1) - 1).getDate();
+			}
+
+			function dateFormat(year, month, day){
+				month = ("" + month).length < 2 ? "0" + month : month;
+				day = ("" + day).length < 2 ? "0" + day : day;
+				return year + "-" + month + "-" + day;
+			}
+
+			function nearDate(date, interval){
+				if(arguments.length < 2){
+					throw new Error("参数错误");
+				}
+				return new Date(date.getFullYear(), date.getMonth() + interval);
+			}
+
+			function updateCalendar(date, items, selected){
+				var nDayNumber;
+				var dAdjacent = null;
+				var len = items.length;
+				var now = new Date();
+				var startWeekDay = new Date(date.getFullYear(), date.getMonth()).getDay();
+				for(var i = len; i--;){
+					var o = items[i];
+					if(i < startWeekDay){
+						dAdjacent = nearDate(date, -1);
+						nDayNumber = i + getMonthDays(dAdjacent) - startWeekDay + 1;
+						o.className = o.className.replace(/\s*disabled/g, "") + " disabled";
+					}else if(i < getMonthDays(date) + startWeekDay){
+						nDayNumber = i - startWeekDay + 1;
+						dAdjacent = date;
+						o.className = o.className.replace(/\s*disabled|\s+today/g, "");
+						if(dateFormat(now.getFullYear(), now.getMonth(), now.getDate()) === dateFormat(date.getFullYear(), date.getMonth(), nDayNumber)){
+							o.className += " today";
+						}
+						if(dateFormat(date.getFullYear(), date.getMonth() + 1, nDayNumber) === selected){
+							o.className += ' selected';
+						}else{
+							o.className = o.className.replace(/\s*selected/g, "");
+						}
+					}else{
+						dAdjacent = nearDate(date, 1);
+						nDayNumber = i - getMonthDays(date) - startWeekDay + 1;
+						o.className = o.className.replace(/\s*disabled/g,"") + " disabled";
+					}
+					o.innerHTML = nDayNumber;
+					o.setAttribute("value",dateFormat(dAdjacent.getFullYear(), dAdjacent.getMonth() + 1, nDayNumber));
+				}
+			}
+
+			function getId(){
+				return Math.round(new Date() * Math.random());
+			}
+
+			function updateYear(oSelect, initialValue){
+				var initialValue = initialValue || new Date().getFullYear();
+				for(var i = initialValue + 11, j = 0; i-- - initialValue + 10; j++){
+					oSelect.options[j] = new Option(i + "年",i);
+					if(i === initialValue){
+						oSelect.value = i;
+					}
+				}
+			}
+
+			function createCalendar(options){
+				var o = {};
+				var now = new Date();
+				var tmp = ["calendar", "calendar_container", "select_year", "select_month", "day", "time", "hours", "minutes", "seconds", "prev", "next", "btn"];
+				var days = [];
+				for(var i = tmp.length; i--;){
+					var name = tmp[i];
+					o[name] = "calendar_id_" + getId();
+				}
+				var oCalendar = document.createElement("div");
+				oCalendar.className = "calendar";
+				oCalendar.id = o.calendar;
+
+				var oCalendarContainer = document.createElement("dl");
+				oCalendarContainer.className = "calendar_container";
+				oCalendarContainer.id = o.calendar_container;
+				oCalendar.appendChild(oCalendarContainer);
+
+				var oSelect = document.createElement("dt");
+				oSelect.className = "select";
+				oCalendarContainer.appendChild(oSelect);
+
+				var oSelectYear = document.createElement("select");
+				oSelectYear.className = "select_year";
+				oSelectYear.id = o.select_year;
+				updateYear(oSelectYear);
+				oSelect.appendChild(oSelectYear);
+
+				var oSelectMonth = document.createElement("select");
+				oSelectMonth.className = "select_month";
+				oSelectMonth.id = o.select_month;
+				for(var i = 0; i < 12; i++){
+					var month = i < 9 ? "0" + (i + 1) : i + 1;
+					oSelectMonth.options[i] = new Option(month + "月", i);
+					if(now.getMonth() === i){
+						oSelectMonth.value = i;
+					}
+				}
+				oSelect.appendChild(oSelectMonth);
+
+				var oPrevBtn = document.createElement("span");
+				oPrevBtn.className = "prev";
+				oPrevBtn.id = o.prev;
+				oPrevBtn.innerHTML = "&lt;"
+				oSelect.appendChild(oPrevBtn);
+
+				var oNextBtn = document.createElement("span");
+				oNextBtn.className = "next";
+				oNextBtn.id = o.next;
+				oNextBtn.innerHTML = "&gt;"
+				oSelect.appendChild(oNextBtn);
+
+				var oWeek = document.createElement("dt");
+				oWeek.className = "week";
+				for(var i = 7; i--;){
+					var oWeekItem = document.createElement("span");
+					oWeekItem.className = "week_item";
+					switch(6 - i){
+						case 0:
+							oWeekItem.innerHTML = "日";
+							break;
+						case 1:
+							oWeekItem.innerHTML = "一";
+							break;
+						case 2:
+							oWeekItem.innerHTML = "二";
+							break;
+						case 3:
+							oWeekItem.innerHTML = "三";
+							break;
+						case 4:
+							oWeekItem.innerHTML = "四";
+							break;
+						case 5:
+							oWeekItem.innerHTML = "五";
+							break;
+						case 6:
+							oWeekItem.innerHTML = "六";
+							break;
+					}
+					oWeek.appendChild(oWeekItem);
+				}
+				oCalendarContainer.appendChild(oWeek);
+
+				var oDay = document.createElement("dd");
+				oDay.className = "day";
+				oDay.id = o.day;
+
+				for(var i = 42; i--;){
+					var oDayItem = document.createElement("a");
+					oDayItem.className = "day_item";
+					oDayItem.setAttribute("href", "javascript:;");
+					days[i] = oDayItem;
+					oDay.appendChild(oDayItem);
+				}
+				updateCalendar(now, days.reverse());
+				oCalendarContainer.appendChild(oDay);
+
+				var oTime = document.createElement("dt");
+				oTime.className = "time";
+				oTime.id = o.time;
+
+				oTime.appendChild(document.createElement("span").appendChild(document.createTextNode("时间:")));
+
+				var oHours = document.createElement("input");
+				oHours.type = "text";
+				oHours.id = o.hours;
+				oHours.value = now.getHours() < 10 ? "0" + now.getHours() : now.getHours();
+				oTime.appendChild(oHours);
+				oTime.appendChild(document.createElement("span").appendChild(document.createTextNode(":")));
+
+				var oMinutes = document.createElement("input");
+				oMinutes.type = "text";
+				oMinutes.id = o.minutes;
+				oMinutes.value = now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
+				oTime.appendChild(oMinutes);
+				oTime.appendChild(document.createElement("span").appendChild(document.createTextNode(":")));
+
+				var oSeconds = document.createElement("input");
+				oSeconds.type = "text";
+				oSeconds.id = o.seconds;
+				oSeconds.value = now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds();
+				oTime.appendChild(oSeconds);
+
+				var oBtn = document.createElement("input");
+				oBtn.type = "button";
+				oBtn.className = "calendar_btn";
+				oBtn.id = o.btn;
+				oBtn.value = "确定";
+				oTime.appendChild(oBtn);
+
+				if(document.body.style.minWidth === undefined){
+					var oMashframe = document.createElement("iframe");
+					oMashframe.className = "maskframe";
+					oMashframe.setAttribute("scrolling","no");
+					oMashframe.setAttribute("frameborder","0");
+					oCalendar.appendChild(oMashframe);
+				}
+
+				oCalendarContainer.appendChild(oTime);
+
+				options.box.appendChild(oCalendar);
+
+				return o;
+			}
+
+			function calendar(options){
+				var _this = this;
+				var eles = createCalendar(options);
+				var now = new Date();
+				var calendar = document.getElementById(eles.calendar);
+				var days = document.getElementById(eles.day).getElementsByTagName("a");
+				var selectYear = document.getElementById(eles.select_year);
+				var selectMonth = document.getElementById(eles.select_month);
+				var time = document.getElementById(eles.time);
+				var hours = document.getElementById(eles.hours);
+				var minutes = document.getElementById(eles.minutes);
+				var seconds = document.getElementById(eles.seconds);
+				var prev = document.getElementById(eles.prev);
+				var next = document.getElementById(eles.next);
+				var btn = document.getElementById(eles.btn);
+				var selected = {
+					target : null,
+					date : ""
+				};
+
+				function selectDate(){
+					var month = parseInt(selectMonth.value);
+					var year = parseInt(selectYear.value);
+					var date = new Date(year, month);
+					_this.updateYear(selectYear, year);
+					_this.updateCalendar(date, days, selected.date);
+				}
+
+				$.addEvent(selectYear, "change", selectDate);
+				$.addEvent(selectMonth, "change", selectDate);
+				if(!options.time){
+					time.style.display = "none";
+				}
+				/*
+				$.addEvent(document, "click", function(e){
+					var e = $.getEvent(e);
+					var target = e.target;
+					if($.contains(calendar, target)){
+						$.stopPropagation(e);
+						if(target.id === eles.prev || target.id === eles.next){
+							var nearMonth;
+							if(target.id === eles.prev){
+								nearMonth = new Date(selectYear.value, parseInt(selectMonth.value) - 1);
+							}else if(target.id === eles.next){
+								nearMonth = new Date(selectYear.value, parseInt(selectMonth.value) + 1);
+							}
+							if(selected.target){
+								if(selected.date === selected.target.getAttribute("value")){
+									selected.target.className = selected.target.className.replace(/\s*selected/g,"");
+								}
+							}
+							selectMonth.value = nearMonth.getMonth();
+							_this.updateYear(selectYear, nearMonth.getFullYear());
+							_this.updateCalendar(nearMonth, days, selected.date);
+						}else if(target.nodeName.toLowerCase() === "a"){
+							if(target.className.indexOf("disabled") !== -1){return;}
+							selected.target && (selected.target.className = selected.target.className.replace(/\s*selected/g,""));
+							target.className += " selected";
+							selected.target = target;
+							selected.date = target.getAttribute("value");
+							if(!options.time){
+								if(document.getElementById(options.target).nodeName.toLowerCase() === "input"){
+									document.getElementById(options.target).value = target.getAttribute("value");
+								}else{
+									document.getElementById(options.target).innerHTML = target.getAttribute("value");
+								}
+								calendar.style.display = "none";
+							}
+						}else if(target.id === eles.btn){
+							var result = selected.date + " " + hours.value + ":" + minutes.value + ":" + seconds.value;
+							if(document.getElementById(options.target).nodeName.toLowerCase() === "input"){
+								document.getElementById(options.target).value = result;
+							}else{
+								document.getElementById(options.target).innerHTML = result;
+							}
+							calendar.style.display = "none";
+						}
+					}else{
+						calendar.style.display = "none";
+					}
+				});
+				*/
+			}
+
+			calendar.prototype = {
+				constructor : this.calendar,
+				updateCalendar : updateCalendar,
+				updateYear : updateYear
+			};
+
+			return calendar;
+		}())
+
+		/*
+		calendar : function(options){
+			
+			function getMonthDays(year, month){
+				return new Date(new Date(year, month + 1) - 1).getDate();
+			}
+
+			function updateCalendar(day){
+				for(var i = 42; i--;){
+				
+				}
+			}
+			function createCalendar(day){
+				var startDay = day.getDay();
+				var oCalendar = document.createElement("div");
+				oCalendar.className = "calendar";
+				oCalendar.style.cssText = "left:100px;top:100px;";
+				var oCalendarContainer = document.createElement("dl");
+				oCalendarContainer.className = "calendar_container";
+				var oSelect = document.createElement("dt");
+				oSelect.className = "select";
+				var oSelectYear = document.createElement("select");
+				oSelectYear.className = "select_year";
+				var oSelectMonth = document.createElement("select");
+				oSelectMonth.className = "select_month";
+				var oWeek = document.createElement("dt");
+				oWeek.className = "week";
+				var oDay = document.createElement("dd");
+				oDay.className = "day";
+				var oTime = document.createElement("dt");
+				oTime.className = "time";
+				for(var i = 7; i--;){
+					var oWeekItem = document.createElement("span");
+					oWeekItem.className = "week_item";
+					switch(6 - i){
+						case 0:
+							oWeekItem.innerHTML = "日";
+							break;
+						case 1:
+							oWeekItem.innerHTML = "一";
+							break;
+						case 2:
+							oWeekItem.innerHTML = "二";
+							break;
+						case 3:
+							oWeekItem.innerHTML = "三";
+							break;
+						case 4:
+							oWeekItem.innerHTML = "四";
+							break;
+						case 5:
+							oWeekItem.innerHTML = "五";
+							break;
+						case 6:
+							oWeekItem.innerHTML = "六";
+							break;
+					}
+					oWeek.appendChild(oWeekItem);
+				}
+				for(var i = 42; i--;){
+					var oDayItem = document.createElement("a");
+					var nDayNumber;
+					var dDate = null;
+					oDayItem.className = "day_item";
+					oDayItem.setAttribute("href","javascript:;");
+					if(41 - i < startDay){
+						nDayNumber = getMonthDays(day.getFullYear(), day.getMonth() - 1) - startDay + 41 - i;
+						dDate = new Date(day.getFullYear(), day.getMonth() - 1);
+						oDayItem.innerHTML = nDayNumber;
+						oDayItem.className += " disabled";
+						oDayItem.setAttribute("value", dDate.getFullYear() + "-" + (dDate.getMonth() + 1) + "-" + nDayNumber);
+					}else if(41 - i < getMonthDays(day.getFullYear(),day.getMonth()) + startDay){
+						nDayNumber = 42 - i - startDay;
+						oDayItem.innerHTML = nDayNumber;
+						oDayItem.setAttribute("value", day.getFullYear() + "-" + (day.getMonth() + 1) + "-" + nDayNumber);
+					}else{
+						nDayNumber = 42 - i - getMonthDays(day.getFullYear(), day.getMonth() + 1) - startDay + 1;
+						dDate = new Date(day.getFullYear(), day.getMonth() + 1);
+						oDayItem.innerHTML = nDayNumber;
+						oDayItem.className += " disabled";
+						oDayItem.setAttribute("value", dDate.getFullYear() + "-" + (dDate.getMonth() + 1) + "-" + nDayNumber);
+					}
+					oDay.appendChild(oDayItem);
+				}
+				oSelect.appendChild(oSelectYear);
+				oSelect.appendChild(oSelectMonth);
+				oCalendarContainer.appendChild(oSelect);
+				oCalendarContainer.appendChild(oWeek);
+				oCalendarContainer.appendChild(oDay);
+				oCalendarContainer.appendChild(oTime);
+				oCalendar.appendChild(oCalendarContainer);
+				document.body.appendChild(oCalendar);
+			}
+			function init(options){
+				var _this = this;
+				var handler = options.handler;
+				var type = options.type;
+				this.handler = typeof handler === "string" ? document.getElementById(handler) : handler;
+				var now = new Date();
+
+				createCalendar(new Date(now.getFullYear(), now.getMonth()));
+
+				$.addEvent(this.handler, type, function(e){
+					var e = $.getEvent(e);
+					$.stopPropagation(e);
+					_this.show();
+				});
+				$.addEvent(document, "click", function(){_this.id.style.display = "none"});
+			}
+			init.prototype = {
+				constructor : $.calendar,
+				show : function(){
+					
+				}
+			};
+			return new init(options);
 		}
+		*/
 
 
 		/* instance */
@@ -692,7 +1142,6 @@
 	*/
 
 	};
-
 	window.__$__ = {};
 	window.$ = window.cobra = cobra;
 }(window));
@@ -977,12 +1426,12 @@ $.ready(function(){
 								this.last.innerHTML = this.initial;
 							}
 						}
-						break;
+					break;
 				}
 			}
 		}
 		return new init();
-	}
+	};
 
 	var oD = Degree();
 });

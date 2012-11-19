@@ -7,20 +7,40 @@
 	overflow:hidden;
 	font-family:"宋体";
 	box-shadow:0 0 4px #bbb;
+	top:184px;
 }
 .calendar .maskframe{
 	position:absolute;
 	top:0;
 	left:0;
-	width:100%;
+	width:9999px;
 	height:9999px;
 	background:#fff;
 	border:none;
 	overflow:hidden;
 	z-index:-1;
+	margin-left:-2px;
+	margin-top:-2px;
 }
 .calendar .select{
 	text-align:center;
+	position:relative;
+	zoom:1;
+}
+.calendar .select span{
+	position:absolute;
+	top:1px;
+	font-family:"宋体";
+	font-size:16px;
+	width:24px;
+	height:24px;
+	cursor:pointer;
+}
+.calendar .select .prev{
+	left:-10px;
+}
+.calendar .select .next{
+	right:-10px;
 }
 .calendar .select_year,
 .calendar .select_month{
@@ -29,7 +49,7 @@
 	border:1px solid #ccc;
 	background:#fff;
 	line-height:30px;
-	margin:6px 7px 0;
+	margin:6px 2px 0;
 	position:relative;
 	top:-3px;
 }
@@ -44,6 +64,15 @@
 	border-style:solid none none solid;
 	border-width:1px 0 0 1px;
 	border-color:#ccc;
+	position:relative;
+	zoom:1;
+}
+.calendar .day .today{
+	color:#f30;
+}
+.calendar .day .selected{
+	background:#f30;
+	color:#fff;
 }
 .calendar .week{
 	margin-top:4px;
@@ -66,6 +95,7 @@
 	height:20px;
 	line-height:20px;
 	width:22px;
+	background:#fff;
 }
 .calendar .day_item:hover{
 	text-decoration:none;
@@ -101,7 +131,10 @@
 	height:20px;
 	line-height:20px;
 	text-align:center;
+	margin:0 5px;
 }
+.calendar .time span{}
+
 .calendar .disabled{
 	cursor:default;
 	color:#bbb;

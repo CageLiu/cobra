@@ -12,5 +12,11 @@ function getMonthDays(year,month){
 	return new Date(prevMonth);
 }
 
-alert(getMonthDays(2012, -1).getDate());
+//alert(getMonthDays(2009,1).getDate());
 
+new $.calendar({
+	handler : "search",
+	box : document.getElementById("J_layout_body"),
+	target : "search",
+	time : true
+});
