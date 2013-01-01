@@ -12,6 +12,10 @@
 			return obj;
 		},
 
+		_ : function(id){
+			return typeof id === "string" ? document.getElementById(id) : id;
+		},
+
 		addEvent : function(ele,type,fn){
 			if(document.addEventListener){
 				this.addEvent = function(ele,type,fn){
@@ -67,7 +71,7 @@
 		},
 
 		contains : function(refNode, otherNode){
-			if(typeof refNode.contains === "function"){
+			if(refNode.contains){
 				this.contains = function(refNode, otherNode){
 					return refNode.contains(otherNode);
 				}
@@ -171,6 +175,32 @@
 			}
 		},
 
+		addClass : function(ele, className){
+			var cls = className.split(/\s+/);
+			var oldCls = ele.className;
+			var r = null;
+			for(var i = cls.length; i--;){
+				r = new RegExp("\\b" + cls[i] + "\\b");
+				if(!r.test(oldCls)){
+					oldCls = cls[i] + " " + oldCls ;
+				}
+			}
+			ele.className = oldCls;
+			return this;
+		},
+
+		removeClass : function(ele, className){
+			var cls = className.split(/\s+/);
+			var oldCls = ele.className;
+			var r = null;
+			for(var i = cls.length; i--;){
+				r = new RegExp("\\b" + cls[i] + "\\b", "g");
+				oldCls = oldCls.replace(r, "");
+			}
+			ele.className = oldCls;
+			return this;
+		},
+
 		offset : function(ele){
 			var offsetParent = ele.offsetParent;
 			var left = ele.offsetLeft;
@@ -188,7 +218,7 @@
 		},
 
 		position : function(ele){
-			var offsetParent = ele.offsetParent || body;
+			var offsetParent = ele.offsetParent || document.body;
 			var left = ele.offsetLeft;
 			var top = ele.offsetTop;
 			while(offsetParent){
