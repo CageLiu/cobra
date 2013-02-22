@@ -80,6 +80,8 @@ def index(request):
     allTasks = sm.Task.objects.all().order_by("-id")
     allUsers = sm.User.objects.all().order_by("department")
 
+    session = request.session
+
     uid = request.session.get("uid",None)
     try:
         cuser = sm.User.objects.get(id = uid)		

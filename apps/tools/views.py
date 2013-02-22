@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect,HttpResponse,Http404
 
 import os,re
 
-import Image
+import Image, json
 
 import cPickle as cp
 
@@ -179,7 +179,7 @@ def batchpsd(request):
     else:
         return HttpResponse(u'''<span class="bat_psd b_tips7">参数错误!</span>''')
 
-
+#return files tree
 def getfile(request):
     r = re.compile('\.psd$',re.I)
     if request.GET.get("path"):
@@ -188,5 +188,30 @@ def getfile(request):
     l.sort()
     return HttpResponse(",".join(l))
 
+#return test json
+def getJson(request, aid):
+    user = {
+        'aid'    : aid,
+        'age'    : 24,
+        'sex'    : 'male',
+        'addr'   : 'Shanghai Yangpu',
+        'job'    : 'f2e developer',
+        'money' : 3000 * int(aid),
+        'around' : {
+            'e' : 102,
+            's' : 108,
+            'w' : 120,
+            'n' : 12
+        }
+    }
+    response = HttpResponse(json.dumps(user))
+    response['Content-Type'] = "text/json"
+    return response
+
+#ajax return a string
+def ajax(request):
+    return HttpResponse("ajax result")
+
+#test view
 def test(request):
     return render_to_response("tools/test.html",locals())
